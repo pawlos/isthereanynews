@@ -1,0 +1,16 @@
+﻿@model IsThereAnyNews.Mvc.Controllers.RssChannelsIndexViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>title</h2>
+
+@foreach (var channel in Model.LoadAllChannels)
+{
+    <div>
+        <span>@channel.Title</span>
+        <span>@channel.Url</span>
+    </div>
+}

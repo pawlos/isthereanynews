@@ -18,7 +18,9 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Index", "Index", "Login")</li>
+                    <li>@Html.ActionLink("Index", "Index", "Syndication")</li>
+                    <li>@Html.ActionLink("Import", "Index", "OpmlImporter")</li>
+                    <li>@Html.ActionLink("Browse", "Index", "RssChannels")</li>
                     <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
                 </ul>
             </div>
@@ -27,5 +29,6 @@
     <div class="navbar-fix"></div>
     @RenderBody()
     @RenderSection("scripts", required: false)
+    <script type="text/javascript"></script>
 </body>
 </html>
