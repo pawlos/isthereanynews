@@ -1,6 +1,5 @@
 ﻿using System.ServiceModel.Channels;
 using System.Web.Mvc;
-using IsThereAnyNews.Mvc.Models;
 using IsThereAnyNews.Mvc.Repositories;
 using IsThereAnyNews.Mvc.ViewModels;
 
@@ -24,16 +23,6 @@ namespace IsThereAnyNews.Mvc.Controllers
             var viewmodel = new RssChannelsDetailsViewModel(channel);
             return this.View("Details", viewmodel);
 
-        }
-    }
-
-    public class RssChannelsDetailsViewModel
-    {
-        public RssChannel Channel { get; set; }
-
-        public RssChannelsDetailsViewModel(RssChannel channel)
-        {
-            Channel = channel;
         }
     }
 }
