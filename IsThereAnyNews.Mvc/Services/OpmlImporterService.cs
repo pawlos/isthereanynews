@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using IsThereAnyNews.Mvc.Dtos;
+using IsThereAnyNews.Mvc.Models;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Mvc.Services
 {
     public class OpmlImporterService
     {

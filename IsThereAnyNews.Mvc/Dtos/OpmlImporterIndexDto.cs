@@ -1,6 +1,6 @@
 ﻿using System.Web;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Mvc.Dtos
 {
     public class OpmlImporterIndexDto
     {

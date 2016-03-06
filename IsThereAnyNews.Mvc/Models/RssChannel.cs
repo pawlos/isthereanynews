@@ -1,4 +1,4 @@
-﻿namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Mvc.Models
 {
     public class RssChannel
     {

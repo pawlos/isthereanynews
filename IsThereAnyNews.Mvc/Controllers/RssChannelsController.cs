@@ -1,5 +1,8 @@
 ﻿using System.ServiceModel.Channels;
 using System.Web.Mvc;
+using IsThereAnyNews.Mvc.Models;
+using IsThereAnyNews.Mvc.Repositories;
+using IsThereAnyNews.Mvc.ViewModels;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using IsThereAnyNews.Mvc.Models;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Mvc.ViewModels
 {
     public class RssChannelsIndexViewModel
     {

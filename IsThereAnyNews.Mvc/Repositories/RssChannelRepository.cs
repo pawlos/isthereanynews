@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using IsThereAnyNews.Mvc.Models;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Mvc.Repositories
 {
     public class RssChannelRepository
     {

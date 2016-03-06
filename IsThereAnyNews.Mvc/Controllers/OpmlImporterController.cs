@@ -1,4 +1,9 @@
-﻿namespace IsThereAnyNews.Mvc.Controllers
+﻿using IsThereAnyNews.Mvc.Dtos;
+using IsThereAnyNews.Mvc.Repositories;
+using IsThereAnyNews.Mvc.Services;
+using IsThereAnyNews.Mvc.ViewModels;
+
+namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Web.Mvc;
 
