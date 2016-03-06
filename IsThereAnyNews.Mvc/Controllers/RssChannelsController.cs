@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.ServiceModel.Channels;
 using System.Web.Mvc;
 
 namespace IsThereAnyNews.Mvc.Controllers
@@ -12,15 +12,25 @@ namespace IsThereAnyNews.Mvc.Controllers
             var viewmodel = new RssChannelsIndexViewModel(loadAllChannels);
             return this.View("Index", viewmodel);
         }
+
+
+        public ActionResult Details(long id)
+        {
+            var rssChannerRepository = new RssChannelRepository();
+            var channel = rssChannerRepository.Load(id);
+            var viewmodel = new RssChannelsDetailsViewModel(channel);
+            return this.View("Details", viewmodel);
+
+        }
     }
 
-    public class RssChannelsIndexViewModel
+    public class RssChannelsDetailsViewModel
     {
-        public List<RssChannel> LoadAllChannels { get; set; }
+        public RssChannel Channel { get; set; }
 
-        public RssChannelsIndexViewModel(List<RssChannel> loadAllChannels)
+        public RssChannelsDetailsViewModel(RssChannel channel)
         {
-            LoadAllChannels = loadAllChannels;
+            Channel = channel;
         }
     }
 }

@@ -1,0 +1,22 @@
+﻿@model IsThereAnyNews.Mvc.Controllers.RssChannelsDetailsViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>title</h2>
+<p>
+    @Model.Channel.Title
+</p>
+<p>
+    @Model.Channel.Url
+</p>
+<p>
+    @Model.Channel.Id
+</p>
+<p>
+    Loading lastest items....(not yet)
+</p>
+
+@Html.ActionLink("Back to list", "Index", "RssChannels")

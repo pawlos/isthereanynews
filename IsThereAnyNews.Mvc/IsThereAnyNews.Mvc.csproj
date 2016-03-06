@@ -158,7 +158,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthorizationController.cs" />
     <Compile Include="Controllers\OpmlImporterController.cs" />
+    <Compile Include="Controllers\OpmlImporterIndexDto.cs" />
+    <Compile Include="Controllers\OpmlImporterIndexViewModel.cs" />
+    <Compile Include="Controllers\OpmlImporterService.cs" />
+    <Compile Include="Controllers\RssChannel.cs" />
+    <Compile Include="Controllers\RssChannelRepository.cs" />
     <Compile Include="Controllers\RssChannelsController.cs" />
+    <Compile Include="Controllers\RssChannelsIndexViewModel.cs" />
     <Compile Include="Controllers\SyndicationController.cs" />
     <Compile Include="ViewModels\Login\AuthorizationIndexViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -185,6 +191,7 @@
     <Content Include="Views\Syndication\Index.cshtml" />
     <Content Include="Views\OpmlImporter\Index.cshtml" />
     <Content Include="Views\RssChannels\Index.cshtml" />
+    <Content Include="Views\RssChannels\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
