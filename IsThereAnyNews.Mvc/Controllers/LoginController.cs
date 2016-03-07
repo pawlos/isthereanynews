@@ -1,16 +1,30 @@
-﻿using IsThereAnyNews.SharedData;
+﻿using IsThereAnyNews.Mvc.Services;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using Microsoft.Owin.Security;
+    using SharedData;
     using ViewModels.Login;
 
     [AllowAnonymous]
     public class LoginController : Controller
     {
+        private readonly ILoginService loginService;
+
+        public LoginController() : this(new ApplicationLoginService())
+        {
+
+        }
+
+        public LoginController(ILoginService loginService)
+        {
+            this.loginService = loginService;
+        }
+
         public ActionResult Index()
         {
             var viewmodel = new AuthorizationIndexViewModel();
@@ -34,10 +48,18 @@ namespace IsThereAnyNews.Mvc.Controllers
         {
             var authenticationProperties = new AuthenticationProperties
             {
-                RedirectUri = "/home"
+                RedirectUri = "/Login/Success"
             };
             HttpContext.GetOwinContext().Authentication.Challenge(authenticationProperties, id);
             return new HttpUnauthorizedResult();
         }
+
+        public async Task<ActionResult> Success()
+        {
+            await this.loginService.RegisterIfNewUser();
+            var viewmodel = new LoginSuccessViewModel();
+            return this.View("Success", viewmodel);
+        }
     }
+
 }

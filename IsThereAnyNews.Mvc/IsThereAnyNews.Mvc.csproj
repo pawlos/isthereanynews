@@ -43,6 +43,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +92,7 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -156,15 +173,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\IOpmlImporterService.cs" />
+    <Compile Include="Services\ApplicationUserManager.cs" />
+    <Compile Include="Services\ApplicationLoginService.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Services\ApplicationUserStore.cs" />
+    <Compile Include="Services\IItanDatabase.cs" />
+    <Compile Include="Services\ILoginService.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Services\InMemoryDatabase.cs" />
+    <Compile Include="Services\IUserAuthentication.cs" />
+    <Compile Include="Services\IUserRepository.cs" />
+    <Compile Include="Services\UserAuthentication.cs" />
+    <Compile Include="Services\UserRepository.cs" />
+    <Compile Include="ViewModels\LoginSuccessViewModel.cs" />
     <Compile Include="Controllers\OpmlImporterController.cs" />
-    <Compile Include="Controllers\OpmlImporterIndexDto.cs" />
-    <Compile Include="Controllers\OpmlImporterIndexViewModel.cs" />
-    <Compile Include="Controllers\OpmlImporterService.cs" />
-    <Compile Include="Controllers\RssChannel.cs" />
-    <Compile Include="Controllers\RssChannelRepository.cs" />
+    <Compile Include="ViewModels\RssChannelsDetailsViewModel.cs" />
+    <Compile Include="Dtos\OpmlImporterIndexDto.cs" />
+    <Compile Include="ViewModels\OpmlImporterIndexViewModel.cs" />
+    <Compile Include="Services\OpmlImporterService.cs" />
+    <Compile Include="Models\RssChannel.cs" />
+    <Compile Include="Repositories\RssChannelRepository.cs" />
     <Compile Include="Controllers\RssChannelsController.cs" />
-    <Compile Include="Controllers\RssChannelsIndexViewModel.cs" />
+    <Compile Include="ViewModels\RssChannelsIndexViewModel.cs" />
     <Compile Include="Controllers\SyndicationController.cs" />
     <Compile Include="ViewModels\Login\AuthorizationIndexViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -192,6 +223,7 @@
     <Content Include="Views\OpmlImporter\Index.cshtml" />
     <Content Include="Views\RssChannels\Index.cshtml" />
     <Content Include="Views\RssChannels\Details.cshtml" />
+    <Content Include="Views\Login\Success.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

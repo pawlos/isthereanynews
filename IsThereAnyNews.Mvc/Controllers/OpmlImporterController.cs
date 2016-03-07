@@ -1,33 +1,46 @@
-﻿using IsThereAnyNews.Mvc.Dtos;
-using IsThereAnyNews.Mvc.Repositories;
-using IsThereAnyNews.Mvc.Services;
-using IsThereAnyNews.Mvc.ViewModels;
+﻿using System.Threading.Tasks;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Web.Mvc;
+    using Dtos;
+    using Repositories;
+    using Services;
+    using ViewModels;
 
+    [Authorize]
     public class OpmlImporterController : Controller
     {
+        private readonly IOpmlImporterService opmlImporterService;
+
+        public OpmlImporterController() : this(new OpmlImporterService())
+        { }
+
+        public OpmlImporterController(IOpmlImporterService opmlImporterService)
+        {
+            this.opmlImporterService = opmlImporterService;
+        }
+
         [HttpGet]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var viewmodel = new OpmlImporterIndexViewModel();
             return this.View("Index", viewmodel);
         }
 
         [HttpPost]
-        public ActionResult Index(OpmlImporterIndexDto dto)
+        public async Task<ActionResult> Index(OpmlImporterIndexDto dto)
         {
             if (ModelState.IsValid)
             {
-                OpmlImporterService service = new OpmlImporterService();
-                var importFromUpload = service.ImportFromUpload(dto);
-                RssChannelRepository rssChannelRepository = new RssChannelRepository();
-                rssChannelRepository.AddToGlobalSpace(importFromUpload);
+                var importFromUpload = this.opmlImporterService.ImportFromUpload(dto);
+                var rssChannelRepository = new RssChannelRepository();
+                var imported = rssChannelRepository.AddToGlobalSpace(importFromUpload);
+                this.opmlImporterService.AddToCurrentUserChannelList(imported);
 
                 return RedirectToAction("Index", "Syndication");
             }
+
             return this.View("Index", null);
         }
     }

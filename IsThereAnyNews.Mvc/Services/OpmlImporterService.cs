@@ -1,12 +1,37 @@
-﻿using System.Collections.Generic;
-using System.Xml;
-using IsThereAnyNews.Mvc.Dtos;
-using IsThereAnyNews.Mvc.Models;
-
-namespace IsThereAnyNews.Mvc.Services
+﻿namespace IsThereAnyNews.Mvc.Services
 {
-    public class OpmlImporterService
+    using System.Collections.Generic;
+    using System.Xml;
+    using Controllers;
+    using Dtos;
+    using Models;
+
+    public class OpmlImporterService : IOpmlImporterService
     {
+        private readonly IUserAuthentication userAuthentication;
+        private readonly IUserRepository usersRepository;
+
+        public OpmlImporterService() :
+            this(new UserAuthentication(),
+                new UserRepository())
+        {
+        }
+
+        public OpmlImporterService(
+            IUserAuthentication userAuthentication,
+            IUserRepository usersRepository)
+        {
+            this.userAuthentication = userAuthentication;
+            this.usersRepository = usersRepository;
+        }
+
+
+        public void AddToCurrentUserChannelList(List<RssChannel> importFromUpload)
+        {
+            var currentUserId = this.userAuthentication.GetCurrentUserId();
+            this.usersRepository.AddToUserRssList(currentUserId, importFromUpload);
+        }
+
         public List<RssChannel> ImportFromUpload(OpmlImporterIndexDto dto)
         {
             var xmlDocument = new XmlDocument();
