@@ -1,6 +1,6 @@
-﻿namespace IsThereAnyNews.Mvc.Models
+﻿namespace IsThereAnyNews.EntityFramework.Models
 {
-    public class RssChannel
+    public sealed class RssChannel
     {
         public RssChannel(string url, string title)
         {

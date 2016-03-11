@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using IsThereAnyNews.EntityFramework.Models;
 using IsThereAnyNews.Mvc.Controllers;
 using IsThereAnyNews.Mvc.Dtos;
-using IsThereAnyNews.Mvc.Models;
 
 namespace IsThereAnyNews.Mvc.Services.Implementation
 {

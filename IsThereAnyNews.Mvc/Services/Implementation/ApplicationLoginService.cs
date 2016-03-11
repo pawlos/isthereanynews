@@ -1,7 +1,8 @@
 using System.Linq;
 using System.Security.Claims;
-using IsThereAnyNews.Mvc.Models;
-using IsThereAnyNews.Mvc.Repositories;
+using IsThereAnyNews.DataAccess;
+using IsThereAnyNews.DataAccess.Implementation;
+using IsThereAnyNews.EntityFramework.Models;
 
 namespace IsThereAnyNews.Mvc.Services.Implementation
 {

@@ -1,7 +1,7 @@
-namespace IsThereAnyNews.Mvc.Models
-{
-    using System.Collections.Generic;
+using System.Collections.Generic;
 
+namespace IsThereAnyNews.EntityFramework.Models
+{
     public sealed class ItanUser
     {
         public ItanUser(string identifier, string name)

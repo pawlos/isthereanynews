@@ -1,4 +1,5 @@
-﻿using IsThereAnyNews.Mvc.Repositories;
+﻿using IsThereAnyNews.DataAccess;
+using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.Mvc.Services;
 using IsThereAnyNews.Mvc.Services.Implementation;
 using IsThereAnyNews.Mvc.ViewModels;

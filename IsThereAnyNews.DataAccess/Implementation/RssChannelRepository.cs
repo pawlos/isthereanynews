@@ -1,22 +1,19 @@
-﻿using IsThereAnyNews.Mvc.Controllers;
-using IsThereAnyNews.Mvc.Services;
-using IsThereAnyNews.Mvc.Services.Implementation;
+﻿using System.Collections.Generic;
+using System.Linq;
+using IsThereAnyNews.EntityFramework;
+using IsThereAnyNews.EntityFramework.Models;
 
-namespace IsThereAnyNews.Mvc.Repositories
+namespace IsThereAnyNews.DataAccess.Implementation
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using Models;
-
     public class RssChannelRepository : IRssChannelRepository
     {
-        private readonly IItanDatabase database;
+        private readonly ItanDatabaseContext database;
 
-        public RssChannelRepository() : this(new InMemoryDatabase())
+        public RssChannelRepository() : this(new ItanDatabaseContext())
         {
         }
 
-        public RssChannelRepository(IItanDatabase database)
+        public RssChannelRepository(ItanDatabaseContext database)
         {
             this.database = database;
         }
@@ -28,10 +25,10 @@ namespace IsThereAnyNews.Mvc.Repositories
             {
                 var rssChannel = new RssChannel(channel.Url, channel.Title)
                 {
-                    Id = CreateId()
+                    Id = this.CreateId()
                 };
 
-                database.RssChannels.Add(rssChannel);
+                this.database.RssChannels.Add(rssChannel);
             }
 
             return savedList;
@@ -39,17 +36,17 @@ namespace IsThereAnyNews.Mvc.Repositories
 
         public List<RssChannel> LoadAllChannels()
         {
-            return database.RssChannels;
+            return this.database.RssChannels.ToList();
         }
 
         public RssChannel Load(long id)
         {
-            return database.RssChannels.Single(channel => channel.Id == id);
+            return this.database.RssChannels.Single(channel => channel.Id == id);
         }
 
         public List<RssChannel> LoadAllChannelsForUser(string currentUserId)
         {
-            var rssChannels = this.database.ApplicationUsers
+            var rssChannels = this.database.Users
                 .Single(user => user.Id == currentUserId)
                 .RssChannels.ToList();
             return rssChannels;

@@ -1,12 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.Mvc.Services.Implementation;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Web.Mvc;
     using Dtos;
-    using Repositories;
-    using Services;
     using ViewModels;
 
     [Authorize]
@@ -23,14 +21,14 @@ namespace IsThereAnyNews.Mvc.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
             var viewmodel = new OpmlImporterIndexViewModel();
             return this.View("Index", viewmodel);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(OpmlImporterIndexDto dto)
+        public ActionResult Index(OpmlImporterIndexDto dto)
         {
             if (ModelState.IsValid)
             {
@@ -39,7 +37,7 @@ namespace IsThereAnyNews.Mvc.Controllers
                 var imported = rssChannelRepository.AddToGlobalSpace(importFromUpload);
                 this.opmlImporterService.AddToCurrentUserChannelList(imported);
 
-                return RedirectToAction("Index", "Syndication");
+                return this.RedirectToAction("Index", "Syndication");
             }
 
             return this.View("Index", null);

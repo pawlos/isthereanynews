@@ -56,9 +56,9 @@ namespace IsThereAnyNews.Mvc.Controllers
             return new HttpUnauthorizedResult();
         }
 
-        public async Task<ActionResult> Success()
+        public ActionResult Success()
         {
-            await this.loginService.RegisterIfNewUser();
+            this.loginService.RegisterIfNewUser();
             var viewmodel = new LoginSuccessViewModel();
             return this.View("Success", viewmodel);
         }

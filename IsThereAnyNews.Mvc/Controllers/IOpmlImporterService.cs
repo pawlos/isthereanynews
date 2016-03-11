@@ -1,8 +1,9 @@
-﻿namespace IsThereAnyNews.Mvc.Controllers
+﻿using IsThereAnyNews.EntityFramework.Models;
+
+namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Collections.Generic;
     using Dtos;
-    using Models;
 
     public interface IOpmlImporterService
     {

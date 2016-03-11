@@ -178,19 +178,13 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\IOpmlImporterService.cs" />
-    <Compile Include="Repositories\IRssChannelRepository.cs" />
     <Compile Include="Controllers\IRssChannelService.cs" />
     <Compile Include="Controllers\RssChannelsMyViewModel.cs" />
     <Compile Include="Controllers\RssChannelsService.cs" />
     <Compile Include="Controllers\RssChannelViewModel.cs" />
     <Compile Include="Services\Implementation\ApplicationLoginService.cs" />
-    <Compile Include="Models\ItanUser.cs" />
-    <Compile Include="Services\IItanDatabase.cs" />
     <Compile Include="Services\ILoginService.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Repositories\ApplicationUserRepository.cs" />
-    <Compile Include="Repositories\IApplicationUserRepository.cs" />
-    <Compile Include="Services\Implementation\InMemoryDatabase.cs" />
     <Compile Include="Services\IUserAuthentication.cs" />
     <Compile Include="Services\IUserRepository.cs" />
     <Compile Include="Services\Implementation\UserAuthentication.cs" />
@@ -201,8 +195,6 @@
     <Compile Include="Dtos\OpmlImporterIndexDto.cs" />
     <Compile Include="ViewModels\OpmlImporterIndexViewModel.cs" />
     <Compile Include="Services\Implementation\OpmlImporterService.cs" />
-    <Compile Include="Models\RssChannel.cs" />
-    <Compile Include="Repositories\RssChannelRepository.cs" />
     <Compile Include="Controllers\RssChannelsController.cs" />
     <Compile Include="ViewModels\RssChannelsIndexViewModel.cs" />
     <Compile Include="Controllers\SyndicationController.cs" />
@@ -243,8 +235,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
+      <Project>{112524E8-F4E5-4874-A870-79F2FEC8947C}</Project>
+      <Name>IsThereAnyNews.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
+      <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
+      <Name>IsThereAnyNews.EntityFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Infrastructure.ConfigurationReader\IsThereAnyNews.Infrastructure.ConfigurationReader.csproj">
       <Project>{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}</Project>
       <Name>IsThereAnyNews.Infrastructure.ConfigurationReader</Name>

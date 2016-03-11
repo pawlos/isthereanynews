@@ -1,4 +1,5 @@
-﻿using IsThereAnyNews.Mvc.Models;
+﻿
+using IsThereAnyNews.EntityFramework.Models;
 
 namespace IsThereAnyNews.Mvc.ViewModels
 {

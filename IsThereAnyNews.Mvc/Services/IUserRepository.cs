@@ -1,7 +1,8 @@
+using IsThereAnyNews.EntityFramework.Models;
+
 namespace IsThereAnyNews.Mvc.Services
 {
     using System.Collections.Generic;
-    using Models;
 
     public interface IUserRepository
     {

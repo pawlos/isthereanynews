@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using IsThereAnyNews.Mvc.Models;
+using IsThereAnyNews.EntityFramework.Models;
 
-namespace IsThereAnyNews.Mvc.Repositories
+namespace IsThereAnyNews.DataAccess
 {
     public interface IRssChannelRepository
     {
