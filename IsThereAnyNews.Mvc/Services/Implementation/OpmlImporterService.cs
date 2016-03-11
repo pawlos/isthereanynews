@@ -1,11 +1,11 @@
-﻿namespace IsThereAnyNews.Mvc.Services
-{
-    using System.Collections.Generic;
-    using System.Xml;
-    using Controllers;
-    using Dtos;
-    using Models;
+﻿using System.Collections.Generic;
+using System.Xml;
+using IsThereAnyNews.Mvc.Controllers;
+using IsThereAnyNews.Mvc.Dtos;
+using IsThereAnyNews.Mvc.Models;
 
+namespace IsThereAnyNews.Mvc.Services.Implementation
+{
     public class OpmlImporterService : IOpmlImporterService
     {
         private readonly IUserAuthentication userAuthentication;

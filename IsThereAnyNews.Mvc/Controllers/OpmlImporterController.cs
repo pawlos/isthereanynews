@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using IsThereAnyNews.Mvc.Services.Implementation;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {

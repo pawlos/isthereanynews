@@ -1,12 +1,25 @@
-﻿namespace IsThereAnyNews.Mvc.Repositories
+﻿using IsThereAnyNews.Mvc.Controllers;
+using IsThereAnyNews.Mvc.Services;
+using IsThereAnyNews.Mvc.Services.Implementation;
+
+namespace IsThereAnyNews.Mvc.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
     using Models;
 
-    public class RssChannelRepository
+    public class RssChannelRepository : IRssChannelRepository
     {
-        static private List<RssChannel> listOfChannels = new List<RssChannel>();
+        private readonly IItanDatabase database;
+
+        public RssChannelRepository() : this(new InMemoryDatabase())
+        {
+        }
+
+        public RssChannelRepository(IItanDatabase database)
+        {
+            this.database = database;
+        }
 
         public List<RssChannel> AddToGlobalSpace(List<RssChannel> importFromUpload)
         {
@@ -18,25 +31,34 @@
                     Id = CreateId()
                 };
 
-                listOfChannels.Add(rssChannel);
+                database.RssChannels.Add(rssChannel);
             }
 
             return savedList;
         }
 
-        private static long CreateId()
-        {
-            return listOfChannels.Any() ? listOfChannels.Max(x => x.Id) + 1 : 0;
-        }
-
         public List<RssChannel> LoadAllChannels()
         {
-            return listOfChannels;
+            return database.RssChannels;
         }
 
         public RssChannel Load(long id)
         {
-            return listOfChannels.Single(channel => channel.Id == id);
+            return database.RssChannels.Single(channel => channel.Id == id);
+        }
+
+        public List<RssChannel> LoadAllChannelsForUser(string currentUserId)
+        {
+            var rssChannels = this.database.ApplicationUsers
+                .Single(user => user.Id == currentUserId)
+                .RssChannels.ToList();
+            return rssChannels;
+        }
+
+        private long CreateId()
+        {
+            return this.database.RssChannels.Any() ?
+                this.database.RssChannels.Max(x => x.Id) + 1 : 0;
         }
     }
 }

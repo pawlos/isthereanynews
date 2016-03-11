@@ -1,4 +1,4 @@
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Mvc.ViewModels
 {
     public class LoginSuccessViewModel
     {

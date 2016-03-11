@@ -1,4 +1,6 @@
 ﻿using IsThereAnyNews.Mvc.Services;
+using IsThereAnyNews.Mvc.Services.Implementation;
+using IsThereAnyNews.Mvc.ViewModels;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {

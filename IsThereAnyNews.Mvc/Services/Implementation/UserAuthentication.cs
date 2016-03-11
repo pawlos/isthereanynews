@@ -1,10 +1,11 @@
-namespace IsThereAnyNews.Mvc.Services
-{
-    using System.Security.Claims;
-    using System.Web;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.Owin;
+using System.Security.Claims;
+using System.Web;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.OAuth;
 
+namespace IsThereAnyNews.Mvc.Services.Implementation
+{
     public class UserAuthentication : IUserAuthentication
     {
         public string GetCurrentUserId()

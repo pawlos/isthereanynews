@@ -1,11 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
+using IsThereAnyNews.Mvc.Models;
 
-namespace IsThereAnyNews.Mvc.Services
+namespace IsThereAnyNews.Mvc.Services.Implementation
 {
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using Models;
-
     public class UserRepository : IUserRepository
     {
         private IItanDatabase context;

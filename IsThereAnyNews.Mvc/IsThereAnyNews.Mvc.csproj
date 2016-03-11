@@ -88,6 +88,10 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
       <Private>True</Private>
@@ -174,24 +178,29 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\IOpmlImporterService.cs" />
-    <Compile Include="Services\ApplicationUserManager.cs" />
-    <Compile Include="Services\ApplicationLoginService.cs" />
-    <Compile Include="Models\ApplicationUser.cs" />
-    <Compile Include="Services\ApplicationUserStore.cs" />
+    <Compile Include="Repositories\IRssChannelRepository.cs" />
+    <Compile Include="Controllers\IRssChannelService.cs" />
+    <Compile Include="Controllers\RssChannelsMyViewModel.cs" />
+    <Compile Include="Controllers\RssChannelsService.cs" />
+    <Compile Include="Controllers\RssChannelViewModel.cs" />
+    <Compile Include="Services\Implementation\ApplicationLoginService.cs" />
+    <Compile Include="Models\ItanUser.cs" />
     <Compile Include="Services\IItanDatabase.cs" />
     <Compile Include="Services\ILoginService.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Services\InMemoryDatabase.cs" />
+    <Compile Include="Repositories\ApplicationUserRepository.cs" />
+    <Compile Include="Repositories\IApplicationUserRepository.cs" />
+    <Compile Include="Services\Implementation\InMemoryDatabase.cs" />
     <Compile Include="Services\IUserAuthentication.cs" />
     <Compile Include="Services\IUserRepository.cs" />
-    <Compile Include="Services\UserAuthentication.cs" />
-    <Compile Include="Services\UserRepository.cs" />
+    <Compile Include="Services\Implementation\UserAuthentication.cs" />
+    <Compile Include="Services\Implementation\UserRepository.cs" />
     <Compile Include="ViewModels\LoginSuccessViewModel.cs" />
     <Compile Include="Controllers\OpmlImporterController.cs" />
     <Compile Include="ViewModels\RssChannelsDetailsViewModel.cs" />
     <Compile Include="Dtos\OpmlImporterIndexDto.cs" />
     <Compile Include="ViewModels\OpmlImporterIndexViewModel.cs" />
-    <Compile Include="Services\OpmlImporterService.cs" />
+    <Compile Include="Services\Implementation\OpmlImporterService.cs" />
     <Compile Include="Models\RssChannel.cs" />
     <Compile Include="Repositories\RssChannelRepository.cs" />
     <Compile Include="Controllers\RssChannelsController.cs" />
@@ -224,6 +233,7 @@
     <Content Include="Views\RssChannels\Index.cshtml" />
     <Content Include="Views\RssChannels\Details.cshtml" />
     <Content Include="Views\Login\Success.cshtml" />
+    <None Include="Views\RssChannels\My.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
