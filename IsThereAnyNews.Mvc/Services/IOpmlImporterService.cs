@@ -1,10 +1,9 @@
-﻿using IsThereAnyNews.EntityFramework.Models;
+﻿using System.Collections.Generic;
+using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.Mvc.Dtos;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Mvc.Services
 {
-    using System.Collections.Generic;
-    using Dtos;
-
     public interface IOpmlImporterService
     {
         void AddToCurrentUserChannelList(List<RssChannel> importFromUpload);

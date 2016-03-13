@@ -2,7 +2,7 @@
 using System.Linq;
 using IsThereAnyNews.EntityFramework.Models;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Mvc.ViewModels
 {
     public class RssChannelsMyViewModel
     {

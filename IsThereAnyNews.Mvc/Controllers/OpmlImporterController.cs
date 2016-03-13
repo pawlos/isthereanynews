@@ -1,4 +1,5 @@
 ﻿using IsThereAnyNews.DataAccess.Implementation;
+using IsThereAnyNews.Mvc.Services;
 using IsThereAnyNews.Mvc.Services.Implementation;
 
 namespace IsThereAnyNews.Mvc.Controllers

@@ -177,11 +177,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\IOpmlImporterService.cs" />
-    <Compile Include="Controllers\IRssChannelService.cs" />
-    <Compile Include="Controllers\RssChannelsMyViewModel.cs" />
-    <Compile Include="Controllers\RssChannelsService.cs" />
-    <Compile Include="Controllers\RssChannelViewModel.cs" />
+    <Compile Include="Services\IRssChannelService.cs" />
+    <Compile Include="Controllers\RssChannelController.cs" />
+    <Compile Include="ViewModels\RssChannelIndexViewModel.cs" />
+    <Compile Include="Services\Implementation\RssChannelService.cs" />
+    <Compile Include="Services\IOpmlImporterService.cs" />
+    <Compile Include="Services\IRssChannelsService.cs" />
+    <Compile Include="ViewModels\RssChannelsMyViewModel.cs" />
+    <Compile Include="Services\Implementation\RssChannelsesService.cs" />
+    <Compile Include="ViewModels\RssChannelViewModel.cs" />
     <Compile Include="Services\Implementation\ApplicationLoginService.cs" />
     <Compile Include="Services\ILoginService.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -226,6 +230,7 @@
     <Content Include="Views\RssChannels\Details.cshtml" />
     <Content Include="Views\Login\Success.cshtml" />
     <None Include="Views\RssChannels\My.cshtml" />
+    <Content Include="Views\RssChannel\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

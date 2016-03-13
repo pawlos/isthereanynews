@@ -1,38 +1,34 @@
 ﻿using System.Web.Mvc;
+using IsThereAnyNews.Mvc.Services;
+using IsThereAnyNews.Mvc.Services.Implementation;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
     public class RssChannelsController : Controller
     {
-        private readonly IRssChannelService rssChannelsService;
+        private readonly IRssChannelsService rssChannelsesService;
 
         public RssChannelsController() : this(
-            new RssChannelsService())
+            new RssChannelsesService())
         {
         }
 
         private RssChannelsController(
-            IRssChannelService rssChannelsService)
+            IRssChannelsService rssChannelsesService)
         {
-            this.rssChannelsService = rssChannelsService;
+            this.rssChannelsesService = rssChannelsesService;
         }
 
         public ActionResult Index()
         {
-            var viewmodel = this.rssChannelsService.LoadAllChannels();
+            var viewmodel = this.rssChannelsesService.LoadAllChannels();
             return this.View("Index", viewmodel);
-        }
-
-        public ActionResult Details(long id)
-        {
-            var viewmodel = this.rssChannelsService.Load(id);
-            return this.View("Details", viewmodel);
         }
 
         [Authorize]
         public ActionResult My()
         {
-            var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
+            var viewmodel = this.rssChannelsesService.LoadAllChannelsOfCurrentUser();
             return this.View("My", viewmodel);
         }
     }

@@ -1,6 +1,6 @@
 ﻿using IsThereAnyNews.EntityFramework.Models;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Mvc.ViewModels
 {
     public class RssChannelViewModel
     {

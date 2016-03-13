@@ -10,6 +10,6 @@
 @foreach (var channel in Model.LoadAllChannels)
 {
     <div>
-        <span>@Html.ActionLink(channel.Title, "Details", "RssChannels", new { id = channel.Id }, null)</span>
+        <span>@Html.ActionLink(channel.Title, "Index", "RssChannel", new { id = channel.Id }, null)</span>
     </div>
 }
