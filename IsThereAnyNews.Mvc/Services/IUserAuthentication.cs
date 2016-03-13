@@ -7,7 +7,6 @@ namespace IsThereAnyNews.Mvc.Services
     public interface IUserAuthentication
     {
         string GetCurrentUserSocialLoginId();
-        long GetCurrentUserId();
         ClaimsPrincipal GetCurrentUser();
         AuthenticationTypeProvider GetCurrentUserLoginProvider();
     }

@@ -11,22 +11,26 @@ namespace IsThereAnyNews.Mvc.Services.Implementation
         private readonly IUserAuthentication authentication;
         private readonly IUserRepository userRepository;
         private readonly ISocialLoginRepository socialLoginRepository;
+        private readonly ISessionProvider sessionProvider;
 
         public ApplicationLoginService() : this(
             new UserAuthentication(),
             new UserRepository(),
-            new SocialLoginRepository())
+            new SocialLoginRepository(),
+            new SessionProvider())
         {
         }
 
         private ApplicationLoginService(
             IUserAuthentication authentication,
             IUserRepository userRepository,
-            ISocialLoginRepository socialLoginRepository)
+            ISocialLoginRepository socialLoginRepository,
+            ISessionProvider sessionProvider)
         {
             this.authentication = authentication;
             this.userRepository = userRepository;
             this.socialLoginRepository = socialLoginRepository;
+            this.sessionProvider = sessionProvider;
         }
 
         public void RegisterIfNewUser()
@@ -41,16 +45,13 @@ namespace IsThereAnyNews.Mvc.Services.Implementation
             }
         }
 
-        public void AddUserIdToClaims()
+        public void StoreCurrentUserIdInSession()
         {
             var currentUserSocialLoginId = this.authentication.GetCurrentUserSocialLoginId();
             var currentUserLoginProvider = this.authentication.GetCurrentUserLoginProvider();
 
             var findSocialLogin = this.socialLoginRepository.FindSocialLogin(currentUserSocialLoginId, currentUserLoginProvider);
-            var claimsPrincipal = this.authentication.GetCurrentUser();
-
-            var claim = new Claim(ClaimTypes.UserData, findSocialLogin.UserId.ToString());
-            claimsPrincipal.AddIdentity(new ClaimsIdentity(new[] { claim }));
+            this.sessionProvider.SetUserId(findSocialLogin.UserId);
         }
 
         private void RegisterCurrentSocialLogin()
@@ -65,5 +66,4 @@ namespace IsThereAnyNews.Mvc.Services.Implementation
             this.socialLoginRepository.SaveToDatabase(socialLogin);
         }
     }
-
 }

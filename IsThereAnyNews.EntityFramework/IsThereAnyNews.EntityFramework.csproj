@@ -56,9 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItanDatabaseContext.cs" />
-    <Compile Include="Migrations\201603131025054_users-social-rss-subscriptions-imodel.cs" />
-    <Compile Include="Migrations\201603131025054_users-social-rss-subscriptions-imodel.Designer.cs">
-      <DependentUpon>201603131025054_users-social-rss-subscriptions-imodel.cs</DependentUpon>
+    <Compile Include="Migrations\201603131239128_001.cs" />
+    <Compile Include="Migrations\201603131239128_001.Designer.cs">
+      <DependentUpon>201603131239128_001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IModel.cs" />
@@ -79,8 +79,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603131025054_users-social-rss-subscriptions-imodel.resx">
-      <DependentUpon>201603131025054_users-social-rss-subscriptions-imodel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603131239128_001.resx">
+      <DependentUpon>201603131239128_001.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,5 +6,7 @@ namespace IsThereAnyNews.DataAccess
     public interface IRssChannelsSubscriptionsRepository
     {
         void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions);
+        List<string> LoadUrlsForAllChannels();
+        List<long> GetChannelIdSubstrictionsForUser(long currentUserId);
     }
 }

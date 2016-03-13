@@ -32,11 +32,9 @@ namespace IsThereAnyNews.Mvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var importFromUpload = this.opmlImporterService.ImportFromUpload(dto);
-                var rssChannelRepository = new RssChannelRepository();
-                var imported = rssChannelRepository.AddToGlobalSpace(importFromUpload);
-                this.opmlImporterService.AddToCurrentUserChannelList(imported);
-
+                var channelList = this.opmlImporterService.ParseToRssChannelList(dto);
+                this.opmlImporterService.AddNewChannelsToGlobalSpace(channelList);
+                this.opmlImporterService.AddToCurrentUserChannelList(channelList);
                 return this.RedirectToAction("Index", "Syndication");
             }
 

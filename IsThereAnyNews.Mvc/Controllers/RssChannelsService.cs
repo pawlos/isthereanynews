@@ -10,17 +10,23 @@ namespace IsThereAnyNews.Mvc.Controllers
     {
         private readonly IRssChannelRepository channelsRepository;
         private readonly IUserAuthentication authentication;
+        private readonly ISessionProvider sessionProvider;
 
-        public RssChannelsService() : this(new RssChannelRepository(), new UserAuthentication())
+        public RssChannelsService() : 
+            this(new RssChannelRepository(), 
+                new UserAuthentication(), 
+                new SessionProvider())
         {
         }
 
         public RssChannelsService(
             IRssChannelRepository channelsRepository,
-            IUserAuthentication authentication)
+            IUserAuthentication authentication, 
+            ISessionProvider sessionProvider)
         {
             this.channelsRepository = channelsRepository;
             this.authentication = authentication;
+            this.sessionProvider = sessionProvider;
         }
 
         public object LoadAllChannels()
@@ -39,7 +45,7 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         public RssChannelsMyViewModel LoadAllChannelsOfCurrentUser()
         {
-            var currentUserId = this.authentication.GetCurrentUserId();
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
             var channels = this.channelsRepository.LoadAllChannelsForUser(currentUserId);
             return new RssChannelsMyViewModel(channels);
         }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models;
 
@@ -10,7 +11,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public RssChannelsSubscriptionsRepository() : this(new ItanDatabaseContext())
         {
-
         }
 
         private RssChannelsSubscriptionsRepository(ItanDatabaseContext itanDatabaseContext)
@@ -22,6 +22,27 @@ namespace IsThereAnyNews.DataAccess.Implementation
         {
             this.itanDatabaseContext.RssChannelsSubscriptions.AddRange(rssChannelSubscriptions);
             this.itanDatabaseContext.SaveChanges();
+        }
+
+        public List<string> LoadUrlsForAllChannels()
+        {
+            return this.itanDatabaseContext
+                .RssChannels
+                .Select(channel => channel.Url)
+                .ToList()
+                .Select(x => x.ToLowerInvariant())
+                .ToList();
+        }
+
+        public List<long> GetChannelIdSubstrictionsForUser(long currentUserId)
+        {
+            var rssChannelSubscriptions = this
+                .itanDatabaseContext
+                .RssChannelsSubscriptions
+                .Where(x => x.UserId == currentUserId)
+                .Select(x => x.RssChannelId)
+                .ToList();
+            return rssChannelSubscriptions;
         }
     }
 }

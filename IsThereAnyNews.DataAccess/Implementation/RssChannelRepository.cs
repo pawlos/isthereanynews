@@ -21,18 +21,10 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssChannel> AddToGlobalSpace(List<RssChannel> importFromUpload)
         {
-            var savedList = new List<RssChannel>();
-            foreach (var channel in importFromUpload)
-            {
-                var rssChannel = new RssChannel(channel.Url, channel.Title)
-                {
-                    Id = this.CreateId()
-                };
-
-                this.database.RssChannels.Add(rssChannel);
-            }
-
-            return savedList;
+            var rssChannels = importFromUpload.Select(channel => new RssChannel(channel.Url, channel.Title)).ToList();
+            this.database.RssChannels.AddRange(rssChannels);
+            this.database.SaveChanges();
+            return rssChannels;
         }
 
         public List<RssChannel> LoadAllChannels()
@@ -58,10 +50,21 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return rssChannels;
         }
 
-        private long CreateId()
+        public void SaveToDatabase(List<RssChannel> channelsNewToGlobalSpace)
         {
-            return this.database.RssChannels.Any() ?
-                this.database.RssChannels.Max(x => x.Id) + 1 : 0;
+            this.database.RssChannels.AddRange(channelsNewToGlobalSpace);
+            this.database.SaveChanges();
         }
+
+        public List<long> GetIdByChannelUrl(List<string> urlstoChannels)
+        {
+            var longs = this.database.RssChannels.
+                Where(channel => urlstoChannels.Contains(channel.Url))
+                .Select(channel => channel.Id)
+                .ToList();
+
+            return longs;
+        }
+
     }
 }

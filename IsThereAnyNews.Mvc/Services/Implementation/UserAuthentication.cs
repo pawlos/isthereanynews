@@ -9,12 +9,12 @@ namespace IsThereAnyNews.Mvc.Services.Implementation
 {
     public class UserAuthentication : IUserAuthentication
     {
-        public long GetCurrentUserId()
-        {
-            var claimsPrincipal = GetCurrentUserClaimsFromOwinAuthentication();
-            var claim = claimsPrincipal.Claims.First(x => x.Type == ClaimTypes.UserData);
-            return long.Parse(claim.Value);
-        }
+        //public long GetCurrentUserId()
+        //{
+        //    var claimsPrincipal = GetCurrentUserClaimsFromOwinAuthentication();
+        //    var claim = claimsPrincipal.Claims.First(x => x.Type == ClaimTypes.UserData);
+        //    return long.Parse(claim.Value);
+        //}
 
         public string GetCurrentUserSocialLoginId()
         {

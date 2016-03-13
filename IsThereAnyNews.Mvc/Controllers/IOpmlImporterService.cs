@@ -8,6 +8,7 @@ namespace IsThereAnyNews.Mvc.Controllers
     public interface IOpmlImporterService
     {
         void AddToCurrentUserChannelList(List<RssChannel> importFromUpload);
-        List<RssChannel> ImportFromUpload(OpmlImporterIndexDto dto);
+        List<RssChannel> ParseToRssChannelList(OpmlImporterIndexDto dto);
+        void AddNewChannelsToGlobalSpace(List<RssChannel> channelList);
     }
 }

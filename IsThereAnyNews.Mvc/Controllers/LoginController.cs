@@ -59,9 +59,8 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         public ActionResult Success()
         {
-            var authenticationResponseChallenge = HttpContext.GetOwinContext().Authentication.AuthenticationResponseChallenge;
             this.loginService.RegisterIfNewUser();
-            this.loginService.AddUserIdToClaims();
+            this.loginService.StoreCurrentUserIdInSession();
             var viewmodel = new LoginSuccessViewModel();
             return this.View("Success", viewmodel);
         }

@@ -7,13 +7,13 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class userssocialrsssubscriptionsimodel : IMigrationMetadata
+    public sealed partial class _001 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(userssocialrsssubscriptionsimodel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_001));
         
         string IMigrationMetadata.Id
         {
-            get { return "201603131025054_users-social-rss-subscriptions-imodel"; }
+            get { return "201603131239128_001"; }
         }
         
         string IMigrationMetadata.Source

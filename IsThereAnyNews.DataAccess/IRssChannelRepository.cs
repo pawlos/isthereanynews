@@ -8,5 +8,7 @@ namespace IsThereAnyNews.DataAccess
         List<RssChannel> LoadAllChannels();
         RssChannel Load(long id);
         List<RssChannel> LoadAllChannelsForUser(long userIdToLoad);
+        void SaveToDatabase(List<RssChannel> channelsNewToGlobalSpace);
+        List<long> GetIdByChannelUrl(List<string> urlstoChannels);
     }
 }
