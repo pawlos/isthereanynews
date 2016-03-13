@@ -56,7 +56,7 @@
     <Compile Include="RssChannelsDetailsViewModel.cs" />
     <Compile Include="RssChannelsIndexViewModel.cs" />
     <Compile Include="RssChannelsMyViewModel.cs" />
-    <Compile Include="RssChannelViewModel.cs" />
+    <Compile Include="RssChannelSubscriptionViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

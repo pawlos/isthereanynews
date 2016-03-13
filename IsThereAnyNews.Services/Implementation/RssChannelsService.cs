@@ -1,33 +1,34 @@
 ﻿using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Services.Implementation
 {
     public class RssChannelsService : IRssChannelsService
     {
-        private readonly IRssChannelsRepository channelsesRepository;
+        private readonly IRssChannelsRepository channelsRepository;
         private readonly ISessionProvider sessionProvider;
+        private readonly IRssChannelsSubscriptionsRepository channelsSubscription;
 
         public RssChannelsService(
-            IRssChannelsRepository channelsesRepository,
-            IUserAuthentication authentication, 
-            ISessionProvider sessionProvider)
+            IRssChannelsRepository channelsRepository, 
+            ISessionProvider sessionProvider, 
+            IRssChannelsSubscriptionsRepository channelsSubscription)
         {
-            this.channelsesRepository = channelsesRepository;
+            this.channelsRepository = channelsRepository;
             this.sessionProvider = sessionProvider;
+            this.channelsSubscription = channelsSubscription;
         }
 
         public RssChannelsIndexViewModel LoadAllChannels()
         {
-            var loadAllChannels = this.channelsesRepository.LoadAllChannels();
+            var loadAllChannels = this.channelsRepository.LoadAllChannels();
             var viewmodel = new RssChannelsIndexViewModel(loadAllChannels);
             return viewmodel;
         }
 
         public RssChannelsDetailsViewModel Load(long id)
         {
-            var channel = this.channelsesRepository.Load(id);
+            var channel = this.channelsRepository.Load(id);
             var viewmodel = new RssChannelsDetailsViewModel(channel);
             return viewmodel;
         }
@@ -35,8 +36,8 @@ namespace IsThereAnyNews.Services.Implementation
         public RssChannelsMyViewModel LoadAllChannelsOfCurrentUser()
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
-            var channels = this.channelsesRepository.LoadAllChannelsForUser(currentUserId);
-            return new RssChannelsMyViewModel(channels);
+            var rssSubscriptions = this.channelsSubscription.LoadAllSubscriptionsWithChannelsForUser(currentUserId);
+            return new RssChannelsMyViewModel(rssSubscriptions);
         }
     }
 }

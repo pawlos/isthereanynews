@@ -7,6 +7,7 @@ namespace IsThereAnyNews.DataAccess
     {
         void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions);
         List<string> LoadUrlsForAllChannels();
-        List<long> GetChannelIdSubstrictionsForUser(long currentUserId);
+        List<long> GetChannelIdSubscriptionsForUser(long currentUserId);
+        List<RssChannelSubscription> LoadAllSubscriptionsWithChannelsForUser(long currentUserId);
     }
 }

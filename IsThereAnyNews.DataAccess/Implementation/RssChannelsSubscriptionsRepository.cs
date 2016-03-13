@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models;
@@ -30,13 +31,22 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .ToList();
         }
 
-        public List<long> GetChannelIdSubstrictionsForUser(long currentUserId)
+        public List<long> GetChannelIdSubscriptionsForUser(long currentUserId)
         {
             var rssChannelSubscriptions = this
                 .itanDatabaseContext
                 .RssChannelsSubscriptions
                 .Where(x => x.UserId == currentUserId)
                 .Select(x => x.RssChannelId)
+                .ToList();
+            return rssChannelSubscriptions;
+        }
+
+        public List<RssChannelSubscription> LoadAllSubscriptionsWithChannelsForUser(long currentUserId)
+        {
+            var rssChannelSubscriptions = this.itanDatabaseContext
+                .RssChannelsSubscriptions
+                .Where(x => x.UserId == currentUserId)
                 .ToList();
             return rssChannelSubscriptions;
         }

@@ -29,7 +29,7 @@ namespace IsThereAnyNews.Services.Implementation
             var urlstoChannels = importFromUpload.Select(x => x.Url.ToLowerInvariant()).ToList();
             var listOfChannelsIds = this.rssChannelses.GetIdByChannelUrl(urlstoChannels);
             var currentUserId = this.sessionProvider.GetCurrentUserId();
-            var existringChannelIdSubscriptions = this.rssSubscriptionsRepository.GetChannelIdSubstrictionsForUser(currentUserId);
+            var existringChannelIdSubscriptions = this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
             var rssChannelSubscriptions = listOfChannelsIds.Select(import => new RssChannelSubscription(import, currentUserId, importFromUpload.Single(x=>x.Id == import).Title)).ToList();
             var subscriptionsToSave =
                 rssChannelSubscriptions.Where(newSub => !existringChannelIdSubscriptions.Contains(newSub.RssChannelId))

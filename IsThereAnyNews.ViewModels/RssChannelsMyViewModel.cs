@@ -6,11 +6,11 @@ namespace IsThereAnyNews.ViewModels
 {
     public class RssChannelsMyViewModel
     {
-        public RssChannelsMyViewModel(List<RssChannel> channels)
+        public RssChannelsMyViewModel(List<RssChannelSubscription> subscriptions)
         {
-            this.Channels = channels.Select(channel => new RssChannelViewModel(channel)).ToList();
+            this.ChannelsSubscriptions = subscriptions.Select(subscription => new RssChannelSubscriptionViewModel(subscription)).ToList();
         }
 
-        public List<RssChannelViewModel> Channels { get; }
+        public List<RssChannelSubscriptionViewModel> ChannelsSubscriptions { get; set; }
     }
 }
