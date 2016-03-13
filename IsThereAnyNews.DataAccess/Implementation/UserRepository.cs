@@ -7,10 +7,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
     {
         private readonly ItanDatabaseContext database;
 
-        public UserRepository() : this(new ItanDatabaseContext())
-        {
-        }
-
         public UserRepository(ItanDatabaseContext database)
         {
             this.database = database;

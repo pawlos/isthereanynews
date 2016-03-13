@@ -4,6 +4,11 @@ namespace IsThereAnyNews.EntityFramework.Models
 {
     public sealed class RssChannelSubscription : IModel
     {
+        public RssChannelSubscription() : this(0, 0, string.Empty)
+        {
+
+        }
+
         public RssChannelSubscription(long rssChannelId, long subscriberId, string title)
         {
             this.RssChannelId = rssChannelId;

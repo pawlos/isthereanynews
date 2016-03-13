@@ -1,16 +1,11 @@
 ﻿using System.Web.Mvc;
-using IsThereAnyNews.Mvc.Services;
-using IsThereAnyNews.Mvc.Services.Implementation;
+using IsThereAnyNews.Services;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
     public class RssChannelController : Controller
     {
         private readonly IRssChannelService rssChannelsService;
-
-        public RssChannelController() : this(new RssChannelService())
-        {
-        }
 
         public RssChannelController(IRssChannelService rssChannelsService)
         {

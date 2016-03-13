@@ -101,6 +101,14 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
@@ -177,32 +185,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Services\IRssChannelService.cs" />
     <Compile Include="Controllers\RssChannelController.cs" />
-    <Compile Include="ViewModels\RssChannelIndexViewModel.cs" />
-    <Compile Include="Services\Implementation\RssChannelService.cs" />
-    <Compile Include="Services\IOpmlImporterService.cs" />
-    <Compile Include="Services\IRssChannelsService.cs" />
-    <Compile Include="ViewModels\RssChannelsMyViewModel.cs" />
-    <Compile Include="Services\Implementation\RssChannelsesService.cs" />
-    <Compile Include="ViewModels\RssChannelViewModel.cs" />
-    <Compile Include="Services\Implementation\ApplicationLoginService.cs" />
-    <Compile Include="Services\ILoginService.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Services\Implementation\ISessionProvider.cs" />
-    <Compile Include="Services\Implementation\SessionProvider.cs" />
-    <Compile Include="Services\IUserAuthentication.cs" />
-    <Compile Include="Services\Implementation\UserAuthentication.cs" />
-    <Compile Include="ViewModels\LoginSuccessViewModel.cs" />
     <Compile Include="Controllers\OpmlImporterController.cs" />
-    <Compile Include="ViewModels\RssChannelsDetailsViewModel.cs" />
-    <Compile Include="Dtos\OpmlImporterIndexDto.cs" />
-    <Compile Include="ViewModels\OpmlImporterIndexViewModel.cs" />
-    <Compile Include="Services\Implementation\OpmlImporterService.cs" />
     <Compile Include="Controllers\RssChannelsController.cs" />
-    <Compile Include="ViewModels\RssChannelsIndexViewModel.cs" />
     <Compile Include="Controllers\SyndicationController.cs" />
-    <Compile Include="ViewModels\Login\AuthorizationIndexViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -243,9 +230,17 @@
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IsThereAnyNews.Autofac\IsThereAnyNews.Autofac.csproj">
+      <Project>{C06EDAA6-EE09-4ED1-85C4-A11DB07E5D4D}</Project>
+      <Name>IsThereAnyNews.Autofac</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
       <Project>{112524E8-F4E5-4874-A870-79F2FEC8947C}</Project>
       <Name>IsThereAnyNews.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Dtos\IsThereAnyNews.Dtos.csproj">
+      <Project>{756F51E8-7A9C-4645-8858-55C91561F131}</Project>
+      <Name>IsThereAnyNews.Dtos</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
       <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
@@ -255,9 +250,17 @@
       <Project>{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}</Project>
       <Name>IsThereAnyNews.Infrastructure.ConfigurationReader</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
+      <Project>{936C3CB3-6EA8-4A2F-861B-CE9F40E96EE3}</Project>
+      <Name>IsThereAnyNews.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
       <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
       <Name>IsThereAnyNews.SharedData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.ViewModels\IsThereAnyNews.ViewModels.csproj">
+      <Project>{F3FF82BF-CDF6-4F3E-821C-63E0011BB9C6}</Project>
+      <Name>IsThereAnyNews.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

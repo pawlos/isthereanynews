@@ -9,11 +9,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
     {
         private readonly ItanDatabaseContext itanDatabaseContext;
 
-        public RssChannelsSubscriptionsRepository() : this(new ItanDatabaseContext())
-        {
-        }
-
-        private RssChannelsSubscriptionsRepository(ItanDatabaseContext itanDatabaseContext)
+        public RssChannelsSubscriptionsRepository(ItanDatabaseContext itanDatabaseContext)
         {
             this.itanDatabaseContext = itanDatabaseContext;
         }

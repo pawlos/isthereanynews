@@ -9,11 +9,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
     {
         private readonly ItanDatabaseContext itanDatabaseContext;
 
-        public SocialLoginRepository() : this(new ItanDatabaseContext())
-        {
-        }
-
-        private SocialLoginRepository(ItanDatabaseContext itanDatabaseContext)
+        public SocialLoginRepository(ItanDatabaseContext itanDatabaseContext)
         {
             this.itanDatabaseContext = itanDatabaseContext;
         }

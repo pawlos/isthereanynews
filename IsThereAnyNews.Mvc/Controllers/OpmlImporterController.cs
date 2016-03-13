@@ -1,20 +1,17 @@
 ﻿using IsThereAnyNews.DataAccess.Implementation;
-using IsThereAnyNews.Mvc.Services;
-using IsThereAnyNews.Mvc.Services.Implementation;
+using IsThereAnyNews.Services;
+using IsThereAnyNews.Services.Implementation;
+using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Web.Mvc;
     using Dtos;
-    using ViewModels;
 
     [Authorize]
     public class OpmlImporterController : Controller
     {
         private readonly IOpmlImporterService opmlImporterService;
-
-        public OpmlImporterController() : this(new OpmlImporterService())
-        { }
 
         public OpmlImporterController(IOpmlImporterService opmlImporterService)
         {

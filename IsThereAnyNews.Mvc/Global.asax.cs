@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.Mvc
+﻿using IsThereAnyNews.Autofac;
+
+namespace IsThereAnyNews.Mvc
 {
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -9,6 +11,7 @@
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            IsThereAnyNewsAutofac.RegisterDependencies();
         }
     }
 }

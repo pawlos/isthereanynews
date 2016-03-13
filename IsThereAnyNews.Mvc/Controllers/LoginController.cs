@@ -1,12 +1,9 @@
-﻿using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.Mvc.Services;
-using IsThereAnyNews.Mvc.Services.Implementation;
-using IsThereAnyNews.Mvc.ViewModels;
+﻿using IsThereAnyNews.Services;
+using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Linq;
-    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
     using Microsoft.Owin.Security;
@@ -17,11 +14,6 @@ namespace IsThereAnyNews.Mvc.Controllers
     public class LoginController : Controller
     {
         private readonly ILoginService loginService;
-
-        public LoginController() : this(new ApplicationLoginService())
-        {
-
-        }
 
         public LoginController(ILoginService loginService)
         {

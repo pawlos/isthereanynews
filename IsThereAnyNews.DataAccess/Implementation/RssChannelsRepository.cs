@@ -10,10 +10,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
     {
         private readonly ItanDatabaseContext database;
 
-        public RssChannelsRepository() : this(new ItanDatabaseContext())
-        {
-        }
-
         public RssChannelsRepository(ItanDatabaseContext database)
         {
             this.database = database;
