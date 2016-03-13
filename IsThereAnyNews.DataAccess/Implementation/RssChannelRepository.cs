@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models;
@@ -44,11 +45,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return this.database.RssChannels.Single(channel => channel.Id == id);
         }
 
-        public List<RssChannel> LoadAllChannelsForUser(string currentUserId)
+        public List<RssChannel> LoadAllChannelsForUser(long userIdToLoad)
         {
-            var rssChannels = this.database.Users
-                .Single(user => user.Id == currentUserId)
-                .RssChannels.ToList();
+            var rssChannels = this.database
+                .Users
+                .Where(user => user.Id == userIdToLoad)
+                .Include(user => user.RssSubscriptionList)
+                .Include(user => user.RssSubscriptionList.Select(rsl => rsl.RssChannel))
+                .Single()
+                .RssSubscriptionList.Select(rsl => rsl.RssChannel)
+                .ToList();
             return rssChannels;
         }
 

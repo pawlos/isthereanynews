@@ -1,10 +1,14 @@
-﻿namespace IsThereAnyNews.Mvc.Services
+﻿using IsThereAnyNews.SharedData;
+
+namespace IsThereAnyNews.Mvc.Services
 {
     using System.Security.Claims;
 
     public interface IUserAuthentication
     {
-        string GetCurrentUserId();
+        string GetCurrentUserSocialLoginId();
+        long GetCurrentUserId();
         ClaimsPrincipal GetCurrentUser();
+        AuthenticationTypeProvider GetCurrentUserLoginProvider();
     }
 }

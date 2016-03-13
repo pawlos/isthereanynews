@@ -7,6 +7,6 @@ namespace IsThereAnyNews.DataAccess
     {
         List<RssChannel> LoadAllChannels();
         RssChannel Load(long id);
-        List<RssChannel> LoadAllChannelsForUser(string currentUserId);
+        List<RssChannel> LoadAllChannelsForUser(long userIdToLoad);
     }
 }

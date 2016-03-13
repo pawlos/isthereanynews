@@ -49,8 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\ApplicationUserRepository.cs" />
-    <Compile Include="IApplicationUserRepository.cs" />
+    <Compile Include="Implementation\RssChannelsSubscriptionsRepository.cs" />
+    <Compile Include="Implementation\SocialLoginRepository.cs" />
+    <Compile Include="Implementation\UserRepository.cs" />
+    <Compile Include="IRssChannelsSubscriptionsRepository.cs" />
+    <Compile Include="ISocialLoginRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="IRssChannelRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\RssChannelRepository.cs" />
@@ -59,6 +63,10 @@
     <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
       <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
       <Name>IsThereAnyNews.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
+      <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
+      <Name>IsThereAnyNews.SharedData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
+using IsThereAnyNews.DataAccess;
+using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework.Models;
 using IsThereAnyNews.Mvc.Controllers;
 using IsThereAnyNews.Mvc.Dtos;
@@ -9,27 +12,28 @@ namespace IsThereAnyNews.Mvc.Services.Implementation
     public class OpmlImporterService : IOpmlImporterService
     {
         private readonly IUserAuthentication userAuthentication;
-        private readonly IUserRepository usersRepository;
+        private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
 
         public OpmlImporterService() :
             this(new UserAuthentication(),
-                new UserRepository())
+                new RssChannelsSubscriptionsRepository())
         {
         }
 
         public OpmlImporterService(
             IUserAuthentication userAuthentication,
-            IUserRepository usersRepository)
+            IRssChannelsSubscriptionsRepository rssSubscriptionsRepository)
         {
             this.userAuthentication = userAuthentication;
-            this.usersRepository = usersRepository;
+            this.rssSubscriptionsRepository = rssSubscriptionsRepository;
         }
 
 
         public void AddToCurrentUserChannelList(List<RssChannel> importFromUpload)
         {
             var currentUserId = this.userAuthentication.GetCurrentUserId();
-            this.usersRepository.AddToUserRssList(currentUserId, importFromUpload);
+            var rssChannelSubscriptions = importFromUpload.Select(import => new RssChannelSubscription(import.Id, currentUserId)).ToList();
+            this.rssSubscriptionsRepository.SaveToDatabase(rssChannelSubscriptions);
         }
 
         public List<RssChannel> ImportFromUpload(OpmlImporterIndexDto dto)

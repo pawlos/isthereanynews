@@ -9,41 +9,61 @@ namespace IsThereAnyNews.Mvc.Services.Implementation
     public class ApplicationLoginService : ILoginService
     {
         private readonly IUserAuthentication authentication;
-        private readonly IApplicationUserRepository applicationUserRepository;
+        private readonly IUserRepository userRepository;
+        private readonly ISocialLoginRepository socialLoginRepository;
 
         public ApplicationLoginService() : this(
-            new UserAuthentication(), new ApplicationUserRepository())
+            new UserAuthentication(),
+            new UserRepository(),
+            new SocialLoginRepository())
         {
         }
 
         private ApplicationLoginService(
             IUserAuthentication authentication,
-            IApplicationUserRepository applicationUserRepository)
+            IUserRepository userRepository,
+            ISocialLoginRepository socialLoginRepository)
         {
             this.authentication = authentication;
-            this.applicationUserRepository = applicationUserRepository;
+            this.userRepository = userRepository;
+            this.socialLoginRepository = socialLoginRepository;
         }
 
         public void RegisterIfNewUser()
         {
-            var currentUserId = this.authentication.GetCurrentUserId();
+            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider();
+            var currentUserId = this.authentication.GetCurrentUserSocialLoginId();
 
-            var user = this.applicationUserRepository.FindById(currentUserId);
-            if (user == null)
+            var socialLogin = this.socialLoginRepository.FindSocialLogin(currentUserId, authenticationTypeProvider);
+            if (socialLogin == null)
             {
-                this.RegisterCurrentUser();
+                this.RegisterCurrentSocialLogin();
             }
         }
 
-        private void RegisterCurrentUser()
+        public void AddUserIdToClaims()
+        {
+            var currentUserSocialLoginId = this.authentication.GetCurrentUserSocialLoginId();
+            var currentUserLoginProvider = this.authentication.GetCurrentUserLoginProvider();
+
+            var findSocialLogin = this.socialLoginRepository.FindSocialLogin(currentUserSocialLoginId, currentUserLoginProvider);
+            var claimsPrincipal = this.authentication.GetCurrentUser();
+
+            var claim = new Claim(ClaimTypes.UserData, findSocialLogin.UserId.ToString());
+            claimsPrincipal.AddIdentity(new ClaimsIdentity(new[] { claim }));
+        }
+
+        private void RegisterCurrentSocialLogin()
         {
             var user = this.authentication.GetCurrentUser();
             var claims = user.Claims.ToList();
             var identifier = claims.First(x => x.Type == ClaimTypes.NameIdentifier);
-            var name = claims.First(x => x.Type == ClaimTypes.Name);
+            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider();
 
-            var applicationUser = new ItanUser(identifier.Value, name.Value);
-            this.applicationUserRepository.SaveNewUserToDatabase(applicationUser);
+            var newUser = this.userRepository.CreateNewUser();
+            var socialLogin = new SocialLogin(identifier.Value, authenticationTypeProvider, newUser.Id);
+            this.socialLoginRepository.SaveToDatabase(socialLogin);
         }
     }
+
 }

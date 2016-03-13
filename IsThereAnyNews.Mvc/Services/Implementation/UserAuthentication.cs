@@ -1,27 +1,45 @@
+using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Web;
-using Microsoft.AspNet.Identity;
+using IsThereAnyNews.SharedData;
 using Microsoft.Owin;
-using Microsoft.Owin.Security.OAuth;
 
 namespace IsThereAnyNews.Mvc.Services.Implementation
 {
     public class UserAuthentication : IUserAuthentication
     {
-        public string GetCurrentUserId()
+        public long GetCurrentUserId()
         {
-            var userId = GetOwinContext().Authentication.User.Identity.GetUserId();
-            return userId;
+            var claimsPrincipal = GetCurrentUserClaimsFromOwinAuthentication();
+            var claim = claimsPrincipal.Claims.First(x => x.Type == ClaimTypes.UserData);
+            return long.Parse(claim.Value);
         }
 
-        private static IOwinContext GetOwinContext()
+        public string GetCurrentUserSocialLoginId()
         {
-            return HttpContext.Current.GetOwinContext();
+            var claimsPrincipal = GetCurrentUserClaimsFromOwinAuthentication();
+            var claim = claimsPrincipal.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
+            return claim.Value;
         }
 
         public ClaimsPrincipal GetCurrentUser()
         {
-            return GetOwinContext().Authentication.User;
+            return GetCurrentUserClaimsFromOwinAuthentication();
+        }
+
+        public AuthenticationTypeProvider GetCurrentUserLoginProvider()
+        {
+            var claimsPrincipal = GetCurrentUserClaimsFromOwinAuthentication();
+            var issuer = claimsPrincipal.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer)).Issuer;
+            AuthenticationTypeProvider enumResult;
+            Enum.TryParse(issuer, true, out enumResult);
+            return enumResult;
+        }
+
+        private static ClaimsPrincipal GetCurrentUserClaimsFromOwinAuthentication()
+        {
+            return HttpContext.Current.GetOwinContext().Authentication.User;
         }
     }
 }

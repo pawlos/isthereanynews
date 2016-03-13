@@ -4,4 +4,5 @@
     {
         public const string AuthorizationCookieName = "IsThereAnyNews.Authorization.Cookie";
     }
+
 }

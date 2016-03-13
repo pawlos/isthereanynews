@@ -186,9 +186,7 @@
     <Compile Include="Services\ILoginService.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Services\IUserAuthentication.cs" />
-    <Compile Include="Services\IUserRepository.cs" />
     <Compile Include="Services\Implementation\UserAuthentication.cs" />
-    <Compile Include="Services\Implementation\UserRepository.cs" />
     <Compile Include="ViewModels\LoginSuccessViewModel.cs" />
     <Compile Include="Controllers\OpmlImporterController.cs" />
     <Compile Include="ViewModels\RssChannelsDetailsViewModel.cs" />

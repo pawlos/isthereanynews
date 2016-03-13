@@ -1,4 +1,5 @@
-﻿using IsThereAnyNews.Mvc.Services;
+﻿using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.Mvc.Services;
 using IsThereAnyNews.Mvc.Services.Implementation;
 using IsThereAnyNews.Mvc.ViewModels;
 
@@ -46,19 +47,21 @@ namespace IsThereAnyNews.Mvc.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult SocialLogin(string id)
+        public ActionResult SocialLogin(AuthenticationTypeProvider id)
         {
             var authenticationProperties = new AuthenticationProperties
             {
                 RedirectUri = "/Login/Success"
             };
-            HttpContext.GetOwinContext().Authentication.Challenge(authenticationProperties, id);
+            HttpContext.GetOwinContext().Authentication.Challenge(authenticationProperties, id.ToString());
             return new HttpUnauthorizedResult();
         }
 
         public ActionResult Success()
         {
+            var authenticationResponseChallenge = HttpContext.GetOwinContext().Authentication.AuthenticationResponseChallenge;
             this.loginService.RegisterIfNewUser();
+            this.loginService.AddUserIdToClaims();
             var viewmodel = new LoginSuccessViewModel();
             return this.View("Success", viewmodel);
         }

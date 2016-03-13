@@ -56,13 +56,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItanDatabaseContext.cs" />
-    <Compile Include="Models\ItanUser.cs" />
+    <Compile Include="Migrations\201603131025054_users-social-rss-subscriptions-imodel.cs" />
+    <Compile Include="Migrations\201603131025054_users-social-rss-subscriptions-imodel.Designer.cs">
+      <DependentUpon>201603131025054_users-social-rss-subscriptions-imodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\IModel.cs" />
+    <Compile Include="Models\RssChannelSubscription.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\SocialLogin.cs" />
     <Compile Include="Models\RssChannel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
+      <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
+      <Name>IsThereAnyNews.SharedData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603131025054_users-social-rss-subscriptions-imodel.resx">
+      <DependentUpon>201603131025054_users-social-rss-subscriptions-imodel.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
