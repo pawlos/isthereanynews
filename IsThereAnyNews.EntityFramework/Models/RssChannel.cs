@@ -1,10 +1,13 @@
 ﻿using System;
-using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
     public sealed class RssChannel : IModel
     {
+        public RssChannel() : this(string.Empty, string.Empty)
+        {
+        }
+
         public RssChannel(string url, string title)
         {
             this.Url = url;
