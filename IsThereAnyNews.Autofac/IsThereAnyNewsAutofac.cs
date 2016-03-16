@@ -25,6 +25,8 @@ namespace IsThereAnyNews.Autofac
             builder.RegisterType<RssChannelsSubscriptionsRepository>().As<IRssChannelsSubscriptionsRepository>();
             builder.RegisterType<SocialLoginRepository>().As<ISocialLoginRepository>();
             builder.RegisterType<UserRepository>().As<IUserRepository>();
+            builder.RegisterType<UpdateRepository>().As<IUpdateRepository>();
+            builder.RegisterType<RssEntriesRepository>().As<IRssEntriesRepository>();
 
             builder.RegisterType<ItanDatabaseContext>().InstancePerLifetimeScope();
 
@@ -33,8 +35,11 @@ namespace IsThereAnyNews.Autofac
 
             builder.RegisterType<ApplicationLoginService>().As<ILoginService>();
             builder.RegisterType<OpmlImporterService>().As<IOpmlImporterService>();
+            builder.RegisterType<UpdateService>().As<IUpdateService>();
             builder.RegisterType<RssChannelService>().As<IRssChannelService>();
             builder.RegisterType<RssChannelsService>().As<IRssChannelsService>();
+            builder.RegisterType<UpdateService>().As<IUpdateService>();
+
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();
 

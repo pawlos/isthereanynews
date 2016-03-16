@@ -19,5 +19,6 @@ namespace IsThereAnyNews.EntityFramework.Models
         public DateTime Updated { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
+        public DateTimeOffset RssLastUpdatedTime { get; set; }
     }
 }

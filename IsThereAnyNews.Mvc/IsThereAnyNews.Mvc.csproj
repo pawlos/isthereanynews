@@ -33,6 +33,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>IsThereAnyNews.Mvc.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,6 +42,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>IsThereAnyNews.Mvc.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -189,8 +191,8 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OpmlImporterController.cs" />
     <Compile Include="Controllers\RssChannelsController.cs" />
-    <Compile Include="Controllers\SyndicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UpdateGlobalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -216,8 +218,10 @@
     <Content Include="Views\RssChannels\Index.cshtml" />
     <Content Include="Views\RssChannels\Details.cshtml" />
     <Content Include="Views\Login\Success.cshtml" />
+    <Content Include="IsThereAnyNews.Mvc.ruleset" />
     <None Include="Views\RssChannels\My.cshtml" />
     <Content Include="Views\RssChannel\Index.cshtml" />
+    <Content Include="Views\UpdateGlobal\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
