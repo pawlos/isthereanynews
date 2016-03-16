@@ -2,19 +2,24 @@
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public sealed class RssEntry : IModel
+    public class RssEntry : IModel
     {
+        public RssEntry() : this(string.Empty, DateTimeOffset.MinValue, string.Empty, string.Empty, 0)
+        {
+
+        }
+
         public RssEntry(string id,
                         DateTimeOffset publishDate,
                         string title,
                         string text,
-                        long l)
+                        long channelId)
         {
             this.RssId = id;
             this.PublicationDate = publishDate.DateTime;
             this.Title = title;
             this.PreviewText = text;
-            this.RssChannelId = l;
+            this.RssChannelId = channelId;
         }
 
         public long Id { get; set; }
@@ -26,5 +31,7 @@ namespace IsThereAnyNews.EntityFramework.Models
         public string Title { get; set; }
         public string PreviewText { get; set; }
         public string RssId { get; set; }
+
+        virtual public RssEntryToRead RssEntryToRead { get; set; }
     }
 }

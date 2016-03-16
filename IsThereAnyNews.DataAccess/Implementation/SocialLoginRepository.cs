@@ -30,7 +30,5 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             return socialLogin;
         }
-
-        
     }
 }

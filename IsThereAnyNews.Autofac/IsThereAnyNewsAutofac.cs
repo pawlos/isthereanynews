@@ -27,6 +27,7 @@ namespace IsThereAnyNews.Autofac
             builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<UpdateRepository>().As<IUpdateRepository>();
             builder.RegisterType<RssEntriesRepository>().As<IRssEntriesRepository>();
+            builder.RegisterType<RssEntriesToReadRepository>().As<IRssEntriesToReadRepository>();
 
             builder.RegisterType<ItanDatabaseContext>().InstancePerLifetimeScope();
 

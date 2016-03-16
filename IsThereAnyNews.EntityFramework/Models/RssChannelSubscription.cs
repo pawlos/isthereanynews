@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
@@ -6,7 +7,6 @@ namespace IsThereAnyNews.EntityFramework.Models
     {
         public RssChannelSubscription() : this(0, 0, string.Empty)
         {
-
         }
 
         public RssChannelSubscription(long rssChannelId, long subscriberId, string title)
@@ -14,6 +14,7 @@ namespace IsThereAnyNews.EntityFramework.Models
             this.RssChannelId = rssChannelId;
             this.UserId = subscriberId;
             this.Title = title;
+            this.RssEntriesToRead = new List<RssEntryToRead>();
         }
 
         public long Id { get; set; }
@@ -25,5 +26,7 @@ namespace IsThereAnyNews.EntityFramework.Models
 
         public User Subscriber { get; set; }
         public RssChannel RssChannel { get; set; }
+
+        public List<RssEntryToRead> RssEntriesToRead { get; set; }
     }
 }

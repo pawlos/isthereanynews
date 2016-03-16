@@ -56,22 +56,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItanDatabaseContext.cs" />
-    <Compile Include="Migrations\201603131239128_001.cs" />
-    <Compile Include="Migrations\201603131239128_001.Designer.cs">
-      <DependentUpon>201603131239128_001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603152123076_rss-entry.cs" />
-    <Compile Include="Migrations\201603152123076_rss-entry.Designer.cs">
-      <DependentUpon>201603152123076_rss-entry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603152202166_rss last update on channel.cs" />
-    <Compile Include="Migrations\201603152202166_rss last update on channel.Designer.cs">
-      <DependentUpon>201603152202166_rss last update on channel.cs</DependentUpon>
+    <Compile Include="Migrations\201603162227052_aasdfasdf.cs" />
+    <Compile Include="Migrations\201603162227052_aasdfasdf.Designer.cs">
+      <DependentUpon>201603162227052_aasdfasdf.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\RssChannelSubscription.cs" />
     <Compile Include="Models\RssEntry.cs" />
+    <Compile Include="Models\RssEntryToRead.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\SocialLogin.cs" />
     <Compile Include="Models\RssChannel.cs" />
@@ -88,14 +81,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603131239128_001.resx">
-      <DependentUpon>201603131239128_001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603152123076_rss-entry.resx">
-      <DependentUpon>201603152123076_rss-entry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603152202166_rss last update on channel.resx">
-      <DependentUpon>201603152202166_rss last update on channel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201603162227052_aasdfasdf.resx">
+      <DependentUpon>201603162227052_aasdfasdf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models;
 
@@ -18,6 +20,19 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.Users.Add(user);
             this.database.SaveChanges();
             return user;
+        }
+
+        public void UpdateUserLastReadTime(long userId, DateTime now)
+        {
+            var single = this.database.Users.Single(user => user.Id == userId);
+            single.LastReadTime = now;
+            this.database.SaveChanges();
+        }
+
+        public DateTime GetUserLastReadTime(long userId)
+        {
+            var single = this.database.Users.Single(user => user.Id == userId);
+            return single.LastReadTime;
         }
     }
 }

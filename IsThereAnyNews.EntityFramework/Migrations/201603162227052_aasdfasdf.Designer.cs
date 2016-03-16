@@ -7,13 +7,13 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class rsslastupdateonchannel : IMigrationMetadata
+    public sealed partial class aasdfasdf : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(rsslastupdateonchannel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(aasdfasdf));
         
         string IMigrationMetadata.Id
         {
-            get { return "201603152202166_rss last update on channel"; }
+            get { return "201603162227052_aasdfasdf"; }
         }
         
         string IMigrationMetadata.Source

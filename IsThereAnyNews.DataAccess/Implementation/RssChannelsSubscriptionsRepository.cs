@@ -42,12 +42,24 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return rssChannelSubscriptions;
         }
 
-        public List<RssChannelSubscription> LoadAllSubscriptionsWithChannelsForUser(long currentUserId)
+        public List<RssChannelSubscription> LoadAllSubscriptionsForUser(long currentUserId)
         {
             var rssChannelSubscriptions = this.itanDatabaseContext
                 .RssChannelsSubscriptions
                 .Where(x => x.UserId == currentUserId)
                 .ToList();
+            return rssChannelSubscriptions;
+        }
+
+        public List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId)
+        {
+            var rssChannelSubscriptions = this.itanDatabaseContext
+                .RssChannelsSubscriptions
+                .Where(x => x.UserId == currentUserId)
+                .Include(x => x.RssEntriesToRead)
+                .Include(x => x.RssEntriesToRead.Select(c => c.RssEntry))
+                .ToList();
+
             return rssChannelSubscriptions;
         }
     }
