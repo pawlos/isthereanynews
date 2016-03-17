@@ -47,9 +47,6 @@ namespace IsThereAnyNews.Services.Implementation
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             var rssSubscriptions = this.channelsSubscriptionRepository.LoadAllSubscriptionsForUser(currentUserId);
             this.rssEntriesToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(currentUserId, rssSubscriptions);
-            rssSubscriptions = this.channelsSubscriptionRepository.LoadAllSubscriptionsWithRssEntriesToReadForUser(currentUserId);
-
-
             return new RssChannelsMyViewModel(rssSubscriptions);
         }
     }

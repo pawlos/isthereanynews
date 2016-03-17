@@ -9,8 +9,45 @@
     <div class="col-lg-3">
         @foreach (var channel in Model.ChannelsSubscriptions)
         {
-            @Html.ActionLink($"{channel.Title}({channel.RssToRead.Count})", "Index", "RssChannel", new { id = channel.Id }, new { @class = "btn btn-default btn-lg btn-block btn-xs" })
+            <div data-rss-feed-address="@Url.Action("Index", "RssSubscription", new {id=channel.Id})"
+                 class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+                @channel.Title (@channel.RssToRead.Count)
+            </div>
         }
+        <div class="col-lg-9"></div>
     </div>
-    <div class="col-lg-9"></div>
+    <div class="col-lg-9 nocss-rss-container">
+        here goes rss
+    </div>
 </div>
+
+<script type="text/javascript">
+
+
+    var onSuccessGetRssEntries = function(data, status) {
+        $(".nocss-rss-container").html(data);
+    };
+
+    var onErrorGetRssEntries = function(data, status) {
+        console.log("onErrorGetRssEntries");
+    };
+
+    var onRssChannelClick = function (e) {
+        var button = $(e.target);
+        var urlAddress = button.data("rss-feed-address");
+
+        var ajaxOptions = {
+            method: "GET",
+            dataType:"html",
+            url: urlAddress,
+            success: onSuccessGetRssEntries,
+            error: onErrorGetRssEntries
+        }
+
+        $.ajax(ajaxOptions);
+    }
+
+    $(document).ready(function () {
+        $(".nocss-rsschannel").on("click", onRssChannelClick);
+    });
+</script>

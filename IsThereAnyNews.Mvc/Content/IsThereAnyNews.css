@@ -3,3 +3,7 @@
   clear: both;
   margin-bottom: 50px; }
 
+.text-ellipse-too-long {
+  text-overflow: ellipsis;
+  overflow: hidden; }
+

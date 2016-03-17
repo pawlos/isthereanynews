@@ -40,6 +40,7 @@ namespace IsThereAnyNews.Autofac
             builder.RegisterType<RssChannelService>().As<IRssChannelService>();
             builder.RegisterType<RssChannelsService>().As<IRssChannelsService>();
             builder.RegisterType<UpdateService>().As<IUpdateService>();
+            builder.RegisterType<RssSubscriptionService>().As<IRssSubscriptionService>();
 
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();

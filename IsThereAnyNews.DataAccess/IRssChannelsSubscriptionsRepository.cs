@@ -10,5 +10,6 @@ namespace IsThereAnyNews.DataAccess
         List<long> GetChannelIdSubscriptionsForUser(long currentUserId);
         List<RssChannelSubscription> LoadAllSubscriptionsForUser(long currentUserId);
         List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId);
+        RssChannelSubscription LoadAllRssEntriesForUserAndChannel(long currentUserId, long subscriptionId);
     }
 }

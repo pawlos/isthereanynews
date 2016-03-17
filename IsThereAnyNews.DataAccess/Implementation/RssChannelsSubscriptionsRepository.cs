@@ -62,5 +62,17 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             return rssChannelSubscriptions;
         }
+
+        public RssChannelSubscription LoadAllRssEntriesForUserAndChannel(long currentUserId, long subscriptionId)
+        {
+            var rssChannelSubscription = this.itanDatabaseContext.
+                RssChannelsSubscriptions
+                .Where(subscription => subscription.UserId == currentUserId)
+                .Where(subscription => subscription.Id == subscriptionId)
+                .Include(subscription => subscription.RssEntriesToRead)
+                .Include(subscription => subscription.RssEntriesToRead.Select(rss => rss.RssEntry))
+                .Single();
+            return rssChannelSubscription;
+        }
     }
 }

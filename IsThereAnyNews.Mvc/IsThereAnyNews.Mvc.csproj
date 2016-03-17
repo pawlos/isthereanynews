@@ -192,6 +192,7 @@
     <Compile Include="Controllers\OpmlImporterController.cs" />
     <Compile Include="Controllers\RssChannelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RssSubscriptionController.cs" />
     <Compile Include="Controllers\UpdateGlobalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -222,6 +223,7 @@
     <None Include="Views\RssChannels\My.cshtml" />
     <Content Include="Views\RssChannel\Index.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
+    <Content Include="Views\RssSubscription\_Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
