@@ -37,7 +37,8 @@ namespace IsThereAnyNews.Mvc.Controllers
         {
             var authenticationProperties = new AuthenticationProperties
             {
-                RedirectUri = "/Login/Success"
+                RedirectUri = "/Login/Success",
+                IsPersistent = true
             };
             HttpContext.GetOwinContext().Authentication.Challenge(authenticationProperties, id.ToString());
             return new HttpUnauthorizedResult();
