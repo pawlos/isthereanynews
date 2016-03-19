@@ -7,11 +7,10 @@
             <div class="col-lg-12">
                 <div class="row text-success">
                     <span>@entry.RssEntryViewModel.Title</span>
-                    <span
-                        role="button"
-                        data-toggle="collapse"
-                        href="#rss-@entry.Id"
-                        class="glyphicon glyphicon-plus-sign">
+                    <span role="button"
+                          data-toggle="collapse"
+                          href="#rss-@entry.Id"
+                          class="glyphicon glyphicon-plus-sign">
                     </span>
                 </div>
                 <div class="row collapse" id="rss-@entry.Id">
@@ -20,4 +19,11 @@
             </div>
         </div>
     }
+    <button role="button"
+            class="btn-xs btn-warning nocss-mark-all-read"
+            data-mark-all-read-url="@Url.Action("MarkAllReadForSubscription")"
+            data-rss-to-mark-read-id="@Model.DisplayedRss"
+            data-subscription-id="@Model.SubscriptionId">
+        mark all read
+    </button>
 </div>

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MarkReadForSubscriptionDto.cs" />
     <Compile Include="OpmlImporterIndexDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

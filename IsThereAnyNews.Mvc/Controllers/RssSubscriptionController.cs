@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
+using IsThereAnyNews.Dtos;
 using IsThereAnyNews.Services;
 
 namespace IsThereAnyNews.Mvc.Controllers
@@ -16,6 +18,12 @@ namespace IsThereAnyNews.Mvc.Controllers
         {
             var entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(id);
             return PartialView("_Index", entries);
+        }
+
+        public HttpStatusCodeResult MarkAllReadForSubscription(MarkReadForSubscriptionDto model)
+        {
+            this.rssSubscriptionService.MarkAllRssReadForSubscription(model);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

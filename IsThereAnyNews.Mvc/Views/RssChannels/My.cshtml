@@ -24,21 +24,50 @@
 <script type="text/javascript">
 
 
-    var onSuccessGetRssEntries = function(data, status) {
+    var onSuccessGetRssEntries = function (data, status) {
         $(".nocss-rss-container").html(data);
     };
 
-    var onErrorGetRssEntries = function(data, status) {
+    var onErrorGetRssEntries = function (data, status) {
         console.log("onErrorGetRssEntries");
     };
+
+    var onSuccessMarkAllRead = function (data, status) {
+        console.log("onSuccessMarkAllRead");
+
+    }
+    var onErrorMarkAllRead = function (data, status) {
+        console.log("onErrorMarkAllRead");
+    }
+
+    var onMarkAllReadClick = function (e) {
+        var button = $(e.target);
+        var subscriptionId = button.data("subscription-id");
+        var rssIds = button.data("rss-to-mark-read-id");
+        var urlAddress = button.data("mark-all-read-url");
+
+        var ajaxOptions = {
+            type: "post",
+            data:
+                {
+                    SubscriptionId: subscriptionId,
+                    RssEntries: rssIds
+                },
+            url: urlAddress,
+            success: onSuccessMarkAllRead,
+            error: onErrorMarkAllRead
+        }
+        $.ajax(ajaxOptions);
+
+    }
 
     var onRssChannelClick = function (e) {
         var button = $(e.target);
         var urlAddress = button.data("rss-feed-address");
 
         var ajaxOptions = {
-            method: "GET",
-            dataType:"html",
+            type: "GET",
+            dataType: "html",
             url: urlAddress,
             success: onSuccessGetRssEntries,
             error: onErrorGetRssEntries
@@ -49,5 +78,6 @@
 
     $(document).ready(function () {
         $(".nocss-rsschannel").on("click", onRssChannelClick);
+        $(".nocss-rss-container").on("click", ".nocss-mark-all-read", onMarkAllReadClick);
     });
 </script>

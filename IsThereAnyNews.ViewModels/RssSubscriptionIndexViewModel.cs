@@ -12,5 +12,7 @@ namespace IsThereAnyNews.ViewModels
         }
 
         public List<RssEntryToReadViewModel> RssEntryToReadViewModels { get; set; }
+        public long SubscriptionId { get; set; }
+        public string DisplayedRss => string.Join(";", RssEntryToReadViewModels.Select(x => x.Id));
     }
 }

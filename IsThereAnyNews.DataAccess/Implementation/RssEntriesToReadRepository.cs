@@ -40,5 +40,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
 
         }
+
+        public void MarkAllReadForUserAndSubscription(long subscriptionId, List<long> id)
+        {
+            this.database.RssEntriesToRead
+                .Where(r => r.RssChannelSubscriptionId == subscriptionId)
+                .Where(r => id.Contains(r.Id))
+                .Include(r => r.RssEntry)
+                .ToList()
+                .ForEach(r => r.IsRead = true);
+            this.database.SaveChanges();
+        }
     }
 }

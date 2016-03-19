@@ -6,5 +6,6 @@ namespace IsThereAnyNews.DataAccess
     public interface IRssEntriesToReadRepository
     {
         void CopyRssThatWerePublishedAfterLastReadTimeToUser(long currentUserId, List<RssChannelSubscription> rssChannelsIds);
+        void MarkAllReadForUserAndSubscription(long subscriptionId, List<long> rssId);
     }
 }
