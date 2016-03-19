@@ -17,7 +17,7 @@
             var cookieAuthenticationOptions = new CookieAuthenticationOptions
             {
                 AuthenticationType = ConstantStrings.AuthorizationCookieName,
-                LoginPath = new PathString("/Auth/Login")
+                LoginPath = new PathString("/Login")
             };
             appBuilder.UseCookieAuthentication(cookieAuthenticationOptions);
 

@@ -11,15 +11,9 @@ namespace IsThereAnyNews.Mvc.Controllers
     using ViewModels.Login;
 
     [AllowAnonymous]
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
-        private readonly ILoginService loginService;
-
-        public LoginController(ILoginService loginService)
-        {
-            this.loginService = loginService;
-        }
-
+       
         public ActionResult Index()
         {
             var viewmodel = new AuthorizationIndexViewModel();
@@ -55,6 +49,10 @@ namespace IsThereAnyNews.Mvc.Controllers
             this.loginService.StoreCurrentUserIdInSession();
             var viewmodel = new LoginSuccessViewModel();
             return this.View("Success", viewmodel);
+        }
+
+        public LoginController(IUserAuthentication authentication, ILoginService loginService) : base(authentication, loginService)
+        {
         }
     }
 
