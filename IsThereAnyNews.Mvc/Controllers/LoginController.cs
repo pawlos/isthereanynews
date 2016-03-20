@@ -1,19 +1,23 @@
-﻿using IsThereAnyNews.Services;
-using IsThereAnyNews.ViewModels;
-
-namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
     using Microsoft.Owin.Security;
+    using Services;
     using SharedData;
+    using ViewModels;
     using ViewModels.Login;
 
     [AllowAnonymous]
     public class LoginController : BaseController
     {
-       
+        public LoginController(
+            IUserAuthentication authentication,
+            ILoginService loginService) : base(authentication, loginService)
+        {
+        }
+
         public ActionResult Index()
         {
             var viewmodel = new AuthorizationIndexViewModel();
@@ -52,9 +56,7 @@ namespace IsThereAnyNews.Mvc.Controllers
             return this.View("Success", viewmodel);
         }
 
-        public LoginController(IUserAuthentication authentication, ILoginService loginService) : base(authentication, loginService)
-        {
-        }
+
     }
 
 }

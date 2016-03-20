@@ -1,12 +1,10 @@
-﻿using IsThereAnyNews.DataAccess.Implementation;
-using IsThereAnyNews.Services;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.ViewModels;
-
+﻿
 namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Web.Mvc;
     using Dtos;
+    using Services;
+    using ViewModels;
 
     [Authorize]
     public class OpmlImporterController : BaseController
@@ -41,7 +39,5 @@ namespace IsThereAnyNews.Mvc.Controllers
 
             return this.View("Index", null);
         }
-
-       
     }
 }
