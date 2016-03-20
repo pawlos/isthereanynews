@@ -9,11 +9,14 @@ namespace IsThereAnyNews.Mvc.Controllers
     using Dtos;
 
     [Authorize]
-    public class OpmlImporterController : Controller
+    public class OpmlImporterController : BaseController
     {
         private readonly IOpmlImporterService opmlImporterService;
 
-        public OpmlImporterController(IOpmlImporterService opmlImporterService)
+        public OpmlImporterController(
+            IUserAuthentication authentication, 
+            ILoginService loginService, 
+            IOpmlImporterService opmlImporterService) : base(authentication, loginService)
         {
             this.opmlImporterService = opmlImporterService;
         }
@@ -38,5 +41,7 @@ namespace IsThereAnyNews.Mvc.Controllers
 
             return this.View("Index", null);
         }
+
+       
     }
 }

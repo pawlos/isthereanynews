@@ -5,11 +5,15 @@ using IsThereAnyNews.Services;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
-    public class RssSubscriptionController : Controller
+    public class RssSubscriptionController : BaseController
     {
         private readonly IRssSubscriptionService rssSubscriptionService;
 
-        public RssSubscriptionController(IRssSubscriptionService rssSubscriptionService)
+        public RssSubscriptionController(
+            IUserAuthentication authentication, 
+            ILoginService loginService, 
+            IRssSubscriptionService rssSubscriptionService)
+            : base(authentication, loginService)
         {
             this.rssSubscriptionService = rssSubscriptionService;
         }

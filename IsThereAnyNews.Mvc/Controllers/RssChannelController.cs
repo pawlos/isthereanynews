@@ -3,11 +3,14 @@ using IsThereAnyNews.Services;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
-    public class RssChannelController : Controller
+    public class RssChannelController : BaseController
     {
         private readonly IRssChannelService rssChannelsService;
 
-        public RssChannelController(IRssChannelService rssChannelsService)
+        public RssChannelController(
+            IUserAuthentication authentication,
+            ILoginService loginService,
+            IRssChannelService rssChannelsService) : base(authentication, loginService)
         {
             this.rssChannelsService = rssChannelsService;
         }
