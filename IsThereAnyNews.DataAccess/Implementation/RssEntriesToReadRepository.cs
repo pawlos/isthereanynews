@@ -51,5 +51,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .ForEach(r => r.IsRead = true);
             this.database.SaveChanges();
         }
+
+        public List<RssEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId)
+        {
+            var rssEntryToReads = this.database.RssEntriesToRead
+                .Where(r => r.RssChannelSubscriptionId == subscriptionId)
+                .Where(r => r.IsRead == false)
+                .Include(r => r.RssEntry)
+                .ToList();
+
+            return rssEntryToReads;
+        }
     }
 }

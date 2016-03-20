@@ -6,9 +6,9 @@ namespace IsThereAnyNews.ViewModels
 {
     public class RssSubscriptionIndexViewModel
     {
-        public RssSubscriptionIndexViewModel(RssChannelSubscription loadAllRssEntriesForUserAndChannel)
+        public RssSubscriptionIndexViewModel(List<RssEntryToRead> loadAllRssEntriesForUserAndChannel)
         {
-            this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel.RssEntriesToRead.Select(r => new RssEntryToReadViewModel(r)).ToList();
+            this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel.Select(r => new RssEntryToReadViewModel(r)).ToList();
         }
 
         public List<RssEntryToReadViewModel> RssEntryToReadViewModels { get; set; }

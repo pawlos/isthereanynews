@@ -7,5 +7,6 @@ namespace IsThereAnyNews.DataAccess
     {
         void CopyRssThatWerePublishedAfterLastReadTimeToUser(long currentUserId, List<RssChannelSubscription> rssChannelsIds);
         void MarkAllReadForUserAndSubscription(long subscriptionId, List<long> rssId);
+        List<RssEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId);
     }
 }
