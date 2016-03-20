@@ -47,5 +47,11 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssToReadRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
 
         }
+
+        public void MarkEntryViewed(long rssToReadId)
+        {
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            this.rssToReadRepository.MarkEntryViewedByUser(currentUserId, rssToReadId);
+        }
     }
 }

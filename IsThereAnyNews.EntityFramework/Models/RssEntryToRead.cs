@@ -22,6 +22,7 @@ namespace IsThereAnyNews.EntityFramework.Models
         public DateTime Updated { get; set; }
 
         public bool IsRead { get; set; }
+        public bool IsViewed { get; set; }
 
         public long RssChannelSubscriptionId { get; set; }
         public long RssEntryId { get; set; }
@@ -29,5 +30,6 @@ namespace IsThereAnyNews.EntityFramework.Models
         public RssChannelSubscription RssChannelSubscription { get; set; }
         [Required]
         public RssEntry RssEntry { get; set; }
+
     }
 }

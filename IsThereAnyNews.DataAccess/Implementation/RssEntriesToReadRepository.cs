@@ -62,5 +62,22 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             return rssEntryToReads;
         }
+
+        public void MarkEntryViewedByUser(long currentUserId, long rssToReadId)
+        {
+            var rssEntryToRead = this.database
+                .RssEntriesToRead
+                .Include(r => r.RssChannelSubscription)
+                .Include(r => r.RssEntry)
+                .Where(x => x.Id == rssToReadId)
+                .Where(x => x.RssChannelSubscription.UserId == currentUserId)
+                .Single();
+
+            rssEntryToRead.IsViewed = true;
+            rssEntryToRead.IsRead = true;
+
+            this.database.SaveChanges();
+
+        }
     }
 }

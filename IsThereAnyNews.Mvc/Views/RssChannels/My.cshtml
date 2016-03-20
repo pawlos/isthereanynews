@@ -40,6 +40,28 @@
         console.log("onErrorMarkAllRead");
     }
 
+    var onSuccessMarkViewed = function(data, status) {
+        console.log("onSuccessMarkViewed");
+    }
+
+    var onErrorMarkViewed = function (data, status) {
+        console.log("onErrorMarkViewed");
+    }
+
+    var onMarkViewedClick = function (e) {
+        var button = $(e.target);
+        var urlAddress = button.data("mark-viewed-url");
+
+        var ajaxOptions = {
+            type: "post",
+            url: urlAddress,
+            success: onSuccessMarkViewed,
+            error: onErrorMarkViewed
+        }
+        $.ajax(ajaxOptions);
+
+    }
+
     var onMarkAllReadClick = function (e) {
         var button = $(e.target);
         var subscriptionId = button.data("subscription-id");
@@ -79,5 +101,6 @@
     $(document).ready(function () {
         $(".nocss-rsschannel").on("click", onRssChannelClick);
         $(".nocss-rss-container").on("click", ".nocss-mark-all-read", onMarkAllReadClick);
+        $(".nocss-rss-container").on("click", ".nocss-view-rss-entry", onMarkViewedClick);
     });
 </script>

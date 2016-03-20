@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201603162227052_aasdfasdf.Designer.cs">
       <DependentUpon>201603162227052_aasdfasdf.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201603201153529_isviewed.cs" />
+    <Compile Include="Migrations\201603201153529_isviewed.Designer.cs">
+      <DependentUpon>201603201153529_isviewed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\RssChannelSubscription.cs" />
@@ -83,6 +87,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603162227052_aasdfasdf.resx">
       <DependentUpon>201603162227052_aasdfasdf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603201153529_isviewed.resx">
+      <DependentUpon>201603201153529_isviewed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
