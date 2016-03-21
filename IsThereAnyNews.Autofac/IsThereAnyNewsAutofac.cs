@@ -1,17 +1,17 @@
-﻿using System.Reflection;
-using System.Web.Mvc;
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.DataAccess.Implementation;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.Infrastructure.ConfigurationReader;
-using IsThereAnyNews.Infrastructure.ConfigurationReader.Implementation;
-using IsThereAnyNews.Services;
-using IsThereAnyNews.Services.Implementation;
 
 namespace IsThereAnyNews.Autofac
 {
+    using System;
+    using System.Reflection;
+    using System.Web.Mvc;
+    using EntityFramework;
+    using Infrastructure.ConfigurationReader;
+    using Infrastructure.ConfigurationReader.Implementation;
+    using Services;
+    using Services.Implementation;
+
     public static class IsThereAnyNewsAutofac
     {
         public static void RegisterDependencies()
@@ -20,27 +20,18 @@ namespace IsThereAnyNews.Autofac
 
             builder.RegisterControllers(Assembly.GetCallingAssembly()).InstancePerLifetimeScope();
 
-            builder.RegisterType<RssChannelRepository>().As<IRssChannelRepository>();
-            builder.RegisterType<RssChannelsRepository>().As<IRssChannelsRepository>();
-            builder.RegisterType<RssChannelsSubscriptionsRepository>().As<IRssChannelsSubscriptionsRepository>();
-            builder.RegisterType<SocialLoginRepository>().As<ISocialLoginRepository>();
-            builder.RegisterType<UserRepository>().As<IUserRepository>();
-            builder.RegisterType<UpdateRepository>().As<IUpdateRepository>();
-            builder.RegisterType<RssEntriesRepository>().As<IRssEntriesRepository>();
-            builder.RegisterType<RssEntriesToReadRepository>().As<IRssEntriesToReadRepository>();
+            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .Where(t => t.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces();
+
+            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .Where(t => t.Name.EndsWith("Service"))
+                .AsImplementedInterfaces();
 
             builder.RegisterType<ItanDatabaseContext>().InstancePerLifetimeScope();
 
             builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
-
-            builder.RegisterType<ApplicationLoginService>().As<ILoginService>();
-            builder.RegisterType<OpmlImporterService>().As<IOpmlImporterService>();
-            builder.RegisterType<UpdateService>().As<IUpdateService>();
-            builder.RegisterType<RssChannelService>().As<IRssChannelService>();
-            builder.RegisterType<RssChannelsService>().As<IRssChannelsService>();
-            builder.RegisterType<UpdateService>().As<IUpdateService>();
-            builder.RegisterType<RssSubscriptionService>().As<IRssSubscriptionService>();
 
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();
