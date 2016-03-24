@@ -1,4 +1,5 @@
 ﻿using IsThereAnyNews.Autofac;
+using IsThereAnyNews.RssChannelUpdater;
 
 namespace IsThereAnyNews.Mvc
 {
@@ -12,6 +13,7 @@ namespace IsThereAnyNews.Mvc
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             IsThereAnyNewsAutofac.RegisterDependencies();
+            IsThereAnyNewsScheduler.ScheduleRssUpdater();
         }
     }
 }

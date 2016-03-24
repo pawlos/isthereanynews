@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IsThereAnyNews.Mvc
+﻿namespace IsThereAnyNews.Mvc
 {
     using Infrastructure.ConfigurationReader.Implementation;
     using Microsoft.Owin;

@@ -194,7 +194,6 @@
     <Compile Include="Controllers\RssChannelsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RssSubscriptionController.cs" />
-    <Compile Include="Controllers\UpdateGlobalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -256,6 +255,10 @@
     <ProjectReference Include="..\IsThereAnyNews.Infrastructure.ConfigurationReader\IsThereAnyNews.Infrastructure.ConfigurationReader.csproj">
       <Project>{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}</Project>
       <Name>IsThereAnyNews.Infrastructure.ConfigurationReader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.RssChannelUpdater\IsThereAnyNews.RssChannelUpdater.csproj">
+      <Project>{450E3A72-F217-44CE-8505-592B9B47D88B}</Project>
+      <Name>IsThereAnyNews.RssChannelUpdater</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
       <Project>{936C3CB3-6EA8-4A2F-861B-CE9F40E96EE3}</Project>

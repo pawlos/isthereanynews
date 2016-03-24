@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using IsThereAnyNews.RssChannelUpdater;
 
 namespace IsThereAnyNews.Autofac
 {
@@ -29,6 +30,7 @@ namespace IsThereAnyNews.Autofac
                 .AsImplementedInterfaces();
 
             builder.RegisterType<ItanDatabaseContext>().InstancePerLifetimeScope();
+            builder.RegisterType<RssUpdateJob>().InstancePerLifetimeScope();
 
             builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();

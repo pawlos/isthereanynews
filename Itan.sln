@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Dtos", "IsTh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Autofac", "IsThereAnyNews.Autofac\IsThereAnyNews.Autofac.csproj", "{C06EDAA6-EE09-4ED1-85C4-A11DB07E5D4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.RssChannelUpdater", "IsThereAnyNews.RssChannelUpdater\IsThereAnyNews.RssChannelUpdater.csproj", "{450E3A72-F217-44CE-8505-592B9B47D88B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{C06EDAA6-EE09-4ED1-85C4-A11DB07E5D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C06EDAA6-EE09-4ED1-85C4-A11DB07E5D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C06EDAA6-EE09-4ED1-85C4-A11DB07E5D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{450E3A72-F217-44CE-8505-592B9B47D88B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{450E3A72-F217-44CE-8505-592B9B47D88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{450E3A72-F217-44CE-8505-592B9B47D88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{450E3A72-F217-44CE-8505-592B9B47D88B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
