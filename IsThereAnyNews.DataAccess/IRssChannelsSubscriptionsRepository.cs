@@ -12,6 +12,7 @@ namespace IsThereAnyNews.DataAccess
         List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId);
         bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId);
         void DeleteSubscriptionFromUser(long subscriptionId, long userId);
-        bool IsUserSubscribedToRssChannel(long userId, long channelId);
+        long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId);
+        void CreateNewSubscriptionForUserAndChannel(long userId, long channelId);
     }
 }

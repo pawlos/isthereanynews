@@ -45,7 +45,6 @@ namespace IsThereAnyNews.Services.Implementation
             var rssToMarkRead =
                 dto.RssEntries.Split(separator, StringSplitOptions.None).ToList().Select(id => long.Parse(id)).ToList();
             this.rssToReadRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
-
         }
 
         public void MarkEntryViewed(long rssToReadId)
@@ -58,6 +57,13 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var userId = this.sessionProvider.GetCurrentUserId();
             this.rssSubscriptionsRepository.DeleteSubscriptionFromUser(id, userId);
+
+        }
+
+        public void SubscribeCurrentUserToChannel(long channelId)
+        {
+            var userId = this.sessionProvider.GetCurrentUserId();
+            this.rssSubscriptionsRepository.CreateNewSubscriptionForUserAndChannel(userId, channelId);
 
         }
     }

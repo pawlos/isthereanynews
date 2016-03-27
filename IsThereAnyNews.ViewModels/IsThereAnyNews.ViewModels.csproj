@@ -58,6 +58,7 @@
     <Compile Include="RssChannelsMyViewModel.cs" />
     <Compile Include="RssChannelSubscriptionViewModel.cs" />
     <Compile Include="RssSubscriptionIndexViewModel.cs" />
+    <Compile Include="UserRssSubscriptionInfoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

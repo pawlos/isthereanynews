@@ -11,12 +11,69 @@
 
 @if (Model.IsAuthenticatedUser)
 {
-    if (Model.IsUserSubscribedToRssChannel)
+    if (Model.SubscriptionInfo.IsSubscribed)
     {
-        <button class="btn btn-warning">unsubscribe</button>
+        <button role="button"
+                class="btn-xs btn-error nocss-unsubscribe"
+                data-unsubscribe-url="@Url.Action("Unsubscribe", new { id = Model.SubscriptionInfo.ChannelSubscriptionId})">
+            unsubscribe
+        </button>
     }
     else
     {
-        <button class="btn btn-info">subscribe</button>
+        <button role="button"
+                class="btn-xs btn-error nocss-subscribe"
+                data-subscribe-url="@Url.Action("Subscribe", new { id = Model.ChannelId})">
+            subscribe
+        </button>
     }
 }
+
+
+<script type="text/javascript">
+
+    var onSuccessUnsubscribe = function(data, status) {
+        console.log("onSuccessUnsubscribe");
+    };
+    var onErrorUnsubscribe = function(data, status) {
+        console.log("onErrorUnsubscribe");
+    };
+
+    var onSuccessSubscribe = function (data, status) {
+        console.log("onSuccessSubscribe");
+    };
+    var onErrorSubscribe = function (data, status) {
+        console.log("onErrorSubscribe");
+    };
+
+    var onUnsubscribeClick = function(e) {
+        var button = $(e.target);
+        var urlAddress = button.data("unsubscribe-url");
+
+        var ajaxOptions = {
+            type: "post",
+            url: urlAddress,
+            success: onSuccessUnsubscribe,
+            error: onErrorUnsubscribe
+        }
+        $.ajax(ajaxOptions);
+    }
+
+    var onSubscribeClick = function (e) {
+        var button = $(e.target);
+        var urlAddress = button.data("subscribe-url");
+
+        var ajaxOptions = {
+            type: "post",
+            url: urlAddress,
+            success: onSuccessSubscribe,
+            error: onErrorSubscribe
+        }
+        $.ajax(ajaxOptions);
+    }
+
+    $(document).ready(function () {
+        $(".nocss-unsubscribe").on("click",  onUnsubscribeClick);
+        $(".nocss-subscribe").on("click", onSubscribeClick);
+    });
+</script>

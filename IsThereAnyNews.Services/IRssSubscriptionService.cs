@@ -8,6 +8,7 @@ namespace IsThereAnyNews.Services
         RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(long id);
         void MarkAllRssReadForSubscription(MarkReadForSubscriptionDto id);
         void MarkEntryViewed(long rssToReadId);
-        void UnsubscribeCurrentUserFromChannelId(long id);
+        void UnsubscribeCurrentUserFromChannelId(long subscriptionId);
+        void SubscribeCurrentUserToChannel(long channelId);
     }
 }

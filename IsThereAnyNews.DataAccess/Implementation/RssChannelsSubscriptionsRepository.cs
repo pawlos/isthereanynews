@@ -80,14 +80,27 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.itanDatabaseContext.SaveChanges();
         }
 
-        public bool IsUserSubscribedToRssChannel(long userId, long channelId)
+        public long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId)
         {
             var channelSubscription = this.itanDatabaseContext
                 .RssChannelsSubscriptions
                 .Where(subscription => subscription.RssChannelId == channelId)
                 .Where(subscription => subscription.UserId == userId)
-                .Count();
-            return channelSubscription == 1;
+                .Select(subscription => subscription.Id)
+                .SingleOrDefault();
+            return channelSubscription;
+        }
+
+        public void CreateNewSubscriptionForUserAndChannel(long userId, long channelId)
+        {
+            var channelTitle = this.itanDatabaseContext.RssChannels
+                .Where(channel => channel.Id == channelId)
+                .Select(channel => channel.Title)
+                .Single();
+
+            var rssChannelSubscription = new RssChannelSubscription(channelId, userId, channelTitle);
+            this.itanDatabaseContext.RssChannelsSubscriptions.Add(rssChannelSubscription);
+            this.itanDatabaseContext.SaveChanges();
         }
     }
 }

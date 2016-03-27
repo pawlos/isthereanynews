@@ -12,9 +12,9 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
 
         public RssChannelService(
-            IRssChannelRepository rssChannelRepository, 
-            ISessionProvider session, 
-            IUserAuthentication authentication, 
+            IRssChannelRepository rssChannelRepository,
+            ISessionProvider session,
+            IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository)
         {
             this.rssChannelRepository = rssChannelRepository;
@@ -26,20 +26,21 @@ namespace IsThereAnyNews.Services.Implementation
         public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
         {
             var rssChannel = this.rssChannelRepository.LoadRssChannel(id);
-            
+
 
             var rssChannelIndexViewModel = new RssChannelIndexViewModel
             {
                 Name = rssChannel.Title,
-                Added = rssChannel.Created
+                Added = rssChannel.Created,
+                ChannelId = rssChannel.Id
             };
 
             if (this.authentication.CurrentUserIsAuthenticated())
             {
                 var userId = this.session.GetCurrentUserId();
-                var isUserSubscribedToRssChannel = this.rssSubscriptionRepository.IsUserSubscribedToRssChannel(userId, id);
+                var subscriptionInfo = this.rssSubscriptionRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
                 rssChannelIndexViewModel.IsAuthenticatedUser = true;
-                rssChannelIndexViewModel.IsUserSubscribedToRssChannel = isUserSubscribedToRssChannel;
+                rssChannelIndexViewModel.SubscriptionInfo = new UserRssSubscriptionInfoViewModel(subscriptionInfo);
             }
             return rssChannelIndexViewModel;
         }
