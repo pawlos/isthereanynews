@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
 using IsThereAnyNews.Dtos;
@@ -35,6 +35,12 @@ namespace IsThereAnyNews.Mvc.Controllers
         {
             this.rssSubscriptionService.MarkAllRssReadForSubscription(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        public ActionResult Unsubscribe(long id)
+        {
+            this.rssSubscriptionService.UnsubscribeCurrentUserFromChannelId(id);
+            return  new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

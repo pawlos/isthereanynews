@@ -5,8 +5,8 @@ namespace IsThereAnyNews.Mvc.Controllers
 {
     public abstract class BaseController : Controller
     {
-        protected ILoginService loginService;
-        protected IUserAuthentication authentication;
+        protected readonly ILoginService loginService;
+        protected readonly IUserAuthentication authentication;
 
         protected BaseController(IUserAuthentication authentication, ILoginService loginService)
         {

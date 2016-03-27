@@ -23,6 +23,25 @@
 
 <script type="text/javascript">
 
+    var onSuccessUnsubscribe = function(data, status) {
+        console.log("onSuccessUnsubscribe");
+    };
+    var onErrorUnsubscribe = function(data, status) {
+        console.log("onErrorUnsubscribe");
+    };
+
+    var onUnsubscribeClick = function(e) {
+        var button = $(e.target);
+        var urlAddress = button.data("unsubscribe-url");
+
+        var ajaxOptions = {
+            type: "post",
+            url: urlAddress,
+            success: onSuccessUnsubscribe,
+            error: onErrorUnsubscribe
+        }
+        $.ajax(ajaxOptions);
+    }
 
     var onSuccessGetRssEntries = function (data, status) {
         $(".nocss-rss-container").html(data);
@@ -71,10 +90,10 @@
         var ajaxOptions = {
             type: "post",
             data:
-                {
-                    SubscriptionId: subscriptionId,
-                    RssEntries: rssIds
-                },
+            {
+                SubscriptionId: subscriptionId,
+                RssEntries: rssIds
+            },
             url: urlAddress,
             success: onSuccessMarkAllRead,
             error: onErrorMarkAllRead
@@ -102,5 +121,6 @@
         $(".nocss-rsschannel").on("click", onRssChannelClick);
         $(".nocss-rss-container").on("click", ".nocss-mark-all-read", onMarkAllReadClick);
         $(".nocss-rss-container").on("click", ".nocss-view-rss-entry", onMarkViewedClick);
+        $(".nocss-rss-container").on("click", ".nocss-unsubscribe", onUnsubscribeClick);
     });
 </script>

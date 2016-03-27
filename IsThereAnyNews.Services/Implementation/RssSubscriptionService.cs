@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
@@ -11,13 +11,13 @@ namespace IsThereAnyNews.Services.Implementation
     public class RssSubscriptionService : IRssSubscriptionService
     {
         private readonly ISessionProvider sessionProvider;
-        private readonly IRssChannelsSubscriptionsRepository rssSubscriptions;
+        private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
         private readonly IRssEntriesToReadRepository rssToReadRepository;
 
-        public RssSubscriptionService(ISessionProvider sessionProvider, IRssChannelsSubscriptionsRepository rssSubscriptions, IRssEntriesToReadRepository rssToReadRepository)
+        public RssSubscriptionService(ISessionProvider sessionProvider, IRssChannelsSubscriptionsRepository rssSubscriptionsRepository, IRssEntriesToReadRepository rssToReadRepository)
         {
             this.sessionProvider = sessionProvider;
-            this.rssSubscriptions = rssSubscriptions;
+            this.rssSubscriptionsRepository = rssSubscriptionsRepository;
             this.rssToReadRepository = rssToReadRepository;
         }
 
@@ -25,7 +25,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
 
-            if (!this.rssSubscriptions.DoesUserOwnsSubscription(subscriptionId, currentUserId))
+            if (!this.rssSubscriptionsRepository.DoesUserOwnsSubscription(subscriptionId, currentUserId))
             {
                 var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(new List<RssEntryToRead>());
                 rssSubscriptionIndexViewModel.SubscriptionId = subscriptionId;
@@ -52,6 +52,13 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             this.rssToReadRepository.MarkEntryViewedByUser(currentUserId, rssToReadId);
+        }
+
+        public void UnsubscribeCurrentUserFromChannelId(long id)
+        {
+            var userId = this.sessionProvider.GetCurrentUserId();
+            this.rssSubscriptionsRepository.DeleteSubscriptionFromUser(id, userId);
+
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using IsThereAnyNews.Dtos;
+using IsThereAnyNews.Dtos;
 using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Services
@@ -8,5 +8,6 @@ namespace IsThereAnyNews.Services
         RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(long id);
         void MarkAllRssReadForSubscription(MarkReadForSubscriptionDto id);
         void MarkEntryViewed(long rssToReadId);
+        void UnsubscribeCurrentUserFromChannelId(long id);
     }
 }

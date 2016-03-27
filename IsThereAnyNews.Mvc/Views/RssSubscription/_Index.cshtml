@@ -8,10 +8,10 @@
                 <div class="row text-success">
                     <span>@entry.RssEntryViewModel.Title</span>
                     <span role="button"
-                    data-toggle="collapse"
-                    data-mark-viewed-url="@Url.Action("MarkRssEntryViewed", new { id = @entry.Id })"
-                    href="#rss-@entry.Id"
-                    class="glyphicon glyphicon-plus-sign nocss-view-rss-entry">
+                          data-toggle="collapse"
+                          data-mark-viewed-url="@Url.Action("MarkRssEntryViewed", new { id = @entry.Id })"
+                          href="#rss-@entry.Id"
+                          class="glyphicon glyphicon-plus-sign nocss-view-rss-entry">
                     </span>
                 </div>
                 <div class="row collapse" id="rss-@entry.Id">
@@ -26,5 +26,11 @@
             data-rss-to-mark-read-id="@Model.DisplayedRss"
             data-subscription-id="@Model.SubscriptionId">
         mark all read
+    </button>
+
+    <button role="button"
+            class="btn-xs btn-error nocss-unsubscribe"
+            data-unsubscribe-url="@Url.Action("Unsubscribe", new { id = Model.SubscriptionId })">
+        unsubscribe
     </button>
 </div>

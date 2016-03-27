@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
@@ -67,6 +67,17 @@ namespace IsThereAnyNews.DataAccess.Implementation
         {
              return this.itanDatabaseContext.RssChannelsSubscriptions.Any(
                 x => x.UserId == currentUserId && x.Id == subscriptionId);
+        }
+
+        public void DeleteSubscriptionFromUser(long subscriptionId, long userId)
+        {
+            var channelSubscription = this.itanDatabaseContext
+                .RssChannelsSubscriptions
+                .Where(subscription => subscription.Id == subscriptionId)
+                .Where(subscription => subscription.UserId == userId)
+                .Single();
+            this.itanDatabaseContext.RssChannelsSubscriptions.Remove(channelSubscription);
+            this.itanDatabaseContext.SaveChanges();
         }
     }
 }
