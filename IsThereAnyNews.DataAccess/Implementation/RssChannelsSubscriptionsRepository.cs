@@ -65,8 +65,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId)
         {
-             return this.itanDatabaseContext.RssChannelsSubscriptions.Any(
-                x => x.UserId == currentUserId && x.Id == subscriptionId);
+            return this.itanDatabaseContext.RssChannelsSubscriptions.Any(
+               x => x.UserId == currentUserId && x.Id == subscriptionId);
         }
 
         public void DeleteSubscriptionFromUser(long subscriptionId, long userId)
@@ -78,6 +78,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .Single();
             this.itanDatabaseContext.RssChannelsSubscriptions.Remove(channelSubscription);
             this.itanDatabaseContext.SaveChanges();
+        }
+
+        public bool IsUserSubscribedToRssChannel(long userId, long channelId)
+        {
+            var channelSubscription = this.itanDatabaseContext
+                .RssChannelsSubscriptions
+                .Where(subscription => subscription.RssChannelId == channelId)
+                .Where(subscription => subscription.UserId == userId)
+                .Count();
+            return channelSubscription == 1;
         }
     }
 }

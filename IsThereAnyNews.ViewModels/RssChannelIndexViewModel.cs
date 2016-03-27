@@ -6,5 +6,7 @@ namespace IsThereAnyNews.ViewModels
     {
         public string Name { get; set; }
         public DateTime Added { get; set; }
+        public bool IsAuthenticatedUser { get; set; }
+        public bool IsUserSubscribedToRssChannel { get; set; }
     }
 }

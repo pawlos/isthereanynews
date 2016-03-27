@@ -29,6 +29,17 @@ namespace IsThereAnyNews.Services.Implementation
             return enumResult;
         }
 
+        public bool CurrentUserIsAuthenticated()
+        {
+            return HttpContext
+                .Current
+                .GetOwinContext()
+                .Authentication
+                .User
+                .Identity
+                .IsAuthenticated;
+        }
+
         private static ClaimsPrincipal GetCurrentUserClaimsFromOwinAuthentication()
         {
             return HttpContext.Current.GetOwinContext().Authentication.User;

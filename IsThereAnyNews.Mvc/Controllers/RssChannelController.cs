@@ -3,6 +3,7 @@ using IsThereAnyNews.Services;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
+    [AllowAnonymous]
     public class RssChannelController : BaseController
     {
         private readonly IRssChannelService rssChannelsService;

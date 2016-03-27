@@ -8,3 +8,15 @@
 <h2>title</h2>
 <p>@Model.Name</p>
 <p>@Model.Added</p>
+
+@if (Model.IsAuthenticatedUser)
+{
+    if (Model.IsUserSubscribedToRssChannel)
+    {
+        <button class="btn btn-warning">unsubscribe</button>
+    }
+    else
+    {
+        <button class="btn btn-info">subscribe</button>
+    }
+}

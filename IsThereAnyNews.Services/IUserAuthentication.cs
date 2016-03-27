@@ -8,5 +8,6 @@ namespace IsThereAnyNews.Services
         string GetCurrentUserSocialLoginId();
         ClaimsPrincipal GetCurrentUser();
         AuthenticationTypeProvider GetCurrentUserLoginProvider();
+        bool CurrentUserIsAuthenticated();
     }
 }
