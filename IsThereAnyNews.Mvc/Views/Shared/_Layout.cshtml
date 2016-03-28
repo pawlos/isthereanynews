@@ -17,7 +17,7 @@
                 <a class="navbar-brand" href="/">ITAN</a>
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Browse", "Public", "RssChannel")</li>
+                    <li>@Html.ActionLink("Browse", "Index", "RssChannel")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
