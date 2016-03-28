@@ -6,13 +6,13 @@ namespace IsThereAnyNews.Services.Implementation
 {
     public class RssChannelService : IRssChannelService
     {
-        private readonly IRssChannelRepository rssChannelRepository;
+        private readonly IRssChannelsRepository rssChannelRepository;
         private readonly ISessionProvider session;
         private readonly IUserAuthentication authentication;
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
 
         public RssChannelService(
-            IRssChannelRepository rssChannelRepository,
+            IRssChannelsRepository rssChannelRepository,
             ISessionProvider session,
             IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository)

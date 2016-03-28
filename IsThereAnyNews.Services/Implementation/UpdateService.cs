@@ -12,12 +12,12 @@ namespace IsThereAnyNews.Services.Implementation
     {
         private readonly IUpdateRepository updateRepository;
         private readonly IRssEntriesRepository rssEntriesRepository;
-        private readonly IRssChannelRepository rssChannelsRepository;
+        private readonly IRssChannelsRepository rssChannelsRepository;
 
         public UpdateService(
             IUpdateRepository updateRepository,
             IRssEntriesRepository rssEntriesRepository,
-            IRssChannelRepository rssChannelsRepository)
+            IRssChannelsRepository rssChannelsRepository)
         {
             this.updateRepository = updateRepository;
             this.rssEntriesRepository = rssEntriesRepository;

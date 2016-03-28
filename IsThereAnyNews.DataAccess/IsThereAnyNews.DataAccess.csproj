@@ -49,13 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\RssChannelRepository.cs" />
     <Compile Include="Implementation\RssChannelsSubscriptionsRepository.cs" />
     <Compile Include="Implementation\RssEntriesToReadRepository.cs" />
     <Compile Include="Implementation\SocialLoginRepository.cs" />
     <Compile Include="Implementation\UpdateRepository.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
-    <Compile Include="IRssChannelRepository.cs" />
     <Compile Include="IRssChannelsSubscriptionsRepository.cs" />
     <Compile Include="IRssEntriesRepository.cs" />
     <Compile Include="IRssEntriesToReadRepository.cs" />

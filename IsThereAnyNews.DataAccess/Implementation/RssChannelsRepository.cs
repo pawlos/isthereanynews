@@ -62,5 +62,23 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return longs;
         }
 
+        public RssChannel LoadRssChannel(long id)
+        {
+            return this.database.RssChannels.Single(x => x.Id == id);
+        }
+
+        public void UpdateRssLastUpdateTimeToDatabase(List<RssChannel> rssChannels)
+        {
+            var ids = rssChannels.Select(x => x.Id).ToList();
+
+            var channels = this.database.RssChannels.Where(channel => ids.Contains(channel.Id)).ToList();
+            channels.ForEach(channel =>
+            {
+                channel.RssLastUpdatedTime = rssChannels
+                    .Single(x => x.Id == channel.Id).RssLastUpdatedTime;
+            });
+
+            this.database.SaveChanges();
+        }
     }
 }

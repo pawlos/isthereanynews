@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models;
 

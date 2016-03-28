@@ -189,3 +189,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 **/*.lock.json
 /IsThereAnyNews.Mvc/secrets.config
+*.scgdat
