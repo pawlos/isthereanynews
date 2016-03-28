@@ -7,13 +7,13 @@ namespace IsThereAnyNews.Mvc.Controllers
     [AllowAnonymous]
     public class RssChannelController : BaseController
     {
-        private readonly IRssChannelService rssChannelsService;
+        private readonly IRssChannelsService rssChannelsService;
         private readonly IRssSubscriptionService rssSubscriptionService;
 
         public RssChannelController(
             IUserAuthentication authentication,
             ILoginService loginService,
-            IRssChannelService rssChannelsService,
+            IRssChannelsService rssChannelsService,
             IRssSubscriptionService rssSubscriptionService)
             : base(authentication, loginService)
         {

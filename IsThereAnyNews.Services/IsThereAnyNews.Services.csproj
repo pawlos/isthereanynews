@@ -63,12 +63,10 @@
     <Compile Include="Implementation\ApplicationLoginService.cs" />
     <Compile Include="ISessionProvider.cs" />
     <Compile Include="Implementation\OpmlImporterService.cs" />
-    <Compile Include="Implementation\RssChannelService.cs" />
     <Compile Include="Implementation\RssChannelsService.cs" />
     <Compile Include="Implementation\SessionProvider.cs" />
     <Compile Include="Implementation\UserAuthentication.cs" />
     <Compile Include="IOpmlImporterService.cs" />
-    <Compile Include="IRssChannelService.cs" />
     <Compile Include="IRssChannelsService.cs" />
     <Compile Include="IUserAuthentication.cs" />
   </ItemGroup>

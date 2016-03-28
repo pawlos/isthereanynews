@@ -6,5 +6,6 @@ namespace IsThereAnyNews.Services
     {
         RssChannelsIndexViewModel LoadAllChannels();
         RssChannelsMyViewModel LoadAllChannelsOfCurrentUser();
+        RssChannelIndexViewModel GetViewModelFormChannelId(long id);
     }
 }
