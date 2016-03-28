@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Http;
 using System.Web.Mvc;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.Services;

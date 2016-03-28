@@ -1,4 +1,4 @@
-﻿@model IsThereAnyNews.ViewModels.RssChannelIndexViewModel
+﻿@model IsThereAnyNews.ViewModels.RssChannelsIndexViewModel
 
 @{
     ViewBag.Title = "title";
@@ -6,74 +6,10 @@
 }
 
 <h2>title</h2>
-<p>@Model.Name</p>
-<p>@Model.Added</p>
 
-@if (Model.IsAuthenticatedUser)
+@foreach (var channel in Model.LoadAllChannels)
 {
-    if (Model.SubscriptionInfo.IsSubscribed)
-    {
-        <button role="button"
-                class="btn-xs btn-error nocss-unsubscribe"
-                data-unsubscribe-url="@Url.Action("Unsubscribe", new { id = Model.SubscriptionInfo.ChannelSubscriptionId})">
-            unsubscribe
-        </button>
-    }
-    else
-    {
-        <button role="button"
-                class="btn-xs btn-error nocss-subscribe"
-                data-subscribe-url="@Url.Action("Subscribe", new { id = Model.ChannelId})">
-            subscribe
-        </button>
-    }
+    <div>
+        <span>@Html.ActionLink(channel.Title, "Index", "RssChannel", new { id = channel.Id }, null)</span>
+    </div>
 }
-
-
-<script type="text/javascript">
-
-    var onSuccessUnsubscribe = function(data, status) {
-        console.log("onSuccessUnsubscribe");
-    };
-    var onErrorUnsubscribe = function(data, status) {
-        console.log("onErrorUnsubscribe");
-    };
-
-    var onSuccessSubscribe = function (data, status) {
-        console.log("onSuccessSubscribe");
-    };
-    var onErrorSubscribe = function (data, status) {
-        console.log("onErrorSubscribe");
-    };
-
-    var onUnsubscribeClick = function(e) {
-        var button = $(e.target);
-        var urlAddress = button.data("unsubscribe-url");
-
-        var ajaxOptions = {
-            type: "post",
-            url: urlAddress,
-            success: onSuccessUnsubscribe,
-            error: onErrorUnsubscribe
-        }
-        $.ajax(ajaxOptions);
-    }
-
-    var onSubscribeClick = function (e) {
-        var button = $(e.target);
-        var urlAddress = button.data("subscribe-url");
-
-        var ajaxOptions = {
-            type: "post",
-            url: urlAddress,
-            success: onSuccessSubscribe,
-            error: onErrorSubscribe
-        }
-        $.ajax(ajaxOptions);
-    }
-
-    $(document).ready(function () {
-        $(".nocss-unsubscribe").on("click",  onUnsubscribeClick);
-        $(".nocss-subscribe").on("click", onSubscribeClick);
-    });
-</script>

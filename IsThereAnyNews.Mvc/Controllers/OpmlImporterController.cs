@@ -34,7 +34,7 @@ namespace IsThereAnyNews.Mvc.Controllers
                 var channelList = this.opmlImporterService.ParseToRssChannelList(dto);
                 this.opmlImporterService.AddNewChannelsToGlobalSpace(channelList);
                 this.opmlImporterService.AddToCurrentUserChannelList(channelList);
-                return this.RedirectToAction("My", "RssChannels");
+                return this.RedirectToAction("My", "RssChannel");
             }
 
             return this.View("Index", null);

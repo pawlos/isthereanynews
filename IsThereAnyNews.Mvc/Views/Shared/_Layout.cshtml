@@ -14,15 +14,20 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">ITAN</a>
+                <a class="navbar-brand" href="/">ITAN</a>
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Import", "Index", "OpmlImporter")</li>
-                    <li>@Html.ActionLink("Browse", "Index", "RssChannels")</li>
-                    <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
-                    <li>@Html.ActionLink("Login", "Index", "Login")</li>
-                    <li>@Html.ActionLink("My channels", "My", "RssChannels")</li>
+                    <li>@Html.ActionLink("Browse", "Public", "RssChannel")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                        <li>@Html.ActionLink("My channels", "My", "RssChannel")</li>
+                        <li>@Html.ActionLink("Import", "Index", "OpmlImporter")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                    }
                 </ul>
             </div>
         </div>
