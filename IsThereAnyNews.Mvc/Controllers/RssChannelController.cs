@@ -9,19 +9,16 @@ namespace IsThereAnyNews.Mvc.Controllers
     {
         private readonly IRssChannelsService rssChannelsService;
         private readonly IRssSubscriptionService rssSubscriptionService;
-        private readonly IRssChannelsService rssChannelsesService;
 
         public RssChannelController(
             IUserAuthentication authentication,
             ILoginService loginService,
             IRssChannelsService rssChannelsService,
-            IRssSubscriptionService rssSubscriptionService, 
-            IRssChannelsService rssChannelsesService)
+            IRssSubscriptionService rssSubscriptionService)
             : base(authentication, loginService)
         {
             this.rssChannelsService = rssChannelsService;
             this.rssSubscriptionService = rssSubscriptionService;
-            this.rssChannelsesService = rssChannelsesService;
         }
 
         [HttpGet]
@@ -33,14 +30,14 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         public ActionResult Index()
         {
-            var viewmodel = this.rssChannelsesService.LoadAllChannels();
+            var viewmodel = this.rssChannelsService.LoadAllChannels();
             return this.View("Index", viewmodel);
         }
 
         [Authorize]
         public ActionResult My()
         {
-            var viewmodel = this.rssChannelsesService.LoadAllChannelsOfCurrentUser();
+            var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
             return this.View("My", viewmodel);
         }
 
