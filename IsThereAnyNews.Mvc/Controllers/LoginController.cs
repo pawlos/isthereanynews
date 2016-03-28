@@ -10,12 +10,13 @@
     using ViewModels.Login;
 
     [AllowAnonymous]
-    public class LoginController : BaseController
+    public class LoginController : Controller
     {
-        public LoginController(
-            IUserAuthentication authentication,
-            ILoginService loginService) : base(authentication, loginService)
+        private readonly ILoginService loginService;
+
+        public LoginController(ILoginService loginService)
         {
+            this.loginService = loginService;
         }
 
         public ActionResult Index()
@@ -29,12 +30,6 @@
             viewmodel.Providers = providers;
 
             return this.View("Index", viewmodel);
-        }
-
-        public ActionResult Logout()
-        {
-            HttpContext.GetOwinContext().Authentication.SignOut(ConstantStrings.AuthorizationCookieName);
-            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult SocialLogin(AuthenticationTypeProvider id)
@@ -55,8 +50,5 @@
             var viewmodel = new LoginSuccessViewModel();
             return this.View("Success", viewmodel);
         }
-
-
     }
-
 }

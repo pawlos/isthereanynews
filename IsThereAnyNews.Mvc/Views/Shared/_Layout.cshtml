@@ -21,7 +21,7 @@
                     <li>@Html.ActionLink("Browse", "Index", "RssChannel")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                        <li>@Html.ActionLink("Logout", "Index", "Logout")</li>
                         <li>@Html.ActionLink("My channels", "My", "RssChannel")</li>
                         <li>@Html.ActionLink("Import", "Index", "OpmlImporter")</li>
                     }
