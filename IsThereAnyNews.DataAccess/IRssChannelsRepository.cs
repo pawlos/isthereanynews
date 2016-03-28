@@ -12,5 +12,6 @@ namespace IsThereAnyNews.DataAccess
         List<long> GetIdByChannelUrl(List<string> urlstoChannels);
         RssChannel LoadRssChannel(long id);
         void UpdateRssLastUpdateTimeToDatabase(List<RssChannel> rssChannels);
+        void Blah();
     }
 }
