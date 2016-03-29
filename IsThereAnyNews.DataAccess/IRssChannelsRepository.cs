@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework.Models;
 
 namespace IsThereAnyNews.DataAccess
 {
     public interface IRssChannelsRepository
     {
-        List<RssChannel> LoadAllChannels();
+        List<RssChannelSubscriptionWithStatisticsData> LoadAllChannels();
         RssChannel Load(long id);
         List<RssChannel> LoadAllChannelsForUser(long userIdToLoad);
         void SaveToDatabase(List<RssChannel> channelsNewToGlobalSpace);

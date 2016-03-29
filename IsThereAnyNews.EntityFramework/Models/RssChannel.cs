@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
@@ -20,5 +21,8 @@ namespace IsThereAnyNews.EntityFramework.Models
         public string Title { get; set; }
         public string Url { get; set; }
         public DateTimeOffset RssLastUpdatedTime { get; set; }
+
+        public List<RssChannelSubscription> Subscriptions { get; set; }
+        public List<RssEntry> RssEntries { get; set; }
     }
 }

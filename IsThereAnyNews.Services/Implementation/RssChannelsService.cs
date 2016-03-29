@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Caching;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.ViewModels;
@@ -23,7 +22,7 @@ namespace IsThereAnyNews.Services.Implementation
             IRssChannelsSubscriptionsRepository channelsSubscriptionRepository,
             IUserRepository usersRepository,
             IRssEntriesToReadRepository rssEntriesToReadRepository,
-            IUserAuthentication authentication, 
+            IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
             ISessionProvider session)
         {
@@ -39,7 +38,15 @@ namespace IsThereAnyNews.Services.Implementation
 
         public RssChannelsIndexViewModel LoadAllChannels()
         {
-            var loadAllChannels = this.channelsRepository.LoadAllChannels();
+            var loadAllChannels = this.channelsRepository.LoadAllChannels()
+                .Select(c => new RssChannelWithStatisticsViewModel(
+                    c.Id,
+                    c.Created,
+                    c.RssEntriesCount,
+                    c.SubscriptionsCount,
+                    c.Title,
+                    c.Updated))
+                .ToList();
             var viewmodel = new RssChannelsIndexViewModel(loadAllChannels);
             return viewmodel;
         }

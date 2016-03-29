@@ -7,7 +7,7 @@ namespace IsThereAnyNews.Mvc.Controllers
     [AllowAnonymous]
     public class HomeController : BaseController
     {
-        private IRssChannelsRepository rssRepository;
+        private readonly IRssChannelsRepository rssRepository;
 
         public ActionResult Index()
         {

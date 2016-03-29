@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
@@ -23,9 +24,25 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return rssChannels;
         }
 
-        public List<RssChannel> LoadAllChannels()
+        public List<RssChannelSubscriptionWithStatisticsData> LoadAllChannels()
         {
-            return this.database.RssChannels.ToList();
+            return this.database
+                .RssChannels
+                .Include(r => r.Subscriptions)
+                .Include(r => r.RssEntries)
+                .Select(ProjectToRssChannelSubscriptionWithStatisticsData)
+                .ToList();
+        }
+
+        private RssChannelSubscriptionWithStatisticsData ProjectToRssChannelSubscriptionWithStatisticsData(RssChannel model)
+        {
+            return new RssChannelSubscriptionWithStatisticsData(
+                model.Id,
+                model.Title,
+                model.Subscriptions.Count(),
+                model.RssEntries.Count(),
+                model.Created,
+                model.Updated);
         }
 
         public RssChannel Load(long id)
@@ -186,6 +203,31 @@ namespace IsThereAnyNews.DataAccess.Implementation
             var rssChannels = x.Select(b => new RssChannel(b, b)).ToList();
             this.database.RssChannels.AddRange(rssChannels);
             this.database.SaveChanges();
+        }
+    }
+
+    public class RssChannelSubscriptionWithStatisticsData
+    {
+        public long Id { get; set; }
+        public string Title { get; set; }
+        public int SubscriptionsCount { get; set; }
+        public int RssEntriesCount { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
+
+        public RssChannelSubscriptionWithStatisticsData(
+            long id,
+            string title,
+            int subscriptionsCount,
+            int i,
+            DateTime created, DateTime updated)
+        {
+            Id = id;
+            Title = title;
+            SubscriptionsCount = subscriptionsCount;
+            RssEntriesCount = i;
+            Created = created;
+            Updated = updated;
         }
     }
 }

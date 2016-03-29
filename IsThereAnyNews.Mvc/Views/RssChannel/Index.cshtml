@@ -6,10 +6,19 @@
 }
 
 <h2>title</h2>
-
-@foreach (var channel in Model.LoadAllChannels)
-{
-    <div>
-        <span>@Html.ActionLink(channel.Title, "Public", "RssChannel", new { id = channel.Id }, null)</span>
-    </div>
-}
+<div class="container">
+    @foreach (var channel in Model.AllChannels)
+    {
+        <div>
+            <button class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+                <div>@Html.ActionLink(channel.Title, "Public", "RssChannel", new {id = channel.Id}, null)</div>
+                <div>
+                    <span>Created: @channel.Created</span>
+                    <span>Last update: @channel.Updated</span>
+                    <span>Subscribers: @channel.SubscriptionsCount</span>
+                    <span>Rss entries: @channel.RssEntriesCount</span>
+                </div>
+            </button>
+        </div>
+    }
+</div>
