@@ -7,18 +7,51 @@
 
 <h2>title</h2>
 <div class="container">
-    @foreach (var channel in Model.AllChannels)
-    {
-        <div>
-            <button class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
-                <div>@Html.ActionLink(channel.Title, "Public", "RssChannel", new {id = channel.Id}, null)</div>
-                <div>
-                    <span>Created: @channel.Created</span>
-                    <span>Last update: @channel.Updated</span>
-                    <span>Subscribers: @channel.SubscriptionsCount</span>
-                    <span>Rss entries: @channel.RssEntriesCount</span>
-                </div>
+    <div class="col-lg-4">
+        @foreach (var channel in Model.AllChannels)
+        {
+            <button data-rss-feed-address="@Url.Action("Public", "RssChannel", new { id = channel.Id })"
+                    class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+                <div>@channel.Title</div>
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@channel.Created
+                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>@channel.Updated
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>@channel.SubscriptionsCount
+                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@channel.RssEntriesCount
             </button>
-        </div>
-    }
+        }
+    </div>
+    <div class="col-lg-8">
+        <div class="nocss-rss-container"></div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    
+    var onSuccessGetRssEntries = function (data, status) {
+        $(".nocss-rss-container").html(data);
+    };
+
+    var onErrorGetRssEntries = function (data, status) {
+        console.log("onErrorGetRssEntries");
+    };
+
+    var onRssChannelClick = function (e) {
+        var button = $(e.currentTarget);
+        var urlAddress = button.data("rss-feed-address");
+
+        var ajaxOptions = {
+            type: "GET",
+            dataType: "html",
+            url: urlAddress,
+            success: onSuccessGetRssEntries,
+            error: onErrorGetRssEntries
+        }
+
+        $.ajax(ajaxOptions);
+    }
+
+    $(document).ready(function () {
+        $(".nocss-rsschannel").on("click", onRssChannelClick);
+        $(".nocss-rss-container").on("click", ".nocss-view-rss-entry", onMarkViewedClick);
+    });
+</script>

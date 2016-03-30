@@ -26,6 +26,11 @@ namespace IsThereAnyNews.Mvc.Controllers
         public ActionResult Public(long id)
         {
             var viewmodel = this.rssChannelsService.GetViewModelFormChannelId(id);
+            if (Request.IsAjaxRequest())
+            {
+                return this.PartialView("Public", viewmodel);
+            }
+
             return this.View("Public", viewmodel);
         }
 

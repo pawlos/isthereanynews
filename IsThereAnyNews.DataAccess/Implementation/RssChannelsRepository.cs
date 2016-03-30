@@ -81,7 +81,10 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public RssChannel LoadRssChannel(long id)
         {
-            return this.database.RssChannels.Single(x => x.Id == id);
+            return this.database
+                .RssChannels
+                .Include(channel => channel.RssEntries)
+                .Single(x => x.Id == id);
         }
 
         public void UpdateRssLastUpdateTimeToDatabase(List<RssChannel> rssChannels)
