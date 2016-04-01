@@ -5,6 +5,8 @@ using IsThereAnyNews.EntityFramework.Models;
 
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Collections.Generic;
+
     public class UserRepository : IUserRepository
     {
         private readonly ItanDatabaseContext database;
@@ -33,6 +35,11 @@ namespace IsThereAnyNews.DataAccess.Implementation
         {
             var single = this.database.Users.Single(user => user.Id == userId);
             return single.LastReadTime;
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return this.database.Users.ToList();
         }
     }
 }

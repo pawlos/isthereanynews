@@ -24,7 +24,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return rssChannels;
         }
 
-        public List<RssChannelSubscriptionWithStatisticsData> LoadAllChannels()
+        public List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics()
         {
             return this.database
                 .RssChannels
@@ -206,6 +206,11 @@ namespace IsThereAnyNews.DataAccess.Implementation
             var rssChannels = x.Select(b => new RssChannel(b, b)).ToList();
             this.database.RssChannels.AddRange(rssChannels);
             this.database.SaveChanges();
+        }
+
+        public List<RssChannel> LoadAllChannels()
+        {
+            return this.database.RssChannels.ToList();
         }
     }
 

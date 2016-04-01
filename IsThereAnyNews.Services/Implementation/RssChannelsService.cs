@@ -38,7 +38,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public RssChannelsIndexViewModel LoadAllChannels()
         {
-            var loadAllChannels = this.channelsRepository.LoadAllChannels()
+            var loadAllChannels = this.channelsRepository.LoadAllChannelsWithStatistics()
                 .Select(c => new RssChannelWithStatisticsViewModel(
                     c.Id,
                     c.Created,

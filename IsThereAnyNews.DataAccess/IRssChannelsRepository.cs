@@ -6,7 +6,7 @@ namespace IsThereAnyNews.DataAccess
 {
     public interface IRssChannelsRepository
     {
-        List<RssChannelSubscriptionWithStatisticsData> LoadAllChannels();
+        List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics();
         RssChannel Load(long id);
         List<RssChannel> LoadAllChannelsForUser(long userIdToLoad);
         void SaveToDatabase(List<RssChannel> channelsNewToGlobalSpace);
@@ -14,5 +14,7 @@ namespace IsThereAnyNews.DataAccess
         RssChannel LoadRssChannel(long id);
         void UpdateRssLastUpdateTimeToDatabase(List<RssChannel> rssChannels);
         void Blah();
+
+        List<RssChannel> LoadAllChannels();
     }
 }
