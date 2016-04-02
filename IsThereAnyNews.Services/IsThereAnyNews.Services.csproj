@@ -70,6 +70,7 @@
     <Compile Include="IOpmlImporterService.cs" />
     <Compile Include="IRssChannelsService.cs" />
     <Compile Include="IUserAuthentication.cs" />
+    <Compile Include="Implementation\TestService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">

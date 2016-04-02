@@ -38,5 +38,11 @@
             this.testService.CreateSubscriptions();
             return this.RedirectToAction("Index");
         }
+
+        public ActionResult CreateRssToRead()
+        {
+            this.testService.CreateRssToRead();
+            return this.RedirectToAction("Index");
+        }
     }
 }
