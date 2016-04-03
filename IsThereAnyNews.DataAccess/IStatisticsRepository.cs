@@ -6,7 +6,7 @@ namespace IsThereAnyNews.DataAccess
     public interface IStatisticsRepository
     {
         List<ChannelWithSubscriptionCount> GetToReadChannels(int count);
-        void GetUsersThatReadMostNews(int i);
-        void GetNewsThatWasReadMost(int i);
+        List<UserWithStatistics> GetUsersThatReadMostNews(int i);
+        List<RssStatistics> GetNewsThatWasReadMost(int i);
     }
 }

@@ -1,8 +1,12 @@
-﻿@model dynamic
+﻿@model IsThereAnyNews.Services.Implementation.NewsStatisticsViewModel
 
 @{
     ViewBag.Title = "title";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+@foreach (var news in Model.List)
+{
+    <h1>@news.Name</h1>
+    <h2>Subscribers: @news.Count</h2>
+}

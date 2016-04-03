@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
@@ -32,6 +33,6 @@ namespace IsThereAnyNews.EntityFramework.Models
         public string PreviewText { get; set; }
         public string RssId { get; set; }
 
-        virtual public RssEntryToRead RssEntryToRead { get; set; }
+        public List<RssEntryToRead> RssEntryToRead { get; set; }
     }
 }

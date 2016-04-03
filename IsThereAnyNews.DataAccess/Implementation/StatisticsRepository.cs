@@ -38,15 +38,73 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return projection;
         }
 
-        public void GetUsersThatReadMostNews(int i)
+        public List<UserWithStatistics> GetUsersThatReadMostNews(int i)
         {
-            throw new System.NotImplementedException();
+            var list = this.database.Users
+                .Include(x => x.RssSubscriptionList)
+                .Include(x => x.RssSubscriptionList.Select(c => c.RssEntriesToRead))
+                .Select(ProjectToUserStatistics)
+                .OrderByDescending(x => x.Count)
+                .Take(i)
+                .ToList();
+
+            return list;
         }
 
-        public void GetNewsThatWasReadMost(int i)
+        private UserWithStatistics ProjectToUserStatistics(User model)
         {
-            throw new System.NotImplementedException();
+            var projection = new UserWithStatistics
+            {
+                Name = model.DisplayName,
+                Id = model.Id,
+                Count = model.RssSubscriptionList
+                    .SelectMany(c => c.RssEntriesToRead)
+                    .Where(r => r.IsRead)
+                    .Count()
+            };
+            return projection;
         }
+
+        public List<RssStatistics> GetNewsThatWasReadMost(int i)
+        {
+            var list = this.database.RssEntries
+                .Include(x => x.RssEntryToRead)
+                .Select(ToRssStatistics)
+                .OrderByDescending(x => x.Count)
+                .Take(i)
+                .ToList();
+
+            return list;
+        }
+
+        private RssStatistics ToRssStatistics(RssEntry model)
+        {
+            var projection = new RssStatistics
+            {
+                Id = model.Id,
+                Name = model.Title,
+                Preview = model.PreviewText,
+                Count = model.RssEntryToRead.Count
+            };
+
+            return projection;
+        }
+
+    }
+
+    public class UserWithStatistics
+    {
+        public string Name { get; set; }
+        public long Id { get; set; }
+        public int Count { get; set; }
+    }
+
+    public class RssStatistics
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string Preview { get; set; }
+        public int Count { get; set; }
     }
 
     public class ChannelWithSubscriptionCount

@@ -34,16 +34,84 @@ namespace IsThereAnyNews.Services.Implementation
             return viewModel;
         }
 
-        public string GetUsersThatReadTheMost(int i)
+        private UserWithStatisticsViewModel ProjectToViewModel(UserWithStatistics model)
         {
-            this.statisticsRepository.GetUsersThatReadMostNews(i);
-            return string.Empty;
+            var viewModel = new UserWithStatisticsViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Count = model.Count
+            };
+
+            return viewModel;
         }
 
-        public string GetTopReadNews(int i)
+        private RssStatisticsViewModel ProjectToViewModel(RssStatistics model)
         {
-            this.statisticsRepository.GetNewsThatWasReadMost(i);
-            return string.Empty;
+            var viewModel = new RssStatisticsViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Count = model.Count,
+                Preview=model.Preview
+            };
+
+            return viewModel;
         }
+
+        public UserStatisticsViewModel GetUsersThatReadTheMost(int i)
+        {
+            var models = this.statisticsRepository.GetUsersThatReadMostNews(i);
+            var list = models.Select(ProjectToViewModel)
+                .ToList();
+            var userStatisticsViewModel = new UserStatisticsViewModel(list);
+            return userStatisticsViewModel;
+        }
+
+        public NewsStatisticsViewModel GetTopReadNews(int i)
+        {
+            var models = this.statisticsRepository.GetNewsThatWasReadMost(i);
+            var list = models.Select(ProjectToViewModel)
+                .ToList();
+            var userStatisticsViewModel = new NewsStatisticsViewModel(list);
+            return userStatisticsViewModel;
+        }
+    }
+
+    public class NewsStatisticsViewModel
+    {
+        public List<RssStatisticsViewModel> List { get; set; }
+
+        public NewsStatisticsViewModel(List<RssStatisticsViewModel> list)
+        {
+            List = list;
+        }
+    }
+
+    public class RssStatisticsViewModel
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public int Count { get; set; }
+        public string Preview { get; set; }
+    }
+
+   
+
+    public class UserStatisticsViewModel
+    {
+        public List<UserWithStatisticsViewModel> List { get; set; }
+
+        public UserStatisticsViewModel(List<UserWithStatisticsViewModel> list)
+        {
+            List = list;
+        }
+    }
+
+    public class UserWithStatisticsViewModel
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public int Count { get; set; }
     }
 }
