@@ -19,6 +19,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Browse", "Index", "RssChannel")</li>
+                    <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Logout", "Index", "Logout")</li>

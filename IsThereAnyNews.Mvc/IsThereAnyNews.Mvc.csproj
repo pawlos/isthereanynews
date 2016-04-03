@@ -194,6 +194,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OpmlImporterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,6 +227,10 @@
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
     <Content Include="Views\RssChannel\_Details.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Statistics\Index.cshtml" />
+    <Content Include="Views\Statistics\Channels.cshtml" />
+    <Content Include="Views\Statistics\News.cshtml" />
+    <Content Include="Views\Statistics\Users.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
