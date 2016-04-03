@@ -54,9 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\ChannelWithSubscriptionCountViewModel.cs" />
     <Compile Include="Implementation\RssSubscriptionService.cs" />
+    <Compile Include="Implementation\TopReadChannelsViewModel.cs" />
     <Compile Include="Implementation\UpdateService.cs" />
     <Compile Include="IRssSubscriptionService.cs" />
+    <Compile Include="IStatisticsService.cs" />
     <Compile Include="ITestService.cs" />
     <Compile Include="IUpdateService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -71,6 +74,7 @@
     <Compile Include="IRssChannelsService.cs" />
     <Compile Include="IUserAuthentication.cs" />
     <Compile Include="Implementation\TestService.cs" />
+    <Compile Include="Implementation\StatisticsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">

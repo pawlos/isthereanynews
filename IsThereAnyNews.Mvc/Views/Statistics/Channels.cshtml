@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model IsThereAnyNews.Services.Implementation.TopReadChannelsViewModel
 
 @{
     ViewBag.Title = "title";
@@ -6,3 +6,9 @@
 }
 
 <h2>title</h2>
+
+@foreach (var channel in Model.ViewModels)
+{
+    <h1>@channel.Title</h1>
+    <h2>Subscribers: @channel.SubscriptionCount</h2>
+}
