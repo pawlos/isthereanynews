@@ -33,6 +33,6 @@ namespace IsThereAnyNews.EntityFramework.Models
         public string PreviewText { get; set; }
         public string RssId { get; set; }
 
-        public List<RssEntryToRead> RssEntryToRead { get; set; }
+        public RssEntryToRead RssEntryToRead { get; set; }
     }
 }

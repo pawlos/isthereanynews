@@ -30,8 +30,5 @@ namespace IsThereAnyNews.EntityFramework.Models
         public RssChannelSubscription RssChannelSubscription { get; set; }
         [Required]
         public RssEntry RssEntry { get; set; }
-
-        public User User { get; set; }
-
     }
 }

@@ -67,8 +67,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssStatistics> GetNewsThatWasReadMost(int i)
         {
-            var list = this.database.RssEntries
-                .Include(x => x.RssEntryToRead)
+            var list = this.database.RssEntriesToRead
+                .Include(x => x.RssEntry)
                 .Select(ToRssStatistics)
                 .OrderByDescending(x => x.Count)
                 .Take(i)
@@ -77,14 +77,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return list;
         }
 
-        private RssStatistics ToRssStatistics(RssEntry model)
+        private RssStatistics ToRssStatistics(RssEntryToRead model)
         {
             var projection = new RssStatistics
             {
-                Id = model.Id,
-                Name = model.Title,
-                Preview = model.PreviewText,
-                Count = model.RssEntryToRead.Count
+                Id = model.RssEntry.Id,
+                Name = model.RssEntry.Title,
+                Preview = model.RssEntry.PreviewText,
             };
 
             return projection;
