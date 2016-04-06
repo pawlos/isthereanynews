@@ -2,5 +2,9 @@
   {
     "outputFile": "Content/IsThereAnyNews.css",
     "inputFile": "Content/IsThereAnyNews.scss"
+  },
+  {
+    "outputFile": "Content/font-awesome-4.5.0/scss/font-awesome.css",
+    "inputFile": "Content/font-awesome-4.5.0/scss/font-awesome.scss"
   }
 ]
