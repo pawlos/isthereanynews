@@ -6,11 +6,11 @@ namespace IsThereAnyNews.RssChannelUpdater
     {
         public RssUpdateRegistry()
         {
-            //Schedule<RssUpdateJob>()
-              //  .NonReentrant()
-                //.ToRunNow()
-                //.AndEvery(1)
-                //.Minutes();
+            Schedule<RssUpdateJob>()
+                .NonReentrant()
+                .ToRunNow()
+                .AndEvery(1)
+                .Minutes();
         }
     }
 }
