@@ -5,14 +5,17 @@
     {
         <div class="row">
             <div class="col-lg-12">
-                <div class="row text-success">
-                    <span>@entry.RssEntryViewModel.Title</span>
-                    <span role="button"
-                          data-toggle="collapse"
-                          data-mark-viewed-url="@Url.Action("MarkRssEntryViewed", new {id = @entry.Id})"
-                          href="#rss-@entry.Id"
-                          class="glyphicon glyphicon-plus-sign nocss-view-rss-entry">
-                    </span>
+                <div class="row text-default">
+                    <h4>
+                        @entry.RssEntryViewModel.Title
+                        <small role="button"
+                           data-toggle="collapse"
+                           data-mark-viewed-url="@Url.Action("MarkRssEntryViewed", new {id = @entry.Id})"
+                           href="#rss-@entry.Id"
+                           class="small">
+                            show more
+                        </small>
+                    </h4>
                 </div>
                 <div class="row collapse" id="rss-@entry.Id">
                     <div class="row col-lg-12">
@@ -56,7 +59,7 @@
                         </span>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     }
