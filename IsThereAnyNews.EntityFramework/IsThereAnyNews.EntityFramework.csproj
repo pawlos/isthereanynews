@@ -69,6 +69,7 @@
       <DependentUpon>201603292150544_navigation properties.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\FeatureRequest.cs" />
     <Compile Include="Models\IModel.cs" />
     <Compile Include="Models\RssChannelSubscription.cs" />
     <Compile Include="Models\RssEntry.cs" />

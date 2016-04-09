@@ -163,8 +163,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\font-awesome-4.5.0\css\font-awesome.css" />
-    <Content Include="Content\font-awesome-4.5.0\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome-4.5.0\scss\font-awesome.css">
       <DependentUpon>font-awesome.scss</DependentUpon>
@@ -203,6 +201,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OpmlImporterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RssItemActionController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
@@ -258,6 +257,7 @@
     <Content Include="Views\Statistics\Channels.cshtml" />
     <Content Include="Views\Statistics\News.cshtml" />
     <Content Include="Views\Statistics\Users.cshtml" />
+    <Content Include="Views\RssChannel\_RssActions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -22,41 +22,7 @@
                         <div>@Html.Raw(entry.RssEntryViewModel.PreviewText)</div>
                     </div>
                     <div class="row col-lg-12">
-                        <span role="button"
-                              class="btn-xs btn-error nocss-mark-interesting"
-                              data-unsubscribe-url="@Url.Action("Unsubscribe", new {id = Model.SubscriptionId})">
-                            <i class="fa fa-thumbs-up"></i>
-                        </span>
-                        <span role="button"
-                              class="btn-xs btn-error nocss-mark-not-interesting"
-                              data-unsubscribe-url="@Url.Action("Unsubscribe", new {id = Model.SubscriptionId})">
-                            <i class="fa fa-thumbs-down"></i>
-                        </span>
-                        <span role="button"
-                              class="btn-xs btn-error nocss-mark-unread"
-                              data-unsubscribe-url="@Url.Action("Unsubscribe", new {id = Model.SubscriptionId})">
-                            <i class="fa fa-undo"></i>
-                        </span>
-                        <span role="button"
-                              class="btn-xs btn-error nocss-share"
-                              data-unsubscribe-url="@Url.Action("Unsubscribe", new {id = Model.SubscriptionId})">
-                            <i class="fa fa-share-alt"></i>
-                        </span>
-                        <span role="button"
-                              class="btn-xs btn-error nocss-add-comment"
-                              data-unsubscribe-url="@Url.Action("Unsubscribe", new {id = Model.SubscriptionId})">
-                            <i class="fa fa-commenting-o"></i>
-                        </span>
-                        <span role="button"
-                              class="btn-xs btn-error nocss-open-full-article"
-                              data-unsubscribe-url="@Url.Action("Unsubscribe", new {id = Model.SubscriptionId})">
-                            <i class="fa fa-external-link"></i>
-                        </span>
-                        <span role="button"
-                              class="btn-xs btn-error nocss-mark-read-later"
-                              data-unsubscribe-url="@Url.Action("Unsubscribe", new { id = Model.SubscriptionId })">
-                            <i class="fa fa-clock-o"></i>
-                        </span>
+                        @Html.Partial("_RssActions", entry)
                     </div>
                 </div>
 

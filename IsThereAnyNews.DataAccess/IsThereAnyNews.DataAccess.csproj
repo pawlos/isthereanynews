@@ -54,6 +54,7 @@
     <Compile Include="Implementation\SocialLoginRepository.cs" />
     <Compile Include="Implementation\UpdateRepository.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
+    <Compile Include="IRssActionRepository.cs" />
     <Compile Include="IRssChannelsSubscriptionsRepository.cs" />
     <Compile Include="IRssEntriesRepository.cs" />
     <Compile Include="IRssEntriesToReadRepository.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Implementation\RssChannelsRepository.cs" />
     <Compile Include="Implementation\RssEntriesRepository.cs" />
     <Compile Include="Implementation\StatisticsRepository.cs" />
+    <Compile Include="Implementation\RssActionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">

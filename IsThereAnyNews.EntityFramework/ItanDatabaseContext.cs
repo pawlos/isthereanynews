@@ -46,5 +46,6 @@ namespace IsThereAnyNews.EntityFramework
         public DbSet<SocialLogin> SocialLogins { get; set; }
         public DbSet<RssEntry> RssEntries { get; set; }
         public DbSet<RssEntryToRead> RssEntriesToRead { get; set; }
+        public DbSet<FeatureRequest> FeatureRequests { get; set; }
     }
 }
