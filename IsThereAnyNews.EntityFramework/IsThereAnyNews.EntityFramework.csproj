@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201603292150544_navigation properties.Designer.cs">
       <DependentUpon>201603292150544_navigation properties.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604091112317_feature request.cs" />
+    <Compile Include="Migrations\201604091112317_feature request.Designer.cs">
+      <DependentUpon>201604091112317_feature request.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\FeatureRequest.cs" />
     <Compile Include="Models\IModel.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603292150544_navigation properties.resx">
       <DependentUpon>201603292150544_navigation properties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604091112317_feature request.resx">
+      <DependentUpon>201604091112317_feature request.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
