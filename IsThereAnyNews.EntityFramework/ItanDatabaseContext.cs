@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.ModelConfiguration.Configuration;
 using System.Linq;
 using IsThereAnyNews.EntityFramework.Models;
 

@@ -12,5 +12,6 @@ namespace IsThereAnyNews.DataAccess
         DateTime GetUserLastReadTime(long userId);
 
         List<User> GetAllUsers();
+        void UpdateDisplayNames(List<User> emptyDisplay);
     }
 }

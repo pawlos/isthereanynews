@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.EntityFramework.Models;
+using Faker;
 
 namespace IsThereAnyNews.Services.Implementation
 {
@@ -24,10 +26,21 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void GenerateUsers()
         {
+            FixUsersWithEmptyNames();
             for (int i = 0; i < 1000; i++)
             {
                 this.usersRepository.CreateNewUser();
             }
+        }
+
+        private void FixUsersWithEmptyNames()
+        {
+            var emptyDisplay = this.usersRepository.GetAllUsers()
+                .Where(user => string.IsNullOrWhiteSpace(user.DisplayName))
+                .ToList();
+
+            emptyDisplay.ForEach(user => user.DisplayName = Name.FullName());
+            this.usersRepository.UpdateDisplayNames(emptyDisplay);
         }
 
         public void DuplicateChannels()

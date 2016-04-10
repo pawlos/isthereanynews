@@ -18,7 +18,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public User CreateNewUser()
         {
-            var user = new User();
+            var user = new User
+            {
+                DisplayName = Faker.Name.FullName(),
+                Email = Faker.Internet.Email()
+            };
+
             this.database.Users.Add(user);
             this.database.SaveChanges();
             return user;
@@ -40,6 +45,14 @@ namespace IsThereAnyNews.DataAccess.Implementation
         public List<User> GetAllUsers()
         {
             return this.database.Users.ToList();
+        }
+
+        public void UpdateDisplayNames(List<User> emptyDisplay)
+        {
+            var ids = emptyDisplay.Select(x => x.Id).ToList();
+            var users = this.database.Users.Where(user => ids.Contains(user.Id)).ToList();
+            emptyDisplay.ForEach(newname => users.Single(u => u.Id == newname.Id).DisplayName = newname.DisplayName);
+            this.database.SaveChanges();
         }
     }
 }
