@@ -27,23 +27,24 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics()
         {
-            return this.database
-                .RssChannels
-                .Include(r => r.Subscriptions)
-                .Include(r => r.RssEntries)
-                .Select(ProjectToRssChannelSubscriptionWithStatisticsData)
-                .ToList();
-        }
+            var f =
+                from channel in this.database.RssChannels
+                join subscription in this.database.RssChannelsSubscriptions
+                    on channel.Id equals subscription.RssChannelId into RCS
+                join entries in this.database.RssEntries
+                    on channel.Id equals entries.RssChannelId into RE
+                select
+                    new RssChannelSubscriptionWithStatisticsData
+                    {
+                        Id = channel.Id,
+                        Title = channel.Title,
+                        SubscriptionsCount = RCS.Count(),
+                        RssEntriesCount = RE.Count(),
+                        Created = channel.Created,
+                        Updated = channel.Updated
+                    };
 
-        private RssChannelSubscriptionWithStatisticsData ProjectToRssChannelSubscriptionWithStatisticsData(RssChannel model)
-        {
-            return new RssChannelSubscriptionWithStatisticsData(
-                model.Id,
-                model.Title,
-                model.Subscriptions.Count(),
-                model.RssEntries.Count(),
-                model.Created,
-                model.Updated);
+            return f.ToList();
         }
 
         public RssChannel Load(long id)
@@ -500,20 +501,5 @@ namespace IsThereAnyNews.DataAccess.Implementation
         public int RssEntriesCount { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
-
-        public RssChannelSubscriptionWithStatisticsData(
-            long id,
-            string title,
-            int subscriptionsCount,
-            int i,
-            DateTime created, DateTime updated)
-        {
-            Id = id;
-            Title = title;
-            SubscriptionsCount = subscriptionsCount;
-            RssEntriesCount = i;
-            Created = created;
-            Updated = updated;
-        }
     }
 }
