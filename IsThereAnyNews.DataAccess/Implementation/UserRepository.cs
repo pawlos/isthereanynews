@@ -1,4 +1,5 @@
 using System;
+using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models;
@@ -57,17 +58,18 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount()
         {
-            var userPublicProfiles = from U in this.database.Users
-                join S in this.database.RssChannelsSubscriptions
-                    on U.Id equals S.UserId
-                select new UserPublicProfile
-                {
-                    Id = U.Id,
-                    DisplayName = U.DisplayName,
-                    ChannelsCount = U.RssSubscriptionList.Count
-                };
+            var userPublicProfiles =
+               from U in this.database.Users
+               join S in this.database.RssChannelsSubscriptions
+                   on U.Id equals S.UserId
+               select new UserPublicProfile
+               {
+                   Id = U.Id,
+                   DisplayName = U.DisplayName,
+                   ChannelsCount = U.RssSubscriptionList.Count
+               };
 
-            return userPublicProfiles.ToList();
+            return userPublicProfiles.Distinct().ToList();
         }
     }
 

@@ -4,7 +4,7 @@ using System.Data.SqlTypes;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public sealed class User : IModel
+    public sealed class User : IModel, IEqualityComparer<User>
     {
         public User()
         {
@@ -21,5 +21,15 @@ namespace IsThereAnyNews.EntityFramework.Models
 
         public List<SocialLogin> SocialLogins { get; set; }
         public List<RssChannelSubscription> RssSubscriptionList { get; set; }
+
+        public bool Equals(User x, User y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(User obj)
+        {
+            return obj.Id.GetHashCode();
+        }
     }
 }
