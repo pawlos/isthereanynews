@@ -61,9 +61,12 @@ namespace IsThereAnyNews.Services.Implementation
                 {
                     rssChannel.RssLastUpdatedTime = feed.Items.Max(d => d.PublishDate);
                 }
+                this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
+
+                rssEntriesList.Clear();
             }
 
-            this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
+            rssChannels.Clear();
             this.rssChannelsRepository.UpdateRssLastUpdateTimeToDatabase(rssChannels);
         }
     }
