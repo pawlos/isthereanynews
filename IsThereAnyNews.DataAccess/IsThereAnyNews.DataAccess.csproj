@@ -67,6 +67,7 @@
     <Compile Include="IUpdateRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IRssChannelsRepository.cs" />
+    <Compile Include="IUsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\RssChannelsRepository.cs" />
     <Compile Include="Implementation\RssEntriesRepository.cs" />

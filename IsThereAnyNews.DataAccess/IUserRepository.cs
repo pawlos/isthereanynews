@@ -1,4 +1,5 @@
 using System;
+using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework.Models;
 
 namespace IsThereAnyNews.DataAccess
@@ -13,5 +14,6 @@ namespace IsThereAnyNews.DataAccess
 
         List<User> GetAllUsers();
         void UpdateDisplayNames(List<User> emptyDisplay);
+        List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount();
     }
 }

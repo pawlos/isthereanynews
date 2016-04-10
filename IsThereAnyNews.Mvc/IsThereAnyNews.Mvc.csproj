@@ -196,6 +196,7 @@
     <Compile Include="Controllers\RssItemActionController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -250,6 +251,7 @@
     <Content Include="Views\Statistics\News.cshtml" />
     <Content Include="Views\Statistics\Users.cshtml" />
     <Content Include="Views\RssChannel\_RssActions.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

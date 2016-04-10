@@ -54,5 +54,27 @@ namespace IsThereAnyNews.DataAccess.Implementation
             emptyDisplay.ForEach(newname => users.Single(u => u.Id == newname.Id).DisplayName = newname.DisplayName);
             this.database.SaveChanges();
         }
+
+        public List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount()
+        {
+            var userPublicProfiles = from U in this.database.Users
+                join S in this.database.RssChannelsSubscriptions
+                    on U.Id equals S.UserId
+                select new UserPublicProfile
+                {
+                    Id = U.Id,
+                    DisplayName = U.DisplayName,
+                    ChannelsCount = U.RssSubscriptionList.Count
+                };
+
+            return userPublicProfiles.ToList();
+        }
+    }
+
+    public class UserPublicProfile
+    {
+        public long Id { get; set; }
+        public string DisplayName { get; set; }
+        public int ChannelsCount { get; set; }
     }
 }

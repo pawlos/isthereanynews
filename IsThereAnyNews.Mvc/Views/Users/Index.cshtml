@@ -1,0 +1,15 @@
+﻿@model IsThereAnyNews.Services.Implementation.AllUsersPublicProfilesViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    @foreach (var profile in Model.Profiles)
+    {
+        <div class="col-lg-2">
+            <div>@profile.DisplayName</div>
+            <div><i class="fa fa-rss">@profile.ChannelsCount</i></div>
+        </div>
+    }
+</div>

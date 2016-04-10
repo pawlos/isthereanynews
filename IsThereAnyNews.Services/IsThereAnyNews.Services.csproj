@@ -67,6 +67,7 @@
     <Compile Include="IStatisticsService.cs" />
     <Compile Include="ITestService.cs" />
     <Compile Include="IUpdateService.cs" />
+    <Compile Include="IUsersService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ILoginService.cs" />
     <Compile Include="Implementation\ApplicationLoginService.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Implementation\TestService.cs" />
     <Compile Include="Implementation\StatisticsService.cs" />
     <Compile Include="Implementation\RssItemActionService.cs" />
+    <Compile Include="Implementation\UsersService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
