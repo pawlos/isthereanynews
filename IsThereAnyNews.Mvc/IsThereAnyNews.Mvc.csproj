@@ -246,7 +246,7 @@
     <Content Include="Content\font-awesome-4.5.0\scss\_variables.scss" />
     <Content Include="Scripts\jquery-2.2.2.min.map" />
     <None Include="Views\RssChannel\My.cshtml" />
-    <Content Include="Views\RssChannel\Public.cshtml" />
+    <Content Include="Views\RssChannel\_Public.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
     <Content Include="Views\RssChannel\_Details.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />

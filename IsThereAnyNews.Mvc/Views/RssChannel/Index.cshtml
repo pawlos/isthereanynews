@@ -26,7 +26,7 @@
 </div>
 
 <script type="text/javascript">
-    
+
     var onSuccessGetRssEntries = function (data, status) {
         $(".nocss-rss-container").html(data);
     };
@@ -34,6 +34,46 @@
     var onErrorGetRssEntries = function (data, status) {
         console.log("onErrorGetRssEntries");
     };
+
+    var onSuccessUnsubscribe = function (data, status) {
+        console.log("onSuccessUnsubscribe");
+    };
+    var onErrorUnsubscribe = function (data, status) {
+        console.log("onErrorUnsubscribe");
+    };
+
+    var onSuccessSubscribe = function (data, status) {
+        console.log("onSuccessSubscribe");
+    };
+    var onErrorSubscribe = function (data, status) {
+        console.log("onErrorSubscribe");
+    };
+
+    var onUnsubscribeClick = function (e) {
+        var button = $(e.target);
+        var urlAddress = button.data("unsubscribe-url");
+
+        var ajaxOptions = {
+            type: "post",
+            url: urlAddress,
+            success: onSuccessUnsubscribe,
+            error: onErrorUnsubscribe
+        }
+        $.ajax(ajaxOptions);
+    }
+
+    var onSubscribeClick = function (e) {
+        var button = $(e.target);
+        var urlAddress = button.data("subscribe-url");
+
+        var ajaxOptions = {
+            type: "post",
+            url: urlAddress,
+            success: onSuccessSubscribe,
+            error: onErrorSubscribe
+        }
+        $.ajax(ajaxOptions);
+    }
 
     var onRssChannelClick = function (e) {
         var button = $(e.currentTarget);
@@ -52,6 +92,7 @@
 
     $(document).ready(function () {
         $(".nocss-rsschannel").on("click", onRssChannelClick);
-        $(".nocss-rss-container").on("click", ".nocss-view-rss-entry", onMarkViewedClick);
+        $(".nocss-rss-container").on("click", ".nocss-unsubscribe", onUnsubscribeClick);
+        $(".nocss-rss-container").on("click", ".nocss-subscribe", onSubscribeClick);
     });
 </script>
