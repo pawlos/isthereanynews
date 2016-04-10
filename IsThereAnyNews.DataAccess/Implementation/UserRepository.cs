@@ -71,6 +71,15 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             return userPublicProfiles.Distinct().ToList();
         }
+
+        public User LoadUserPublicProfile(int id)
+        {
+            var user = this.database.Users
+                .Include(x => x.RssSubscriptionList)
+                .Include(x => x.RssSubscriptionList.Select(c => c.RssChannel))
+                .Single(x => x.Id==id);
+            return user;
+        }
     }
 
     public class UserPublicProfile

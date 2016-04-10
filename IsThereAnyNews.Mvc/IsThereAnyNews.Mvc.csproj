@@ -252,6 +252,7 @@
     <Content Include="Views\Statistics\Users.cshtml" />
     <Content Include="Views\RssChannel\_RssActions.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Profile.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

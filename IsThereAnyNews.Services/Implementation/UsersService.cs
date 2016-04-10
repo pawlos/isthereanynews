@@ -25,6 +25,22 @@ namespace IsThereAnyNews.Services.Implementation
             return viewmodel;
         }
 
+        public UserDetailedPublicProfileViewModel LoadUserPublicProfile(int id)
+        {
+            var publicProfile = this.usersRepository.LoadUserPublicProfile(id);
+            var userDetailedPublicProfileViewModel = new UserDetailedPublicProfileViewModel
+            {
+                DisplayName = publicProfile.DisplayName,
+                ChannelsCount = publicProfile.RssSubscriptionList.Count,
+                Channels = publicProfile.RssSubscriptionList.Distinct().Select(profile => new PublicProfileChannelInformation
+                {
+                    Id = profile.Id,
+                    Name = profile.Title,
+                }).ToList(),
+            };
+            return userDetailedPublicProfileViewModel;
+        }
+
         private UserPublicProfileViewModel ProjectToViewModel(UserPublicProfile model)
         {
             var viewModel = new UserPublicProfileViewModel
@@ -35,6 +51,19 @@ namespace IsThereAnyNews.Services.Implementation
             };
             return viewModel;
         }
+    }
+
+    public class PublicProfileChannelInformation
+    {
+        public long Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class UserDetailedPublicProfileViewModel
+    {
+        public string DisplayName { get; set; }
+        public int ChannelsCount { get; set; }
+        public List<PublicProfileChannelInformation> Channels { get; set; }
     }
 
     public class AllUsersPublicProfilesViewModel

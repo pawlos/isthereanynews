@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public sealed class RssChannel : IModel
+    public sealed class RssChannel : IModel,IEqualityComparer<RssChannel>
     {
         public RssChannel() : this(string.Empty, string.Empty)
         {
@@ -24,5 +24,15 @@ namespace IsThereAnyNews.EntityFramework.Models
 
         public List<RssChannelSubscription> Subscriptions { get; set; }
         public List<RssEntry> RssEntries { get; set; }
+
+        public bool Equals(RssChannel x, RssChannel y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(RssChannel obj)
+        {
+            return obj.Id.GetHashCode();
+        }
     }
 }

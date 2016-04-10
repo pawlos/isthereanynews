@@ -17,5 +17,11 @@ namespace IsThereAnyNews.Mvc.Controllers
             var usersPublicProfileViewModel = this.usersService.LoadAllUsersPublicProfile();
             return this.View("Index", usersPublicProfileViewModel);
         }
+
+        public ActionResult Profile(int id)
+        {
+            var userPublicProfile = this.usersService.LoadUserPublicProfile(id);
+            return this.View("Profile", userPublicProfile);
+        }
     }
 }

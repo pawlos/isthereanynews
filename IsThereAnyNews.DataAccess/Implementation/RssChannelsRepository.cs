@@ -44,7 +44,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
                         Updated = channel.Updated
                     };
 
-            return f.ToList();
+            return f.Distinct().ToList();
         }
 
         public RssChannel Load(long id)
