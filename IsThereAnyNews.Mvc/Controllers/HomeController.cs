@@ -25,6 +25,7 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         public ActionResult Blah()
         {
+            rssRepository.Blah();
             return this.RedirectToAction("Index");
         }
     }
