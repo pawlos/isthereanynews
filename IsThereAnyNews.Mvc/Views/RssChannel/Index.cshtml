@@ -13,10 +13,10 @@
             <button data-rss-feed-address="@Url.Action("Public", "RssChannel", new { id = channel.Id })"
                     class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
                 <div>@channel.Title</div>
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>@channel.Created
-                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>@channel.Updated
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>@channel.SubscriptionsCount
-                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>@channel.RssEntriesCount
+                <i class="fa fa-calendar"></i>@channel.Created
+                <i class="fa fa-refresh"></i>@channel.Updated
+                <i class="fa fa-user"></i>@channel.SubscriptionsCount
+                <i class="fa fa-newspaper-o"></i>@channel.RssEntriesCount
             </button>
         }
     </div>
