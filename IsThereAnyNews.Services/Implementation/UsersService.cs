@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.DataAccess.Implementation;
@@ -37,6 +38,13 @@ namespace IsThereAnyNews.Services.Implementation
                     Id = profile.Id,
                     Name = profile.Title,
                 }).ToList(),
+                Events = publicProfile.EventsRssViewed.Select(e => new EventRssViewedViewModel
+                {
+                    Title = e.RssEntry.Title,
+                    Viewed = e.Created,
+                    RssId=e.RssEntryId
+                }).ToList(),
+                EventsCount = publicProfile.EventsRssViewed.Count()
             };
             return userDetailedPublicProfileViewModel;
         }
@@ -53,6 +61,13 @@ namespace IsThereAnyNews.Services.Implementation
         }
     }
 
+    public class EventRssViewedViewModel
+    {
+        public string Title { get; set; }
+        public DateTime Viewed { get; set; }
+        public long RssId { get; set; }
+    }
+
     public class PublicProfileChannelInformation
     {
         public long Id { get; set; }
@@ -64,6 +79,8 @@ namespace IsThereAnyNews.Services.Implementation
         public string DisplayName { get; set; }
         public int ChannelsCount { get; set; }
         public List<PublicProfileChannelInformation> Channels { get; set; }
+        public List<EventRssViewedViewModel> Events { get; set; }
+        public int EventsCount { get; set; }
     }
 
     public class AllUsersPublicProfilesViewModel

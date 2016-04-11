@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using IsThereAnyNews.EntityFramework.Models.Events;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework.Models
@@ -22,6 +23,7 @@ namespace IsThereAnyNews.EntityFramework.Models
 
         public List<SocialLogin> SocialLogins { get; set; }
         public List<RssChannelSubscription> RssSubscriptionList { get; set; }
+        public List<EventRssViewed> EventsRssViewed{ get; set; }
 
         public bool Equals(User x, User y)
         {

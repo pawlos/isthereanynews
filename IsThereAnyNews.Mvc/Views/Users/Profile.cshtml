@@ -6,13 +6,25 @@
 
 <div class="container">
     <div class="row">
-        <h2><i class="fa fa-user"></i>@Model.DisplayName</h2>
-        <h3><i class="fa fa-rss"></i>Channels: @Model.ChannelsCount</h3>
-        <div class="row">
-            @foreach (var channel in Model.Channels)
-            {
-                <div class="col-lg-9"><i class="fa fa-rss-square"></i>@channel.Name</div>
-            }
+        <div class="col-lg-6">
+            <h2><i class="fa fa-user"></i>@Model.DisplayName</h2>
+            <h3><i class="fa fa-rss"></i>Channels: @Model.ChannelsCount</h3>
+            <div class="row">
+                @foreach (var channel in Model.Channels)
+                {
+                    <div class="col-lg-9"><i class="fa fa-rss-square"></i>@channel.Name</div>
+                }
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row">Activities (@Model.EventsCount)</div>
+            <div class="row">
+                @foreach (var rssEvent in Model.Events)
+                {
+                    <div class="col-lg-4">@rssEvent.Viewed</div>
+                    <div class="col-lg-8">@rssEvent.Title</div>
+                }
+            </div>
         </div>
     </div>
 </div>
