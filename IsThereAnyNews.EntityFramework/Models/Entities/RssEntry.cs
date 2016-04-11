@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public class RssEntry : IModel
+    public class RssEntry : IEntity, ICreatable, IModifiable
     {
         public RssEntry() : this(string.Empty, DateTimeOffset.MinValue, string.Empty, string.Empty, 0)
         {

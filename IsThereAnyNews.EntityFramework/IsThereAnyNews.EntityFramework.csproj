@@ -72,15 +72,22 @@
     <Compile Include="Migrations\201604091112317_feature request.Designer.cs">
       <DependentUpon>201604091112317_feature request.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604112040349_first_event.cs" />
+    <Compile Include="Migrations\201604112040349_first_event.Designer.cs">
+      <DependentUpon>201604112040349_first_event.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\FeatureRequest.cs" />
-    <Compile Include="Models\IModel.cs" />
-    <Compile Include="Models\RssChannelSubscription.cs" />
-    <Compile Include="Models\RssEntry.cs" />
-    <Compile Include="Models\RssEntryToRead.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\SocialLogin.cs" />
-    <Compile Include="Models\RssChannel.cs" />
+    <Compile Include="Models\Events\EventRssViewed.cs" />
+    <Compile Include="Models\Entities\FeatureRequest.cs" />
+    <Compile Include="Models\Interfaces\ICreatable.cs" />
+    <Compile Include="Models\Interfaces\IModel.cs" />
+    <Compile Include="Models\Entities\RssChannelSubscription.cs" />
+    <Compile Include="Models\Entities\RssEntry.cs" />
+    <Compile Include="Models\Entities\RssEntryToRead.cs" />
+    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Entities\SocialLogin.cs" />
+    <Compile Include="Models\Entities\RssChannel.cs" />
+    <Compile Include="Models\Interfaces\IModifiable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +113,11 @@
     <EmbeddedResource Include="Migrations\201604091112317_feature request.resx">
       <DependentUpon>201604091112317_feature request.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604112040349_first_event.resx">
+      <DependentUpon>201604112040349_first_event.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

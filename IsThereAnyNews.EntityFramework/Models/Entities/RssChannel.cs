@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public sealed class RssChannel : IModel,IEqualityComparer<RssChannel>
+    public sealed class RssChannel : IEntity, ICreatable, IModifiable, IEqualityComparer<RssChannel>
     {
         public RssChannel() : this(string.Empty, string.Empty)
         {

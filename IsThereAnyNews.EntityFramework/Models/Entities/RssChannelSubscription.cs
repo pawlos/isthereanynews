@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public sealed class RssChannelSubscription : IModel
+    public sealed class RssChannelSubscription : IEntity, ICreatable, IModifiable
     {
         public RssChannelSubscription() : this(0, 0, string.Empty)
         {

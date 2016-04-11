@@ -1,9 +1,11 @@
 using System;
+using System.Data.SqlTypes;
+using IsThereAnyNews.EntityFramework.Models.Interfaces;
 using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public sealed class SocialLogin : IModel
+    public sealed class SocialLogin : IEntity, ICreatable, IModifiable
     {
         public SocialLogin() : this(string.Empty, AuthenticationTypeProvider.Unknown, -1)
         { }

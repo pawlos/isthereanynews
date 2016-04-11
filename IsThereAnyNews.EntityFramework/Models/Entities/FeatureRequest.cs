@@ -1,9 +1,11 @@
 using System;
+using System.Data.SqlTypes;
+using IsThereAnyNews.EntityFramework.Models.Interfaces;
 using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public class FeatureRequest : IModel
+    public class FeatureRequest : IEntity, ICreatable, IModifiable
     {
         public long Id { get; set; }
         public DateTime Created { get; set; }
@@ -15,6 +17,6 @@ namespace IsThereAnyNews.EntityFramework.Models
 
         public User User { get; set; }
         public RssEntry RssEntry { get; set; }
-        
+
     }
 }

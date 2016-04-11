@@ -2,6 +2,8 @@
 using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Events;
+using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework
 {
@@ -16,25 +18,42 @@ namespace IsThereAnyNews.EntityFramework
         public override int SaveChanges()
         {
             var now = DateTime.Now;
+            MakeCreationDateStamp(now);
+            UpdateEditionDateStamp(now);
+            return base.SaveChanges();
+        }
 
+        private void UpdateEditionDateStamp(DateTime now)
+        {
             var selectedEntityList = ChangeTracker.Entries()
-                .Where(x => x.Entity is IModel &&
-                            (x.State == EntityState.Added || x.State == EntityState.Modified))
+                            .Where(x => x.Entity is IModifiable && x.State == EntityState.Modified)
+                            .Select(e => e.Entity)
+                            .Cast<IModifiable>()
+                            .ToList();
+
+            selectedEntityList.ForEach(model =>
+            {
+                model.Updated = now;
+            });
+        }
+
+        private void MakeCreationDateStamp(DateTime now)
+        {
+            var selectedEntityList = ChangeTracker.Entries()
+                .Where(x => x.Entity is ICreatable && x.State == EntityState.Added)
                 .Select(e => e.Entity)
-                .Cast<IModel>()
+                .Cast<ICreatable>()
                 .ToList();
 
             selectedEntityList.ForEach(model =>
             {
-                if (model.Created == default(DateTime))
+                model.Created = now;
+                var m = model as IModifiable;
+                if (m != null)
                 {
-                    model.Created = now;
+                    m.Updated = now;
                 }
-
-                model.Updated = now;
             });
-
-            return base.SaveChanges();
         }
 
         public DbSet<User> Users { get; set; }
@@ -44,5 +63,6 @@ namespace IsThereAnyNews.EntityFramework
         public DbSet<RssEntry> RssEntries { get; set; }
         public DbSet<RssEntryToRead> RssEntriesToRead { get; set; }
         public DbSet<FeatureRequest> FeatureRequests { get; set; }
+        public DbSet<EventRssViewed> EventsRssViewed { get; set; }
     }
 }

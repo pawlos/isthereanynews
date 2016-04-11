@@ -62,6 +62,7 @@
     <Compile Include="IRssChannelsSubscriptionsRepository.cs" />
     <Compile Include="IRssEntriesRepository.cs" />
     <Compile Include="IRssEntriesToReadRepository.cs" />
+    <Compile Include="IRssEventRepository.cs" />
     <Compile Include="ISocialLoginRepository.cs" />
     <Compile Include="IStatisticsRepository.cs" />
     <Compile Include="IUpdateRepository.cs" />

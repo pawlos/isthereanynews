@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework.Models
 {
-    public sealed class User : IModel, IEqualityComparer<User>
+    public sealed class User : IEntity, ICreatable, IModifiable, IEqualityComparer<User>
     {
         public User()
         {

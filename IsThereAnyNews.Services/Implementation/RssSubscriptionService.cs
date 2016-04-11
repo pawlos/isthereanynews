@@ -13,12 +13,14 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly ISessionProvider sessionProvider;
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
         private readonly IRssEntriesToReadRepository rssToReadRepository;
+        private readonly IRssEventRepository rssEventsRepository;
 
-        public RssSubscriptionService(ISessionProvider sessionProvider, IRssChannelsSubscriptionsRepository rssSubscriptionsRepository, IRssEntriesToReadRepository rssToReadRepository)
+        public RssSubscriptionService(ISessionProvider sessionProvider, IRssChannelsSubscriptionsRepository rssSubscriptionsRepository, IRssEntriesToReadRepository rssToReadRepository, IRssEventRepository rssEventsRepository)
         {
             this.sessionProvider = sessionProvider;
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
             this.rssToReadRepository = rssToReadRepository;
+            this.rssEventsRepository = rssEventsRepository;
         }
 
         public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(long subscriptionId)
@@ -51,6 +53,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             this.rssToReadRepository.MarkEntryViewedByUser(currentUserId, rssToReadId);
+            this.rssEventsRepository.AddEventRssViewed(currentUserId, rssToReadId);
         }
 
         public void UnsubscribeCurrentUserFromChannelId(long id)
