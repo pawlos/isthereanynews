@@ -18,10 +18,21 @@ namespace IsThereAnyNews.Mvc.Controllers
             return this.View("Index", usersPublicProfileViewModel);
         }
 
-        public ActionResult Profile(int id)
+        public ActionResult Profile(long id)
         {
             var userPublicProfile = this.usersService.LoadUserPublicProfile(id);
             return this.View("Profile", userPublicProfile);
         }
+
+        [HttpPost]
+        public ActionResult Subscribe(SubscribeToUserActivityDto model)
+        {
+            return this.RedirectToAction("Profile", new { id = model.Id });
+        }
+    }
+
+    public class SubscribeToUserActivityDto
+    {
+        public long Id { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.ServiceModel.Syndication;
 using System.Xml;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Events;
 
 namespace IsThereAnyNews.Services.Implementation
 {
@@ -13,15 +14,17 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IUpdateRepository updateRepository;
         private readonly IRssEntriesRepository rssEntriesRepository;
         private readonly IRssChannelsRepository rssChannelsRepository;
+        private readonly IRssChannelUpdateRepository rssChannelsUpdatedRepository;
 
         public UpdateService(
             IUpdateRepository updateRepository,
             IRssEntriesRepository rssEntriesRepository,
-            IRssChannelsRepository rssChannelsRepository)
+            IRssChannelsRepository rssChannelsRepository, IRssChannelUpdateRepository rssChannelsUpdatedRepository)
         {
             this.updateRepository = updateRepository;
             this.rssEntriesRepository = rssEntriesRepository;
             this.rssChannelsRepository = rssChannelsRepository;
+            this.rssChannelsUpdatedRepository = rssChannelsUpdatedRepository;
         }
 
         public void UpdateGlobalRss()
@@ -62,6 +65,13 @@ namespace IsThereAnyNews.Services.Implementation
                     rssChannel.RssLastUpdatedTime = feed.Items.Max(d => d.PublishDate);
                 }
                 this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
+
+                var rssChannelUpdated = new EventRssChannelUpdated
+                {
+                    RssChannelId = rssChannel.Id
+                };
+
+                this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
 
                 rssEntriesList.Clear();
             }

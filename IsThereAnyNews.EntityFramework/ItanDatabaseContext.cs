@@ -64,5 +64,6 @@ namespace IsThereAnyNews.EntityFramework
         public DbSet<RssEntryToRead> RssEntriesToRead { get; set; }
         public DbSet<FeatureRequest> FeatureRequests { get; set; }
         public DbSet<EventRssViewed> EventsRssViewed { get; set; }
+        public DbSet<EventRssChannelUpdated> RssChannelUpdates { get; set; }
     }
 }

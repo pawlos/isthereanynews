@@ -15,6 +15,6 @@ namespace IsThereAnyNews.DataAccess
         List<User> GetAllUsers();
         void UpdateDisplayNames(List<User> emptyDisplay);
         List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount();
-        User LoadUserPublicProfile(int id);
+        User LoadUserPublicProfile(long id);
     }
 }

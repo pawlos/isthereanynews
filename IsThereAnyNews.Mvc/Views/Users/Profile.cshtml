@@ -16,7 +16,7 @@
                 }
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="row">Activities (@Model.EventsCount)</div>
             <div class="row">
                 @foreach (var rssEvent in Model.Events)
@@ -25,6 +25,13 @@
                     <div class="col-lg-8">@rssEvent.Title</div>
                 }
             </div>
+        </div>
+        <div class="col-lg-1">
+            @using (Html.BeginForm("Subscribe", "Users", FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.ViewingUserId)
+                <input type="submit" role="button" class="btn btn-primary" value="subscribe" />
+            }
         </div>
     </div>
 </div>

@@ -76,9 +76,18 @@
     <Compile Include="Migrations\201604112040349_first_event.Designer.cs">
       <DependentUpon>201604112040349_first_event.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604171153307_rsschannel updated event.cs" />
+    <Compile Include="Migrations\201604171153307_rsschannel updated event.Designer.cs">
+      <DependentUpon>201604171153307_rsschannel updated event.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604182129222_table-name-change.cs" />
+    <Compile Include="Migrations\201604182129222_table-name-change.Designer.cs">
+      <DependentUpon>201604182129222_table-name-change.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Events\EventRssViewed.cs" />
     <Compile Include="Models\Entities\FeatureRequest.cs" />
+    <Compile Include="Models\Events\EventRssChannelUpdated.cs" />
     <Compile Include="Models\Interfaces\ICreatable.cs" />
     <Compile Include="Models\Interfaces\IModel.cs" />
     <Compile Include="Models\Entities\RssChannelSubscription.cs" />
@@ -115,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604112040349_first_event.resx">
       <DependentUpon>201604112040349_first_event.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604171153307_rsschannel updated event.resx">
+      <DependentUpon>201604171153307_rsschannel updated event.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604182129222_table-name-change.resx">
+      <DependentUpon>201604182129222_table-name-change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
