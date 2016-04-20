@@ -84,7 +84,13 @@
     <Compile Include="Migrations\201604182129222_table-name-change.Designer.cs">
       <DependentUpon>201604182129222_table-name-change.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604192147592_follow-user.cs" />
+    <Compile Include="Migrations\201604192147592_follow-user.Designer.cs">
+      <DependentUpon>201604192147592_follow-user.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entities\UserSubscription.cs" />
+    <Compile Include="Models\Entities\UserSubscriptionEntryToRead.cs" />
     <Compile Include="Models\Events\EventRssViewed.cs" />
     <Compile Include="Models\Entities\FeatureRequest.cs" />
     <Compile Include="Models\Events\EventRssChannelUpdated.cs" />
@@ -130,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604182129222_table-name-change.resx">
       <DependentUpon>201604182129222_table-name-change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604192147592_follow-user.resx">
+      <DependentUpon>201604192147592_follow-user.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

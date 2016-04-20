@@ -4,6 +4,7 @@ using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.EntityFramework.Models;
 using Faker;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.Services.Implementation
 {

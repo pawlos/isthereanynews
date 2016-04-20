@@ -1,4 +1,5 @@
 using System;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework.Models.Events

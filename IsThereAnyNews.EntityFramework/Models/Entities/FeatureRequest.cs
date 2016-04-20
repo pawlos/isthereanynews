@@ -1,5 +1,6 @@
 using System;
 using System.Data.SqlTypes;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 using IsThereAnyNews.SharedData;
 

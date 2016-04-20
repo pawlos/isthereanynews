@@ -27,12 +27,12 @@ namespace IsThereAnyNews.Mvc.Controllers
         [HttpPost]
         public ActionResult Subscribe(SubscribeToUserActivityDto model)
         {
-            return this.RedirectToAction("Profile", new { id = model.Id });
+            return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
         }
     }
 
     public class SubscribeToUserActivityDto
     {
-        public long Id { get; set; }
+        public long ViewingUserId { get; set; }
     }
 }

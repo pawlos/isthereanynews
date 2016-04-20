@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
-namespace IsThereAnyNews.EntityFramework.Models
+namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
     public sealed class RssChannelSubscription : IEntity, ICreatable, IModifiable
     {
@@ -22,12 +21,14 @@ namespace IsThereAnyNews.EntityFramework.Models
         public long Id { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
-        public long RssChannelId { get; set; }
-        public long UserId { get; set; }
+
         public string Title { get; set; }
 
         public User Subscriber { get; set; }
+        public long UserId { get; set; }
+
         public RssChannel RssChannel { get; set; }
+        public long RssChannelId { get; set; }
 
         public List<RssEntryToRead> RssEntriesToRead { get; set; }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.ViewModels
 {

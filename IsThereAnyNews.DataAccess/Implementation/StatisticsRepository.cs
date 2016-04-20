@@ -3,6 +3,7 @@ using IsThereAnyNews.EntityFramework;
 using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.DataAccess.Implementation
 {

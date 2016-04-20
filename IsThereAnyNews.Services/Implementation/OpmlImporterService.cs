@@ -4,6 +4,7 @@ using System.Xml;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.Services.Implementation
 {
