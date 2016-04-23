@@ -50,5 +50,11 @@
             this.testService.CreateRssViewedEvent();
             return this.RedirectToAction("Index");
         }
+
+        public ActionResult FixSubscriptions()
+        {
+            this.testService.FixSubscriptions();
+            return this.RedirectToAction("Index");
+        }
     }
 }

@@ -5,6 +5,7 @@ using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.EntityFramework.Models;
 using Faker;
 using Faker.Extensions;
+using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.Extensions;
 
@@ -19,19 +20,22 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
         private readonly IRssEntriesToReadRepository rssToReadRepository;
         private readonly IRssEventRepository rssEventRepository;
+        private readonly ItanDatabaseContext database;
 
         public TestService(
             IUserRepository usersRepository,
             IRssChannelsRepository rssChannelsRepository,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
             IRssEntriesToReadRepository rssToReadRepository,
-            IRssEventRepository rssEventRepository)
+            IRssEventRepository rssEventRepository,
+            ItanDatabaseContext database)
         {
             this.usersRepository = usersRepository;
             this.rssChannelsRepository = rssChannelsRepository;
             this.rssSubscriptionRepository = rssSubscriptionRepository;
             this.rssToReadRepository = rssToReadRepository;
             this.rssEventRepository = rssEventRepository;
+            this.database = database;
         }
 
         public void GenerateUsers()
@@ -119,6 +123,29 @@ namespace IsThereAnyNews.Services.Implementation
                 rssToReadRepository.MarkEntryViewedByUser(user.Id, entry.Id);
                 rssEventRepository.AddEventRssViewed(user.Id, entry.Id);
             }
+        }
+
+        public void FixSubscriptions()
+        {
+            List<RssChannelSubscription> rssChannelSubscriptions = this.database.RssChannelsSubscriptions.ToList();
+            List<IGrouping<long, RssChannelSubscription>> groupByUsers =
+                rssChannelSubscriptions.GroupBy(x => x.UserId).ToList();
+
+            foreach (IGrouping<long, RssChannelSubscription> userSubscription in groupByUsers)
+            {
+                var withDuplicate = userSubscription.GroupBy(x => x.RssChannelId).Where(g => g.Count() > 1);
+                {
+                    foreach (var duplicate in withDuplicate)
+                    {
+                        duplicate.Skip(1).ToList().ForEach(x => this.database.RssChannelsSubscriptions.Remove(x));
+                        if (duplicate.Count() > 1)
+                        {
+                            this.database.SaveChanges();
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
