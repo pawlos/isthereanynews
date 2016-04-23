@@ -103,26 +103,31 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void CreateRssViewedEvent()
         {
-            var users = this.usersRepository.GetAllUsers();
             for (int i = 0; i < 100; i++)
             {
-                var user = users.Random();
-                var channelSubscriptions = this.rssSubscriptionRepository.LoadAllSubscriptionsForUser(user.Id);
-                this.rssToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(user.Id, channelSubscriptions);
-                if (!channelSubscriptions.Any())
-                {
-                    continue;
-                }
-                var subscription = channelSubscriptions.Random();
-                var entryToReads = rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscription.Id);
-                if (!entryToReads.Any())
-                {
-                    continue;
-                }
-                var entry = entryToReads.Random();
-                rssToReadRepository.MarkEntryViewedByUser(user.Id, entry.Id);
-                rssEventRepository.AddEventRssViewed(user.Id, entry.Id);
+                ReadRandomRssEvent();
             }
+        }
+
+        public void ReadRandomRssEvent()
+        {
+            var users = this.usersRepository.GetAllUsers();
+            var user = users.Random();
+            var channelSubscriptions = this.rssSubscriptionRepository.LoadAllSubscriptionsForUser(user.Id);
+            this.rssToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(user.Id, channelSubscriptions);
+            if (!channelSubscriptions.Any())
+            {
+                return;
+            }
+            var subscription = channelSubscriptions.Random();
+            var entryToReads = rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscription.Id);
+            if (!entryToReads.Any())
+            {
+                return;
+            }
+            var entry = entryToReads.Random();
+            rssToReadRepository.MarkEntryViewedByUser(user.Id, entry.Id);
+            rssEventRepository.AddEventRssViewed(user.Id, entry.Id);
         }
 
         public void FixSubscriptions()

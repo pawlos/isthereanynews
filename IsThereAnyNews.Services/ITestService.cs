@@ -8,5 +8,6 @@ namespace IsThereAnyNews.Services
         void CreateRssToRead();
         void CreateRssViewedEvent();
         void FixSubscriptions();
+        void ReadRandomRssEvent();
     }
 }

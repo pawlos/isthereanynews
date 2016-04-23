@@ -11,6 +11,12 @@ namespace IsThereAnyNews.RssChannelUpdater
                 .ToRunNow()
                 .AndEvery(1)
                 .Minutes();
+
+            Schedule<RssReadersJob>()
+                .NonReentrant()
+                .ToRunNow()
+                .AndEvery(1)
+                .Minutes();
         }
     }
 }

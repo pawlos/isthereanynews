@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacRegistry.cs" />
+    <Compile Include="RssReadersJob.cs" />
     <Compile Include="RssUpdateJob.cs" />
     <Compile Include="IsThereAnyNewsScheduler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
