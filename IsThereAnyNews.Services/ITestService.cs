@@ -6,5 +6,6 @@ namespace IsThereAnyNews.Services
         void DuplicateChannels();
         void CreateSubscriptions();
         void CreateRssToRead();
+        void CreateRssViewedEvent();
     }
 }

@@ -88,6 +88,14 @@
     <Compile Include="Migrations\201604192147592_follow-user.Designer.cs">
       <DependentUpon>201604192147592_follow-user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604202032235_toread belongs to subscription.cs" />
+    <Compile Include="Migrations\201604202032235_toread belongs to subscription.Designer.cs">
+      <DependentUpon>201604202032235_toread belongs to subscription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604202057408_create user instead of delete trigger.cs" />
+    <Compile Include="Migrations\201604202057408_create user instead of delete trigger.Designer.cs">
+      <DependentUpon>201604202057408_create user instead of delete trigger.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\UserSubscription.cs" />
     <Compile Include="Models\Entities\UserSubscriptionEntryToRead.cs" />
@@ -139,6 +147,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604192147592_follow-user.resx">
       <DependentUpon>201604192147592_follow-user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604202032235_toread belongs to subscription.resx">
+      <DependentUpon>201604202032235_toread belongs to subscription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604202057408_create user instead of delete trigger.resx">
+      <DependentUpon>201604202057408_create user instead of delete trigger.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

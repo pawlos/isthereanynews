@@ -10,8 +10,6 @@ namespace IsThereAnyNews.DataAccess
     public interface IUserRepository
     {
         User CreateNewUser();
-        void UpdateUserLastReadTime(long userId, DateTime now);
-        DateTime GetUserLastReadTime(long userId);
 
         List<User> GetAllUsers();
         void UpdateDisplayNames(List<User> emptyDisplay);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework.Models.Entities
@@ -14,5 +15,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
 
         public long ObservedId { get; set; }
         public User Observed { get; set; }
+
+        public List<UserSubscriptionEntryToRead> EntriesToRead { get; set; }
     }
 }

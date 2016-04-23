@@ -44,5 +44,11 @@
             this.testService.CreateRssToRead();
             return this.RedirectToAction("Index");
         }
+
+        public ActionResult CreateRssViewedEvent()
+        {
+            this.testService.CreateRssViewedEvent();
+            return this.RedirectToAction("Index");
+        }
     }
 }

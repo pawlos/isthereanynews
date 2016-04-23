@@ -4,7 +4,9 @@ using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.EntityFramework.Models;
 using Faker;
+using Faker.Extensions;
 using IsThereAnyNews.EntityFramework.Models.Entities;
+using IsThereAnyNews.Extensions;
 
 namespace IsThereAnyNews.Services.Implementation
 {
@@ -16,13 +18,20 @@ namespace IsThereAnyNews.Services.Implementation
 
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
         private readonly IRssEntriesToReadRepository rssToReadRepository;
+        private readonly IRssEventRepository rssEventRepository;
 
-        public TestService(IUserRepository usersRepository, IRssChannelsRepository rssChannelsRepository, IRssChannelsSubscriptionsRepository rssSubscriptionRepository, IRssEntriesToReadRepository rssToReadRepository)
+        public TestService(
+            IUserRepository usersRepository,
+            IRssChannelsRepository rssChannelsRepository,
+            IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
+            IRssEntriesToReadRepository rssToReadRepository,
+            IRssEventRepository rssEventRepository)
         {
             this.usersRepository = usersRepository;
             this.rssChannelsRepository = rssChannelsRepository;
             this.rssSubscriptionRepository = rssSubscriptionRepository;
             this.rssToReadRepository = rssToReadRepository;
+            this.rssEventRepository = rssEventRepository;
         }
 
         public void GenerateUsers()
@@ -86,6 +95,30 @@ namespace IsThereAnyNews.Services.Implementation
 
             var rssSubscriptions = this.rssSubscriptionRepository.LoadAllSubscriptionsForUser(user.Id);
             this.rssToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(user.Id, rssSubscriptions);
+        }
+
+        public void CreateRssViewedEvent()
+        {
+            var users = this.usersRepository.GetAllUsers();
+            for (int i = 0; i < 100; i++)
+            {
+                var user = users.Random();
+                var channelSubscriptions = this.rssSubscriptionRepository.LoadAllSubscriptionsForUser(user.Id);
+                this.rssToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(user.Id, channelSubscriptions);
+                if (!channelSubscriptions.Any())
+                {
+                    continue;
+                }
+                var subscription = channelSubscriptions.Random();
+                var entryToReads = rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscription.Id);
+                if (!entryToReads.Any())
+                {
+                    continue;
+                }
+                var entry = entryToReads.Random();
+                rssToReadRepository.MarkEntryViewedByUser(user.Id, entry.Id);
+                rssEventRepository.AddEventRssViewed(user.Id, entry.Id);
+            }
         }
     }
 }

@@ -12,5 +12,8 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
 
         public long EventRssViewedId { get; set; }
         public EventRssViewed EventRssViewed { get; set; }
+
+        public long UserSubscriptionId { get; set; }
+        public UserSubscription Subscription { get; set; }
     }
 }

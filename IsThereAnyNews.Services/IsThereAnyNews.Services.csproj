@@ -97,6 +97,10 @@
       <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
       <Name>IsThereAnyNews.EntityFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Extensions\IsThereAnyNews.Extensions.csproj">
+      <Project>{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}</Project>
+      <Name>IsThereAnyNews.Extensions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
       <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
       <Name>IsThereAnyNews.SharedData</Name>

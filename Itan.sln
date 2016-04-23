@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Mvc", "IsThereAnyNews.Mvc\IsThereAnyNews.Mvc.csproj", "{ABA9E559-7CF6-454B-A7CC-721E48EB7045}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Autofac", "IsThereAnyNews.Autofac\IsThereAnyNews.Autofac.csproj", "{C06EDAA6-EE09-4ED1-85C4-A11DB07E5D4D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.RssChannelUpdater", "IsThereAnyNews.RssChannelUpdater\IsThereAnyNews.RssChannelUpdater.csproj", "{450E3A72-F217-44CE-8505-592B9B47D88B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Extensions", "IsThereAnyNews.Extensions\IsThereAnyNews.Extensions.csproj", "{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{450E3A72-F217-44CE-8505-592B9B47D88B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{450E3A72-F217-44CE-8505-592B9B47D88B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{450E3A72-F217-44CE-8505-592B9B47D88B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
