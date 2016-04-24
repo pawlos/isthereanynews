@@ -59,6 +59,7 @@
     <Compile Include="Implementation\UpdateRepository.cs" />
     <Compile Include="Implementation\UserPublicProfile.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
+    <Compile Include="Implementation\UsersSubscriptionRepository.cs" />
     <Compile Include="IRssActionRepository.cs" />
     <Compile Include="IRssChannelsSubscriptionsRepository.cs" />
     <Compile Include="IRssChannelUpdateRepository.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IRssChannelsRepository.cs" />
     <Compile Include="IUsersRepository.cs" />
+    <Compile Include="IUsersSubscriptionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\RssChannelsRepository.cs" />
     <Compile Include="Implementation\RssEntriesRepository.cs" />

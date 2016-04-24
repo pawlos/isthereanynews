@@ -9,10 +9,16 @@ namespace IsThereAnyNews.Services.Implementation
     public class UsersService : IUsersService
     {
         private readonly IUserRepository usersRepository;
+        private readonly ISessionProvider sessionProvider;
+        private readonly IUsersSubscriptionRepository usersSubscriptionRepository;
 
-        public UsersService(IUserRepository usersRepository)
+        public UsersService(IUserRepository usersRepository,
+                            ISessionProvider sessionProvider, 
+                            IUsersSubscriptionRepository usersSubscriptionRepository)
         {
             this.usersRepository = usersRepository;
+            this.sessionProvider = sessionProvider;
+            this.usersSubscriptionRepository = usersSubscriptionRepository;
         }
 
         public AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile()
@@ -48,6 +54,12 @@ namespace IsThereAnyNews.Services.Implementation
                 ViewingUserId = id
             };
             return userDetailedPublicProfileViewModel;
+        }
+
+        public void SubscribeToUser(long viewingUserId)
+        {
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            this.usersSubscriptionRepository.CreateNewSubscription(currentUserId, viewingUserId);
         }
 
         private UserPublicProfileViewModel ProjectToViewModel(UserPublicProfile model)

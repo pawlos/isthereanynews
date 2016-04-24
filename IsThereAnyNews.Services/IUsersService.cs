@@ -6,5 +6,6 @@ namespace IsThereAnyNews.Services
     {
         AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile();
         UserDetailedPublicProfileViewModel LoadUserPublicProfile(long id);
+        void SubscribeToUser(long viewingUserId);
     }
 }

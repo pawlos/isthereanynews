@@ -27,6 +27,7 @@ namespace IsThereAnyNews.Mvc.Controllers
         [HttpPost]
         public ActionResult Subscribe(SubscribeToUserActivityDto model)
         {
+            this.usersService.SubscribeToUser(model.ViewingUserId);
             return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
         }
     }

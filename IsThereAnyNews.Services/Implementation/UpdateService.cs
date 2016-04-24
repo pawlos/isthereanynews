@@ -19,7 +19,8 @@ namespace IsThereAnyNews.Services.Implementation
         public UpdateService(
             IUpdateRepository updateRepository,
             IRssEntriesRepository rssEntriesRepository,
-            IRssChannelsRepository rssChannelsRepository, IRssChannelUpdateRepository rssChannelsUpdatedRepository)
+            IRssChannelsRepository rssChannelsRepository, 
+            IRssChannelUpdateRepository rssChannelsUpdatedRepository)
         {
             this.updateRepository = updateRepository;
             this.rssEntriesRepository = rssEntriesRepository;
