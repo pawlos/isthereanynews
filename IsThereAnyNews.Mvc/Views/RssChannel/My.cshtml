@@ -9,8 +9,9 @@
     <div class="col-lg-3">
         @foreach (var channel in Model.ChannelsSubscriptions)
         {
-            <div data-rss-feed-address="@Url.Action("Details", "RssChannel", new {id=channel.Id})"
+            <div data-rss-feed-address="@Url.Action("Details", "RssChannel", new {id = channel.Id})"
                  class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+                <i class="fa fa-rss"></i>
                 @channel.Title (@channel.RssToRead.Count)
             </div>
         }
