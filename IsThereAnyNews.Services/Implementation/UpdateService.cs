@@ -19,7 +19,7 @@ namespace IsThereAnyNews.Services.Implementation
         public UpdateService(
             IUpdateRepository updateRepository,
             IRssEntriesRepository rssEntriesRepository,
-            IRssChannelsRepository rssChannelsRepository, 
+            IRssChannelsRepository rssChannelsRepository,
             IRssChannelUpdateRepository rssChannelsUpdatedRepository)
         {
             this.updateRepository = updateRepository;
@@ -40,6 +40,31 @@ namespace IsThereAnyNews.Services.Implementation
                     XmlReader reader = XmlReader.Create(rssChannel.Url);
                     feed = SyndicationFeed.Load(reader);
                     reader.Close();
+
+                    foreach (var item in feed.Items.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime))
+                    {
+                        var rssEntry = new RssEntry(
+                            item.Id,
+                            item.PublishDate,
+                            item.Title?.Text ?? string.Empty,
+                            item.Summary?.Text ?? string.Empty,
+                            rssChannel.Id);
+                        rssEntriesList.Add(rssEntry);
+                    }
+
+                    if (feed.Items.Any())
+                    {
+                        rssChannel.RssLastUpdatedTime = feed.Items.Max(d => d.PublishDate);
+                    }
+                    this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
+
+                    var rssChannelUpdated = new EventRssChannelUpdated
+                    {
+                        RssChannelId = rssChannel.Id
+                    };
+
+                    this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
+
                 }
                 catch (XmlException e)
                 {
@@ -49,30 +74,6 @@ namespace IsThereAnyNews.Services.Implementation
                 {
                     System.Diagnostics.Debug.WriteLine(e.Message);
                 }
-
-                foreach (var item in feed.Items.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime))
-                {
-                    var rssEntry = new RssEntry(
-                        item.Id,
-                        item.PublishDate,
-                        item.Title?.Text ?? string.Empty,
-                        item.Summary?.Text ?? string.Empty,
-                        rssChannel.Id);
-                    rssEntriesList.Add(rssEntry);
-                }
-
-                if (feed.Items.Any())
-                {
-                    rssChannel.RssLastUpdatedTime = feed.Items.Max(d => d.PublishDate);
-                }
-                this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
-
-                var rssChannelUpdated = new EventRssChannelUpdated
-                {
-                    RssChannelId = rssChannel.Id
-                };
-
-                this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
 
                 rssEntriesList.Clear();
             }

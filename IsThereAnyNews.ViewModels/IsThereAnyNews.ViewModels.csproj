@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="LoginSuccessViewModel.cs" />
     <Compile Include="Login\AuthorizationIndexViewModel.cs" />
+    <Compile Include="ObservableUserEventsInformation.cs" />
     <Compile Include="OpmlImporterIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssChannelIndexViewModel.cs" />

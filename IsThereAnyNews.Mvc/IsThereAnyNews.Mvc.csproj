@@ -188,6 +188,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\IUserSubscriptionService.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\RssChannelController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

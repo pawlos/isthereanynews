@@ -12,9 +12,19 @@
             <div data-rss-feed-address="@Url.Action("Details", "RssChannel", new {id = channel.Id})"
                  class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
                 <i class="fa fa-rss"></i>
-                @channel.Title (@channel.RssToRead.Count)
+                @channel.Title (@channel.RssToRead)
             </div>
         }
+
+        @foreach (var channel in Model.Users)
+        {
+            <div data-rss-feed-address="@Url.Action("Details", "RssChannel", new {id = channel.Id})"
+                 class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+                <i class="fa fa-user"></i>
+                @channel.Name (@channel.Count)
+            </div>
+        }
+
         <div class="col-lg-9"></div>
     </div>
     <div class="col-lg-9 nocss-rss-container">

@@ -12,10 +12,10 @@ namespace IsThereAnyNews.ViewModels
         {
             this.Id = subscription.Id;
             this.Title = subscription.Title;
-            this.RssToRead = subscription.RssEntriesToRead.Select(x => new RssEntryToReadViewModel(x)).ToList();
+            this.RssToRead = subscription.RssEntriesToRead.Count(x => !x.IsRead);
         }
 
-        public List<RssEntryToReadViewModel> RssToRead { get; set; }
+        public int RssToRead { get; set; }
 
         public string ChannelUrl { get; set; }
         public string Title { get; set; }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using IsThereAnyNews.EntityFramework.Models.Events;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
 namespace IsThereAnyNews.EntityFramework.Models.Entities

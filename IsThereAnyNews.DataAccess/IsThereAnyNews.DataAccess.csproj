@@ -71,8 +71,8 @@
     <Compile Include="IUpdateRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IRssChannelsRepository.cs" />
-    <Compile Include="IUsersRepository.cs" />
     <Compile Include="IUsersSubscriptionRepository.cs" />
+    <Compile Include="IUserSubscriptionEntryToReadRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\RssChannelsRepository.cs" />
     <Compile Include="Implementation\RssEntriesRepository.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Implementation\RssActionRepository.cs" />
     <Compile Include="Implementation\RssEventRepository.cs" />
     <Compile Include="Implementation\RssChannelUpdateRepository.cs" />
+    <Compile Include="Implementation\UserSubscriptionEntryToReadRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">

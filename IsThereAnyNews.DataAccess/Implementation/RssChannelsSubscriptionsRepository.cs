@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.DataAccess.Implementation
@@ -48,6 +46,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
         {
             var rssChannelSubscriptions = this.itanDatabaseContext
                 .RssChannelsSubscriptions
+                .Include(x=>x.RssEntriesToRead)
                 .Where(x => x.UserId == currentUserId)
                 .ToList();
             return rssChannelSubscriptions;
