@@ -91,26 +91,4 @@ namespace IsThereAnyNews.DataAccess.Implementation
         }
 
     }
-
-    public class UserWithStatistics
-    {
-        public string Name { get; set; }
-        public long Id { get; set; }
-        public int Count { get; set; }
-    }
-
-    public class RssStatistics
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public string Preview { get; set; }
-        public int Count { get; set; }
-    }
-
-    public class ChannelWithSubscriptionCount
-    {
-        public string Title { get; set; }
-        public long Id { get; set; }
-        public int SubscriptionCount { get; set; }
-    }
 }

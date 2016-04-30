@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.DataAccess.Implementation;
@@ -76,42 +75,5 @@ namespace IsThereAnyNews.Services.Implementation
             var userStatisticsViewModel = new NewsStatisticsViewModel(list);
             return userStatisticsViewModel;
         }
-    }
-
-    public class NewsStatisticsViewModel
-    {
-        public List<RssStatisticsViewModel> List { get; set; }
-
-        public NewsStatisticsViewModel(List<RssStatisticsViewModel> list)
-        {
-            List = list;
-        }
-    }
-
-    public class RssStatisticsViewModel
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public int Count { get; set; }
-        public string Preview { get; set; }
-    }
-
-   
-
-    public class UserStatisticsViewModel
-    {
-        public List<UserWithStatisticsViewModel> List { get; set; }
-
-        public UserStatisticsViewModel(List<UserWithStatisticsViewModel> list)
-        {
-            List = list;
-        }
-    }
-
-    public class UserWithStatisticsViewModel
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public int Count { get; set; }
     }
 }

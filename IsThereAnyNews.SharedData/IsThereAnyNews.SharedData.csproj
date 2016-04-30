@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationTypeProvider.cs" />
     <Compile Include="ConstantStrings.cs" />
-    <Compile Include="FeatureRequest.cs" />
+    <Compile Include="FeatureRequestType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

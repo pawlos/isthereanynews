@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.DataAccess.Implementation;
 
@@ -72,40 +70,5 @@ namespace IsThereAnyNews.Services.Implementation
             };
             return viewModel;
         }
-    }
-
-    public class EventRssViewedViewModel
-    {
-        public string Title { get; set; }
-        public DateTime Viewed { get; set; }
-        public long RssId { get; set; }
-    }
-
-    public class PublicProfileChannelInformation
-    {
-        public long Id { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class UserDetailedPublicProfileViewModel
-    {
-        public string DisplayName { get; set; }
-        public int ChannelsCount { get; set; }
-        public List<PublicProfileChannelInformation> Channels { get; set; }
-        public List<EventRssViewedViewModel> Events { get; set; }
-        public int EventsCount { get; set; }
-        public long ViewingUserId { get; set; }
-    }
-
-    public class AllUsersPublicProfilesViewModel
-    {
-        public List<UserPublicProfileViewModel> Profiles { get; set; }
-    }
-
-    public class UserPublicProfileViewModel
-    {
-        public long Id { get; set; }
-        public string DisplayName { get; set; }
-        public int ChannelsCount { get; set; }
     }
 }

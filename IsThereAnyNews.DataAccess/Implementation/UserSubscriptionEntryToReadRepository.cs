@@ -44,9 +44,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
                 this.database.SaveChanges();
             }
-
-            
-
         }
     }
 }

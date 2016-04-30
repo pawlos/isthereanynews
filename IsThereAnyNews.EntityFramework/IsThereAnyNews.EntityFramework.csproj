@@ -56,45 +56,45 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItanDatabaseContext.cs" />
-    <Compile Include="Migrations\201603162227052_aasdfasdf.cs" />
-    <Compile Include="Migrations\201603162227052_aasdfasdf.Designer.cs">
-      <DependentUpon>201603162227052_aasdfasdf.cs</DependentUpon>
+    <Compile Include="Migrations\aasdfasdf.cs" />
+    <Compile Include="Migrations\aasdfasdf.Designer.cs">
+      <DependentUpon>aasdfasdf.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603201153529_isviewed.cs" />
-    <Compile Include="Migrations\201603201153529_isviewed.Designer.cs">
-      <DependentUpon>201603201153529_isviewed.cs</DependentUpon>
+    <Compile Include="Migrations\isviewed.cs" />
+    <Compile Include="Migrations\isviewed.Designer.cs">
+      <DependentUpon>isviewed.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201603292150544_navigation properties.cs" />
-    <Compile Include="Migrations\201603292150544_navigation properties.Designer.cs">
-      <DependentUpon>201603292150544_navigation properties.cs</DependentUpon>
+    <Compile Include="Migrations\navigationproperties.cs" />
+    <Compile Include="Migrations\navigationproperties.Designer.cs">
+      <DependentUpon>navigationproperties.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604091112317_feature request.cs" />
-    <Compile Include="Migrations\201604091112317_feature request.Designer.cs">
-      <DependentUpon>201604091112317_feature request.cs</DependentUpon>
+    <Compile Include="Migrations\featurerequest.cs" />
+    <Compile Include="Migrations\featurerequest.Designer.cs">
+      <DependentUpon>featurerequest.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604112040349_first_event.cs" />
-    <Compile Include="Migrations\201604112040349_first_event.Designer.cs">
-      <DependentUpon>201604112040349_first_event.cs</DependentUpon>
+    <Compile Include="Migrations\first_event.cs" />
+    <Compile Include="Migrations\first_event.Designer.cs">
+      <DependentUpon>first_event.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604171153307_rsschannel updated event.cs" />
-    <Compile Include="Migrations\201604171153307_rsschannel updated event.Designer.cs">
-      <DependentUpon>201604171153307_rsschannel updated event.cs</DependentUpon>
+    <Compile Include="Migrations\rsschannelupdatedevent.cs" />
+    <Compile Include="Migrations\rsschannelupdatedevent.Designer.cs">
+      <DependentUpon>rsschannelupdatedevent.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604182129222_table-name-change.cs" />
-    <Compile Include="Migrations\201604182129222_table-name-change.Designer.cs">
-      <DependentUpon>201604182129222_table-name-change.cs</DependentUpon>
+    <Compile Include="Migrations\tablenamechange.cs" />
+    <Compile Include="Migrations\tablenamechange.Designer.cs">
+      <DependentUpon>tablenamechange.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604192147592_follow-user.cs" />
-    <Compile Include="Migrations\201604192147592_follow-user.Designer.cs">
-      <DependentUpon>201604192147592_follow-user.cs</DependentUpon>
+    <Compile Include="Migrations\followuser.cs" />
+    <Compile Include="Migrations\followuser.Designer.cs">
+      <DependentUpon>followuser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604202032235_toread belongs to subscription.cs" />
-    <Compile Include="Migrations\201604202032235_toread belongs to subscription.Designer.cs">
-      <DependentUpon>201604202032235_toread belongs to subscription.cs</DependentUpon>
+    <Compile Include="Migrations\toreadbelongstosubscription.cs" />
+    <Compile Include="Migrations\toreadbelongstosubscription.Designer.cs">
+      <DependentUpon>toreadbelongstosubscription.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201604202057408_create user instead of delete trigger.cs" />
-    <Compile Include="Migrations\201604202057408_create user instead of delete trigger.Designer.cs">
-      <DependentUpon>201604202057408_create user instead of delete trigger.cs</DependentUpon>
+    <Compile Include="Migrations\createuserinsteadofdeletetrigger.cs" />
+    <Compile Include="Migrations\createuserinsteadofdeletetrigger.Designer.cs">
+      <DependentUpon>createuserinsteadofdeletetrigger.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\UserSubscription.cs" />
@@ -103,7 +103,7 @@
     <Compile Include="Models\Entities\FeatureRequest.cs" />
     <Compile Include="Models\Events\EventRssChannelUpdated.cs" />
     <Compile Include="Models\Interfaces\ICreatable.cs" />
-    <Compile Include="Models\Interfaces\IModel.cs" />
+    <Compile Include="Models\Interfaces\IEntity.cs" />
     <Compile Include="Models\Entities\RssChannelSubscription.cs" />
     <Compile Include="Models\Entities\RssEntry.cs" />
     <Compile Include="Models\Entities\RssEntryToRead.cs" />
@@ -124,35 +124,35 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603162227052_aasdfasdf.resx">
-      <DependentUpon>201603162227052_aasdfasdf.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\aasdfasdf.resx">
+      <DependentUpon>aasdfasdf.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603201153529_isviewed.resx">
-      <DependentUpon>201603201153529_isviewed.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\isviewed.resx">
+      <DependentUpon>isviewed.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603292150544_navigation properties.resx">
-      <DependentUpon>201603292150544_navigation properties.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\navigationproperties.resx">
+      <DependentUpon>navigationproperties.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604091112317_feature request.resx">
-      <DependentUpon>201604091112317_feature request.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\featurerequest.resx">
+      <DependentUpon>featurerequest.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604112040349_first_event.resx">
-      <DependentUpon>201604112040349_first_event.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\first_event.resx">
+      <DependentUpon>first_event.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604171153307_rsschannel updated event.resx">
-      <DependentUpon>201604171153307_rsschannel updated event.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\rsschannelupdatedevent.resx">
+      <DependentUpon>rsschannelupdatedevent.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604182129222_table-name-change.resx">
-      <DependentUpon>201604182129222_table-name-change.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\tablenamechange.resx">
+      <DependentUpon>tablenamechange.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604192147592_follow-user.resx">
-      <DependentUpon>201604192147592_follow-user.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\followuser.resx">
+      <DependentUpon>followuser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604202032235_toread belongs to subscription.resx">
-      <DependentUpon>201604202032235_toread belongs to subscription.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\toreadbelongstosubscription.resx">
+      <DependentUpon>toreadbelongstosubscription.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604202057408_create user instead of delete trigger.resx">
-      <DependentUpon>201604202057408_create user instead of delete trigger.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\createuserinsteadofdeletetrigger.resx">
+      <DependentUpon>createuserinsteadofdeletetrigger.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

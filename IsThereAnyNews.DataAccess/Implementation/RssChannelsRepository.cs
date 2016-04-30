@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net.Sockets;
@@ -491,15 +490,5 @@ namespace IsThereAnyNews.DataAccess.Implementation
         {
             return this.database.RssChannels.ToList();
         }
-    }
-
-    public class RssChannelSubscriptionWithStatisticsData
-    {
-        public long Id { get; set; }
-        public string Title { get; set; }
-        public int SubscriptionsCount { get; set; }
-        public int RssEntriesCount { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime Updated { get; set; }
     }
 }

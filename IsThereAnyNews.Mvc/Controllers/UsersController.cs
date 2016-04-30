@@ -31,9 +31,4 @@ namespace IsThereAnyNews.Mvc.Controllers
             return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
         }
     }
-
-    public class SubscribeToUserActivityDto
-    {
-        public long ViewingUserId { get; set; }
-    }
 }

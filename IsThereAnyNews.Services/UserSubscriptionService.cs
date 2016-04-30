@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.Services;
@@ -7,11 +7,6 @@ using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
-    public interface IUserSubscriptionService
-    {
-        List<ObservableUserEventsInformation> LoadAllObservableSubscription();
-    }
-
     class UserSubscriptionService : IUserSubscriptionService
     {
         private readonly ISessionProvider sessionProvider;
