@@ -15,5 +15,6 @@ namespace IsThereAnyNews.DataAccess
         void DeleteSubscriptionFromUser(long subscriptionId, long userId);
         long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId);
         void CreateNewSubscriptionForUserAndChannel(long userId, long channelId);
+        RssChannelSubscription LoadChannelInformation(long subscriptionId);
     }
 }

@@ -30,14 +30,31 @@ namespace IsThereAnyNews.Services.Implementation
 
             if (!this.rssSubscriptionsRepository.DoesUserOwnsSubscription(subscriptionId, currentUserId))
             {
-                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(new List<RssEntryToRead>());
+                var ci = new ChannelInformationViewModel
+                {
+                    Title = "You are not subscribed to this channel",
+                    Created = DateTime.MaxValue
+                };
+                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(ci, new List<RssEntryToRead>());
                 rssSubscriptionIndexViewModel.SubscriptionId = subscriptionId;
                 return rssSubscriptionIndexViewModel;
             }
 
             var loadAllRssEntriesForUserAndChannel =
-                this.rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscriptionId);
-            var viewModel = new RssSubscriptionIndexViewModel(loadAllRssEntriesForUserAndChannel);
+                this.rssToReadRepository
+                    .LoadAllUnreadEntriesFromSubscription(subscriptionId);
+
+            var channelInformation =
+                    this.rssSubscriptionsRepository
+                        .LoadChannelInformation(subscriptionId);
+            var channelInformationViewModel = new ChannelInformationViewModel
+            {
+                Title = channelInformation.Title,
+                Created = channelInformation.Created
+            };
+
+            var viewModel =
+                new RssSubscriptionIndexViewModel(channelInformationViewModel, loadAllRssEntriesForUserAndChannel);
             viewModel.SubscriptionId = subscriptionId;
             return viewModel;
         }

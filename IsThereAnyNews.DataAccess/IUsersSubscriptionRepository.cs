@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using IsThereAnyNews.DataAccess.Implementation;
 
 namespace IsThereAnyNews.DataAccess
@@ -7,6 +8,7 @@ namespace IsThereAnyNews.DataAccess
     {
         void CreateNewSubscription(long followerId, long observedId);
         List<NameAndCountUserSubscription> LoadNameAndCountForUser(long currentUserId);
+        void UpdateUserLastReadTime(long currentUserId, DateTime now);
     }
 
 }

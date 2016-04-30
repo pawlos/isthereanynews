@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChannelInformationViewModel.cs" />
     <Compile Include="LoginSuccessViewModel.cs" />
     <Compile Include="Login\AuthorizationIndexViewModel.cs" />
     <Compile Include="ObservableUserEventsInformation.cs" />

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
@@ -24,9 +25,11 @@ namespace IsThereAnyNews.Services
 
         public List<ObservableUserEventsInformation> LoadAllObservableSubscription()
         {
+            DateTime now = DateTime.Now;
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             this.userSubscriptionsEntryToReadRepository.CopyAllUnreadElementsToUser(currentUserId);
             var loadNameAndCountForUser = this.userSubscriptionsRepository.LoadNameAndCountForUser(currentUserId);
+            this.userSubscriptionsRepository.UpdateUserLastReadTime(currentUserId,now);
             var list = loadNameAndCountForUser.Select(ProjectToObservableUserEventsInformation).ToList();
             return list;
         }

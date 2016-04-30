@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
@@ -38,6 +39,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return nameAndCountUserSubscriptions;
         }
 
+        public void UpdateUserLastReadTime(long currentUserId, DateTime now)
+        {
+            this.database.Users.Single(u => u.Id == currentUserId).LastReadTime = now;
+            this.database.SaveChanges();
+        }
+        
         private NameAndCountUserSubscription ProjectToNameAndCountUserSubscription(UserSubscription arg)
         {
             return new NameAndCountUserSubscription

@@ -8,22 +8,22 @@ namespace IsThereAnyNews.DataAccess.Implementation
 {
     public class RssChannelsSubscriptionsRepository : IRssChannelsSubscriptionsRepository
     {
-        private readonly ItanDatabaseContext itanDatabaseContext;
+        private readonly ItanDatabaseContext database;
 
-        public RssChannelsSubscriptionsRepository(ItanDatabaseContext itanDatabaseContext)
+        public RssChannelsSubscriptionsRepository(ItanDatabaseContext database)
         {
-            this.itanDatabaseContext = itanDatabaseContext;
+            this.database = database;
         }
 
         public void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions)
         {
-            this.itanDatabaseContext.RssChannelsSubscriptions.AddRange(rssChannelSubscriptions);
-            this.itanDatabaseContext.SaveChanges();
+            this.database.RssChannelsSubscriptions.AddRange(rssChannelSubscriptions);
+            this.database.SaveChanges();
         }
 
         public List<string> LoadUrlsForAllChannels()
         {
-            return this.itanDatabaseContext
+            return this.database
                 .RssChannels
                 .Select(channel => channel.Url)
                 .ToList()
@@ -34,7 +34,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
         public List<long> GetChannelIdSubscriptionsForUser(long currentUserId)
         {
             var rssChannelSubscriptions = this
-                .itanDatabaseContext
+                .database
                 .RssChannelsSubscriptions
                 .Where(x => x.UserId == currentUserId)
                 .Select(x => x.RssChannelId)
@@ -44,7 +44,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssChannelSubscription> LoadAllSubscriptionsForUser(long currentUserId)
         {
-            var rssChannelSubscriptions = this.itanDatabaseContext
+            var rssChannelSubscriptions = this.database
                 .RssChannelsSubscriptions
                 .Include(x=>x.RssEntriesToRead)
                 .Where(x => x.UserId == currentUserId)
@@ -54,7 +54,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId)
         {
-            var rssChannelSubscriptions = this.itanDatabaseContext
+            var rssChannelSubscriptions = this.database
                 .RssChannelsSubscriptions
                 .Where(x => x.UserId == currentUserId)
                 .Include(x => x.RssEntriesToRead)
@@ -66,24 +66,24 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId)
         {
-            return this.itanDatabaseContext.RssChannelsSubscriptions.Any(
+            return this.database.RssChannelsSubscriptions.Any(
                x => x.UserId == currentUserId && x.Id == subscriptionId);
         }
 
         public void DeleteSubscriptionFromUser(long subscriptionId, long userId)
         {
-            var channelSubscription = this.itanDatabaseContext
+            var channelSubscription = this.database
                 .RssChannelsSubscriptions
                 .Where(subscription => subscription.Id == subscriptionId)
                 .Where(subscription => subscription.UserId == userId)
                 .Single();
-            this.itanDatabaseContext.RssChannelsSubscriptions.Remove(channelSubscription);
-            this.itanDatabaseContext.SaveChanges();
+            this.database.RssChannelsSubscriptions.Remove(channelSubscription);
+            this.database.SaveChanges();
         }
 
         public long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId)
         {
-            var channelSubscription = this.itanDatabaseContext
+            var channelSubscription = this.database
                 .RssChannelsSubscriptions
                 .Where(subscription => subscription.RssChannelId == channelId)
                 .Where(subscription => subscription.UserId == userId)
@@ -94,14 +94,23 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public void CreateNewSubscriptionForUserAndChannel(long userId, long channelId)
         {
-            var channelTitle = this.itanDatabaseContext.RssChannels
+            var channelTitle = this.database.RssChannels
                 .Where(channel => channel.Id == channelId)
                 .Select(channel => channel.Title)
                 .Single();
 
             var rssChannelSubscription = new RssChannelSubscription(channelId, userId, channelTitle);
-            this.itanDatabaseContext.RssChannelsSubscriptions.Add(rssChannelSubscription);
-            this.itanDatabaseContext.SaveChanges();
+            this.database.RssChannelsSubscriptions.Add(rssChannelSubscription);
+            this.database.SaveChanges();
+        }
+
+        public RssChannelSubscription LoadChannelInformation(long subscriptionId)
+        {
+            var rssChannelSubscription = this.database.RssChannelsSubscriptions
+                .Include(x => x.RssChannel)
+                .Single(x => x.Id == subscriptionId);
+
+            return rssChannelSubscription;
         }
     }
 }
