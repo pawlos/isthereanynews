@@ -1,8 +1,9 @@
-﻿@model IsThereAnyNews.ViewModels.RssChannelsMyViewModel
+﻿@using IsThereAnyNews.Mvc.Controllers
+@model IsThereAnyNews.ViewModels.RssChannelsMyViewModel
 
 @foreach (var channel in Model.ChannelsSubscriptions)
 {
-    <a href="@Url.Action("Details", "RssChannel", new {id = channel.Id})"
+    <a href="@Url.Action("Read", "Stream", new {streamType = StreamType.Rss ,id = channel.Id})"
        class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
         <i class="fa fa-rss"></i>
         @channel.Title (@channel.RssToRead)
@@ -11,7 +12,7 @@
 
 @foreach (var channel in Model.Users)
 {
-    <a href="@Url.Action("Details", "RssChannel", new {id = channel.Id})"
+    <a href="@Url.Action("Read", "Stream", new {streamType = StreamType.Person ,id = channel.Id})"
        class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
         <i class="fa fa-user"></i>
         @channel.Name (@channel.Count)

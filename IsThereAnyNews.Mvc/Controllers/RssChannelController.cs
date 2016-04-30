@@ -72,12 +72,7 @@ namespace IsThereAnyNews.Mvc.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        public ActionResult Details(long id)
-        {
-            RssSubscriptionIndexViewModel entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(id);
-            return this.View("Details", entries);
-        }
-
+        
         public HttpStatusCodeResult MarkRssEntryViewed(long id)
         {
             this.rssSubscriptionService.MarkEntryViewed(id);
@@ -89,5 +84,13 @@ namespace IsThereAnyNews.Mvc.Controllers
             this.rssSubscriptionService.MarkAllRssReadForSubscription(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
+    }
+
+    public enum StreamType
+    {
+        Unknown = 0,
+        All,
+        Rss,
+        Person
     }
 }

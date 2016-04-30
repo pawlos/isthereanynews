@@ -9,11 +9,24 @@ namespace IsThereAnyNews.Mvc
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+                name: "Stream",
+                url: "{controller}/{action}/{streamtype}/{id}",
+                defaults: new {controller = "Stream", action = "Read" }
+                );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new {controller = "Home", action = "Index", id = UrlParameter.Optional}
+                defaults: new
+                {
+                    controller = "Home",
+                    action = "Index",
+                    id = UrlParameter.Optional
+                }
                 );
+
         }
     }
 }

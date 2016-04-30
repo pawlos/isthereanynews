@@ -195,6 +195,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RssItemActionController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
+    <Compile Include="Controllers\StreamController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -219,7 +220,6 @@
     <Content Include="Views\Syndication\Index.cshtml" />
     <Content Include="Views\OpmlImporter\Index.cshtml" />
     <Content Include="Views\RssChannel\Index.cshtml" />
-    <Content Include="Views\RssChannel\Details.cshtml" />
     <Content Include="Views\Login\Success.cshtml" />
     <Content Include="IsThereAnyNews.Mvc.ruleset" />
     <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.eot" />
@@ -250,10 +250,11 @@
     <Content Include="Views\Statistics\Channels.cshtml" />
     <Content Include="Views\Statistics\News.cshtml" />
     <Content Include="Views\Statistics\Users.cshtml" />
-    <Content Include="Views\RssChannel\_RssActions.cshtml" />
+    <Content Include="Views\Stream\_RssItemAction.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\RssChannel\_MyChannelList.cshtml" />
+    <Content Include="Views\Stream\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
