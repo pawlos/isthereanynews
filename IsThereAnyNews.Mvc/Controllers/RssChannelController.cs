@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.Services;
@@ -17,7 +18,7 @@ namespace IsThereAnyNews.Mvc.Controllers
             IUserAuthentication authentication,
             ILoginService loginService,
             IRssChannelsService rssChannelsService,
-            IRssSubscriptionService rssSubscriptionService, 
+            IRssSubscriptionService rssSubscriptionService,
             IUserSubscriptionService userSubscriptionServiceService)
             : base(authentication, loginService)
         {
@@ -43,10 +44,16 @@ namespace IsThereAnyNews.Mvc.Controllers
         [Authorize]
         public ActionResult My()
         {
+            return this.View("My");
+        }
+
+        [ChildActionOnly]
+        public async Task<PartialViewResult> MyChannelList()
+        {
             var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
             var listofusers = this.userSubscriptionServiceService.LoadAllObservableSubscription();
             viewmodel.Users = listofusers;
-            return this.View("My", viewmodel);
+            return this.PartialView("_MyChannelList", viewmodel);
         }
 
         [Authorize]

@@ -19,7 +19,7 @@ namespace IsThereAnyNews.Autofac
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterControllers(Assembly.GetCallingAssembly()).InstancePerLifetimeScope();
+            builder.RegisterControllers(Assembly.GetCallingAssembly());
 
             builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .Where(t => t.Name.EndsWith("Repository"))

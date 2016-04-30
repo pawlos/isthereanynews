@@ -1,0 +1,19 @@
+﻿@model IsThereAnyNews.ViewModels.RssChannelsMyViewModel
+
+@foreach (var channel in Model.ChannelsSubscriptions)
+{
+    <a href="@Url.Action("Details", "RssChannel", new {id = channel.Id})"
+       class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+        <i class="fa fa-rss"></i>
+        @channel.Title (@channel.RssToRead)
+    </a>
+}
+
+@foreach (var channel in Model.Users)
+{
+    <a href="@Url.Action("Details", "RssChannel", new {id = channel.Id})"
+       class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+        <i class="fa fa-user"></i>
+        @channel.Name (@channel.Count)
+    </a>
+}
