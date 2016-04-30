@@ -13,7 +13,7 @@ namespace IsThereAnyNews.EntityFramework
         public ItanDatabaseContext() : base("itan-database")
         {
             this.Configuration.LazyLoadingEnabled = false;
-            this.Database.Log = text => System.Diagnostics.Debug.WriteLine(text);
+            //this.Database.Log = text => System.Diagnostics.Debug.WriteLine(text);
         }
 
         public override int SaveChanges()

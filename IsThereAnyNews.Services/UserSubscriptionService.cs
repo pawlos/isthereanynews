@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Services;
-using IsThereAnyNews.Services.Implementation;
+using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.ViewModels;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Services
 {
     class UserSubscriptionService : IUserSubscriptionService
     {

@@ -1,10 +1,8 @@
 using System;
-using System.Data.SqlTypes;
-using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 using IsThereAnyNews.SharedData;
 
-namespace IsThereAnyNews.EntityFramework.Models
+namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
     public sealed class SocialLogin : IEntity, ICreatable, IModifiable
     {

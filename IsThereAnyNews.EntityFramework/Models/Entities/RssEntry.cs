@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
-namespace IsThereAnyNews.EntityFramework.Models
+namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
     public class RssEntry : IEntity, ICreatable, IModifiable
     {

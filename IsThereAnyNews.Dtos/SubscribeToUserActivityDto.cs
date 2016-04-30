@@ -1,4 +1,4 @@
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Dtos
 {
     public class SubscribeToUserActivityDto
     {

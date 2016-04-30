@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using IsThereAnyNews.ViewModels;
 
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Services
 {
     public interface IUserSubscriptionService
     {

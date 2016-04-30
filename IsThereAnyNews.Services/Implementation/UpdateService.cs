@@ -5,6 +5,7 @@ using System.ServiceModel.Syndication;
 using System.Xml;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.EntityFramework.Models.Events;
 
 namespace IsThereAnyNews.Services.Implementation

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.SqlTypes;
-using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
-namespace IsThereAnyNews.EntityFramework.Models
+namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
     [Table("RssEntriesToRead")]
     public sealed class RssEntryToRead : IEntity, ICreatable, IModifiable

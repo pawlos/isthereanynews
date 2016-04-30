@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.DataAccess.Implementation
 {

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using IsThereAnyNews.Dtos;
 using IsThereAnyNews.Services;
 
 namespace IsThereAnyNews.Mvc.Controllers

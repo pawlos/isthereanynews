@@ -1,11 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using IsThereAnyNews.DataAccess;
+using System.Linq;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models.Entities;
-using System.Collections.Generic;
 
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.DataAccess.Implementation
 {
     class UsersSubscriptionRepository : IUsersSubscriptionRepository
     {

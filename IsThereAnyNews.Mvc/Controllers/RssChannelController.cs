@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.Services;
+using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
@@ -26,16 +27,17 @@ namespace IsThereAnyNews.Mvc.Controllers
         }
 
         [HttpGet]
-        public ActionResult Public(long id)
-        {
-            var viewmodel = this.rssChannelsService.GetViewModelFormChannelId(id);
-            return this.PartialView("_Public", viewmodel);
-        }
-
         public ActionResult Index()
         {
             var viewmodel = this.rssChannelsService.LoadAllChannels();
             return this.View("Index", viewmodel);
+        }
+
+        [HttpGet]
+        public ActionResult Public(long id)
+        {
+            var viewmodel = this.rssChannelsService.GetViewModelFormChannelId(id);
+            return this.PartialView("_Public", viewmodel);
         }
 
         [Authorize]
@@ -63,10 +65,10 @@ namespace IsThereAnyNews.Mvc.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        public PartialViewResult Details(long id)
+        public ActionResult Details(long id)
         {
-            var entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(id);
-            return PartialView("_Details", entries);
+            RssSubscriptionIndexViewModel entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(id);
+            return this.View("Details", entries);
         }
 
         public HttpStatusCodeResult MarkRssEntryViewed(long id)

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using IsThereAnyNews.Services.Implementation;
+using IsThereAnyNews.DataAccess.Implementation;
 
 namespace IsThereAnyNews.DataAccess
 {

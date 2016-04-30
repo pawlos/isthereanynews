@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.Services
 {

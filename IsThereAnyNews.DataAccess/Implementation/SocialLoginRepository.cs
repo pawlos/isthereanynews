@@ -1,6 +1,7 @@
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.DataAccess.Implementation
