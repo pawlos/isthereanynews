@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.Dtos;
-using IsThereAnyNews.EntityFramework.Models;
 using IsThereAnyNews.EntityFramework.Models.Entities;
+using IsThereAnyNews.SharedData;
 using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Services.Implementation
@@ -24,7 +24,20 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssEventsRepository = rssEventsRepository;
         }
 
-        public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(long subscriptionId)
+
+        public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId)
+        {
+            switch (streamType)
+            {
+                case StreamType.Rss:
+                    return RssSubscriptionIndexViewModel(subscriptionId);
+                case StreamType.Person:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(streamType), streamType, null);
+            }
+        }
+
+        private RssSubscriptionIndexViewModel RssSubscriptionIndexViewModel(long subscriptionId)
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
 
@@ -41,29 +54,26 @@ namespace IsThereAnyNews.Services.Implementation
             }
 
             var loadAllRssEntriesForUserAndChannel =
-                this.rssToReadRepository
-                    .LoadAllUnreadEntriesFromSubscription(subscriptionId);
+                this.rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscriptionId);
 
-            var channelInformation =
-                    this.rssSubscriptionsRepository
-                        .LoadChannelInformation(subscriptionId);
+            var channelInformation = this.rssSubscriptionsRepository.LoadChannelInformation(subscriptionId);
             var channelInformationViewModel = new ChannelInformationViewModel
             {
                 Title = channelInformation.Title,
                 Created = channelInformation.Created
             };
 
-            var viewModel =
-                new RssSubscriptionIndexViewModel(channelInformationViewModel, loadAllRssEntriesForUserAndChannel);
+            var viewModel = new RssSubscriptionIndexViewModel(channelInformationViewModel, loadAllRssEntriesForUserAndChannel);
             viewModel.SubscriptionId = subscriptionId;
             return viewModel;
         }
 
+       
+
         public void MarkAllRssReadForSubscription(MarkReadForSubscriptionDto dto)
         {
             var separator = new[] { ";" };
-            var rssToMarkRead =
-                dto.RssEntries.Split(separator, StringSplitOptions.None).ToList().Select(id => long.Parse(id)).ToList();
+            var rssToMarkRead = dto.RssEntries.Split(separator, StringSplitOptions.None).ToList().Select(id => long.Parse(id)).ToList();
             this.rssToReadRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
         }
 
@@ -78,14 +88,12 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var userId = this.sessionProvider.GetCurrentUserId();
             this.rssSubscriptionsRepository.DeleteSubscriptionFromUser(id, userId);
-
         }
 
         public void SubscribeCurrentUserToChannel(long channelId)
         {
             var userId = this.sessionProvider.GetCurrentUserId();
             this.rssSubscriptionsRepository.CreateNewSubscriptionForUserAndChannel(userId, channelId);
-
         }
     }
 }

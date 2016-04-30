@@ -85,12 +85,4 @@ namespace IsThereAnyNews.Mvc.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
-
-    public enum StreamType
-    {
-        Unknown = 0,
-        All,
-        Rss,
-        Person
-    }
 }

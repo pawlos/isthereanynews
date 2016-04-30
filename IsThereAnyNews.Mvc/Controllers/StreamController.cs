@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using IsThereAnyNews.Services;
+using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
@@ -9,7 +10,7 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         public ActionResult Read(StreamType streamType, long id)
         {
-            var entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(id);
+            var entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType,id);
             return this.View("Index", entries);
         }
 
