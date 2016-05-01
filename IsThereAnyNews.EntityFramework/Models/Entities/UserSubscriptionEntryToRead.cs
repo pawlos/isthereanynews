@@ -15,5 +15,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
 
         public long UserSubscriptionId { get; set; }
         public UserSubscription Subscription { get; set; }
+
+        public bool IsRead { get; set; }
     }
 }

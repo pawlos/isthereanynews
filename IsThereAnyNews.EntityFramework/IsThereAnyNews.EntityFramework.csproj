@@ -56,6 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItanDatabaseContext.cs" />
+    <Compile Include="Migrations\201605011724390_user-subscription-is-read.cs" />
+    <Compile Include="Migrations\201605011724390_user-subscription-is-read.Designer.cs">
+      <DependentUpon>201605011724390_user-subscription-is-read.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\aasdfasdf.cs" />
     <Compile Include="Migrations\aasdfasdf.Designer.cs">
       <DependentUpon>aasdfasdf.cs</DependentUpon>
@@ -124,6 +128,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605011724390_user-subscription-is-read.resx">
+      <DependentUpon>201605011724390_user-subscription-is-read.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\aasdfasdf.resx">
       <DependentUpon>aasdfasdf.cs</DependentUpon>
     </EmbeddedResource>
