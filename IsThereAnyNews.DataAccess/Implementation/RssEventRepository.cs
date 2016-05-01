@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.EntityFramework.Models.Events;
 
 namespace IsThereAnyNews.DataAccess.Implementation
@@ -23,6 +25,14 @@ namespace IsThereAnyNews.DataAccess.Implementation
             };
 
             this.database.EventsRssViewed.Add(eventRssViewed);
+            this.database.SaveChanges();
+        }
+
+        public void MarkRead(List<long> ids)
+        {
+            this.database.UsersSubscriptionsToRead
+                .Where(x => ids.Contains(x.Id)).ToList()
+                .ForEach(x => x.IsRead = true);
             this.database.SaveChanges();
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using IsThereAnyNews.Dtos;
 using IsThereAnyNews.Services;
 using IsThereAnyNews.SharedData;
 
@@ -8,19 +9,25 @@ namespace IsThereAnyNews.Mvc.Controllers
     {
         private readonly IRssSubscriptionService rssSubscriptionService;
 
+        public StreamController(
+           IUserAuthentication authentication,
+           ILoginService loginService,
+           IRssSubscriptionService rssSubscriptionService)
+           : base(authentication, loginService)
+        {
+            this.rssSubscriptionService = rssSubscriptionService;
+        }
+
         public ActionResult Read(StreamType streamType, long id)
         {
-            var entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType,id);
+            var entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id);
             return this.View("Index", entries);
         }
 
-        public StreamController(
-            IUserAuthentication authentication,
-            ILoginService loginService,
-            IRssSubscriptionService rssSubscriptionService)
-            : base(authentication, loginService)
+        public ActionResult MarkRead(MarkReadDto dto)
         {
-            this.rssSubscriptionService = rssSubscriptionService;
+            this.rssSubscriptionService.MarkRead(dto);
+            return this.RedirectToAction("Read", new { StreamType = dto.StreamType, id = dto.Id });
         }
     }
 }

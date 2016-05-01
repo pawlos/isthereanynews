@@ -11,5 +11,6 @@ namespace IsThereAnyNews.Services
         void MarkEntryViewed(long rssToReadId);
         void UnsubscribeCurrentUserFromChannelId(long subscriptionId);
         void SubscribeCurrentUserToChannel(long channelId);
+        void MarkRead(MarkReadDto dto);
     }
 }

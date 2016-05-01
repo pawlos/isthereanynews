@@ -32,7 +32,8 @@ namespace IsThereAnyNews.Services.Implementation
         }
 
 
-        public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId)
+        public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(
+            StreamType streamType, long subscriptionId)
         {
             switch (streamType)
             {
@@ -57,7 +58,8 @@ namespace IsThereAnyNews.Services.Implementation
                     Created = DateTime.MaxValue
                 };
 
-                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(ci, new List<RssEntryToRead>());
+                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(ci, new List<RssEntryToRead>(),
+                    StreamType.Person);
                 rssSubscriptionIndexViewModel.SubscriptionId = subscriptionId;
                 return rssSubscriptionIndexViewModel;
             }
@@ -77,8 +79,9 @@ namespace IsThereAnyNews.Services.Implementation
             };
 
             var viewModel = new RssSubscriptionIndexViewModel(
-                    channelInformationViewModel, loadAllUnreadEntriesFromSubscription
-                    );
+                channelInformationViewModel,
+                loadAllUnreadEntriesFromSubscription,
+                StreamType.Person);
 
             viewModel.SubscriptionId = subscriptionId;
             return viewModel;
@@ -95,7 +98,8 @@ namespace IsThereAnyNews.Services.Implementation
                     Title = "You are not subscribed to this channel",
                     Created = DateTime.MaxValue
                 };
-                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(ci, new List<RssEntryToRead>());
+                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(ci, new List<RssEntryToRead>(),
+                    StreamType.Rss);
                 rssSubscriptionIndexViewModel.SubscriptionId = subscriptionId;
                 return rssSubscriptionIndexViewModel;
             }
@@ -110,7 +114,8 @@ namespace IsThereAnyNews.Services.Implementation
                 Created = channelInformation.Created
             };
 
-            var viewModel = new RssSubscriptionIndexViewModel(channelInformationViewModel, loadAllRssEntriesForUserAndChannel);
+            var viewModel = new RssSubscriptionIndexViewModel(channelInformationViewModel,
+                loadAllRssEntriesForUserAndChannel, StreamType.Rss);
             viewModel.SubscriptionId = subscriptionId;
             return viewModel;
         }
@@ -120,7 +125,8 @@ namespace IsThereAnyNews.Services.Implementation
         public void MarkAllRssReadForSubscription(MarkReadForSubscriptionDto dto)
         {
             var separator = new[] { ";" };
-            var rssToMarkRead = dto.RssEntries.Split(separator, StringSplitOptions.None).ToList().Select(id => long.Parse(id)).ToList();
+            var rssToMarkRead =
+                dto.RssEntries.Split(separator, StringSplitOptions.None).ToList().Select(id => long.Parse(id)).ToList();
             this.rssToReadRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
         }
 
@@ -141,6 +147,38 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var userId = this.sessionProvider.GetCurrentUserId();
             this.rssSubscriptionsRepository.CreateNewSubscriptionForUserAndChannel(userId, channelId);
+        }
+
+        public void MarkRead(MarkReadDto dto)
+        {
+            switch (dto.StreamType)
+            {
+                case StreamType.Rss:
+                    MarkRssItemsRead(dto.DisplayedItems);
+                    break;
+                case StreamType.Person:
+                    MarkPersonItemsRead(dto.DisplayedItems);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void MarkPersonItemsRead(string displayedItems)
+        {
+            var ids =
+                displayedItems.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(i => long.Parse(i))
+                    .ToList();
+            this.rssEventsRepository.MarkRead(ids);
+        }
+
+        private void MarkRssItemsRead(string displayedItems)
+        {
+            var ids = displayedItems.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(i => long.Parse(i))
+                .ToList();
+            this.rssSubscriptionsRepository.MarkRead(ids);
         }
     }
 }

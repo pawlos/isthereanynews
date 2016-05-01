@@ -41,10 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MarkReadDto.cs" />
     <Compile Include="MarkReadForSubscriptionDto.cs" />
     <Compile Include="OpmlImporterIndexDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SubscribeToUserActivityDto.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
+      <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
+      <Name>IsThereAnyNews.SharedData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

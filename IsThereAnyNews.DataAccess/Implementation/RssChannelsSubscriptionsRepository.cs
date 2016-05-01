@@ -46,7 +46,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
         {
             var rssChannelSubscriptions = this.database
                 .RssChannelsSubscriptions
-                .Include(x=>x.RssEntriesToRead)
+                .Include(x => x.RssEntriesToRead)
                 .Where(x => x.UserId == currentUserId)
                 .ToList();
             return rssChannelSubscriptions;
@@ -111,6 +111,15 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .Single(x => x.Id == subscriptionId);
 
             return rssChannelSubscription;
+        }
+
+        public void MarkRead(List<long> ids)
+        {
+            this.database.RssEntriesToRead
+                .Where(x => ids.Contains(x.Id))
+                .ToList()
+                .ForEach(x => x.IsRead = true);
+            this.database.SaveChanges();
         }
     }
 }

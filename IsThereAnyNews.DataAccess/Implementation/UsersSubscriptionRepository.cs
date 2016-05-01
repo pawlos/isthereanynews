@@ -55,13 +55,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<UserSubscriptionEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId)
         {
-            var userSubscriptions = this.database.UsersSubscriptions
-                .Include(s => s.EntriesToRead)
-                .Include(s => s.EntriesToRead.Select(e => e.EventRssViewed))
-                .Include(s => s.EntriesToRead.Select(e => e.EventRssViewed).Select(r => r.RssEntry))
+           var userSubscriptions = this.database.UsersSubscriptions
                 .Where(s => s.Id == subscriptionId)
+                .Include(s => s.EntriesToRead)
+                .SelectMany(s => s.EntriesToRead)
+                .Include(s => s.EventRssViewed)
+                .Include(s => s.EventRssViewed.RssEntry)
+                .Where(s => !s.IsRead)
                 .ToList();
-            return userSubscriptions.SelectMany(x => x.EntriesToRead).Distinct().ToList();
+
+            return userSubscriptions.ToList();
         }
 
         public RssChannelSubscription LoadChannelInformation(long subscriptionId)
