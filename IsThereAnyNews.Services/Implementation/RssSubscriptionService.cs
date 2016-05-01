@@ -15,13 +15,20 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
         private readonly IRssEntriesToReadRepository rssToReadRepository;
         private readonly IRssEventRepository rssEventsRepository;
+        private readonly IUsersSubscriptionRepository usersSubscriptionRepository;
 
-        public RssSubscriptionService(ISessionProvider sessionProvider, IRssChannelsSubscriptionsRepository rssSubscriptionsRepository, IRssEntriesToReadRepository rssToReadRepository, IRssEventRepository rssEventsRepository)
+        public RssSubscriptionService(
+            ISessionProvider sessionProvider,
+            IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
+            IRssEntriesToReadRepository rssToReadRepository,
+            IRssEventRepository rssEventsRepository,
+            IUsersSubscriptionRepository usersSubscriptionRepository)
         {
             this.sessionProvider = sessionProvider;
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
             this.rssToReadRepository = rssToReadRepository;
             this.rssEventsRepository = rssEventsRepository;
+            this.usersSubscriptionRepository = usersSubscriptionRepository;
         }
 
 
@@ -30,14 +37,54 @@ namespace IsThereAnyNews.Services.Implementation
             switch (streamType)
             {
                 case StreamType.Rss:
-                    return RssSubscriptionIndexViewModel(subscriptionId);
+                    return GetRssSubscriptionIndexViewModel(subscriptionId);
                 case StreamType.Person:
+                    return GetPersonSubscriptionIndexViewModel(subscriptionId);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(streamType), streamType, null);
             }
         }
 
-        private RssSubscriptionIndexViewModel RssSubscriptionIndexViewModel(long subscriptionId)
+        private RssSubscriptionIndexViewModel GetPersonSubscriptionIndexViewModel(long subscriptionId)
+        {
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
+
+            if (!this.usersSubscriptionRepository.DoesUserOwnsSubscription(subscriptionId, currentUserId))
+            {
+                var ci = new ChannelInformationViewModel
+                {
+                    Title = "You are not subscribed to this user",
+                    Created = DateTime.MaxValue
+                };
+
+                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(ci, new List<RssEntryToRead>());
+                rssSubscriptionIndexViewModel.SubscriptionId = subscriptionId;
+                return rssSubscriptionIndexViewModel;
+            }
+
+            var loadAllUnreadEntriesFromSubscription = this.usersSubscriptionRepository
+                .LoadAllUnreadEntriesFromSubscription(subscriptionId);
+
+
+            var channelInformation =
+                this.usersSubscriptionRepository
+                    .LoadChannelInformation(subscriptionId);
+
+            var channelInformationViewModel = new ChannelInformationViewModel
+            {
+                Title = channelInformation.Title,
+                Created = channelInformation.Created
+            };
+
+            var viewModel = new RssSubscriptionIndexViewModel(
+                    channelInformationViewModel, loadAllUnreadEntriesFromSubscription
+                    );
+
+            viewModel.SubscriptionId = subscriptionId;
+            return viewModel;
+        }
+
+        private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModel(long subscriptionId)
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
 
@@ -68,7 +115,7 @@ namespace IsThereAnyNews.Services.Implementation
             return viewModel;
         }
 
-       
+
 
         public void MarkAllRssReadForSubscription(MarkReadForSubscriptionDto dto)
         {

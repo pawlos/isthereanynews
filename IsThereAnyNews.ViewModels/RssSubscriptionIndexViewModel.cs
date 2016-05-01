@@ -6,10 +6,22 @@ namespace IsThereAnyNews.ViewModels
 {
     public class RssSubscriptionIndexViewModel
     {
-        public RssSubscriptionIndexViewModel(ChannelInformationViewModel channelInformation, List<RssEntryToRead> loadAllRssEntriesForUserAndChannel)
+        public RssSubscriptionIndexViewModel(
+            ChannelInformationViewModel channelInformation,
+            List<RssEntryToRead> loadAllRssEntriesForUserAndChannel)
         {
             this.ChannelInformation = channelInformation;
-            this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel.Select(r => new RssEntryToReadViewModel(r)).ToList();
+            this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel
+                .Select(r => new RssEntryToReadViewModel(r)).ToList();
+        }
+
+        public RssSubscriptionIndexViewModel(
+            ChannelInformationViewModel channelInformationViewModel,
+            List<UserSubscriptionEntryToRead> loadAllRssEntriesForUserAndChannel)
+        {
+            this.ChannelInformation = channelInformationViewModel;
+            this.RssEntryToReadViewModels =
+                loadAllRssEntriesForUserAndChannel.Select(r => new RssEntryToReadViewModel(r)).ToList();
         }
 
         public ChannelInformationViewModel ChannelInformation { get; set; }

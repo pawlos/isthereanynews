@@ -12,6 +12,13 @@ namespace IsThereAnyNews.ViewModels
             this.RssEntryViewModel = new RssEntryViewModel(rssEntryToRead.RssEntry);
         }
 
+        public RssEntryToReadViewModel(UserSubscriptionEntryToRead rssEntryToRead)
+        {
+            this.Id = rssEntryToRead.Id;
+            this.IsRead = false;
+            this.RssEntryViewModel = new RssEntryViewModel(rssEntryToRead.EventRssViewed.RssEntry);
+        }
+
         public RssEntryViewModel RssEntryViewModel { get; set; }
 
         public bool IsRead { get; set; }
