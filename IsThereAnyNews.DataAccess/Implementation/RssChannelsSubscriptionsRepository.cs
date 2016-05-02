@@ -117,6 +117,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
         {
             this.database.RssEntriesToRead
                 .Where(x => ids.Contains(x.Id))
+                .Include(x=>x.RssEntry)
                 .ToList()
                 .ForEach(x => x.IsRead = true);
             this.database.SaveChanges();
