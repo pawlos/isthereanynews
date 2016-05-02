@@ -48,7 +48,7 @@ namespace IsThereAnyNews.Mvc.Controllers
         }
 
         [ChildActionOnly]
-        public async Task<PartialViewResult> MyChannelList()
+        public PartialViewResult MyChannelList()
         {
             var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
             var listofusers = this.userSubscriptionServiceService.LoadAllObservableSubscription();
@@ -72,7 +72,7 @@ namespace IsThereAnyNews.Mvc.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        
+
         public HttpStatusCodeResult MarkRssEntryViewed(long id)
         {
             this.rssSubscriptionService.MarkEntryViewed(id);

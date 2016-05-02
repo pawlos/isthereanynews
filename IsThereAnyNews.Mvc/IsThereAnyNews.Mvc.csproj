@@ -180,9 +180,9 @@
     <Content Include="icon.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-2.2.2-vsdoc.js" />
-    <Content Include="Scripts\jquery-2.2.2.js" />
-    <Content Include="Scripts\jquery-2.2.2.min.js" />
+    <None Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.3.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -240,7 +240,7 @@
     <Content Include="Content\font-awesome-4.5.0\scss\_rotated-flipped.scss" />
     <Content Include="Content\font-awesome-4.5.0\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.5.0\scss\_variables.scss" />
-    <Content Include="Scripts\jquery-2.2.2.min.map" />
+    <Content Include="Scripts\jquery-2.2.3.min.map" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\RssChannel\_Public.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
