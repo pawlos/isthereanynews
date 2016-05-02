@@ -34,5 +34,11 @@ namespace IsThereAnyNews.Mvc.Controllers
             var viewmodel = this.statisticsService.GetUsersThatReadTheMost(10);
             return this.View("Users", viewmodel);
         }
+
+
+        public ActionResult ActivityPerWeek()
+        {
+            return this.View("Index");
+        }
     }
 }
