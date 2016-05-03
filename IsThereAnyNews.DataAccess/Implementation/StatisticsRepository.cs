@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using IsThereAnyNews.EntityFramework;
 using System.Data.Entity;
 using System.Linq;
 using IsThereAnyNews.EntityFramework.Models;
 using IsThereAnyNews.EntityFramework.Models.Entities;
+using IsThereAnyNews.EntityFramework.Models.Events;
 
 namespace IsThereAnyNews.DataAccess.Implementation
 {
@@ -76,6 +78,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .ToList();
 
             return list;
+        }
+
+        public List<EventRssViewed> LoadAllEventsFromAndToDate(DateTime startDate, DateTime endDate)
+        {
+            var eventRssVieweds = this.database.EventsRssViewed
+                .Where(e => e.Created >= startDate)
+                .Where(e => e.Created < endDate)
+                .ToList();
+
+            return eventRssVieweds;
         }
 
         private RssStatistics ToRssStatistics(RssEntryToRead model)

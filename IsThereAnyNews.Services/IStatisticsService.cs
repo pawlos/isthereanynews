@@ -8,5 +8,6 @@ namespace IsThereAnyNews.Services
         TopReadChannelsViewModel GetTopReadChannels(int i);
         UserStatisticsViewModel GetUsersThatReadTheMost(int i);
         NewsStatisticsViewModel GetTopReadNews(int i);
+        List<ActivityPerWeek> GetActivityPerWeek();
     }
 }

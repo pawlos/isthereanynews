@@ -255,6 +255,7 @@
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\RssChannel\_MyChannelList.cshtml" />
     <Content Include="Views\Stream\Index.cshtml" />
+    <Content Include="Views\Statistics\ActivityPerWeek.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.DataAccess.Implementation;
+using IsThereAnyNews.EntityFramework.Models.Events;
 
 namespace IsThereAnyNews.Services.Implementation
 {
@@ -52,7 +56,7 @@ namespace IsThereAnyNews.Services.Implementation
                 Id = model.Id,
                 Name = model.Name,
                 Count = model.Count,
-                Preview=model.Preview
+                Preview = model.Preview
             };
 
             return viewModel;
@@ -74,6 +78,51 @@ namespace IsThereAnyNews.Services.Implementation
                 .ToList();
             var userStatisticsViewModel = new NewsStatisticsViewModel(list);
             return userStatisticsViewModel;
+        }
+
+        public List<ActivityPerWeek> GetActivityPerWeek()
+        {
+            var startDate = new DateTime(2016, 1, 1);
+            var endDate = DateTime.Now.Date;
+
+            var loadAllEventsFromAndToDate =
+                this.statisticsRepository
+                    .LoadAllEventsFromAndToDate(startDate, endDate);
+
+            var firstFourDayWeek = System.Globalization.CalendarWeekRule.FirstFourDayWeek;
+            var firstDayOfWeek = System.Globalization.CalendarWeekRule.FirstDay;
+
+            var getWeekOfYear = new Func<DateTime, CalendarWeekRule, DayOfWeek, int>(CultureInfo.CurrentCulture.Calendar.GetWeekOfYear);
+
+            var x = new List<List<EventRssViewed>>(52);
+            for (int i = 0; i < 52; i++)
+            {
+                x.Add(new List<EventRssViewed>());
+            }
+
+            loadAllEventsFromAndToDate.ForEach(e => 
+                x.ElementAt(getWeekOfYear(e.Created,
+                            CalendarWeekRule.FirstFourDayWeek, 
+                                DayOfWeek.Monday)).Add(e));
+
+            var r = new List<ActivityPerWeek>(52);
+            for (int i = 1; i <= 52; i++)
+            {
+                r.Add(new ActivityPerWeek(i, x.ElementAt(i - 1).Count));
+            }
+            return r;
+        }
+    }
+
+    public class ActivityPerWeek
+    {
+        public int WeekNumber { get; set; }
+        public int RssCount { get; set; }
+
+        public ActivityPerWeek(int weekNumber, int rssCount)
+        {
+            WeekNumber = weekNumber;
+            RssCount = rssCount;
         }
     }
 }

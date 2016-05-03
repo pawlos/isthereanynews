@@ -38,7 +38,8 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         public ActionResult ActivityPerWeek()
         {
-            return this.View("Index");
+            var activityPerWeeks = this.statisticsService.GetActivityPerWeek();
+            return this.View("ActivityPerWeek", activityPerWeeks);
         }
     }
 }
