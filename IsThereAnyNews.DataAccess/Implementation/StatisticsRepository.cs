@@ -85,6 +85,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             var eventRssVieweds = this.database.EventsRssViewed
                 .Where(e => e.Created >= startDate)
                 .Where(e => e.Created < endDate)
+                .Include(e=>e.RssEntry)
                 .ToList();
 
             return eventRssVieweds;

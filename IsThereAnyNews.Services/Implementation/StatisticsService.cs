@@ -100,15 +100,23 @@ namespace IsThereAnyNews.Services.Implementation
                 x.Add(new List<EventRssViewed>());
             }
 
-            loadAllEventsFromAndToDate.ForEach(e => 
+            loadAllEventsFromAndToDate.ForEach(e =>
                 x.ElementAt(getWeekOfYear(e.Created,
-                            CalendarWeekRule.FirstFourDayWeek, 
+                            CalendarWeekRule.FirstFourDayWeek,
                                 DayOfWeek.Monday)).Add(e));
 
             var r = new List<ActivityPerWeek>(52);
             for (int i = 1; i <= 52; i++)
             {
-                r.Add(new ActivityPerWeek(i, x.ElementAt(i - 1).Count));
+                var eventRssVieweds = x.ElementAt(i - 1);
+                var rssVieweds = eventRssVieweds
+                    .GroupBy(e => e.RssEntryId)
+                    .OrderByDescending(e => e.Key)
+                    .Take(3)
+                    .SelectMany(e => e.Take(3))
+                    .ToList();
+
+                r.Add(new ActivityPerWeek(i, eventRssVieweds.Count, rssVieweds));
             }
             return r;
         }
@@ -118,11 +126,13 @@ namespace IsThereAnyNews.Services.Implementation
     {
         public int WeekNumber { get; set; }
         public int RssCount { get; set; }
+        public List<EventRssViewed> RssVieweds { get; set; }
 
-        public ActivityPerWeek(int weekNumber, int rssCount)
+        public ActivityPerWeek(int weekNumber, int rssCount, List<EventRssViewed> rssVieweds)
         {
             WeekNumber = weekNumber;
             RssCount = rssCount;
+            RssVieweds = rssVieweds;
         }
     }
 }
