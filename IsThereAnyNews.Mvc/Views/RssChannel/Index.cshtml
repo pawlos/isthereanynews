@@ -1,98 +1,12 @@
-﻿@model IsThereAnyNews.ViewModels.RssChannelsIndexViewModel
-
-@{
-    ViewBag.Title = "title";
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
 <div class="container">
     <div class="col-lg-4">
-        @foreach (var channel in Model.AllChannels)
-        {
-            <button data-rss-feed-address="@Url.Action("Public", "RssChannel", new { id = channel.Id })"
-                    class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
-                <div>@channel.Title</div>
-                <i class="fa fa-calendar"></i>@channel.Created
-                <i class="fa fa-refresh"></i>@channel.Updated
-                <i class="fa fa-user"></i>@channel.SubscriptionsCount
-                <i class="fa fa-newspaper-o"></i>@channel.RssEntriesCount
-            </button>
-        }
+       @Html.Action("PublicChannels")
     </div>
     <div class="col-lg-8">
-        <div class="nocss-rss-container"></div>
+        <h3>Please select channel to see news</h3>
     </div>
 </div>
-
-<script type="text/javascript">
-
-    var onSuccessGetRssEntries = function (data, status) {
-        $(".nocss-rss-container").html(data);
-    };
-
-    var onErrorGetRssEntries = function (data, status) {
-        console.log("onErrorGetRssEntries");
-    };
-
-    var onSuccessUnsubscribe = function (data, status) {
-        console.log("onSuccessUnsubscribe");
-    };
-    var onErrorUnsubscribe = function (data, status) {
-        console.log("onErrorUnsubscribe");
-    };
-
-    var onSuccessSubscribe = function (data, status) {
-        console.log("onSuccessSubscribe");
-    };
-    var onErrorSubscribe = function (data, status) {
-        console.log("onErrorSubscribe");
-    };
-
-    var onUnsubscribeClick = function (e) {
-        var button = $(e.target);
-        var urlAddress = button.data("unsubscribe-url");
-
-        var ajaxOptions = {
-            type: "post",
-            url: urlAddress,
-            success: onSuccessUnsubscribe,
-            error: onErrorUnsubscribe
-        }
-        $.ajax(ajaxOptions);
-    }
-
-    var onSubscribeClick = function (e) {
-        var button = $(e.target);
-        var urlAddress = button.data("subscribe-url");
-
-        var ajaxOptions = {
-            type: "post",
-            url: urlAddress,
-            success: onSuccessSubscribe,
-            error: onErrorSubscribe
-        }
-        $.ajax(ajaxOptions);
-    }
-
-    var onRssChannelClick = function (e) {
-        var button = $(e.currentTarget);
-        var urlAddress = button.data("rss-feed-address");
-
-        var ajaxOptions = {
-            type: "GET",
-            dataType: "html",
-            url: urlAddress,
-            success: onSuccessGetRssEntries,
-            error: onErrorGetRssEntries
-        }
-
-        $.ajax(ajaxOptions);
-    }
-
-    $(document).ready(function () {
-        $(".nocss-rsschannel").on("click", onRssChannelClick);
-        $(".nocss-rss-container").on("click", ".nocss-unsubscribe", onUnsubscribeClick);
-        $(".nocss-rss-container").on("click", ".nocss-subscribe", onSubscribeClick);
-    });
-</script>

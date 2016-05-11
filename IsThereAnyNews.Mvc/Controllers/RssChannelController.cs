@@ -1,9 +1,7 @@
 ﻿using System.Net;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.Services;
-using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
@@ -30,15 +28,22 @@ namespace IsThereAnyNews.Mvc.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            return this.View("Index");
+        }
+
+        [HttpGet]
+        [ChildActionOnly]
+        public ActionResult PublicChannels()
+        {
             var viewmodel = this.rssChannelsService.LoadAllChannels();
-            return this.View("Index", viewmodel);
+            return this.PartialView("_PublicChannels", viewmodel);
         }
 
         [HttpGet]
         public ActionResult Public(long id)
         {
             var viewmodel = this.rssChannelsService.GetViewModelFormChannelId(id);
-            return this.PartialView("_Public", viewmodel);
+            return this.View("Public", viewmodel);
         }
 
         [Authorize]

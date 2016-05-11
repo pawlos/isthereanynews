@@ -1,0 +1,12 @@
+﻿@model IsThereAnyNews.ViewModels.RssChannelsIndexViewModel
+@foreach (var channel in Model.AllChannels)
+{
+    <a href="@Url.Action("Public", "RssChannel", new {id = channel.Id})"
+       class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+        <div>@channel.Title</div>
+        <i class="fa fa-calendar"></i>@channel.Created
+        <i class="fa fa-refresh"></i>@channel.Updated
+        <i class="fa fa-user"></i>@channel.SubscriptionsCount
+        <i class="fa fa-newspaper-o"></i>@channel.RssEntriesCount
+    </a>
+}

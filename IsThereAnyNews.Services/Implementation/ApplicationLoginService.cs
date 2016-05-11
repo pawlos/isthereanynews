@@ -4,6 +4,7 @@ using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework.Models;
 using IsThereAnyNews.EntityFramework.Models.Entities;
+using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.Services.Implementation
 {
@@ -49,14 +50,36 @@ namespace IsThereAnyNews.Services.Implementation
 
         private void RegisterCurrentSocialLogin()
         {
+            var newUser = CreateNewApplicationUser();
+            var authenticationTypeProvider = this.GetUserAuthenticationProviderFromAuthentication();
+            var identifier = this.FindCurrentUserClaimNameIdentifier();
+            this.CreateAndAssignNewSocialLoginForApplicationUser(identifier, authenticationTypeProvider, newUser);
+        }
+
+        private AuthenticationTypeProvider GetUserAuthenticationProviderFromAuthentication()
+        {
+            return this.authentication.GetCurrentUserLoginProvider();
+        }
+
+        private User CreateNewApplicationUser()
+        {
+            return this.userRepository.CreateNewUser();
+        }
+
+        private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier, 
+                                                                     AuthenticationTypeProvider authenticationTypeProvider, 
+                                                                     User newUser)
+        {
+            var socialLogin = new SocialLogin(identifier.Value, authenticationTypeProvider, newUser.Id);
+            this.socialLoginRepository.SaveToDatabase(socialLogin);
+        }
+
+        private Claim FindCurrentUserClaimNameIdentifier()
+        {
             var user = this.authentication.GetCurrentUser();
             var claims = user.Claims.ToList();
             var identifier = claims.First(x => x.Type == ClaimTypes.NameIdentifier);
-            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider();
-
-            var newUser = this.userRepository.CreateNewUser();
-            var socialLogin = new SocialLogin(identifier.Value, authenticationTypeProvider, newUser.Id);
-            this.socialLoginRepository.SaveToDatabase(socialLogin);
+            return identifier;
         }
     }
 }
