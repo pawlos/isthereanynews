@@ -63,10 +63,10 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         [Authorize]
         [HttpPost]
-        public HttpStatusCodeResult Unsubscribe(long id)
+        public ActionResult Unsubscribe(long subscriptionId, long channelId)
         {
-            this.rssSubscriptionService.UnsubscribeCurrentUserFromChannelId(id);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            this.rssSubscriptionService.UnsubscribeCurrentUserFromChannelId(subscriptionId);
+            return this.RedirectToAction("Public", new { id = channelId });
         }
 
         [Authorize]
@@ -74,7 +74,7 @@ namespace IsThereAnyNews.Mvc.Controllers
         public ActionResult Subscribe(long id)
         {
             this.rssSubscriptionService.SubscribeCurrentUserToChannel(id);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            return this.RedirectToAction("Public", new { id = id });
         }
 
 

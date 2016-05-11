@@ -19,19 +19,20 @@
             {
                 if (Model.SubscriptionInfo.IsSubscribed)
                 {
-                    <button role="button"
-                            class="btn-xs btn-error nocss-unsubscribe"
-                            data-unsubscribe-url="@Url.Action("Unsubscribe", new { id = Model.SubscriptionInfo.ChannelSubscriptionId })">
-                        unsubscribe
-                    </button>
+                    using (Html.BeginForm("Unsubscribe", "RssChannel", FormMethod.Post))
+                    {
+                        <input type="hidden" name="subscriptionId" value="@Model.SubscriptionInfo.ChannelSubscriptionId" />
+                        <input type="hidden" name="channelId" value="@Model.ChannelId" />
+                        <input type="submit" class="btn-xs btn-warning nocss-unsubscribe" value="unsubscribe" />
+                    }
                 }
                 else
                 {
-                    <button role="button"
-                            class="btn-xs btn-error nocss-subscribe"
-                            data-subscribe-url="@Url.Action("Subscribe", new { id = Model.ChannelId })">
-                        subscribe
-                    </button>
+                    using (Html.BeginForm("Subscribe", "RssChannel", FormMethod.Post))
+                    {
+                        <input type="hidden" name="id" value="@Model.ChannelId" />
+                        <input type="submit" class="btn-xs btn-primary" value="subscribe" />
+                    }
                 }
             }
         </div>
