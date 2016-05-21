@@ -89,5 +89,13 @@ namespace IsThereAnyNews.Mvc.Controllers
             this.rssSubscriptionService.MarkAllRssReadForSubscription(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
+
+        [HttpPost]
+        public ActionResult AddChannel(AddChannelDto dto)
+        {
+            this.rssChannelsService.CreateNewChannelIfNotExists(dto);
+            this.rssSubscriptionService.SubscribeCurrentUserToChannel(dto);
+            return this.RedirectToAction("My");
+        }
     }
 }

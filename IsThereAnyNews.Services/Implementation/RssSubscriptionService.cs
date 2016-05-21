@@ -16,19 +16,22 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssEntriesToReadRepository rssToReadRepository;
         private readonly IRssEventRepository rssEventsRepository;
         private readonly IUsersSubscriptionRepository usersSubscriptionRepository;
+        private readonly IRssChannelsRepository rssChannelsRepository;
 
         public RssSubscriptionService(
             ISessionProvider sessionProvider,
             IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
             IRssEntriesToReadRepository rssToReadRepository,
             IRssEventRepository rssEventsRepository,
-            IUsersSubscriptionRepository usersSubscriptionRepository)
+            IUsersSubscriptionRepository usersSubscriptionRepository,
+            IRssChannelsRepository rssChannelsRepository)
         {
             this.sessionProvider = sessionProvider;
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
             this.rssToReadRepository = rssToReadRepository;
             this.rssEventsRepository = rssEventsRepository;
             this.usersSubscriptionRepository = usersSubscriptionRepository;
+            this.rssChannelsRepository = rssChannelsRepository;
         }
 
 
@@ -161,6 +164,28 @@ namespace IsThereAnyNews.Services.Implementation
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SubscribeCurrentUserToChannel(AddChannelDto channelId)
+        {
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var isUserSubscribedToChannelUrl = this.rssSubscriptionsRepository.IsUserSubscribedToChannelUrl(currentUserId, channelId.RssChannelLink);
+
+            if (!isUserSubscribedToChannelUrl)
+            {
+                var idByChannelUrl = this.rssChannelsRepository
+                    .GetIdByChannelUrl(new List<string> { channelId.RssChannelLink })
+                    .Single();
+
+                var rssChannelSubscription = new RssChannelSubscription
+                {
+                    RssChannelId = idByChannelUrl,
+                    UserId = currentUserId,
+                    Title = channelId.RssChannelName
+                };
+
+                this.rssSubscriptionsRepository.SaveToDatabase(new List<RssChannelSubscription> { rssChannelSubscription });
             }
         }
 

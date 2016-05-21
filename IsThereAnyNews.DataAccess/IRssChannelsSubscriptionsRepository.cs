@@ -17,5 +17,6 @@ namespace IsThereAnyNews.DataAccess
         void CreateNewSubscriptionForUserAndChannel(long userId, long channelId);
         RssChannelSubscription LoadChannelInformation(long subscriptionId);
         void MarkRead(List<long> ids);
+        bool IsUserSubscribedToChannelUrl(long currentUserId, string rssChannelLink);
     }
 }

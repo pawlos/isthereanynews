@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Caching;
 using IsThereAnyNews.DataAccess;
+using IsThereAnyNews.Dtos;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Services.Implementation
@@ -76,7 +79,7 @@ namespace IsThereAnyNews.Services.Implementation
                 Name = rssChannel.Title,
                 Added = rssChannel.Created,
                 ChannelId = rssChannel.Id,
-                Entries = rssChannel.RssEntries.Select(entry=>new RssEntryViewModel(entry)).ToList()
+                Entries = rssChannel.RssEntries.Select(entry => new RssEntryViewModel(entry)).ToList()
             };
 
             if (this.authentication.CurrentUserIsAuthenticated())
@@ -87,6 +90,18 @@ namespace IsThereAnyNews.Services.Implementation
                 rssChannelIndexViewModel.SubscriptionInfo = new UserRssSubscriptionInfoViewModel(subscriptionInfo);
             }
             return rssChannelIndexViewModel;
+        }
+
+        public void CreateNewChannelIfNotExists(AddChannelDto dto)
+        {
+            var idByChannelUrl = this.channelsRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
+            if (!idByChannelUrl.Any())
+            {
+                var rssChannel = new RssChannel();
+                rssChannel.Title = dto.RssChannelName;
+                rssChannel.Url = dto.RssChannelLink;
+                this.channelsRepository.SaveToDatabase(new List<RssChannel> { rssChannel });
+            }
         }
     }
 }

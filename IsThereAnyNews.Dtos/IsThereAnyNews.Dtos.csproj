@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddChannelDto.cs" />
     <Compile Include="MarkReadDto.cs" />
     <Compile Include="MarkReadForSubscriptionDto.cs" />
     <Compile Include="OpmlImporterIndexDto.cs" />
