@@ -10,15 +10,5 @@ namespace IsThereAnyNews.ViewModels
         public int SubscriptionsCount { get; set; }
         public string Title { get; set; }
         public DateTime Updated { get; set; }
-
-        public RssChannelWithStatisticsViewModel(long id, DateTime created, int rssEntriesCount, int subscriptionsCount, string title, DateTime updated)
-        {
-            Id = id;
-            Created = created;
-            RssEntriesCount = rssEntriesCount;
-            SubscriptionsCount = subscriptionsCount;
-            Title = title;
-            Updated = updated;
-        }
     }
 }

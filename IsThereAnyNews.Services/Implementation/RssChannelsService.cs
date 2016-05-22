@@ -18,6 +18,7 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
         private readonly ISessionProvider session;
         private readonly IMapper mapping;
+        private readonly IMapper mapper;
 
         public RssChannelsService(
             IRssChannelsRepository channelsRepository,
@@ -27,7 +28,8 @@ namespace IsThereAnyNews.Services.Implementation
             IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
             ISessionProvider session,
-            IMapper mapping)
+            IMapper mapping,
+            IMapper mapper)
         {
             this.channelsRepository = channelsRepository;
             this.sessionProvider = sessionProvider;
@@ -37,20 +39,13 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssSubscriptionRepository = rssSubscriptionRepository;
             this.session = session;
             this.mapping = mapping;
+            this.mapper = mapper;
         }
 
         public RssChannelsIndexViewModel LoadAllChannels()
         {
-            var loadAllChannels = this.channelsRepository.LoadAllChannelsWithStatistics()
-                .Select(c => new RssChannelWithStatisticsViewModel(
-                    c.Id,
-                    c.Created,
-                    c.RssEntriesCount,
-                    c.SubscriptionsCount,
-                    c.Title,
-                    c.Updated))
-                .ToList();
-            var viewmodel = new RssChannelsIndexViewModel(loadAllChannels);
+            var allChannels = this.channelsRepository.LoadAllChannelsWithStatistics();
+            var viewmodel = this.mapper.Map<RssChannelsIndexViewModel>(allChannels);
             return viewmodel;
         }
 

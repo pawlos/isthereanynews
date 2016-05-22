@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.ViewModels;
 
@@ -22,12 +23,14 @@ namespace IsThereAnyNews.Automapper
 
             CreateMap<RssEntry, RssEntryViewModel>();
 
-
             CreateMap<RssEntryToRead, RssEntryToReadViewModel>()
                 .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.RssEntry));
 
             CreateMap<UserSubscriptionEntryToRead, RssEntryToReadViewModel>()
                 .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.EventRssViewed.RssEntry));
+
+            CreateMap<List<RssChannelSubscriptionWithStatisticsData>, RssChannelsIndexViewModel>()
+                .ForMember(d => d.AllChannels, o => o.MapFrom(s => s));
 
 
         }
