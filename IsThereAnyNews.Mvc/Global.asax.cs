@@ -15,7 +15,6 @@ namespace IsThereAnyNews.Mvc
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             IsThereAnyNewsAutofac.RegisterDependencies();
             IsThereAnyNewsScheduler.ScheduleRssUpdater();
-            IsThereAnyNewsMapper.RegisterMappings();
         }
     }
 }

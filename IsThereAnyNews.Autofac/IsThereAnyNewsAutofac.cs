@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using AutoMapper;
+using IsThereAnyNews.Automapper;
 using IsThereAnyNews.RssChannelUpdater;
 
 namespace IsThereAnyNews.Autofac
@@ -39,6 +41,8 @@ namespace IsThereAnyNews.Autofac
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();
 
+            builder.Register(c => IsThereAnyNewsAutomapper.ConfigureMapper()).As<IMapper>()
+                .InstancePerLifetimeScope();
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
@@ -6,16 +7,7 @@ using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Automapper
 {
-    public class IsThereAnyNewsMapper
-    {
-        public static void RegisterMappings()
-        {
-            Mapper.Initialize(config =>
-                config.AddProfile(new ModelToViewModel()));
-        }
-    }
-
-    public class ModelToViewModel : Profile
+    public class ModelToViewModelProfile : Profile
     {
         protected override void Configure()
         {
