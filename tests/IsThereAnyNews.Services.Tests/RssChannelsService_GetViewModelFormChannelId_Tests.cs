@@ -16,6 +16,7 @@ namespace IsThereAnyNews.Services.Tests
         private RssChannelsService sut;
         private Mock<IRssChannelsRepository> mockChannelsRepository;
         private Mock<IMapper> mockMapper;
+        private Mock<IUserAuthentication> mockUserAuthentication;
 
         public RssChannelsService_GetViewModelFormChannelId_Tests()
         {
@@ -23,6 +24,7 @@ namespace IsThereAnyNews.Services.Tests
 
             this.mockChannelsRepository = this.moqer.GetMock<IRssChannelsRepository>();
             this.mockMapper = this.moqer.GetMock<IMapper>();
+            this.mockUserAuthentication = this.moqer.GetMock<IUserAuthentication>();
 
             this.sut = this.moqer.Resolve<RssChannelsService>();
         }
@@ -60,6 +62,57 @@ namespace IsThereAnyNews.Services.Tests
             // assert 
             this.mockMapper
                 .Verify(v => v.Map<RssChannelIndexViewModel>(It.IsAny<RssChannel>()), Times.Once());
+        }
+
+        [Fact]
+        public void T003_When_User_Is_Not_Authenticated_Then_ViewModel_Must_Have_Flag_Set_To_False()
+        {
+            // arrange
+            var channelId = 33;
+
+            this.mockChannelsRepository
+                .Setup(s => s.LoadRssChannel(It.IsAny<long>()))
+                .Returns(new RssChannel());
+
+            this.mockUserAuthentication
+                .Setup(s => s.CurrentUserIsAuthenticated())
+                .Returns(false);
+
+            this.mockMapper
+                .Setup(s => s.Map<RssChannelIndexViewModel>(It.IsAny<RssChannel>()))
+                .Returns(new RssChannelIndexViewModel());
+
+            // act
+            var result = this.sut.GetViewModelFormChannelId(channelId);
+
+            // assert 
+            Assert.False(result.IsAuthenticatedUser);
+        }
+
+        [Fact]
+        public void T004_When_User_Is_Authenticated_Then_ViewModel_Must_Have_Flag_Set_To_True_And_UserSubscription_Is_Set()
+        {
+            // arrange
+            var channelId = 33;
+
+            this.mockChannelsRepository
+                .Setup(s => s.LoadRssChannel(It.IsAny<long>()))
+                .Returns(new RssChannel());
+
+            this.mockUserAuthentication
+                .Setup(s => s.CurrentUserIsAuthenticated())
+                .Returns(true);
+
+            this.mockMapper
+                .Setup(s => s.Map<RssChannelIndexViewModel>(It.IsAny<RssChannel>()))
+                .Returns(new RssChannelIndexViewModel());
+
+            // act
+            var result = this.sut.GetViewModelFormChannelId(channelId);
+
+            // assert 
+            Assert.True(result.IsAuthenticatedUser);
+            Assert.NotNull(result.SubscriptionInfo);
         }
     }
 }

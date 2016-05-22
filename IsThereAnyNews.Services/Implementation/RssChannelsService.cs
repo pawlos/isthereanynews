@@ -65,12 +65,19 @@ namespace IsThereAnyNews.Services.Implementation
 
             if (this.authentication.CurrentUserIsAuthenticated())
             {
-                var userId = this.session.GetCurrentUserId();
-                var subscriptionInfo = this.rssSubscriptionRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
                 rssChannelIndexViewModel.IsAuthenticatedUser = true;
-                rssChannelIndexViewModel.SubscriptionInfo = new UserRssSubscriptionInfoViewModel(subscriptionInfo);
+                var userRssSubscriptionInfoViewModel = CreateUserSubscriptionInfo(id);
+                rssChannelIndexViewModel.SubscriptionInfo = userRssSubscriptionInfoViewModel;
             }
             return rssChannelIndexViewModel;
+        }
+
+        private UserRssSubscriptionInfoViewModel CreateUserSubscriptionInfo(long id)
+        {
+            var userId = this.session.GetCurrentUserId();
+            var subscriptionInfo = this.rssSubscriptionRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
+            var userRssSubscriptionInfoViewModel = new UserRssSubscriptionInfoViewModel(subscriptionInfo);
+            return userRssSubscriptionInfoViewModel;
         }
 
         public void CreateNewChannelIfNotExists(AddChannelDto dto)
