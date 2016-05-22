@@ -293,6 +293,10 @@
       <Project>{C06EDAA6-EE09-4ED1-85C4-A11DB07E5D4D}</Project>
       <Name>IsThereAnyNews.Autofac</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Automapper\IsThereAnyNews.Automapper.csproj">
+      <Project>{B24157E9-5C64-46D3-A7EF-A603969BCC76}</Project>
+      <Name>IsThereAnyNews.Automapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
       <Project>{112524E8-F4E5-4874-A870-79F2FEC8947C}</Project>
       <Name>IsThereAnyNews.DataAccess</Name>

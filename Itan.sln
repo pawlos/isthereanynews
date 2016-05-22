@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{555341E8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Services.Tests", "tests\IsThereAnyNews.Services.Tests\IsThereAnyNews.Services.Tests.csproj", "{85BA6BC3-23D8-4A94-AA90-2E417B1A3DE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Automapper", "IsThereAnyNews.Automapper\IsThereAnyNews.Automapper.csproj", "{B24157E9-5C64-46D3-A7EF-A603969BCC76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{85BA6BC3-23D8-4A94-AA90-2E417B1A3DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85BA6BC3-23D8-4A94-AA90-2E417B1A3DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85BA6BC3-23D8-4A94-AA90-2E417B1A3DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B24157E9-5C64-46D3-A7EF-A603969BCC76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24157E9-5C64-46D3-A7EF-A603969BCC76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24157E9-5C64-46D3-A7EF-A603969BCC76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24157E9-5C64-46D3-A7EF-A603969BCC76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

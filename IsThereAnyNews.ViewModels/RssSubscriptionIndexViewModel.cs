@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.ViewModels
@@ -8,26 +7,17 @@ namespace IsThereAnyNews.ViewModels
     public class RssSubscriptionIndexViewModel
     {
         public RssSubscriptionIndexViewModel(
-            ChannelInformationViewModel channelInformation,
-            List<RssEntryToRead> loadAllRssEntriesForUserAndChannel,
+            long subscriptionId,
+            ChannelInformationViewModel channelInformation, 
+            List<RssEntryToReadViewModel> loadAllRssEntriesForUserAndChannel, 
             StreamType streamType)
         {
+            this.SubscriptionId = subscriptionId;
             this.ChannelInformation = channelInformation;
             StreamType = streamType;
-            this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel
-                .Select(r => new RssEntryToReadViewModel(r)).ToList();
+            this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel;
         }
 
-        public RssSubscriptionIndexViewModel(
-            ChannelInformationViewModel channelInformationViewModel, 
-            List<UserSubscriptionEntryToRead> loadAllRssEntriesForUserAndChannel, 
-            StreamType streamType)
-        {
-            this.ChannelInformation = channelInformationViewModel;
-            StreamType = streamType;
-            this.RssEntryToReadViewModels =
-                loadAllRssEntriesForUserAndChannel.Select(r => new RssEntryToReadViewModel(r)).ToList();
-        }
 
         public ChannelInformationViewModel ChannelInformation { get; set; }
         public StreamType StreamType { get; set; }

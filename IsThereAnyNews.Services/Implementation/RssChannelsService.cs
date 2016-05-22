@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web.Caching;
+using AutoMapper;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.EntityFramework.Models.Entities;
@@ -13,30 +13,30 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssChannelsRepository channelsRepository;
         private readonly ISessionProvider sessionProvider;
         private readonly IRssChannelsSubscriptionsRepository channelsSubscriptionRepository;
-        private readonly IUserRepository usersRepository;
         private readonly IRssEntriesToReadRepository rssEntriesToReadRepository;
         private readonly IUserAuthentication authentication;
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
         private readonly ISessionProvider session;
+        private readonly IMapper mapping;
 
         public RssChannelsService(
             IRssChannelsRepository channelsRepository,
             ISessionProvider sessionProvider,
             IRssChannelsSubscriptionsRepository channelsSubscriptionRepository,
-            IUserRepository usersRepository,
             IRssEntriesToReadRepository rssEntriesToReadRepository,
             IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
-            ISessionProvider session)
+            ISessionProvider session,
+            IMapper mapping)
         {
             this.channelsRepository = channelsRepository;
             this.sessionProvider = sessionProvider;
             this.channelsSubscriptionRepository = channelsSubscriptionRepository;
-            this.usersRepository = usersRepository;
             this.rssEntriesToReadRepository = rssEntriesToReadRepository;
             this.authentication = authentication;
             this.rssSubscriptionRepository = rssSubscriptionRepository;
             this.session = session;
+            this.mapping = mapping;
         }
 
         public RssChannelsIndexViewModel LoadAllChannels()
@@ -54,19 +54,13 @@ namespace IsThereAnyNews.Services.Implementation
             return viewmodel;
         }
 
-        public RssChannelsDetailsViewModel Load(long id)
-        {
-            var channel = this.channelsRepository.Load(id);
-            var viewmodel = new RssChannelsDetailsViewModel(channel);
-            return viewmodel;
-        }
-
         public RssChannelsMyViewModel LoadAllChannelsOfCurrentUser()
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             var rssSubscriptions = this.channelsSubscriptionRepository.LoadAllSubscriptionsForUser(currentUserId);
             this.rssEntriesToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(currentUserId, rssSubscriptions);
-            return new RssChannelsMyViewModel(rssSubscriptions);
+            var viewmodel = this.mapping.Map<RssChannelsMyViewModel>(rssSubscriptions);
+            return viewmodel;
         }
 
         public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
@@ -74,12 +68,14 @@ namespace IsThereAnyNews.Services.Implementation
             var rssChannel = this.channelsRepository.LoadRssChannel(id);
 
 
+            var rssEntryViewModels = this.mapping.Map<List<RssEntryViewModel>>(rssChannel.RssEntries);
+
             var rssChannelIndexViewModel = new RssChannelIndexViewModel
             {
                 Name = rssChannel.Title,
                 Added = rssChannel.Created,
                 ChannelId = rssChannel.Id,
-                Entries = rssChannel.RssEntries.Select(entry => new RssEntryViewModel(entry)).ToList()
+                Entries = rssEntryViewModels
             };
 
             if (this.authentication.CurrentUserIsAuthenticated())

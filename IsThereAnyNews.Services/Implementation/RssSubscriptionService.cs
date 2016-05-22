@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.EntityFramework.Models.Entities;
@@ -17,6 +18,7 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssEventRepository rssEventsRepository;
         private readonly IUsersSubscriptionRepository usersSubscriptionRepository;
         private readonly IRssChannelsRepository rssChannelsRepository;
+        private readonly IMapper mapper;
 
         public RssSubscriptionService(
             ISessionProvider sessionProvider,
@@ -24,7 +26,8 @@ namespace IsThereAnyNews.Services.Implementation
             IRssEntriesToReadRepository rssToReadRepository,
             IRssEventRepository rssEventsRepository,
             IUsersSubscriptionRepository usersSubscriptionRepository,
-            IRssChannelsRepository rssChannelsRepository)
+            IRssChannelsRepository rssChannelsRepository, 
+            IMapper mapper)
         {
             this.sessionProvider = sessionProvider;
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
@@ -32,6 +35,7 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssEventsRepository = rssEventsRepository;
             this.usersSubscriptionRepository = usersSubscriptionRepository;
             this.rssChannelsRepository = rssChannelsRepository;
+            this.mapper = mapper;
         }
 
 
@@ -60,9 +64,9 @@ namespace IsThereAnyNews.Services.Implementation
                     Created = DateTime.MaxValue
                 };
 
-                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(ci, new List<RssEntryToRead>(),
+                var rssSubscriptionIndexViewModel = 
+                    new RssSubscriptionIndexViewModel(subscriptionId, ci, new List<RssEntryToReadViewModel>(),
                     StreamType.Person);
-                rssSubscriptionIndexViewModel.SubscriptionId = subscriptionId;
                 return rssSubscriptionIndexViewModel;
             }
 
@@ -88,12 +92,14 @@ namespace IsThereAnyNews.Services.Implementation
                 Created = channelInformation.Created
             };
 
+            var rssEntryToReadViewModels = this.mapper.Map<List<RssEntryToReadViewModel>>(loadAllUnreadEntriesFromSubscription);
+
             var viewModel = new RssSubscriptionIndexViewModel(
+                subscriptionId,
                 channelInformationViewModel,
-                loadAllUnreadEntriesFromSubscription,
+                rssEntryToReadViewModels,
                 StreamType.Person);
 
-            viewModel.SubscriptionId = subscriptionId;
             return viewModel;
         }
 
@@ -108,9 +114,9 @@ namespace IsThereAnyNews.Services.Implementation
                     Title = "You are not subscribed to this channel",
                     Created = DateTime.MaxValue
                 };
-                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(ci, new List<RssEntryToRead>(),
+                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(subscriptionId, ci,
+                    new List<RssEntryToReadViewModel>(), 
                     StreamType.Rss);
-                rssSubscriptionIndexViewModel.SubscriptionId = subscriptionId;
                 return rssSubscriptionIndexViewModel;
             }
 
@@ -132,8 +138,11 @@ namespace IsThereAnyNews.Services.Implementation
                 Created = channelInformation.Created
             };
 
-            var viewModel = new RssSubscriptionIndexViewModel(channelInformationViewModel,
-                loadAllRssEntriesForUserAndChannel, StreamType.Rss);
+            var rssEntryToReadViewModels = this.mapper.Map<List<RssEntryToReadViewModel>>(loadAllRssEntriesForUserAndChannel);
+
+            var viewModel = new RssSubscriptionIndexViewModel(subscriptionId,
+                channelInformationViewModel,
+                rssEntryToReadViewModels, StreamType.Rss);
             viewModel.SubscriptionId = subscriptionId;
             return viewModel;
         }

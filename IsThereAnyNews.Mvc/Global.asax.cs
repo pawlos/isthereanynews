@@ -1,4 +1,5 @@
 ﻿using IsThereAnyNews.Autofac;
+using IsThereAnyNews.Automapper;
 using IsThereAnyNews.RssChannelUpdater;
 
 namespace IsThereAnyNews.Mvc
@@ -14,6 +15,7 @@ namespace IsThereAnyNews.Mvc
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             IsThereAnyNewsAutofac.RegisterDependencies();
             IsThereAnyNewsScheduler.ScheduleRssUpdater();
+            IsThereAnyNewsMapper.RegisterMappings();
         }
     }
 }
