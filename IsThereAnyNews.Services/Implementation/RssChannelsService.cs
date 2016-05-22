@@ -61,17 +61,7 @@ namespace IsThereAnyNews.Services.Implementation
         public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
         {
             var rssChannel = this.channelsRepository.LoadRssChannel(id);
-
-
-            var rssEntryViewModels = this.mapping.Map<List<RssEntryViewModel>>(rssChannel.RssEntries);
-
-            var rssChannelIndexViewModel = new RssChannelIndexViewModel
-            {
-                Name = rssChannel.Title,
-                Added = rssChannel.Created,
-                ChannelId = rssChannel.Id,
-                Entries = rssEntryViewModels
-            };
+            var rssChannelIndexViewModel = this.mapping.Map<RssChannelIndexViewModel>(rssChannel);
 
             if (this.authentication.CurrentUserIsAuthenticated())
             {
