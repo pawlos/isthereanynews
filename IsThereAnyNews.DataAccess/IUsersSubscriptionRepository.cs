@@ -13,6 +13,7 @@ namespace IsThereAnyNews.DataAccess
         bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId);
         List<UserSubscriptionEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId);
         RssChannelSubscription LoadChannelInformation(long subscriptionId);
+        List<UserSubscriptionEntryToRead> LoadAllEntriesFromSubscription(long subscriptionId);
     }
 
 }

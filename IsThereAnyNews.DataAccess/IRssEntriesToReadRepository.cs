@@ -10,5 +10,6 @@ namespace IsThereAnyNews.DataAccess
         void MarkAllReadForUserAndSubscription(long subscriptionId, List<long> rssId);
         List<RssEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId);
         void MarkEntryViewedByUser(long currentUserId, long rssToReadId);
+        List<RssEntryToRead> LoadAllEntriesFromSubscription(long subscriptionId);
     }
 }

@@ -64,6 +64,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return rssEntryToReads;
         }
 
+        public List<RssEntryToRead> LoadAllEntriesFromSubscription(long subscriptionId)
+        {
+            var rssEntryToReads = this.database.RssEntriesToRead
+               .Where(r => r.RssChannelSubscriptionId == subscriptionId)
+               .Include(r => r.RssEntry)
+               .ToList();
+
+            return rssEntryToReads;
+        }
+
         public void MarkEntryViewedByUser(long currentUserId, long rssToReadId)
         {
             var rssEntryToRead = this.database
@@ -80,5 +90,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
 
         }
+
+
     }
 }

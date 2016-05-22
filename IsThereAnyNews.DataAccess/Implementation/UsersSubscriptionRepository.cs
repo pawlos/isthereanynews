@@ -55,14 +55,27 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<UserSubscriptionEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId)
         {
-           var userSubscriptions = this.database.UsersSubscriptions
-                .Where(s => s.Id == subscriptionId)
-                .Include(s => s.EntriesToRead)
-                .SelectMany(s => s.EntriesToRead)
-                .Include(s => s.EventRssViewed)
-                .Include(s => s.EventRssViewed.RssEntry)
-                .Where(s => !s.IsRead)
-                .ToList();
+            var userSubscriptions = this.database.UsersSubscriptions
+                 .Where(s => s.Id == subscriptionId)
+                 .Include(s => s.EntriesToRead)
+                 .SelectMany(s => s.EntriesToRead)
+                 .Include(s => s.EventRssViewed)
+                 .Include(s => s.EventRssViewed.RssEntry)
+                 .Where(s => !s.IsRead)
+                 .ToList();
+
+            return userSubscriptions.ToList();
+        }
+
+        public List<UserSubscriptionEntryToRead> LoadAllEntriesFromSubscription(long subscriptionId)
+        {
+            var userSubscriptions = this.database.UsersSubscriptions
+                           .Where(s => s.Id == subscriptionId)
+                           .Include(s => s.EntriesToRead)
+                           .SelectMany(s => s.EntriesToRead)
+                           .Include(s => s.EventRssViewed)
+                           .Include(s => s.EventRssViewed.RssEntry)
+                           .ToList();
 
             return userSubscriptions.ToList();
         }
@@ -83,6 +96,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             return rssChannelSubscription;
         }
+
+
 
         private NameAndCountUserSubscription ProjectToNameAndCountUserSubscription(UserSubscription arg)
         {

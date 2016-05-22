@@ -35,21 +35,20 @@ namespace IsThereAnyNews.Services.Implementation
         }
 
 
-        public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(
-            StreamType streamType, long subscriptionId)
+        public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
         {
             switch (streamType)
             {
                 case StreamType.Rss:
-                    return GetRssSubscriptionIndexViewModel(subscriptionId);
+                    return GetRssSubscriptionIndexViewModel(subscriptionId, showReadEntries);
                 case StreamType.Person:
-                    return GetPersonSubscriptionIndexViewModel(subscriptionId);
+                    return GetPersonSubscriptionIndexViewModel(subscriptionId, showReadEntries);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(streamType), streamType, null);
             }
         }
 
-        private RssSubscriptionIndexViewModel GetPersonSubscriptionIndexViewModel(long subscriptionId)
+        private RssSubscriptionIndexViewModel GetPersonSubscriptionIndexViewModel(long subscriptionId, ShowReadEntries showReadEntries)
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
 
@@ -67,9 +66,17 @@ namespace IsThereAnyNews.Services.Implementation
                 return rssSubscriptionIndexViewModel;
             }
 
-            var loadAllUnreadEntriesFromSubscription = this.usersSubscriptionRepository
-                .LoadAllUnreadEntriesFromSubscription(subscriptionId);
-
+            List<UserSubscriptionEntryToRead> loadAllUnreadEntriesFromSubscription = null;
+            if (showReadEntries != ShowReadEntries.Show)
+            {
+                loadAllUnreadEntriesFromSubscription = this.usersSubscriptionRepository
+                    .LoadAllUnreadEntriesFromSubscription(subscriptionId);
+            }
+            else
+            {
+                loadAllUnreadEntriesFromSubscription = this.usersSubscriptionRepository
+                    .LoadAllEntriesFromSubscription(subscriptionId);
+            }
 
             var channelInformation =
                 this.usersSubscriptionRepository
@@ -90,7 +97,7 @@ namespace IsThereAnyNews.Services.Implementation
             return viewModel;
         }
 
-        private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModel(long subscriptionId)
+        private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModel(long subscriptionId, ShowReadEntries showReadEntries)
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
 
@@ -107,9 +114,17 @@ namespace IsThereAnyNews.Services.Implementation
                 return rssSubscriptionIndexViewModel;
             }
 
-            var loadAllRssEntriesForUserAndChannel =
-                this.rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscriptionId);
-
+            List<RssEntryToRead> loadAllRssEntriesForUserAndChannel = null;
+            if (showReadEntries != ShowReadEntries.Show)
+            {
+                loadAllRssEntriesForUserAndChannel =
+                    this.rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscriptionId);
+            }
+            else
+            {
+                loadAllRssEntriesForUserAndChannel =
+                    this.rssToReadRepository.LoadAllEntriesFromSubscription(subscriptionId);
+            }
             var channelInformation = this.rssSubscriptionsRepository.LoadChannelInformation(subscriptionId);
             var channelInformationViewModel = new ChannelInformationViewModel
             {

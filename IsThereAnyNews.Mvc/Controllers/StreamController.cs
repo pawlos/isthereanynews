@@ -18,9 +18,10 @@ namespace IsThereAnyNews.Mvc.Controllers
             this.rssSubscriptionService = rssSubscriptionService;
         }
 
-        public ActionResult Read(StreamType streamType, long id)
+        public ActionResult Read(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
         {
-            var entries = this.rssSubscriptionService.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id);
+            var entries = this.rssSubscriptionService
+                .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
             return this.View("Index", entries);
         }
 

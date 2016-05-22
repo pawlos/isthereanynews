@@ -6,7 +6,7 @@ namespace IsThereAnyNews.Services
 {
     public interface IRssSubscriptionService
     {
-        RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long id);
+        RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long id, ShowReadEntries showReadEntries);
         void MarkAllRssReadForSubscription(MarkReadForSubscriptionDto id);
         void MarkEntryViewed(long rssToReadId);
         void UnsubscribeCurrentUserFromChannelId(long subscriptionId);
