@@ -107,6 +107,10 @@ namespace IsThereAnyNews.Services.Tests
                 .Setup(s => s.Map<RssChannelIndexViewModel>(It.IsAny<RssChannel>()))
                 .Returns(new RssChannelIndexViewModel());
 
+            this.mockMapper
+                .Setup(s => s.Map<UserRssSubscriptionInfoViewModel>(It.IsAny<long>()))
+                .Returns(new UserRssSubscriptionInfoViewModel());
+
             // act
             var result = this.sut.GetViewModelFormChannelId(channelId);
 

@@ -72,11 +72,11 @@ namespace IsThereAnyNews.Services.Implementation
             return rssChannelIndexViewModel;
         }
 
-        private UserRssSubscriptionInfoViewModel CreateUserSubscriptionInfo(long id)
+        public UserRssSubscriptionInfoViewModel CreateUserSubscriptionInfo(long id)
         {
             var userId = this.session.GetCurrentUserId();
             var subscriptionInfo = this.rssSubscriptionRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
-            var userRssSubscriptionInfoViewModel = new UserRssSubscriptionInfoViewModel(subscriptionInfo);
+            var userRssSubscriptionInfoViewModel = this.mapper.Map<UserRssSubscriptionInfoViewModel>(subscriptionInfo);
             return userRssSubscriptionInfoViewModel;
         }
 

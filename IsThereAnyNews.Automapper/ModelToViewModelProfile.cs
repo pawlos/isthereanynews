@@ -37,6 +37,10 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.Added, o => o.MapFrom(s => s.Created))
                 .ForMember(d => d.ChannelId, o => o.MapFrom(s => s.Id));
 
+            CreateMap<long, UserRssSubscriptionInfoViewModel>()
+                .ForMember(d => d.ChannelSubscriptionId, o => o.MapFrom(s => s))
+                .ForMember(d => d.IsSubscribed, o => o.Ignore());
+
         }
     }
 }
