@@ -8,7 +8,7 @@ using IsThereAnyNews.Services.Implementation;
 using Moq;
 using Xunit;
 
-namespace IsThereAnyNews.Services.Tests.RssChannelService
+namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
     public class RssChannelsService_CreateNewChannelIfNotExists_Tests
     {
