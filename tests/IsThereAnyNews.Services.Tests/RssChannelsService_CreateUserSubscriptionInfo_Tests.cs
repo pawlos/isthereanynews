@@ -23,7 +23,6 @@ namespace IsThereAnyNews.Services.Tests
             this.mockSessionProvider = this.moqer.GetMock<ISessionProvider>();
             this.mockRssSubscriptionRepository = this.moqer.GetMock<IRssChannelsSubscriptionsRepository>();
             this.mockMapper = this.moqer.GetMock<IMapper>();
-
         }
 
         [Fact]
