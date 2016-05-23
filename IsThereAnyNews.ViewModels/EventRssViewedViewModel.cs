@@ -1,6 +1,6 @@
 using System;
 
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.ViewModels
 {
     public class EventRssViewedViewModel
     {

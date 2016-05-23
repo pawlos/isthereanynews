@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using IsThereAnyNews.Services.Implementation;
+using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Services
 {

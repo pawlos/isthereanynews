@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.ViewModels
 {
     public class UserStatisticsViewModel
     {

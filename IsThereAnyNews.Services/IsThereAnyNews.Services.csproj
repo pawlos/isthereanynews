@@ -70,19 +70,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\AllUsersPublicProfilesViewModel.cs" />
-    <Compile Include="Implementation\ChannelWithSubscriptionCountViewModel.cs" />
-    <Compile Include="Implementation\EventRssViewedViewModel.cs" />
-    <Compile Include="Implementation\NewsStatisticsViewModel.cs" />
-    <Compile Include="Implementation\PublicProfileChannelInformation.cs" />
-    <Compile Include="Implementation\RssStatisticsViewModel.cs" />
     <Compile Include="Implementation\RssSubscriptionService.cs" />
-    <Compile Include="Implementation\TopReadChannelsViewModel.cs" />
     <Compile Include="Implementation\UpdateService.cs" />
-    <Compile Include="Implementation\UserDetailedPublicProfileViewModel.cs" />
-    <Compile Include="Implementation\UserPublicProfileViewModel.cs" />
-    <Compile Include="Implementation\UserStatisticsViewModel.cs" />
-    <Compile Include="Implementation\UserWithStatisticsViewModel.cs" />
     <Compile Include="IRssItemActionService.cs" />
     <Compile Include="IRssSubscriptionService.cs" />
     <Compile Include="IStatisticsService.cs" />

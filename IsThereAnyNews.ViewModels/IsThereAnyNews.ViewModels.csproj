@@ -48,12 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllUsersPublicProfilesViewModel.cs" />
     <Compile Include="ChannelInformationViewModel.cs" />
+    <Compile Include="ChannelWithSubscriptionCountViewModel.cs" />
+    <Compile Include="EventRssViewedViewModel.cs" />
     <Compile Include="LoginSuccessViewModel.cs" />
     <Compile Include="Login\AuthorizationIndexViewModel.cs" />
+    <Compile Include="NewsStatisticsViewModel.cs" />
     <Compile Include="ObservableUserEventsInformation.cs" />
     <Compile Include="OpmlImporterIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublicProfileChannelInformation.cs" />
     <Compile Include="RssChannelIndexViewModel.cs" />
     <Compile Include="RssChannelsIndexViewModel.cs" />
     <Compile Include="RssChannelsMyViewModel.cs" />
@@ -61,8 +66,14 @@
     <Compile Include="RssChannelWithStatisticsViewModel.cs" />
     <Compile Include="RssEntryToReadViewModel.cs" />
     <Compile Include="RssEntryViewModel.cs" />
+    <Compile Include="RssStatisticsViewModel.cs" />
     <Compile Include="RssSubscriptionIndexViewModel.cs" />
+    <Compile Include="TopReadChannelsViewModel.cs" />
+    <Compile Include="UserDetailedPublicProfileViewModel.cs" />
+    <Compile Include="UserPublicProfileViewModel.cs" />
     <Compile Include="UserRssSubscriptionInfoViewModel.cs" />
+    <Compile Include="UserStatisticsViewModel.cs" />
+    <Compile Include="UserWithStatisticsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

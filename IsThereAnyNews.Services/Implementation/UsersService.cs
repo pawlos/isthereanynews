@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.DataAccess.Implementation;
+using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Services.Implementation
 {
