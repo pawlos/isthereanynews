@@ -10,14 +10,14 @@ using Xunit;
 
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
-    public class RssChannelsService_LoadAllChannels_Tests
+    public class LoadAllChannels
     {
         private readonly AutoMoqer moqer;
         private readonly Mock<IMapper> mockMapper;
         private readonly Mock<IRssChannelsRepository> mockRssChannelsRepository;
         private readonly IRssChannelsService sut;
 
-        public RssChannelsService_LoadAllChannels_Tests()
+        public LoadAllChannels()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             mockRssChannelsRepository = moqer.GetMock<IRssChannelsRepository>();

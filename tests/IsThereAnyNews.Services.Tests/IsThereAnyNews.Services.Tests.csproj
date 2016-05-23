@@ -88,12 +88,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationLoginServiceTests\RssChannelsService_CreateNewChannelIfNotExists_Tests.cs" />
-    <Compile Include="RssChannelServiceTests\RssChannelsService_CreateNewChannelIfNotExists_Tests.cs" />
-    <Compile Include="RssChannelServiceTests\RssChannelsService_CreateUserSubscriptionInfo_Tests.cs" />
-    <Compile Include="RssChannelServiceTests\RssChannelsService_GetViewModelFormChannelId_Tests.cs" />
-    <Compile Include="RssChannelServiceTests\RssChannelsService_LoadAllChannelsOfCurrentUser_Tests.cs" />
-    <Compile Include="RssChannelServiceTests\RssChannelsService_LoadAllChannels_Tests.cs" />
+    <Compile Include="ApplicationLoginServiceTests\RegisterIfNewUser.cs" />
+    <Compile Include="RssChannelServiceTests\CreateNewChannelIfNotExists.cs" />
+    <Compile Include="RssChannelServiceTests\CreateUserSubscriptionInfo.cs" />
+    <Compile Include="RssChannelServiceTests\GetViewModelFormChannelId.cs" />
+    <Compile Include="RssChannelServiceTests\LoadAllChannelsOfCurrentUser.cs" />
+    <Compile Include="RssChannelServiceTests\LoadAllChannels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

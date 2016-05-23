@@ -11,7 +11,7 @@ using Xunit;
 
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
-    public class RssChannelsService_LoadAllChannelsOfCurrentUser_Tests
+    public class LoadAllChannelsOfCurrentUser
     {
         private readonly AutoMoqer moqer;
         private Mock<ISessionProvider> mockSessionProvider;
@@ -20,7 +20,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
         private IRssChannelsService sut;
         private Mock<IMapper> mockMapper;
 
-        public RssChannelsService_LoadAllChannelsOfCurrentUser_Tests()
+        public LoadAllChannelsOfCurrentUser()
         {
             this.moqer = new AutoMoq.AutoMoqer();
 

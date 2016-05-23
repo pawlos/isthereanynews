@@ -8,7 +8,7 @@ using Xunit;
 
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
-    public class RssChannelsService_CreateUserSubscriptionInfo_Tests
+    public class CreateUserSubscriptionInfo
     {
         private AutoMoqer moqer;
         private RssChannelsService sut;
@@ -16,7 +16,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
         private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
         private Mock<IMapper> mockMapper;
 
-        public RssChannelsService_CreateUserSubscriptionInfo_Tests()
+        public CreateUserSubscriptionInfo()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssChannelsService>();

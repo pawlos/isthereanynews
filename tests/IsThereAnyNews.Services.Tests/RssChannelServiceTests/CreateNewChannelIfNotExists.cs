@@ -10,7 +10,7 @@ using Xunit;
 
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
-    public class RssChannelsService_CreateNewChannelIfNotExists_Tests
+    public class CreateNewChannelIfNotExists
     {
         private AutoMoqer moqer;
         private RssChannelsService sut;
@@ -19,7 +19,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
         private Mock<IMapper> mockMapper;
         private Mock<IRssChannelsRepository> mockChannelRepository;
 
-        public RssChannelsService_CreateNewChannelIfNotExists_Tests()
+        public CreateNewChannelIfNotExists()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssChannelsService>();

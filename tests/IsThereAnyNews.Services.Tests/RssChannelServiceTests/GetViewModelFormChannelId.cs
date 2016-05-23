@@ -9,7 +9,7 @@ using Xunit;
 
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
-    public class RssChannelsService_GetViewModelFormChannelId_Tests
+    public class GetViewModelFormChannelId
     {
         private AutoMoqer moqer;
         private RssChannelsService sut;
@@ -17,7 +17,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
         private Mock<IMapper> mockMapper;
         private Mock<IUserAuthentication> mockUserAuthentication;
 
-        public RssChannelsService_GetViewModelFormChannelId_Tests()
+        public GetViewModelFormChannelId()
         {
             this.moqer = new AutoMoq.AutoMoqer();
 

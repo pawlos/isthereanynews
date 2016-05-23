@@ -11,7 +11,7 @@ using Xunit;
 
 namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
 {
-    public class ApplicationLoginService_RegisterIfNewUser_Tests
+    public class RegisterIfNewUser
     {
         private AutoMoqer moqer;
         private ApplicationLoginService sut;
@@ -23,7 +23,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
         private Mock<ISocialLoginRepository> mockSocialLoginRepository;
         private Mock<IUserRepository> mockUserRepository;
 
-        public ApplicationLoginService_RegisterIfNewUser_Tests()
+        public RegisterIfNewUser()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<ApplicationLoginService>();
