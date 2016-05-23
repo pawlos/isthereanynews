@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationLoginServiceTests\RegisterIfNewUser.cs" />
+    <Compile Include="ApplicationLoginServiceTests\StoreCurrentUserIdInSession.cs" />
     <Compile Include="RssChannelServiceTests\CreateNewChannelIfNotExists.cs" />
     <Compile Include="RssChannelServiceTests\CreateUserSubscriptionInfo.cs" />
     <Compile Include="RssChannelServiceTests\GetViewModelFormChannelId.cs" />
