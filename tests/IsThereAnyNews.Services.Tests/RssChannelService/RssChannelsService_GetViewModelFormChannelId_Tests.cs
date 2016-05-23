@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using AutoMapper;
 using AutoMoq;
 using IsThereAnyNews.DataAccess;
@@ -8,7 +7,7 @@ using IsThereAnyNews.ViewModels;
 using Moq;
 using Xunit;
 
-namespace IsThereAnyNews.Services.Tests
+namespace IsThereAnyNews.Services.Tests.RssChannelService
 {
     public class RssChannelsService_GetViewModelFormChannelId_Tests
     {

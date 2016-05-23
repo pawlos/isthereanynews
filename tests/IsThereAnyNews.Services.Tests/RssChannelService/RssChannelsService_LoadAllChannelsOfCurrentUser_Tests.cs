@@ -9,7 +9,7 @@ using IsThereAnyNews.ViewModels;
 using Moq;
 using Xunit;
 
-namespace IsThereAnyNews.Services.Tests
+namespace IsThereAnyNews.Services.Tests.RssChannelService
 {
     public class RssChannelsService_LoadAllChannelsOfCurrentUser_Tests
     {
