@@ -9,6 +9,7 @@ namespace IsThereAnyNews.Automapper
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<ModelToViewModelProfile>();
+                cfg.AddProfile<DtoToEntityModelProfile>();
             });
             var mapper = config.CreateMapper();
             return mapper;

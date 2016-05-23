@@ -3,6 +3,7 @@ using AutoMapper;
 using AutoMoq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.Dtos;
+using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.Services.Implementation;
 using Moq;
 using Xunit;
@@ -45,7 +46,74 @@ namespace IsThereAnyNews.Services.Tests
             this.mockChannelRepository
                 .Verify(v => v.GetIdByChannelUrl(It.IsAny<List<string>>()),
                     Times.Once());
+        }
 
+        [Fact]
+        public void T002_When_Channel_Does_Not_Exists_Then_New_Channel_Must_Be_Created_Using_Automapper()
+        {
+            // arrange
+            var dto = new AddChannelDto();
+
+            this.mockChannelRepository
+                .Setup(s => s.GetIdByChannelUrl(It.IsAny<List<string>>()))
+                .Returns(new List<long>());
+
+            // act
+            this.sut.CreateNewChannelIfNotExists(dto);
+
+            // assert
+            this.mockMapper
+                .Verify(v => v.Map<RssChannel>(It.IsAny<AddChannelDto>()),
+                Times.Once());
+        }
+
+        [Fact]
+        public void T003_When_Channel_Does_Not_Exists_Then_New_Channel_Must_Be_Saved_To_Repository()
+        {
+            // arrange
+            var dto = new AddChannelDto();
+
+            this.mockChannelRepository
+                .Setup(s => s.GetIdByChannelUrl(It.IsAny<List<string>>()))
+                .Returns(new List<long>());
+
+            this.mockMapper
+                .Setup(v => v.Map<RssChannel>(It.IsAny<AddChannelDto>()))
+                .Returns(new RssChannel());
+
+            // act
+            this.sut.CreateNewChannelIfNotExists(dto);
+
+            // assert
+            this.mockChannelRepository
+                .Verify(v => v.SaveToDatabase(It.Is<List<RssChannel>>(p => p.Count == 1)),
+                Times.Once());
+        }
+
+        [Fact]
+        public void T004_When_Channel_Does_Exists_Then_Channel_Must_Not_Be_Saved_To_Repository_And_Mapper_Must_Not_Be_Called()
+        {
+            // arrange
+            var dto = new AddChannelDto();
+
+            this.mockChannelRepository
+                .Setup(s => s.GetIdByChannelUrl(It.IsAny<List<string>>()))
+                .Returns(new List<long> { 1 });
+
+            this.mockMapper
+                .Setup(v => v.Map<RssChannel>(It.IsAny<AddChannelDto>()))
+                .Returns(new RssChannel());
+
+            // act
+            this.sut.CreateNewChannelIfNotExists(dto);
+
+            // assert
+            this.mockChannelRepository
+                .Verify(v => v.SaveToDatabase(It.IsAny<List<RssChannel>>()),
+                Times.Never());
+            this.mockMapper
+               .Verify(v => v.Map<RssChannel>(It.IsAny<AddChannelDto>()),
+               Times.Never());
         }
     }
 }

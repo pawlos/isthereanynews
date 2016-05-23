@@ -85,9 +85,7 @@ namespace IsThereAnyNews.Services.Implementation
             var idByChannelUrl = this.channelsRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
             if (!idByChannelUrl.Any())
             {
-                var rssChannel = new RssChannel();
-                rssChannel.Title = dto.RssChannelName;
-                rssChannel.Url = dto.RssChannelLink;
+                var rssChannel = this.mapper.Map<RssChannel>(dto);
                 this.channelsRepository.SaveToDatabase(new List<RssChannel> { rssChannel });
             }
         }
