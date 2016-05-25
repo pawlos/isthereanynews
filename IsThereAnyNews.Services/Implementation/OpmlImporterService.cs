@@ -36,9 +36,9 @@ namespace IsThereAnyNews.Services.Implementation
                     import =>
                         new RssChannelSubscription(import, currentUserId,
                             importFromUpload.Single(x => x.Id == import).Title)).ToList();
-            var subscriptionsToSave =
-                rssChannelSubscriptions.Where(newSub => !existringChannelIdSubscriptions.Contains(newSub.RssChannelId))
-                    .ToList();
+            var subscriptionsToSave = rssChannelSubscriptions.Where(newSub => !existringChannelIdSubscriptions
+                                                             .Contains(newSub.RssChannelId))
+                                                             .ToList();
             this.rssSubscriptionsRepository.SaveToDatabase(subscriptionsToSave);
         }
 
