@@ -12,26 +12,30 @@ namespace IsThereAnyNews.Services.Implementation
     {
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
         private readonly ISessionProvider sessionProvider;
-        private readonly IRssChannelsRepository rssChannelses;
+        private readonly IRssChannelsRepository rssChannelsRepository;
 
         public OpmlImporterService(
             IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
             ISessionProvider sessionProvider,
-            IRssChannelsRepository rssChannelses)
+            IRssChannelsRepository rssChannelsRepository)
         {
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
             this.sessionProvider = sessionProvider;
-            this.rssChannelses = rssChannelses;
+            this.rssChannelsRepository = rssChannelsRepository;
         }
 
 
         public void AddToCurrentUserChannelList(List<RssChannel> importFromUpload)
         {
             var urlstoChannels = importFromUpload.Select(x => x.Url.ToLowerInvariant()).ToList();
-            var listOfChannelsIds = this.rssChannelses.GetIdByChannelUrl(urlstoChannels);
+            var listOfChannelsIds = this.rssChannelsRepository.GetIdByChannelUrl(urlstoChannels);
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             var existringChannelIdSubscriptions = this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
-            var rssChannelSubscriptions = listOfChannelsIds.Select(import => new RssChannelSubscription(import, currentUserId, importFromUpload.Single(x=>x.Id == import).Title)).ToList();
+            var rssChannelSubscriptions =
+                listOfChannelsIds.Select(
+                    import =>
+                        new RssChannelSubscription(import, currentUserId,
+                            importFromUpload.Single(x => x.Id == import).Title)).ToList();
             var subscriptionsToSave =
                 rssChannelSubscriptions.Where(newSub => !existringChannelIdSubscriptions.Contains(newSub.RssChannelId))
                     .ToList();
@@ -61,7 +65,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             List<string> loadUrlsForAllChannels = this.rssSubscriptionsRepository.LoadUrlsForAllChannels();
             var channelsNewToGlobalSpace = channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant())).ToList();
-            this.rssChannelses.SaveToDatabase(channelsNewToGlobalSpace);
+            this.rssChannelsRepository.SaveToDatabase(channelsNewToGlobalSpace);
         }
     }
 }
