@@ -90,6 +90,8 @@
   <ItemGroup>
     <Compile Include="ApplicationLoginServiceTests\RegisterIfNewUser.cs" />
     <Compile Include="ApplicationLoginServiceTests\StoreCurrentUserIdInSession.cs" />
+    <Compile Include="OpmlImporterServiceTests\AddNewChannelsToGlobalSpace.cs" />
+    <Compile Include="OpmlImporterServiceTests\ParseToRssChannelList.cs" />
     <Compile Include="OpmlImporterServiceTests\AddToCurrentUserChannelList.cs" />
     <Compile Include="RssChannelServiceTests\CreateNewChannelIfNotExists.cs" />
     <Compile Include="RssChannelServiceTests\CreateUserSubscriptionInfo.cs" />
