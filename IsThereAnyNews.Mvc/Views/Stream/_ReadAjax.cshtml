@@ -1,49 +1,47 @@
 ﻿@using IsThereAnyNews.SharedData
 @model IsThereAnyNews.ViewModels.RssSubscriptionIndexViewModel
 
-<div class="col-lg-9">
-    <div class="row">
-        @Html.ActionLink("Show read entries", "Read", "Stream", new { streamType = Model.StreamType, id = Model.SubscriptionId, showReadEntries = ShowReadEntries.Show }, null)
-    </div>
-    <div class="row col-lg-12">
-        <span>
-            <h2>@Model.ChannelInformation.Title</h2>
-            <h3>@Model.ChannelInformation.Created</h3>
-        </span>
-    </div>
-    <div class="row col-lg-12">
-        @foreach (var entry in Model.RssEntryToReadViewModels)
-        {
-            <div class="row">
-                <div class="row col-lg-12">
-                    <h4 class="nocss-show-preview-text"
-                        data-toggle="collapse"
-                        data-url-mark-as-read="@Url.Action("MarkRead", "Stream", new { StreamType = Model.StreamType, DisplayedItems = string.Join(";",entry.Id), Id=Model.SubscriptionId })"
-                        href="#preview_@entry.Id">
-                        @entry.RssEntryViewModel.Title
-                        <span class="small pull-right">
-                            @entry.RssEntryViewModel.PublicationDate
-                        </span>
-                    </h4>
-                    <div id="preview_@entry.Id"
-                         class="collapse">
-                        @Html.Raw(entry.RssEntryViewModel.PreviewText)
-                    </div>
-                </div>
-                <div class="row col-lg-12">
-                    @Html.Partial("_RssItemAction", entry)
+<div class="row">
+    @Html.ActionLink("Show read entries", "Read", "Stream", new { streamType = Model.StreamType, id = Model.SubscriptionId, showReadEntries = ShowReadEntries.Show }, null)
+</div>
+<div class="row col-lg-12">
+    <span>
+        <h2>@Model.ChannelInformation.Title</h2>
+        <h3>@Model.ChannelInformation.Created</h3>
+    </span>
+</div>
+<div class="row col-lg-12">
+    @foreach (var entry in Model.RssEntryToReadViewModels)
+    {
+        <div class="row">
+            <div class="row col-lg-12">
+                <h4 class="nocss-show-preview-text"
+                    data-toggle="collapse"
+                    data-url-mark-as-read="@Url.Action("MarkRead", "Stream", new { StreamType = Model.StreamType, DisplayedItems = string.Join(";",entry.Id), Id=Model.SubscriptionId })"
+                    href="#preview_@entry.Id">
+                    @entry.RssEntryViewModel.Title
+                    <span class="small pull-right">
+                        @entry.RssEntryViewModel.PublicationDate
+                    </span>
+                </h4>
+                <div id="preview_@entry.Id"
+                     class="collapse">
+                    @Html.Raw(entry.RssEntryViewModel.PreviewText)
                 </div>
             </div>
-                    <hr />
-        }
-    </div>
-    <div class="row col-lg-12">
-        @using (Html.BeginForm("MarkRead", "Stream", FormMethod.Post))
-        {
-            <input type="hidden" name="StreamType" value="@Model.StreamType" />
-                    <input type="hidden" name="Id" value="@Model.SubscriptionId" />
+            <div class="row col-lg-12">
+                @Html.Partial("_RssItemAction", entry)
+            </div>
+        </div>
+            <hr />
+    }
+</div>
+<div class="row col-lg-12">
+    @using (Html.BeginForm("MarkRead", "Stream", FormMethod.Post))
+    {
+        <input type="hidden" name="StreamType" value="@Model.StreamType" />
+            <input type="hidden" name="Id" value="@Model.SubscriptionId" />
                     <input type="hidden" name="DisplayedItems" value="@Model.DisplayedRss" />
                     <input type="submit" role="button" class="btn btn-default" value="mark all as read" />
-        }
-    </div>
+    }
 </div>

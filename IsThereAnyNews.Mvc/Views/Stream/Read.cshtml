@@ -9,7 +9,13 @@
         <div class="col-lg-3">
             @Html.Action("MyChannelList", "RssChannel")
         </div>
-        @Html.Partial("_ReadAjax", Model)
+        <div class="col-lg-9 nocss-rsschannel-container">
+            @Html.Partial("_ReadAjax", Model)
+        </div>
     </div>
-
 </div>
+@section scripts
+{
+    <script src="~/Scripts/itan/rssItemOnPreviewClick.js"></script>
+    <script src="~/Scripts/itan/rssChannelOnClick.js"></script>
+}
