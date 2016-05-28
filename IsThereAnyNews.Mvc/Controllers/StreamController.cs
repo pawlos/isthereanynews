@@ -22,9 +22,9 @@ namespace IsThereAnyNews.Mvc.Controllers
         {
             var entries = this.rssSubscriptionService
                 .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
-            return this.View("Index", entries);
+            return this.PartialView("_Read", entries);
         }
-
+      
         public ActionResult MarkRead(MarkReadDto dto)
         {
             this.rssSubscriptionService.MarkRead(dto);
