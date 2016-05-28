@@ -15,24 +15,29 @@
         {
             <div class="row">
                 <div class="row col-lg-12">
-                    <h4>
+                    <h4 class="nocss-show-preview-text"
+                        data-toggle="collapse"
+                        href="#preview_@entry.Id">
                         @entry.RssEntryViewModel.Title
                         <span class="small pull-right">@entry.RssEntryViewModel.PublicationDate</span>
                     </h4>
-                    @Html.Raw(entry.RssEntryViewModel.PreviewText)
+                    <div id="preview_@entry.Id" 
+                         class="collapse">
+                        @Html.Raw(entry.RssEntryViewModel.PreviewText)
+                    </div>
                 </div>
                 <div class="row col-lg-12">
                     @Html.Partial("_RssItemAction", entry)
                 </div>
             </div>
-                    <hr />
+            <hr />
         }
     </div>
     <div class="row col-lg-12">
         @using (Html.BeginForm("MarkRead", "Stream", FormMethod.Post))
         {
             <input type="hidden" name="StreamType" value="@Model.StreamType" />
-                    <input type="hidden" name="Id" value="@Model.SubscriptionId" />
+            <input type="hidden" name="Id" value="@Model.SubscriptionId" />
                     <input type="hidden" name="DisplayedItems" value="@Model.DisplayedRss" />
                     <input type="submit" role="button" class="btn btn-default" value="mark all as read" />
         }
