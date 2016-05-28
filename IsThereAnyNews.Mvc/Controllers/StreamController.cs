@@ -25,7 +25,15 @@ namespace IsThereAnyNews.Mvc.Controllers
         {
             var entries = this.rssSubscriptionService
                 .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
-            return this.PartialView("_Read", entries);
+            return this.View("Read", entries);
+        }
+
+        [HttpGet]
+        public ActionResult ReadAjax(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
+        {
+            var entries = this.rssSubscriptionService
+                .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
+            return this.PartialView("_ReadAjax", entries);
         }
 
         [HttpPost]

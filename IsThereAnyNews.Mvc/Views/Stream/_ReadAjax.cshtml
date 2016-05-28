@@ -1,5 +1,6 @@
 ﻿@using IsThereAnyNews.SharedData
 @model IsThereAnyNews.ViewModels.RssSubscriptionIndexViewModel
+
 <div class="col-lg-9">
     <div class="row">
         @Html.ActionLink("Show read entries", "Read", "Stream", new { streamType = Model.StreamType, id = Model.SubscriptionId, showReadEntries = ShowReadEntries.Show }, null)
@@ -33,16 +34,16 @@
                     @Html.Partial("_RssItemAction", entry)
                 </div>
             </div>
-            <hr />
+                    <hr />
         }
     </div>
     <div class="row col-lg-12">
         @using (Html.BeginForm("MarkRead", "Stream", FormMethod.Post))
         {
             <input type="hidden" name="StreamType" value="@Model.StreamType" />
-            <input type="hidden" name="Id" value="@Model.SubscriptionId" />
-            <input type="hidden" name="DisplayedItems" value="@Model.DisplayedRss" />
-            <input type="submit" role="button" class="btn btn-default" value="mark all as read" />
+                    <input type="hidden" name="Id" value="@Model.SubscriptionId" />
+                    <input type="hidden" name="DisplayedItems" value="@Model.DisplayedRss" />
+                    <input type="submit" role="button" class="btn btn-default" value="mark all as read" />
         }
     </div>
 </div>

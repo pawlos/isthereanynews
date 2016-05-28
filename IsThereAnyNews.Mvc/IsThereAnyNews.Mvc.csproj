@@ -275,9 +275,10 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\RssChannel\_MyChannelList.cshtml" />
-    <Content Include="Views\Stream\_Read.cshtml" />
+    <Content Include="Views\Stream\Read.cshtml" />
     <Content Include="Views\Statistics\ActivityPerWeek.cshtml" />
     <Content Include="Views\RssChannel\_PublicChannels.cshtml" />
+    <Content Include="Views\Stream\_ReadAjax.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -11,7 +11,7 @@
 
 
         var ajaxOptions = {
-            url: href.attr("href"),
+            url: href.data("url-read-rss"),
             method: "GET",
             type: "HTML",
             success: onSuccessRssChannelClick,

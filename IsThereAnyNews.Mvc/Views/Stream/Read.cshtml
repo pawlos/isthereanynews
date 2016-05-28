@@ -1,0 +1,15 @@
+﻿@model IsThereAnyNews.ViewModels.RssSubscriptionIndexViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            @Html.Action("MyChannelList", "RssChannel")
+        </div>
+        @Html.Partial("_ReadAjax", Model)
+    </div>
+
+</div>
