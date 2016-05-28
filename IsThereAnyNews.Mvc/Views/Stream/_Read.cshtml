@@ -17,11 +17,14 @@
                 <div class="row col-lg-12">
                     <h4 class="nocss-show-preview-text"
                         data-toggle="collapse"
+                        data-url-mark-as-read="@Url.Action("MarkRead", "Stream", new { StreamType = Model.StreamType, DisplayedItems = string.Join(";",entry.Id), Id=Model.SubscriptionId })"
                         href="#preview_@entry.Id">
                         @entry.RssEntryViewModel.Title
-                        <span class="small pull-right">@entry.RssEntryViewModel.PublicationDate</span>
+                        <span class="small pull-right">
+                            @entry.RssEntryViewModel.PublicationDate
+                        </span>
                     </h4>
-                    <div id="preview_@entry.Id" 
+                    <div id="preview_@entry.Id"
                          class="collapse">
                         @Html.Raw(entry.RssEntryViewModel.PreviewText)
                     </div>
@@ -38,8 +41,8 @@
         {
             <input type="hidden" name="StreamType" value="@Model.StreamType" />
             <input type="hidden" name="Id" value="@Model.SubscriptionId" />
-                    <input type="hidden" name="DisplayedItems" value="@Model.DisplayedRss" />
-                    <input type="submit" role="button" class="btn btn-default" value="mark all as read" />
+            <input type="hidden" name="DisplayedItems" value="@Model.DisplayedRss" />
+            <input type="submit" role="button" class="btn btn-default" value="mark all as read" />
         }
     </div>
 </div>

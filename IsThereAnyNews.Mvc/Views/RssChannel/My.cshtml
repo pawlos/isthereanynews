@@ -32,15 +32,25 @@
 
 <script type="text/javascript">
 
+    var onSuccessShowPreviewText = function() {};
+    var onErrorShowPreviewText = function () { };
 
-    //var onShowPreviewText = function (e) {
-    //    var element = $(e.currentTarget);
-    //    element.parent().find(".nocss-preview-text").collapse();
-    //}
+    var onShowPreviewText = function (e) {
+        var element = $(e.currentTarget);
 
-    //var onDocumentReady = function () {
-    //    $(".nocss-rsschannel-container").on("click", ".nocss-show-preview-text", onShowPreviewText);
-    //}
+        var ajaxOptions = {
+            url: element.data("url-mark-as-read"),
+            method: "POST",
+            success: onSuccessShowPreviewText,
+            error: onErrorShowPreviewText
+        }
 
-    //$(document).ready(onDocumentReady);
+        $.ajax(ajaxOptions);
+    }
+
+    var onDocumentReady = function () {
+        $(".nocss-rsschannel-container").on("click", ".nocss-show-preview-text", onShowPreviewText);
+    }
+
+    $(document).ready(onDocumentReady);
 </script>
