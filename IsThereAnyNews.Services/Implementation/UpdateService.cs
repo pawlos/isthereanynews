@@ -49,7 +49,9 @@ namespace IsThereAnyNews.Services.Implementation
                             item.PublishDate,
                             item.Title?.Text ?? string.Empty,
                             item.Summary?.Text ?? string.Empty,
-                            rssChannel.Id);
+                            rssChannel.Id,
+                            item.Links.First().Uri.ToString()
+                            );
                         rssEntriesList.Add(rssEntry);
                     }
 

@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201605011724390_user-subscription-is-read.Designer.cs">
       <DependentUpon>201605011724390_user-subscription-is-read.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605291143523_rssentry url.cs" />
+    <Compile Include="Migrations\201605291143523_rssentry url.Designer.cs">
+      <DependentUpon>201605291143523_rssentry url.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\aasdfasdf.cs" />
     <Compile Include="Migrations\aasdfasdf.Designer.cs">
       <DependentUpon>aasdfasdf.cs</DependentUpon>
@@ -130,6 +134,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605011724390_user-subscription-is-read.resx">
       <DependentUpon>201605011724390_user-subscription-is-read.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605291143523_rssentry url.resx">
+      <DependentUpon>201605291143523_rssentry url.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\aasdfasdf.resx">
       <DependentUpon>aasdfasdf.cs</DependentUpon>
