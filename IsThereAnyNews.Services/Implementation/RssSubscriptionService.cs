@@ -65,7 +65,9 @@ namespace IsThereAnyNews.Services.Implementation
                 };
 
                 var rssSubscriptionIndexViewModel = 
-                    new RssSubscriptionIndexViewModel(subscriptionId, ci, new List<RssEntryToReadViewModel>(),
+                    new RssSubscriptionIndexViewModel(subscriptionId, 
+                    ci, 
+                    new List<RssEntryToReadViewModel>(),
                     StreamType.Person);
                 return rssSubscriptionIndexViewModel;
             }

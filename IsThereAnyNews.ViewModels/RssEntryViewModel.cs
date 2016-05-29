@@ -8,5 +8,6 @@ namespace IsThereAnyNews.ViewModels
         public DateTime PublicationDate { get; set; }
         public string PreviewText { get; set; }
         public long Id { get; set; }
+        public string Url { get; set; }
     }
 }

@@ -25,7 +25,8 @@
                     </span>
                 </h4>
                 <div id="preview_@entry.Id"
-                     class="collapse">
+                     class="collapse nocss-preview-text"
+                     data-url-full-entry="@entry.RssEntryViewModel.Url">
                     @Html.Raw(entry.RssEntryViewModel.PreviewText)
                 </div>
             </div>
