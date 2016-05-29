@@ -215,6 +215,12 @@ namespace IsThereAnyNews.Services.Implementation
             }
         }
 
+        public void MarkEntryClicked(MarkClickedDto dto)
+        {
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            this.rssEventsRepository.MarkClicked(dto.Id, currentUserId);
+        }
+
         private void MarkPersonItemsRead(string displayedItems)
         {
             var ids =

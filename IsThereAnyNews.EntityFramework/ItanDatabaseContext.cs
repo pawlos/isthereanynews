@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
-using IsThereAnyNews.EntityFramework.Models;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.EntityFramework.Models.Events;
 using IsThereAnyNews.EntityFramework.Models.Interfaces;
@@ -64,9 +63,12 @@ namespace IsThereAnyNews.EntityFramework
         public DbSet<RssEntry> RssEntries { get; set; }
         public DbSet<RssEntryToRead> RssEntriesToRead { get; set; }
         public DbSet<FeatureRequest> FeatureRequests { get; set; }
-        public DbSet<EventRssViewed> EventsRssViewed { get; set; }
-        public DbSet<EventRssChannelUpdated> RssChannelUpdates { get; set; }
         public DbSet<UserSubscription> UsersSubscriptions { get; set; }
         public DbSet<UserSubscriptionEntryToRead> UsersSubscriptionsToRead { get; set; }
+
+        public DbSet<EventRssViewed> EventsRssViewed { get; set; }
+        public DbSet<EventRssChannelUpdated> RssChannelUpdates { get; set; }
+        public DbSet<EventRssClicked> EventsRssClicked { get; set; }
+
     }
 }

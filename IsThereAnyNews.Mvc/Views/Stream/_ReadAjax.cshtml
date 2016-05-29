@@ -17,7 +17,7 @@
             <div class="row col-lg-12">
                 <h4 class="nocss-show-preview-text"
                     data-toggle="collapse"
-                    data-url-mark-as-read="@Url.Action("MarkRead", "Stream", new { StreamType = Model.StreamType, DisplayedItems = string.Join(";",entry.Id), Id=Model.SubscriptionId })"
+                    data-url-mark-as-read="@Url.Action("MarkReadWithEvent", "Stream", new {StreamType = Model.StreamType, DisplayedItems = entry.Id, Id = Model.SubscriptionId})"
                     href="#preview_@entry.Id">
                     @entry.RssEntryViewModel.Title
                     <span class="small pull-right">
@@ -25,9 +25,10 @@
                     </span>
                 </h4>
                 <div id="preview_@entry.Id"
-                     class="collapse nocss-preview-text"
-                     data-url-full-entry="@entry.RssEntryViewModel.Url">
-                    @Html.Raw(entry.RssEntryViewModel.PreviewText)
+                class="collapse nocss-preview-text"
+                data-url-full-entry="@entry.RssEntryViewModel.Url"
+                data-url-mark-as-clicked="@Url.Action("MarkClicked", "Stream", new { id = entry.Id })">
+                @Html.Raw(entry.RssEntryViewModel.PreviewText)
                 </div>
             </div>
             <div class="row col-lg-12">

@@ -13,5 +13,6 @@ namespace IsThereAnyNews.Services
         void SubscribeCurrentUserToChannel(long channelId);
         void MarkRead(MarkReadDto dto);
         void SubscribeCurrentUserToChannel(AddChannelDto channelId);
+        void MarkEntryClicked(MarkClickedDto dto);
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.EntityFramework.Models.Events;
 
 namespace IsThereAnyNews.DataAccess.Implementation
@@ -33,6 +32,22 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.UsersSubscriptionsToRead
                 .Where(x => ids.Contains(x.Id)).ToList()
                 .ForEach(x => x.IsRead = true);
+            this.database.SaveChanges();
+        }
+
+        public void MarkClicked(long id, long currentUserId)
+        {
+            var rssEntryToRead = this.database.RssEntriesToRead
+                .Where(x => x.Id == id)
+                .Single();
+
+            var eventRssClicked = new EventRssClicked()
+            {
+                UserId = currentUserId,
+                RssEntryId = rssEntryToRead.RssEntryId
+            };
+
+            this.database.EventsRssClicked.Add(eventRssClicked);
             this.database.SaveChanges();
         }
     }
