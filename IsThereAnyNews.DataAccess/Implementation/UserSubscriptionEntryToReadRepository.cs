@@ -24,8 +24,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             var currentUserObservedUsersIds = observedUsersId.Select(x => x.ObservedId).ToList();
 
-            var dupa = currentUserObservedUsersIds.Contains(50);
-
             var lastReadTime = this.database.Users.Single(x => x.Id == currentUserId).LastReadTime;
 
             var eventRssVieweds = this.database
@@ -34,12 +32,28 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .Where(x => x.Created >= lastReadTime)
                 .ToList();
 
-            foreach (var eventRssViewed in eventRssVieweds)
+            var eventRssClicked = this.database.EventsRssClicked
+                .Where(x => currentUserObservedUsersIds.Contains(x.UserId))
+                 .Where(x => x.Created >= lastReadTime)
+                .ToList();
+
+            foreach (var rssViewed in eventRssVieweds)
             {
                 var userSubscriptionEntryToRead = new UserSubscriptionEntryToRead
                 {
-                    EventRssViewedId = eventRssViewed.Id,
-                    UserSubscriptionId = observedUsersId.Single(o => o.ObservedId == eventRssViewed.UserId).Id
+                    EventRssViewedId = rssViewed.Id,
+                    UserSubscriptionId = observedUsersId.Single(o => o.ObservedId == rssViewed.UserId).Id
+                };
+                this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
+                this.database.SaveChanges();
+            }
+
+            foreach (var rssClicked in eventRssClicked)
+            {
+                var userSubscriptionEntryToRead = new UserSubscriptionEntryToRead
+                {
+                    EventRssViewedId = rssClicked.Id,
+                    UserSubscriptionId = observedUsersId.Single(o => o.ObservedId == rssClicked.UserId).Id
                 };
                 this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
                 this.database.SaveChanges();

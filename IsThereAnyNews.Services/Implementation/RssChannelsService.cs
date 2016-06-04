@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using IsThereAnyNews.DataAccess;
+using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.ViewModels;
