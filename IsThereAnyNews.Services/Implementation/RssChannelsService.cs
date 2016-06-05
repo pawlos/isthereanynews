@@ -5,6 +5,7 @@ using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.Dtos;
 using IsThereAnyNews.EntityFramework.Models.Entities;
+using IsThereAnyNews.EntityFramework.Models.Events;
 using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Services.Implementation
@@ -19,7 +20,7 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
         private readonly ISessionProvider session;
         private readonly IMapper mapping;
-        private readonly IMapper mapper;
+        private readonly IEventRssChannelCreatedRepository eventRssChannelCreatedRepository;
 
         public RssChannelsService(
             IRssChannelsRepository channelsRepository,
@@ -29,8 +30,8 @@ namespace IsThereAnyNews.Services.Implementation
             IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
             ISessionProvider session,
-            IMapper mapping,
-            IMapper mapper)
+            IMapper mapping, 
+            IEventRssChannelCreatedRepository eventRssChannelCreatedRepository)
         {
             this.channelsRepository = channelsRepository;
             this.sessionProvider = sessionProvider;
@@ -40,13 +41,13 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssSubscriptionRepository = rssSubscriptionRepository;
             this.session = session;
             this.mapping = mapping;
-            this.mapper = mapper;
+            this.eventRssChannelCreatedRepository = eventRssChannelCreatedRepository;
         }
 
         public RssChannelsIndexViewModel LoadAllChannels()
         {
             var allChannels = this.channelsRepository.LoadAllChannelsWithStatistics();
-            var viewmodel = this.mapper.Map<RssChannelsIndexViewModel>(allChannels);
+            var viewmodel = this.mapping.Map<RssChannelsIndexViewModel>(allChannels);
             return viewmodel;
         }
 
@@ -77,7 +78,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var userId = this.session.GetCurrentUserId();
             var subscriptionInfo = this.rssSubscriptionRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
-            var userRssSubscriptionInfoViewModel = this.mapper.Map<UserRssSubscriptionInfoViewModel>(subscriptionInfo);
+            var userRssSubscriptionInfoViewModel = this.mapping.Map<UserRssSubscriptionInfoViewModel>(subscriptionInfo);
             return userRssSubscriptionInfoViewModel;
         }
 
@@ -86,8 +87,17 @@ namespace IsThereAnyNews.Services.Implementation
             var idByChannelUrl = this.channelsRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
             if (!idByChannelUrl.Any())
             {
-                var rssChannel = this.mapper.Map<RssChannel>(dto);
+                var rssChannel = this.mapping.Map<RssChannel>(dto);
                 this.channelsRepository.SaveToDatabase(new List<RssChannel> { rssChannel });
+                var listIds = this.channelsRepository.GetIdByChannelUrl(new List<string> { rssChannel.Url });
+                var id = listIds.Single();
+
+                var eventRssChannelCreated = new EventRssChannelCreated
+                {
+                    RssChannelId = id
+                };
+
+                this.eventRssChannelCreatedRepository.SaveToDatabase(eventRssChannelCreated);
             }
         }
     }

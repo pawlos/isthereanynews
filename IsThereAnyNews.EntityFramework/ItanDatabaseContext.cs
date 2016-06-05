@@ -69,6 +69,7 @@ namespace IsThereAnyNews.EntityFramework
         public DbSet<EventRssViewed> EventsRssViewed { get; set; }
         public DbSet<EventRssChannelUpdated> RssChannelUpdates { get; set; }
         public DbSet<EventRssClicked> EventsRssClicked { get; set; }
+        public DbSet<EventRssChannelCreated> EventRssChannelCreated { get; set; }
 
     }
 }

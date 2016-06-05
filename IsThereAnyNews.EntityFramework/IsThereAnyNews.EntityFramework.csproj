@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201605291350387_rss_clicked_event.Designer.cs">
       <DependentUpon>201605291350387_rss_clicked_event.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606051448240_rss-channel-created.cs" />
+    <Compile Include="Migrations\201606051448240_rss-channel-created.Designer.cs">
+      <DependentUpon>201606051448240_rss-channel-created.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\aasdfasdf.cs" />
     <Compile Include="Migrations\aasdfasdf.Designer.cs">
       <DependentUpon>aasdfasdf.cs</DependentUpon>
@@ -111,6 +115,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\UserSubscription.cs" />
     <Compile Include="Models\Entities\UserSubscriptionEntryToRead.cs" />
+    <Compile Include="Models\Events\EventRssChannelCreated.cs" />
     <Compile Include="Models\Events\EventRssRead.cs" />
     <Compile Include="Models\Events\EventRssViewed.cs" />
     <Compile Include="Models\Entities\FeatureRequest.cs" />
@@ -145,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605291350387_rss_clicked_event.resx">
       <DependentUpon>201605291350387_rss_clicked_event.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606051448240_rss-channel-created.resx">
+      <DependentUpon>201606051448240_rss-channel-created.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\aasdfasdf.resx">
       <DependentUpon>aasdfasdf.cs</DependentUpon>
