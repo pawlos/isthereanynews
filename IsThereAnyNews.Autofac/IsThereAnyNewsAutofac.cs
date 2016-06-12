@@ -37,6 +37,7 @@ namespace IsThereAnyNews.Autofac
 
             builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
+            builder.RegisterType<OpmlReader>().As<IOpmlReader>();
 
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();

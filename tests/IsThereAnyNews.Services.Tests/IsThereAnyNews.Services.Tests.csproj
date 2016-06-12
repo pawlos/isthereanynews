@@ -64,6 +64,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -92,7 +93,7 @@
     <Compile Include="ApplicationLoginServiceTests\StoreCurrentUserIdInSession.cs" />
     <Compile Include="OpmlImporterServiceTests\AddNewChannelsToGlobalSpace.cs" />
     <Compile Include="OpmlImporterServiceTests\ParseToRssChannelList.cs" />
-    <Compile Include="OpmlImporterServiceTests\AddToCurrentUserChannelList.cs" />
+    <Compile Include="OpmlImporterServiceTests\AddToCurrentUserChannelListTests.cs" />
     <Compile Include="RssChannelServiceTests\CreateNewChannelIfNotExists.cs" />
     <Compile Include="RssChannelServiceTests\CreateUserSubscriptionInfo.cs" />
     <Compile Include="RssChannelServiceTests\GetViewModelFormChannelId.cs" />

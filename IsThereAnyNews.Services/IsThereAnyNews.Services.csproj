@@ -70,6 +70,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IOpmlReader.cs" />
+    <Compile Include="Implementation\OpmlReader.cs" />
     <Compile Include="Implementation\RssSubscriptionService.cs" />
     <Compile Include="Implementation\UpdateService.cs" />
     <Compile Include="IRssItemActionService.cs" />

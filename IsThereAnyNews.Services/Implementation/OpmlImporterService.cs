@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.Dtos;
-using IsThereAnyNews.EntityFramework.Models;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.Services.Implementation
@@ -13,15 +13,18 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
         private readonly ISessionProvider sessionProvider;
         private readonly IRssChannelsRepository rssChannelsRepository;
+        private readonly IOpmlReader opmlHandler;
 
         public OpmlImporterService(
             IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
             ISessionProvider sessionProvider,
-            IRssChannelsRepository rssChannelsRepository)
+            IRssChannelsRepository rssChannelsRepository,
+            IOpmlReader opmlHandler)
         {
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
             this.sessionProvider = sessionProvider;
             this.rssChannelsRepository = rssChannelsRepository;
+            this.opmlHandler = opmlHandler;
         }
 
 
@@ -44,19 +47,14 @@ namespace IsThereAnyNews.Services.Implementation
 
         public List<RssChannel> ParseToRssChannelList(OpmlImporterIndexDto dto)
         {
-            var xmlDocument = new XmlDocument();
-            xmlDocument.Load(dto.ImportFile.InputStream);
-            var outlines = xmlDocument.GetElementsByTagName("outline");
-            var urls = new List<RssChannel>();
-            foreach (XmlNode outline in outlines)
-            {
-                var itemUrl = outline.Attributes.GetNamedItem("xmlUrl");
-                var itemTitle = outline.Attributes.GetNamedItem("title");
-                if (itemUrl != null)
-                {
-                    urls.Add(new RssChannel(itemUrl.Value, itemTitle.Value));
-                }
-            }
+            var outlines = this.opmlHandler.GetOutlines(dto.ImportFile.InputStream);
+
+            var ot = this.FilterOutInvalidOutlines(outlines);
+            var urls = ot.Select(o =>
+                      new RssChannel(
+                          o.Attributes.GetNamedItem("xmlUrl").Value,
+                          o.Attributes.GetNamedItem("title").Value))
+                .ToList();
 
             return urls;
         }
@@ -66,6 +64,17 @@ namespace IsThereAnyNews.Services.Implementation
             List<string> loadUrlsForAllChannels = this.rssSubscriptionsRepository.LoadUrlsForAllChannels();
             var channelsNewToGlobalSpace = channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant())).ToList();
             this.rssChannelsRepository.SaveToDatabase(channelsNewToGlobalSpace);
+        }
+
+        public List<XmlNode> FilterOutInvalidOutlines(IEnumerable<XmlNode> outlines)
+        {
+            var validoutlines = outlines.Where(o =>
+                     o.Attributes.GetNamedItem("xmlUrl") != null
+                  && o.Attributes.GetNamedItem("title") != null
+                  && !String.IsNullOrWhiteSpace(o.Attributes.GetNamedItem("xmlUrl").Value)
+                  && !String.IsNullOrWhiteSpace(o.Attributes.GetNamedItem("title").Value));
+
+            return validoutlines.ToList();
         }
     }
 }
