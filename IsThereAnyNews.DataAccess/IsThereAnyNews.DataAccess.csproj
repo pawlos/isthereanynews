@@ -65,6 +65,7 @@
     <Compile Include="Implementation\UpdateRepository.cs" />
     <Compile Include="Implementation\UserPublicProfile.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
+    <Compile Include="Implementation\UserRoleRepository.cs" />
     <Compile Include="Implementation\UsersSubscriptionRepository.cs" />
     <Compile Include="Implementation\UserWithStatistics.cs" />
     <Compile Include="IPersonSubscriptionRepository.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="IUpdateRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IRssChannelsRepository.cs" />
+    <Compile Include="IUserRoleRepository.cs" />
     <Compile Include="IUsersSubscriptionRepository.cs" />
     <Compile Include="IUserSubscriptionEntryToReadRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

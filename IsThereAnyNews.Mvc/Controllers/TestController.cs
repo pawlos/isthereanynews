@@ -56,5 +56,12 @@
             this.testService.FixSubscriptions();
             return this.RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public ActionResult AssignUserRoles()
+        {
+            this.testService.AssignUserRolesToAllUsers();
+            return this.RedirectToAction("Index");
+        }
     }
 }

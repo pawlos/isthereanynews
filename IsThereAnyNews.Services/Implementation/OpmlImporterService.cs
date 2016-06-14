@@ -45,25 +45,25 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssSubscriptionsRepository.SaveToDatabase(subscriptionsToSave);
         }
 
-        public List<RssChannel> ParseToRssChannelList(OpmlImporterIndexDto dto)
-        {
-            var outlines = this.opmlHandler.GetOutlines(dto.ImportFile.InputStream);
-
-            var ot = this.FilterOutInvalidOutlines(outlines);
-            var urls = ot.Select(o =>
-                      new RssChannel(
-                          o.Attributes.GetNamedItem("xmlUrl").Value,
-                          o.Attributes.GetNamedItem("title").Value))
-                .ToList();
-
-            return urls;
-        }
+        
 
         public void AddNewChannelsToGlobalSpace(List<RssChannel> channelList)
         {
             List<string> loadUrlsForAllChannels = this.rssSubscriptionsRepository.LoadUrlsForAllChannels();
             var channelsNewToGlobalSpace = channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant())).ToList();
             this.rssChannelsRepository.SaveToDatabase(channelsNewToGlobalSpace);
+        }
+
+        public List<RssChannel> ParseToRssChannelList(OpmlImporterIndexDto dto)
+        {
+            var outlines = this.opmlHandler.GetOutlines(dto.ImportFile.InputStream);
+            var ot = this.FilterOutInvalidOutlines(outlines);
+            var urls = ot.Select(o =>
+                      new RssChannel(
+                          o.Attributes.GetNamedItem("xmlUrl").Value,
+                          o.Attributes.GetNamedItem("title").Value))
+                .ToList();
+            return urls;
         }
 
         public List<XmlNode> FilterOutInvalidOutlines(IEnumerable<XmlNode> outlines)

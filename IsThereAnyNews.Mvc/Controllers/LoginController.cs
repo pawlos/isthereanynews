@@ -47,6 +47,7 @@
         {
             this.loginService.RegisterIfNewUser();
             this.loginService.StoreCurrentUserIdInSession();
+            this.loginService.StoreItanRolesToSession();
             var viewmodel = new LoginSuccessViewModel();
             return this.View("Success", viewmodel);
         }

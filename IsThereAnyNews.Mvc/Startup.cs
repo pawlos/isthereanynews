@@ -1,6 +1,7 @@
-﻿namespace IsThereAnyNews.Mvc
+﻿using IsThereAnyNews.Infrastructure.ConfigurationReader.Implementation;
+
+namespace IsThereAnyNews.Mvc
 {
-    using Infrastructure.ConfigurationReader.Implementation;
     using Microsoft.Owin;
     using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.Facebook;

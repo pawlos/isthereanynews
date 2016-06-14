@@ -14,8 +14,9 @@ namespace IsThereAnyNews.Mvc.Controllers
         public StreamController(
            IUserAuthentication authentication,
            ILoginService loginService,
+           ISessionProvider sessionProvider,
            IRssSubscriptionService rssSubscriptionService)
-           : base(authentication, loginService)
+           : base(authentication, loginService, sessionProvider)
         {
             this.rssSubscriptionService = rssSubscriptionService;
         }

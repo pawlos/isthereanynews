@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.DataAccess
 {
     public interface IPersonSubscriptionRepository
     {

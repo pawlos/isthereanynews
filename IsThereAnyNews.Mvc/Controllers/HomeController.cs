@@ -17,8 +17,9 @@ namespace IsThereAnyNews.Mvc.Controllers
         public HomeController(
             IUserAuthentication authentication,
             ILoginService loginService,
+            ISessionProvider sessionProvider,
             IRssChannelsRepository rssRepository)
-            : base(authentication, loginService)
+            : base(authentication, loginService, sessionProvider)
         {
             this.rssRepository = rssRepository;
         }

@@ -72,6 +72,10 @@
     <Compile Include="Migrations\201606051448240_rss-channel-created.Designer.cs">
       <DependentUpon>201606051448240_rss-channel-created.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606122102354_userroles.cs" />
+    <Compile Include="Migrations\201606122102354_userroles.Designer.cs">
+      <DependentUpon>201606122102354_userroles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\aasdfasdf.cs" />
     <Compile Include="Migrations\aasdfasdf.Designer.cs">
       <DependentUpon>aasdfasdf.cs</DependentUpon>
@@ -113,6 +117,7 @@
       <DependentUpon>createuserinsteadofdeletetrigger.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entities\UserRole.cs" />
     <Compile Include="Models\Entities\UserSubscription.cs" />
     <Compile Include="Models\Entities\UserSubscriptionEntryToRead.cs" />
     <Compile Include="Models\Events\EventRssChannelCreated.cs" />
@@ -153,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606051448240_rss-channel-created.resx">
       <DependentUpon>201606051448240_rss-channel-created.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606122102354_userroles.resx">
+      <DependentUpon>201606122102354_userroles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\aasdfasdf.resx">
       <DependentUpon>aasdfasdf.cs</DependentUpon>

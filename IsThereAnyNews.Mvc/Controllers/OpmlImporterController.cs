@@ -13,8 +13,8 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         public OpmlImporterController(
             IUserAuthentication authentication, 
-            ILoginService loginService, 
-            IOpmlImporterService opmlImporterService) : base(authentication, loginService)
+            ILoginService loginService, ISessionProvider sessionProvider,
+            IOpmlImporterService opmlImporterService) : base(authentication, loginService,sessionProvider)
         {
             this.opmlImporterService = opmlImporterService;
         }

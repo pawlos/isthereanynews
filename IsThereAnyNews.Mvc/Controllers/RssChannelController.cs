@@ -1,11 +1,13 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 using IsThereAnyNews.Dtos;
+using IsThereAnyNews.Mvc.Infrastructure;
 using IsThereAnyNews.Services;
+using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.Mvc.Controllers
 {
-    [AllowAnonymous]
+    [RoleAuthorize(Roles = new[] { ItanRole.User })]
     public class RssChannelController : BaseController
     {
         private readonly IRssChannelsService rssChannelsService;
@@ -15,10 +17,11 @@ namespace IsThereAnyNews.Mvc.Controllers
         public RssChannelController(
             IUserAuthentication authentication,
             ILoginService loginService,
+            ISessionProvider sessionProvider,
             IRssChannelsService rssChannelsService,
             IRssSubscriptionService rssSubscriptionService,
             IUserSubscriptionService userSubscriptionServiceService)
-            : base(authentication, loginService)
+            : base(authentication, loginService, sessionProvider)
         {
             this.rssChannelsService = rssChannelsService;
             this.rssSubscriptionService = rssSubscriptionService;
@@ -46,7 +49,6 @@ namespace IsThereAnyNews.Mvc.Controllers
             return this.View("Public", viewmodel);
         }
 
-        [Authorize]
         public ActionResult My()
         {
             return this.View("My");

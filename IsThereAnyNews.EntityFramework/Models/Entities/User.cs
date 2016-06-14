@@ -25,6 +25,8 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
         public List<RssChannelSubscription> RssSubscriptionList { get; set; }
         public List<EventRssViewed> EventsRssViewed { get; set; }
 
+        public List<UserRole> UserRoles { get; set; }
+
         public bool Equals(User x, User y)
         {
             return x.Id == y.Id;

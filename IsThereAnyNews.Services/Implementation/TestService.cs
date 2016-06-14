@@ -8,6 +8,12 @@ using Faker.Extensions;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.Extensions;
+using System.Data;
+using System.Data.Sql;
+using System.Linq;
+using System.Data.Entity;
+using System.Linq;
+using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.Services.Implementation
 {
@@ -128,6 +134,18 @@ namespace IsThereAnyNews.Services.Implementation
             var entry = entryToReads.Random();
             rssToReadRepository.MarkEntryViewedByUser(user.Id, entry.Id);
             rssEventRepository.AddEventRssViewed(user.Id, entry.Id);
+        }
+
+        public void AssignUserRolesToAllUsers()
+        {
+            var users = this.database
+                .Users
+                .Include(x => x.UserRoles)
+                .Where(x => x.UserRoles.Count == 0)
+                .ToList();
+
+            users.ForEach(x=>x.UserRoles.Add(new UserRole() {RoleType = ItanRole.User}));
+            this.database.SaveChanges();
         }
 
         public void FixSubscriptions()
