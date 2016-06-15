@@ -30,7 +30,7 @@ namespace IsThereAnyNews.Services.Implementation
             IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
             ISessionProvider session,
-            IMapper mapping, 
+            IMapper mapping,
             IEventRssChannelCreatedRepository eventRssChannelCreatedRepository)
         {
             this.channelsRepository = channelsRepository;
@@ -87,18 +87,23 @@ namespace IsThereAnyNews.Services.Implementation
             var idByChannelUrl = this.channelsRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
             if (!idByChannelUrl.Any())
             {
-                var rssChannel = this.mapping.Map<RssChannel>(dto);
-                this.channelsRepository.SaveToDatabase(new List<RssChannel> { rssChannel });
-                var listIds = this.channelsRepository.GetIdByChannelUrl(new List<string> { rssChannel.Url });
-                var id = listIds.Single();
-
-                var eventRssChannelCreated = new EventRssChannelCreated
-                {
-                    RssChannelId = id
-                };
-
-                this.eventRssChannelCreatedRepository.SaveToDatabase(eventRssChannelCreated);
+                CreateNewChannel(dto);
             }
+        }
+
+        private void CreateNewChannel(AddChannelDto dto)
+        {
+            var rssChannel = this.mapping.Map<RssChannel>(dto);
+            this.channelsRepository.SaveToDatabase(new List<RssChannel> { rssChannel });
+            var listIds = this.channelsRepository.GetIdByChannelUrl(new List<string> { rssChannel.Url });
+            var id = listIds.Single();
+
+            var eventRssChannelCreated = new EventRssChannelCreated
+            {
+                RssChannelId = id
+            };
+
+            this.eventRssChannelCreatedRepository.SaveToDatabase(eventRssChannelCreated);
         }
     }
 }

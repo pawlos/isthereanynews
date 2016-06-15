@@ -35,9 +35,11 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             // arrange
             var dto = new AddChannelDto();
 
+            var value = new List<long>() { 1, 2, 3 };
+
             this.mockChannelRepository
                 .Setup(s => s.GetIdByChannelUrl(It.IsAny<List<string>>()))
-                .Returns(new List<long>());
+                .Returns(value);
 
             // act
             this.sut.CreateNewChannelIfNotExists(dto);
@@ -54,9 +56,19 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             // arrange
             var dto = new AddChannelDto();
 
+            var value = new List<long>();
+
             this.mockChannelRepository
                 .Setup(s => s.GetIdByChannelUrl(It.IsAny<List<string>>()))
-                .Returns(new List<long>());
+                .Returns(value);
+
+            this.mockChannelRepository
+                .Setup(s => s.SaveToDatabase(It.IsAny<List<RssChannel>>()))
+                .Callback(() => value.Add(0));
+
+            this.mockMapper
+                .Setup(s => s.Map<RssChannel>(It.IsAny<AddChannelDto>()))
+                .Returns(new RssChannel(string.Empty, string.Empty));
 
             // act
             this.sut.CreateNewChannelIfNotExists(dto);
@@ -72,14 +84,23 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
         {
             // arrange
             var dto = new AddChannelDto();
+            var value = new List<long>();
 
             this.mockChannelRepository
                 .Setup(s => s.GetIdByChannelUrl(It.IsAny<List<string>>()))
-                .Returns(new List<long>());
+                .Returns(value);
 
             this.mockMapper
                 .Setup(v => v.Map<RssChannel>(It.IsAny<AddChannelDto>()))
                 .Returns(new RssChannel());
+
+            this.mockChannelRepository
+                .Setup(s => s.SaveToDatabase(It.IsAny<List<RssChannel>>()))
+                .Callback(() => value.Add(0));
+
+            this.mockMapper
+                .Setup(s => s.Map<RssChannel>(It.IsAny<AddChannelDto>()))
+                .Returns(new RssChannel(string.Empty, string.Empty));
 
             // act
             this.sut.CreateNewChannelIfNotExists(dto);
