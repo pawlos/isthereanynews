@@ -9,6 +9,7 @@ namespace IsThereAnyNews.Mvc.Controllers
     {
         public ActionResult Index()
         {
+            this.Session.Clear();
             HttpContext.GetOwinContext().Authentication.SignOut(ConstantStrings.AuthorizationCookieName);
             return this.RedirectToAction("Index", "Home");
         }

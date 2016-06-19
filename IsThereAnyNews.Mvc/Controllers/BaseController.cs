@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Security.Claims;
 using System.Web.Mvc;
 using System.Web.Mvc.Filters;
@@ -24,6 +25,10 @@ namespace IsThereAnyNews.Mvc.Controllers
             if (claims != null)
             {
                 var claimsIdentity = this.User as ClaimsPrincipal;
+                if (claimsIdentity.Identities.Any(i => i.AuthenticationType == "ITAN"))
+                {
+                    return;
+                }
                 var itanIdentity = new ClaimsIdentity(claims, "ITAN");
                 claimsIdentity.AddIdentity(itanIdentity);
             }
@@ -37,6 +42,7 @@ namespace IsThereAnyNews.Mvc.Controllers
                 if (claimsPrincipal != null && claimsPrincipal.Identity.IsAuthenticated)
                 {
                     this.loginService.StoreCurrentUserIdInSession();
+                    this.loginService.StoreItanRolesToSession();
                 }
             }
 

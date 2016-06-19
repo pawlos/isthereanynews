@@ -70,7 +70,9 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssStatistics> GetNewsThatWasReadMost(int i)
         {
-            var list = this.database.RssEntriesToRead
+            throw new NotImplementedException("GetNewsThatWasReadMost - db");
+            var list = this.database
+                .RssEntriesToRead
                 .Include(x => x.RssEntry)
                 .Select(ToRssStatistics)
                 .OrderByDescending(x => x.Count)
