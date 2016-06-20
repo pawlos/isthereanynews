@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using AutoMapper;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.SharedData;
@@ -15,19 +17,22 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly ISocialLoginRepository socialLoginRepository;
         private readonly ISessionProvider sessionProvider;
         private readonly IUserRoleRepository repositoryUserRoles;
+        private readonly IMapper mapper;
 
         public ApplicationLoginService(
             IUserAuthentication authentication,
             IUserRepository userRepository,
             ISocialLoginRepository socialLoginRepository,
             ISessionProvider sessionProvider,
-            IUserRoleRepository repositoryUserRoles)
+            IUserRoleRepository repositoryUserRoles, 
+            IMapper mapper)
         {
             this.authentication = authentication;
             this.userRepository = userRepository;
             this.socialLoginRepository = socialLoginRepository;
             this.sessionProvider = sessionProvider;
             this.repositoryUserRoles = repositoryUserRoles;
+            this.mapper = mapper;
         }
 
         public void RegisterIfNewUser()
@@ -55,7 +60,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             var itanRoles = this.repositoryUserRoles.GetRolesForUser(currentUserId);
-            var claims = itanRoles.Select(x => new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), x.RoleType)));
+            var claims = this.mapper.Map<List<Claim>>(itanRoles);
             this.sessionProvider.SaveClaims(claims);
         }
 

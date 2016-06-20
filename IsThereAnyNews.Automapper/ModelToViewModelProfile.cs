@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using AutoMapper;
 using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework.Models.Entities;
+using IsThereAnyNews.SharedData;
 using IsThereAnyNews.ViewModels;
 
 namespace IsThereAnyNews.Automapper
@@ -42,6 +45,9 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.ChannelSubscriptionId, o => o.MapFrom(s => s))
                 .ForMember(d => d.IsSubscribed, o => o.Ignore());
 
+            CreateMap<UserRole, Claim>()
+                .ForMember(d => d.Type, o => o.UseValue(ClaimTypes.Role))
+                .ForMember(d => d.Value, o => o.MapFrom(s => Enum.GetName(typeof(ItanRole), s)));
         }
     }
 }
