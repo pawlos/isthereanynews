@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="ApplicationLoginServiceTests\RegisterIfNewUser.cs" />
     <Compile Include="ApplicationLoginServiceTests\StoreCurrentUserIdInSession.cs" />
+    <Compile Include="ApplicationLoginServiceTests\StoreItanRolesToSession.cs" />
     <Compile Include="OpmlImporterServiceTests\AddNewChannelsToGlobalSpace.cs" />
     <Compile Include="OpmlImporterServiceTests\ParseToRssChannelList.cs" />
     <Compile Include="OpmlImporterServiceTests\AddToCurrentUserChannelListTests.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="RssChannelServiceTests\LoadAllChannelsOfCurrentUser.cs" />
     <Compile Include="RssChannelServiceTests\LoadAllChannels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssSubscriptionServiceTests\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -5,6 +5,7 @@ using System.Security.Claims;
 using AutoMapper;
 using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework.Models.Entities;
+using IsThereAnyNews.Services.Implementation;
 using IsThereAnyNews.SharedData;
 using IsThereAnyNews.ViewModels;
 
