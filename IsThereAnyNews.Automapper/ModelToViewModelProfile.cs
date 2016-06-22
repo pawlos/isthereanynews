@@ -47,8 +47,12 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.IsSubscribed, o => o.Ignore());
 
             CreateMap<UserRole, Claim>()
-                .ForMember(d => d.Type, o => o.UseValue(ClaimTypes.Role))
-                .ForMember(d => d.Value, o => o.MapFrom(s => Enum.GetName(typeof(ItanRole), s)));
+                .ConstructUsing(CreateClaim);
+        }
+
+        private Claim CreateClaim(UserRole role)
+        {
+            return new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), role));
         }
     }
 }

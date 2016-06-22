@@ -60,8 +60,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             var itanRoles = this.repositoryUserRoles.GetRolesForUser(currentUserId);
-            //var claims = this.mapper.Map<List<Claim>>(itanRoles);
-            var claims = itanRoles.Select(x => new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), x.RoleType))).ToList();
+            var claims = this.mapper.Map<List<Claim>>(itanRoles);
             this.sessionProvider.SaveClaims(claims);
         }
 

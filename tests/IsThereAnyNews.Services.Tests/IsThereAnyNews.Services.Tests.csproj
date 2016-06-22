@@ -101,7 +101,8 @@
     <Compile Include="RssChannelServiceTests\LoadAllChannelsOfCurrentUser.cs" />
     <Compile Include="RssChannelServiceTests\LoadAllChannels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RssSubscriptionServiceTests\Class1.cs" />
+    <Compile Include="RssSubscriptionServiceTests\LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription.cs" />
+    <Compile Include="RssSubscriptionServiceTests\MarkAllRssReadForSubscription.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

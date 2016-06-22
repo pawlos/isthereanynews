@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMoq;
+﻿using AutoMoq;
 using IsThereAnyNews.Services.Implementation;
 using IsThereAnyNews.SharedData;
 using Moq;
@@ -13,10 +8,10 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
     public class LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription
     {
-        private AutoMoqer moqer;
-        private RssSubscriptionService sut;
-        private Mock<ISubscriptionHandlerFactory> mockHandlerFactory;
-        private Mock<ISubscriptionHandler> mockSubscriptionHandler;
+        private readonly AutoMoqer moqer;
+        private readonly RssSubscriptionService sut;
+        private readonly Mock<ISubscriptionHandlerFactory> mockHandlerFactory;
+        private readonly Mock<ISubscriptionHandler> mockSubscriptionHandler;
 
         public LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription()
         {
@@ -63,6 +58,5 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 .Verify(v => v.GetSubscriptionViewModel(It.IsAny<long>(), It.IsAny<ShowReadEntries>()),
                 Times.Once);
         }
-
     }
 }
