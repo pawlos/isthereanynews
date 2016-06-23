@@ -32,6 +32,12 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 StreamType = StreamType.Person
             };
 
+            var mockHandler = new Mock<ISubscriptionHandler>();
+
+            this.mockSubscriptionHandlerFactory
+                .Setup(s => s.GetProvider(It.IsAny<StreamType>()))
+                .Returns(mockHandler.Object);
+
             // act
             this.sut.MarkRead(stub);
 
