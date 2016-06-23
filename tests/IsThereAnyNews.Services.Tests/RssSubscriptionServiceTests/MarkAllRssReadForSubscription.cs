@@ -44,5 +44,26 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                                            p[2] == 666666)),
                 Times.Once);
         }
+
+        [Fact]
+        public void When_Marking_As_Read_Must_Call_Repository_To_Update_Entries()
+        {
+            // arrange
+            var dto = new MarkReadForSubscriptionDto
+            {
+                RssEntries = "1;321;666666",
+                SubscriptionId = 0
+            };
+
+            // act
+            this.sut.MarkAllRssReadForSubscription(dto);
+
+            // assert
+            this.mockRssToReadRepository
+                .Verify(v => v.MarkAllReadForUserAndSubscription(
+                    It.IsAny<long>(),
+                    It.IsAny<List<long>>()),
+                Times.Once);
+        }
     }
 }
