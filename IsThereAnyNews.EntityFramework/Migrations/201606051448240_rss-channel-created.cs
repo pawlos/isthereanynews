@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class rsschannelcreated : DbMigration
+    public partial class Rsschannelcreated : DbMigration
     {
         public override void Up()
         {

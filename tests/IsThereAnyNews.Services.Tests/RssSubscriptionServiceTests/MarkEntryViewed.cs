@@ -11,8 +11,8 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
         private readonly AutoMoqer moqer;
         private readonly RssSubscriptionService sut;
         private readonly Mock<IRssEntriesToReadRepository> mockRssToReadRepository;
-        private Mock<IRssEventRepository> mockRssEventRepository;
-        private Mock<ISessionProvider> mockSessionProvider;
+        private readonly Mock<IRssEventRepository> mockRssEventRepository;
+        private readonly Mock<ISessionProvider> mockSessionProvider;
 
         public MarkEntryViewed()
         {

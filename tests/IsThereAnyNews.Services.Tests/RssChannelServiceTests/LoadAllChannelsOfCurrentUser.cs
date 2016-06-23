@@ -14,11 +14,11 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
     public class LoadAllChannelsOfCurrentUser
     {
         private readonly AutoMoqer moqer;
-        private Mock<ISessionProvider> mockSessionProvider;
-        private Mock<IRssChannelsSubscriptionsRepository> mockChannelsSubscriptionRepository;
-        private Mock<IRssEntriesToReadRepository> mockRssEntriesRepository;
-        private IRssChannelsService sut;
-        private Mock<IMapper> mockMapper;
+        private readonly Mock<ISessionProvider> mockSessionProvider;
+        private readonly Mock<IRssChannelsSubscriptionsRepository> mockChannelsSubscriptionRepository;
+        private readonly Mock<IRssEntriesToReadRepository> mockRssEntriesRepository;
+        private readonly IRssChannelsService sut;
+        private readonly Mock<IMapper> mockMapper;
 
         public LoadAllChannelsOfCurrentUser()
         {

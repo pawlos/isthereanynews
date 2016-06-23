@@ -10,11 +10,11 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
     public class CreateUserSubscriptionInfo
     {
-        private AutoMoqer moqer;
-        private RssChannelsService sut;
-        private Mock<ISessionProvider> mockSessionProvider;
-        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
-        private Mock<IMapper> mockMapper;
+        private readonly AutoMoqer moqer;
+        private readonly RssChannelsService sut;
+        private readonly Mock<ISessionProvider> mockSessionProvider;
+        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
+        private readonly Mock<IMapper> mockMapper;
 
         public CreateUserSubscriptionInfo()
         {

@@ -11,15 +11,15 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
 {
     public class StoreCurrentUserIdInSession
     {
-        private AutoMoqer moqer;
-        private ApplicationLoginService sut;
-        private Mock<ISessionProvider> mockSessionProvider;
-        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
-        private Mock<IMapper> mockMapper;
-        private Mock<IRssChannelsRepository> mockChannelRepository;
-        private Mock<IUserAuthentication> mockAuthentication;
-        private Mock<ISocialLoginRepository> mockSocialLoginRepository;
-        private Mock<IUserRepository> mockUserRepository; public StoreCurrentUserIdInSession()
+        private readonly AutoMoqer moqer;
+        private readonly ApplicationLoginService sut;
+        private readonly Mock<ISessionProvider> mockSessionProvider;
+        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
+        private readonly Mock<IMapper> mockMapper;
+        private readonly Mock<IRssChannelsRepository> mockChannelRepository;
+        private readonly Mock<IUserAuthentication> mockAuthentication;
+        private readonly Mock<ISocialLoginRepository> mockSocialLoginRepository;
+        private readonly Mock<IUserRepository> mockUserRepository; public StoreCurrentUserIdInSession()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<ApplicationLoginService>();

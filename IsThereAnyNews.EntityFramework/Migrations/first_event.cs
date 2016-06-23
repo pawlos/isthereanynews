@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class first_event : DbMigration
+    public partial class FirstEvent : DbMigration
     {
         public override void Up()
         {

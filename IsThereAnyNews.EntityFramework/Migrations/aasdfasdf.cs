@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class aasdfasdf : DbMigration
+    public partial class Aasdfasdf : DbMigration
     {
         public override void Up()
         {

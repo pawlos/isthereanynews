@@ -62,15 +62,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 Id = model.Id,
                 Count = model.RssSubscriptionList
                     .SelectMany(c => c.RssEntriesToRead)
-                    .Where(r => r.IsRead)
-                    .Count()
+                    .Count(r => r.IsRead)
             };
             return projection;
         }
 
         public List<RssStatistics> GetNewsThatWasReadMost(int i)
         {
-            throw new NotImplementedException("GetNewsThatWasReadMost - db");
             var list = this.database
                 .RssEntriesToRead
                 .Include(x => x.RssEntry)

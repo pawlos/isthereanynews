@@ -90,9 +90,6 @@ namespace IsThereAnyNews.Services.Implementation
                 this.statisticsRepository
                     .LoadAllEventsFromAndToDate(startDate, endDate);
 
-            var firstFourDayWeek = System.Globalization.CalendarWeekRule.FirstFourDayWeek;
-            var firstDayOfWeek = System.Globalization.CalendarWeekRule.FirstDay;
-
             var getWeekOfYear = new Func<DateTime, CalendarWeekRule, DayOfWeek, int>(CultureInfo.CurrentCulture.Calendar.GetWeekOfYear);
 
             var x = new List<List<EventRssViewed>>(52);

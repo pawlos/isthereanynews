@@ -2,7 +2,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
 {
     using System.Data.Entity.Migrations;
     
-    public partial class userroles : DbMigration
+    public partial class Userroles : DbMigration
     {
         public override void Up()
         {

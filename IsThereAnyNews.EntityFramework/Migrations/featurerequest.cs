@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class featurerequest : DbMigration
+    public partial class Featurerequest : DbMigration
     {
         public override void Up()
         {

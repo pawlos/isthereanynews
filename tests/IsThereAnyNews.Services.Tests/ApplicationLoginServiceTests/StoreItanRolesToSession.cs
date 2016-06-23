@@ -12,11 +12,11 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
 {
     public class StoreItanRolesToSession
     {
-        private ILoginService sut;
-        private AutoMoqer moqer;
-        private Mock<ISessionProvider> mockSessionProvider;
-        private Mock<IUserRoleRepository> mockRepositoryUserRoles;
-        private Mock<IMapper> mockAutomapper;
+        private readonly ILoginService sut;
+        private readonly AutoMoqer moqer;
+        private readonly Mock<ISessionProvider> mockSessionProvider;
+        private readonly Mock<IUserRoleRepository> mockRepositoryUserRoles;
+        private readonly Mock<IMapper> mockAutomapper;
 
         public StoreItanRolesToSession()
         {

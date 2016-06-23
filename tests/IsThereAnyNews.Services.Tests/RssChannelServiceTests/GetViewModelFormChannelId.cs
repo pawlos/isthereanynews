@@ -11,11 +11,11 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
     public class GetViewModelFormChannelId
     {
-        private AutoMoqer moqer;
-        private RssChannelsService sut;
-        private Mock<IRssChannelsRepository> mockChannelsRepository;
-        private Mock<IMapper> mockMapper;
-        private Mock<IUserAuthentication> mockUserAuthentication;
+        private readonly AutoMoqer moqer;
+        private readonly RssChannelsService sut;
+        private readonly Mock<IRssChannelsRepository> mockChannelsRepository;
+        private readonly Mock<IMapper> mockMapper;
+        private readonly Mock<IUserAuthentication> mockUserAuthentication;
 
         public GetViewModelFormChannelId()
         {

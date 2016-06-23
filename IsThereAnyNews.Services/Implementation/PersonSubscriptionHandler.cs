@@ -62,7 +62,7 @@ namespace IsThereAnyNews.Services.Implementation
                 return rssSubscriptionIndexViewModel;
             }
 
-            List<UserSubscriptionEntryToRead> loadAllUnreadEntriesFromSubscription = null;
+            List<UserSubscriptionEntryToRead> loadAllUnreadEntriesFromSubscription;
             if (showReadEntries != ShowReadEntries.Show)
             {
                 loadAllUnreadEntriesFromSubscription = this.usersSubscriptionRepository

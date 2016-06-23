@@ -52,7 +52,7 @@ namespace IsThereAnyNews.Automapper
 
         private Claim CreateClaim(UserRole role)
         {
-            return new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), role));
+            return new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), role.RoleType));
         }
     }
 }

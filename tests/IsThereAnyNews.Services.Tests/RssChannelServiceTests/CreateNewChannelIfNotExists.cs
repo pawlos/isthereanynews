@@ -12,12 +12,12 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
     public class CreateNewChannelIfNotExists
     {
-        private AutoMoqer moqer;
-        private RssChannelsService sut;
-        private Mock<ISessionProvider> mockSessionProvider;
-        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
-        private Mock<IMapper> mockMapper;
-        private Mock<IRssChannelsRepository> mockChannelRepository;
+        private readonly AutoMoqer moqer;
+        private readonly RssChannelsService sut;
+        private readonly Mock<ISessionProvider> mockSessionProvider;
+        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
+        private readonly Mock<IMapper> mockMapper;
+        private readonly Mock<IRssChannelsRepository> mockChannelRepository;
 
         public CreateNewChannelIfNotExists()
         {

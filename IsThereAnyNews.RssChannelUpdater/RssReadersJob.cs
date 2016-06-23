@@ -8,7 +8,7 @@ namespace IsThereAnyNews.RssChannelUpdater
 {
     public class RssReadersJob : IJob
     {
-        private TestService testService;
+        private readonly TestService testService;
 
         public RssReadersJob()
         {

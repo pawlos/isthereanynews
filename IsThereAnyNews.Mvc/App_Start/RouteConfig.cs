@@ -3,7 +3,7 @@ using System.Web.Routing;
 
 namespace IsThereAnyNews.Mvc
 {
-    public class RouteConfig
+    public static class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -13,7 +13,7 @@ namespace IsThereAnyNews.Mvc
             routes.MapRoute(
                 name: "Stream",
                 url: "{controller}/{action}/{streamtype}/{id}",
-                defaults: new {controller = "Stream", action = "Read" }
+                defaults: new { controller = "Stream", action = "Read" }
                 );
 
             routes.MapRoute(

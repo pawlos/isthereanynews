@@ -58,7 +58,7 @@ namespace IsThereAnyNews.Services.Implementation
                 return rssSubscriptionIndexViewModel;
             }
 
-            List<RssEntryToRead> loadAllRssEntriesForUserAndChannel = null;
+            List<RssEntryToRead> loadAllRssEntriesForUserAndChannel;
             if (showReadEntries != ShowReadEntries.Show)
             {
                 loadAllRssEntriesForUserAndChannel =

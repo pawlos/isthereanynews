@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class tablenamechange : DbMigration
+    public partial class Tablenamechange : DbMigration
     {
         public override void Up()
         {

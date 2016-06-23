@@ -46,8 +46,8 @@ namespace IsThereAnyNews.Services.Implementation
             var separator = new[] { ";" };
             var rssToMarkRead =
                 dto.RssEntries.Split(separator, StringSplitOptions.None)
-                .ToList()
-                .Select(id => long.Parse(id)).ToList();
+                .Select(long.Parse)
+                .ToList();
             this.rssToReadRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
         }
 

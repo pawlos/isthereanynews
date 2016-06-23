@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class followuser : DbMigration
+    public partial class Followuser : DbMigration
     {
         public override void Up()
         {

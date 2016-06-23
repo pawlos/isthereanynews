@@ -10,7 +10,7 @@ namespace IsThereAnyNews.Mvc
     using Owin;
     using SharedData;
 
-    public class Startup
+    public static class Startup
     {
         public static void Configuration(IAppBuilder appBuilder)
         {

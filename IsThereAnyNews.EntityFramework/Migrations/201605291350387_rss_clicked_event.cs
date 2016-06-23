@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class rss_clicked_event : DbMigration
+    public partial class RssClickedEvent : DbMigration
     {
         public override void Up()
         {

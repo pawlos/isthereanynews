@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
 
-    public partial class isviewed : DbMigration
+    public partial class Isviewed : DbMigration
     {
         public override void Up()
         {

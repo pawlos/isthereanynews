@@ -39,7 +39,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                 });
 
             // act
-            var rssChannelsIndexViewModel = sut.LoadAllChannels();
+            sut.LoadAllChannels();
 
             // assert
             this.mockRssChannelsRepository.Verify(x => x.LoadAllChannelsWithStatistics(), Times.Once());
@@ -58,7 +58,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                 });
 
             // act
-            var rssChannelsIndexViewModel = sut.LoadAllChannels();
+            sut.LoadAllChannels();
 
             // assert
             this.mockMapper.Verify(

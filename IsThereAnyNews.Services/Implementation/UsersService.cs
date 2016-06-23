@@ -41,7 +41,7 @@ namespace IsThereAnyNews.Services.Implementation
                 Channels = publicProfile.RssSubscriptionList.Distinct().Select(channelSubscription => new PublicProfileChannelInformation
                 {
                     Id = channelSubscription.Id,
-                    Name = channelSubscription.Title,
+                    Name = channelSubscription.Title
                 }).ToList(),
                 Events = publicProfile.EventsRssViewed.Select(e => new EventRssViewedViewModel
                 {
@@ -49,7 +49,7 @@ namespace IsThereAnyNews.Services.Implementation
                     Viewed = e.Created,
                     RssId = e.RssEntryId
                 }).ToList(),
-                EventsCount = publicProfile.EventsRssViewed.Count(),
+                EventsCount = publicProfile.EventsRssViewed.Count,
                 ViewingUserId = id
             };
             return userDetailedPublicProfileViewModel;

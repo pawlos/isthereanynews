@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class toreadbelongstosubscription : DbMigration
+    public partial class Toreadbelongstosubscription : DbMigration
     {
         public override void Up()
         {

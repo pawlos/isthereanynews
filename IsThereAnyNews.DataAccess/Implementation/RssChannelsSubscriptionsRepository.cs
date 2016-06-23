@@ -26,7 +26,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return this.database
                 .RssChannels
                 .Select(channel => channel.Url)
-                .ToList()
                 .Select(x => x.ToLowerInvariant())
                 .ToList();
         }

@@ -2,17 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models;
 using Faker;
-using Faker.Extensions;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models.Entities;
 using IsThereAnyNews.Extensions;
-using System.Data;
-using System.Data.Sql;
-using System.Linq;
 using System.Data.Entity;
-using System.Linq;
 using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.Services.Implementation

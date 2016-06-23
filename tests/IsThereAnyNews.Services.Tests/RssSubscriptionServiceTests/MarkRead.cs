@@ -12,7 +12,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
     {
         private readonly AutoMoqer moqer;
         private readonly RssSubscriptionService sut;
-        private Mock<ISubscriptionHandlerFactory> mockSubscriptionHandlerFactory;
+        private readonly Mock<ISubscriptionHandlerFactory> mockSubscriptionHandlerFactory;
 
         public MarkRead()
         {

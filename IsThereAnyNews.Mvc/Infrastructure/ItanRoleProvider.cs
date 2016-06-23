@@ -24,8 +24,7 @@ namespace IsThereAnyNews.Mvc.Infrastructure
 
             return claimsIdentity.Claims
                 .Where(x => x.Type == ClaimTypes.Role)
-                .Where(x => x.Value == roleName)
-                .Any();
+                .Any(x => x.Value == roleName);
         }
 
         public override string[] GetRolesForUser(string username)
