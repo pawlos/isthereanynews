@@ -66,8 +66,13 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void SubscribeCurrentUserToChannel(long channelId)
         {
-            var userId = this.sessionProvider.GetCurrentUserId();
-            this.rssSubscriptionsRepository.CreateNewSubscriptionForUserAndChannel(userId, channelId);
+            var rssChannel = this.rssChannelsRepository.Load(channelId);
+            var addChannelDto = new AddChannelDto
+            {
+                RssChannelLink = rssChannel.Url,
+                RssChannelName = rssChannel.Title
+            };
+            this.SubscribeCurrentUserToChannel(addChannelDto);
         }
 
         public void MarkRead(MarkReadDto dto)
