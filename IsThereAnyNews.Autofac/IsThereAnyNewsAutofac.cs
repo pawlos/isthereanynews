@@ -3,6 +3,7 @@ using Autofac.Integration.Mvc;
 using AutoMapper;
 using IsThereAnyNews.Automapper;
 using IsThereAnyNews.RssChannelUpdater;
+using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.Autofac
 {
@@ -42,16 +43,13 @@ namespace IsThereAnyNews.Autofac
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();
 
-            builder.RegisterType<RssSubscriptionHandler>();
-            builder.RegisterType<PersonSubscriptionHandler>();
+            builder.RegisterType<RssSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Rss);
+            builder.RegisterType<PersonSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Person);
+
+            builder.RegisterType<SubscriptionHandlerFactory>().As<ISubscriptionHandlerFactory>();
 
             builder.Register(c => IsThereAnyNewsAutomapper.ConfigureMapper()).As<IMapper>()
                 .InstancePerLifetimeScope();
-
-            builder
-                .RegisterType<SubscriptionHandlerFactory>()
-                .As<ISubscriptionHandlerFactory>()
-                .WithParameter(new TypedParameter(typeof(Lazy<IDependencyResolver>), new Lazy<IDependencyResolver>(() => DependencyResolver.Current)));
 
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

@@ -1,29 +1,20 @@
-using System;
-using System.Web.Mvc;
+using Autofac.Features.Indexed;
 using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.Services.Implementation
 {
     public class SubscriptionHandlerFactory : ISubscriptionHandlerFactory
     {
-        private readonly Lazy<IDependencyResolver> resolver;
+        private readonly IIndex<StreamType, ISubscriptionHandler> handlers;
 
-        public SubscriptionHandlerFactory(Lazy<IDependencyResolver> resolver)
+        public SubscriptionHandlerFactory(IIndex<StreamType, ISubscriptionHandler> handlers)
         {
-            this.resolver = resolver;
+            this.handlers = handlers;
         }
 
         public ISubscriptionHandler GetProvider(StreamType streamType)
         {
-            switch (streamType)
-            {
-                case StreamType.Rss:
-                    return (ISubscriptionHandler)this.resolver.Value.GetService(typeof(RssSubscriptionHandler));
-                case StreamType.Person:
-                    return (ISubscriptionHandler)this.resolver.Value.GetService(typeof(PersonSubscriptionHandler));
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(streamType), streamType, null);
-            }
+            return this.handlers[streamType];
         }
     }
 }
