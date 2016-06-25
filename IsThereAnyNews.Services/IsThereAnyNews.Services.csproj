@@ -80,8 +80,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\ISubscriptionHandler.cs" />
-    <Compile Include="Implementation\ISubscriptionHandlerFactory.cs" />
+    <Compile Include="Implementation\ActivityPerWeek.cs" />
+    <Compile Include="ISubscriptionHandler.cs" />
+    <Compile Include="ISubscriptionHandlerFactory.cs" />
     <Compile Include="Implementation\PersonSubscriptionHandler.cs" />
     <Compile Include="Implementation\RssSubscriptionHandler.cs" />
     <Compile Include="Implementation\SubscriptionHandlerFactory.cs" />

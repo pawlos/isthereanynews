@@ -1,6 +1,6 @@
 using IsThereAnyNews.SharedData;
 
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.Services
 {
     public interface ISubscriptionHandlerFactory
     {

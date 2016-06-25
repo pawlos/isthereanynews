@@ -1,7 +1,7 @@
 using IsThereAnyNews.SharedData;
 using IsThereAnyNews.ViewModels;
 
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.Services
 {
     public interface ISubscriptionHandler
     {
