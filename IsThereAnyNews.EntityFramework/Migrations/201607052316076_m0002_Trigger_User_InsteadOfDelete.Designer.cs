@@ -7,13 +7,13 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class createuserinsteadofdeletetrigger : IMigrationMetadata
+    public sealed partial class m0002_Trigger_User_InsteadOfDelete : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(createuserinsteadofdeletetrigger));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(m0002_Trigger_User_InsteadOfDelete));
         
         string IMigrationMetadata.Id
         {
-            get { return "201604202057408_create user instead of delete trigger"; }
+            get { return "201607052316076_m0002_Trigger_User_InsteadOfDelete"; }
         }
         
         string IMigrationMetadata.Source

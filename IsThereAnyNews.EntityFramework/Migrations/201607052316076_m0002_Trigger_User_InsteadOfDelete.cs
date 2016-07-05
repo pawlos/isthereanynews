@@ -3,7 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System;
     using System.Data.Entity.Migrations;
 
-    public partial class Createuserinsteadofdeletetrigger : DbMigration
+    public partial class m0002_Trigger_User_InsteadOfDelete : DbMigration
     {
         public override void Up()
         {

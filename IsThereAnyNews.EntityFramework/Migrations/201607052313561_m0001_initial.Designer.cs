@@ -7,13 +7,13 @@ namespace IsThereAnyNews.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class featurerequest : IMigrationMetadata
+    public sealed partial class m0001_initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(featurerequest));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(m0001_initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201604091112317_feature request"; }
+            get { return "201607052313561_m0001_initial"; }
         }
         
         string IMigrationMetadata.Source

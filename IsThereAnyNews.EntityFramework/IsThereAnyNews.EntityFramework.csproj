@@ -56,65 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItanDatabaseContext.cs" />
-    <Compile Include="Migrations\201605011724390_user-subscription-is-read.cs" />
-    <Compile Include="Migrations\201605011724390_user-subscription-is-read.Designer.cs">
-      <DependentUpon>201605011724390_user-subscription-is-read.cs</DependentUpon>
+    <Compile Include="Migrations\201607052313561_m0001_initial.cs" />
+    <Compile Include="Migrations\201607052313561_m0001_initial.Designer.cs">
+      <DependentUpon>201607052313561_m0001_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605291143523_rssentry url.cs" />
-    <Compile Include="Migrations\201605291143523_rssentry url.Designer.cs">
-      <DependentUpon>201605291143523_rssentry url.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605291350387_rss_clicked_event.cs" />
-    <Compile Include="Migrations\201605291350387_rss_clicked_event.Designer.cs">
-      <DependentUpon>201605291350387_rss_clicked_event.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606051448240_rss-channel-created.cs" />
-    <Compile Include="Migrations\201606051448240_rss-channel-created.Designer.cs">
-      <DependentUpon>201606051448240_rss-channel-created.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606122102354_userroles.cs" />
-    <Compile Include="Migrations\201606122102354_userroles.Designer.cs">
-      <DependentUpon>201606122102354_userroles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\aasdfasdf.cs" />
-    <Compile Include="Migrations\aasdfasdf.Designer.cs">
-      <DependentUpon>aasdfasdf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\isviewed.cs" />
-    <Compile Include="Migrations\isviewed.Designer.cs">
-      <DependentUpon>isviewed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\navigationproperties.cs" />
-    <Compile Include="Migrations\navigationproperties.Designer.cs">
-      <DependentUpon>navigationproperties.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\featurerequest.cs" />
-    <Compile Include="Migrations\featurerequest.Designer.cs">
-      <DependentUpon>featurerequest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\first_event.cs" />
-    <Compile Include="Migrations\first_event.Designer.cs">
-      <DependentUpon>first_event.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\rsschannelupdatedevent.cs" />
-    <Compile Include="Migrations\rsschannelupdatedevent.Designer.cs">
-      <DependentUpon>rsschannelupdatedevent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\tablenamechange.cs" />
-    <Compile Include="Migrations\tablenamechange.Designer.cs">
-      <DependentUpon>tablenamechange.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\followuser.cs" />
-    <Compile Include="Migrations\followuser.Designer.cs">
-      <DependentUpon>followuser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\toreadbelongstosubscription.cs" />
-    <Compile Include="Migrations\toreadbelongstosubscription.Designer.cs">
-      <DependentUpon>toreadbelongstosubscription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\createuserinsteadofdeletetrigger.cs" />
-    <Compile Include="Migrations\createuserinsteadofdeletetrigger.Designer.cs">
-      <DependentUpon>createuserinsteadofdeletetrigger.cs</DependentUpon>
+    <Compile Include="Migrations\201607052316076_m0002_Trigger_User_InsteadOfDelete.cs" />
+    <Compile Include="Migrations\201607052316076_m0002_Trigger_User_InsteadOfDelete.Designer.cs">
+      <DependentUpon>201607052316076_m0002_Trigger_User_InsteadOfDelete.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\UserRole.cs" />
@@ -147,53 +95,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605011724390_user-subscription-is-read.resx">
-      <DependentUpon>201605011724390_user-subscription-is-read.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607052313561_m0001_initial.resx">
+      <DependentUpon>201607052313561_m0001_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605291143523_rssentry url.resx">
-      <DependentUpon>201605291143523_rssentry url.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605291350387_rss_clicked_event.resx">
-      <DependentUpon>201605291350387_rss_clicked_event.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606051448240_rss-channel-created.resx">
-      <DependentUpon>201606051448240_rss-channel-created.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606122102354_userroles.resx">
-      <DependentUpon>201606122102354_userroles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\aasdfasdf.resx">
-      <DependentUpon>aasdfasdf.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\isviewed.resx">
-      <DependentUpon>isviewed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\navigationproperties.resx">
-      <DependentUpon>navigationproperties.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\featurerequest.resx">
-      <DependentUpon>featurerequest.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\first_event.resx">
-      <DependentUpon>first_event.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\rsschannelupdatedevent.resx">
-      <DependentUpon>rsschannelupdatedevent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\tablenamechange.resx">
-      <DependentUpon>tablenamechange.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\followuser.resx">
-      <DependentUpon>followuser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\toreadbelongstosubscription.resx">
-      <DependentUpon>toreadbelongstosubscription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\createuserinsteadofdeletetrigger.resx">
-      <DependentUpon>createuserinsteadofdeletetrigger.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607052316076_m0002_Trigger_User_InsteadOfDelete.resx">
+      <DependentUpon>201607052316076_m0002_Trigger_User_InsteadOfDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
