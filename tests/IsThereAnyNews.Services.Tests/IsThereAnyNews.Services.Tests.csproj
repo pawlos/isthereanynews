@@ -93,6 +93,7 @@
     <Compile Include="ApplicationLoginServiceTests\StoreCurrentUserIdInSession.cs" />
     <Compile Include="ApplicationLoginServiceTests\StoreItanRolesToSession.cs" />
     <Compile Include="OpmlImporterServiceTests\AddNewChannelsToGlobalSpace.cs" />
+    <Compile Include="OpmlImporterServiceTests\ImportTest.cs" />
     <Compile Include="OpmlImporterServiceTests\ParseToRssChannelList.cs" />
     <Compile Include="OpmlImporterServiceTests\AddToCurrentUserChannelListTests.cs" />
     <Compile Include="RssChannelServiceTests\CreateNewChannelIfNotExists.cs" />

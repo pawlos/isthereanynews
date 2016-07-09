@@ -54,8 +54,9 @@
 
         public void AddNewChannelsToGlobalSpace(List<RssChannel> channelList)
         {
-            List<string> loadUrlsForAllChannels = this.rssSubscriptionsRepository.LoadUrlsForAllChannels();
-            var channelsNewToGlobalSpace = channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant())).ToList();
+            var loadUrlsForAllChannels = this.rssSubscriptionsRepository.LoadUrlsForAllChannels();
+            var channelsNewToGlobalSpace =
+                channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant())).ToList();
             this.rssChannelsRepository.SaveToDatabase(channelsNewToGlobalSpace);
         }
 
