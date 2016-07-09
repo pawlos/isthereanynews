@@ -190,3 +190,4 @@ ModelManifest.xml
 **/*.lock.json
 /IsThereAnyNews.Mvc/secrets.config
 *.scgdat
+.vs/config/applicationhost.config
