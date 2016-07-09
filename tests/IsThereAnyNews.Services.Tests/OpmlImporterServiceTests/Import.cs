@@ -72,5 +72,50 @@ namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
                 .Verify(v => v.CreateNewSubscriptionForUserAndChannel(It.IsAny<long>(), It.IsAny<long>()),
                 Times.Never);
         }
+
+        [Fact]
+        public void T002_When_New_Channel_Was_Added_By_User_One_New_Subscriptions_Must_Be_Defined()
+        {
+            // arrange
+            OpmlImporterIndexDto stub = new OpmlImporterIndexDto();
+            stub.ImportFile = new Mock<HttpPostedFileBase>().Object;
+
+            var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                      + "<body>"
+                      + "<outline>"
+                      + "<outline text=\"Programming\" title=\"Programming\"/>"
+                      + "<outline title=\"Johnny Zraiby\" xmlUrl=\"http://jczraiby.wordpress.com/feed/\" />"
+                      + "</outline>"
+                      + "</body>";
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(xml);
+
+            var outlines = xmlDocument.GetElementsByTagName("outline");
+            var nodes = outlines.Cast<XmlNode>();
+
+            this.mockOpmlReader
+                .Setup(s => s.GetOutlines(It.IsAny<Stream>()))
+                .Returns(nodes);
+
+            this.mockSubscriptionRepository
+                .Setup(s => s.LoadUrlsForAllChannels())
+                .Returns(new List<string>());
+
+            this.mockRssChannelRepository
+                .Setup(s => s.GetIdByChannelUrl(It.IsAny<List<string>>()))
+                .Returns(new List<long> { 1 });
+
+            this.mockSubscriptionRepository
+                .Setup(s => s.GetChannelIdSubscriptionsForUser(It.IsAny<long>()))
+                .Returns(new List<long>());
+
+            // act
+            this.sut.Import(stub);
+
+            // assert
+            this.mockSubscriptionRepository
+                .Verify(v => v.CreateNewSubscriptionForUserAndChannel(It.IsAny<long>(), It.IsAny<long>()),
+                Times.Once);
+        }
     }
 }
