@@ -1,20 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
-using System.Xml;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
-namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
+﻿namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Xml;
+    using System.Xml.Schema;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+
+    using Moq;
+
+    using Xunit;
+
     public class AddToCurrentUserChannelList
     {
         private readonly AutoMoqer moqer;
@@ -44,9 +47,7 @@ namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
             this.sut.AddToCurrentUserChannelList(new List<RssChannel>());
 
             // assert
-            this.mockRssChannelsRepository
-                .Verify(v => v.GetIdByChannelUrl(It.IsAny<List<string>>()),
-                    Times.Once());
+            this.mockRssChannelsRepository.Verify(v => v.GetIdByChannelUrl(It.IsAny<List<string>>()), Times.Once());
         }
 
         [Fact]
@@ -190,7 +191,6 @@ namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
         public void T007_When_When_Node_List_Contains_Valid_Node_Then_All_Of_Then_Must_Be_Returned_From_Parsing_As_Channels()
         {
             // arrange
-
             var xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><body><outline><outline text=\"Programming\" title=\"Programming\"/><outline  title=\"Johnny Zraiby\" xmlUrl=\"http://jczraiby.wordpress.com/feed/\" /></outline></body>";
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(xml);

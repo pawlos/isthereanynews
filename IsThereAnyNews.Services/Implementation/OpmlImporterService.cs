@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
-namespace IsThereAnyNews.Services.Implementation
+﻿namespace IsThereAnyNews.Services.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
     public class OpmlImporterService : IOpmlImporterService
     {
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
@@ -32,26 +33,53 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var urlstoChannels = importFromUpload.Select(x => x.Url.ToLowerInvariant()).ToList();
             var listOfChannelsIds = this.rssChannelsRepository.GetIdByChannelUrl(urlstoChannels);
+
             var currentUserId = this.sessionProvider.GetCurrentUserId();
-            var existringChannelIdSubscriptions = this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
+            var existringChannelIdSubscriptions = 
+                this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
+
             var rssChannelSubscriptions =
                 listOfChannelsIds.Select(
-                    import =>
-                        new RssChannelSubscription(import, currentUserId,
-                            importFromUpload.Single(x => x.Id == import).Title)).ToList();
+                    id =>
+                    new RssChannelSubscription(
+                        id,
+                        currentUserId,
+                        importFromUpload.Single(x => x.Id == id).Title)).ToList();
+
             var subscriptionsToSave = rssChannelSubscriptions.Where(newSub => !existringChannelIdSubscriptions
                                                              .Contains(newSub.RssChannelId))
                                                              .ToList();
             this.rssSubscriptionsRepository.SaveToDatabase(subscriptionsToSave);
         }
 
-        
-
         public void AddNewChannelsToGlobalSpace(List<RssChannel> channelList)
         {
             List<string> loadUrlsForAllChannels = this.rssSubscriptionsRepository.LoadUrlsForAllChannels();
             var channelsNewToGlobalSpace = channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant())).ToList();
             this.rssChannelsRepository.SaveToDatabase(channelsNewToGlobalSpace);
+        }
+
+        public void Import(OpmlImporterIndexDto dto)
+        {
+            var toRssChannelList = this.ParseToRssChannelList(dto);
+            this.AddNewChannelsToGlobalSpace(toRssChannelList);
+            var existingChannels = toRssChannelList.Where(c => c.Id == 0).ToList();
+
+            var existingChannelsIds =
+                this.rssChannelsRepository
+                    .GetIdByChannelUrl(existingChannels.Select(c => c.Url)
+                    .ToList());
+
+            var newChannelsIds = toRssChannelList.Where(c => c.Id != 0).Select(c => c.Id).ToList();
+            existingChannelsIds.AddRange(newChannelsIds);
+
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
+
+            var alreadySubscribedToChannelsId = this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
+            alreadySubscribedToChannelsId.ForEach(c => existingChannelsIds.Remove(c));
+
+            existingChannelsIds.ForEach(
+                c => this.rssSubscriptionsRepository.CreateNewSubscriptionForUserAndChannel(currentUserId, c));
         }
 
         public List<RssChannel> ParseToRssChannelList(OpmlImporterIndexDto dto)
