@@ -1,24 +1,34 @@
-﻿using FluentScheduler;
-using IsThereAnyNews.DataAccess.Implementation;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.Services;
-using IsThereAnyNews.Services.Implementation;
-
-namespace IsThereAnyNews.RssChannelUpdater
+﻿namespace IsThereAnyNews.RssChannelUpdater
 {
+    using FluentScheduler;
+
+    using IsThereAnyNews.Automapper;
+    using IsThereAnyNews.DataAccess.Implementation;
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.Services;
+    using IsThereAnyNews.Services.Implementation;
+
     public class RssUpdateJob : IJob
     {
         private readonly IUpdateService updateService;
 
         public RssUpdateJob()
         {
-            var itandb = new ItanDatabaseContext();
-            var updateRepository = new UpdateRepository(itandb);
-            var rssEntriesRepository = new RssEntriesRepository(itandb);
-            var rssChannelsRepository = new RssChannelsRepository(itandb);
-            var rssChannelUpdateRepository = new RssChannelUpdateRepository(itandb);
-            this.updateService = new UpdateService(updateRepository,
-                rssEntriesRepository, rssChannelsRepository, rssChannelUpdateRepository);
+            var itanDatabaseContext = new ItanDatabaseContext();
+            var updateRepository = new UpdateRepository(itanDatabaseContext);
+            var rssEntriesRepository = new RssEntriesRepository(itanDatabaseContext);
+            var rssChannelsRepository = new RssChannelsRepository(itanDatabaseContext);
+            var rssChannelUpdateRepository = new RssChannelUpdateRepository(itanDatabaseContext);
+
+            var configureMapper = IsThereAnyNewsAutomapper.ConfigureMapper();
+            ISyndicationFeedAdapter syndicationFeedAdapter = new SyndicationFeedAdapter(configureMapper);
+
+            this.updateService = new UpdateService(
+                updateRepository,
+                rssEntriesRepository,
+                rssChannelsRepository,
+                rssChannelUpdateRepository,
+                syndicationFeedAdapter);
         }
 
         public void Execute()

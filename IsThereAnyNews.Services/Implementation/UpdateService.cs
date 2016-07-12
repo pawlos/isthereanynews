@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Syndication;
-using System.Xml;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.EntityFramework.Models.Events;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.EntityFramework.Models.Events;
+
     public class UpdateService : IUpdateService
     {
         private readonly IUpdateRepository updateRepository;
@@ -16,48 +16,49 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssChannelsRepository rssChannelsRepository;
         private readonly IRssChannelUpdateRepository rssChannelsUpdatedRepository;
 
+        private readonly ISyndicationFeedAdapter syndicationFeedAdapter;
+
         public UpdateService(
             IUpdateRepository updateRepository,
             IRssEntriesRepository rssEntriesRepository,
             IRssChannelsRepository rssChannelsRepository,
-            IRssChannelUpdateRepository rssChannelsUpdatedRepository)
+            IRssChannelUpdateRepository rssChannelsUpdatedRepository,
+            ISyndicationFeedAdapter syndicationFeedAdapter)
         {
             this.updateRepository = updateRepository;
             this.rssEntriesRepository = rssEntriesRepository;
             this.rssChannelsRepository = rssChannelsRepository;
             this.rssChannelsUpdatedRepository = rssChannelsUpdatedRepository;
+            this.syndicationFeedAdapter = syndicationFeedAdapter;
         }
 
         public void UpdateGlobalRss()
         {
             var rssChannels = this.updateRepository.LoadAllGlobalRssChannels();
             var rssEntriesList = new List<RssEntry>();
-            SyndicationFeed feed = null;
             foreach (var rssChannel in rssChannels)
             {
                 try
                 {
-                    XmlReader reader = XmlReader.Create(rssChannel.Url);
-                    feed = SyndicationFeed.Load(reader);
-                    reader.Close();
+                    var syndicationEntries = this.syndicationFeedAdapter.Load(rssChannel.Url);
 
-                    foreach (var item in feed.Items.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime))
+                    foreach (var item in syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime))
                     {
                         var rssEntry = new RssEntry(
                             item.Id,
                             item.PublishDate,
-                            item.Title?.Text ?? string.Empty,
-                            item.Summary?.Text ?? string.Empty,
+                            item.Title,
+                            item.Summary,
                             rssChannel.Id,
-                            item.Links.First().Uri.ToString()
-                            );
+                            item.Url);
                         rssEntriesList.Add(rssEntry);
                     }
 
-                    if (feed.Items.Any())
+                    if (syndicationEntries.Any())
                     {
-                        rssChannel.RssLastUpdatedTime = feed.Items.Max(d => d.PublishDate);
+                        rssChannel.RssLastUpdatedTime = syndicationEntries.Max(d => d.PublishDate);
                     }
+
                     this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
 
                     var rssChannelUpdated = new EventRssChannelUpdated
@@ -66,7 +67,6 @@ namespace IsThereAnyNews.Services.Implementation
                     };
 
                     this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
-
                 }
                 catch (XmlException e)
                 {

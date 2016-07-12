@@ -1,11 +1,11 @@
-﻿using FluentScheduler;
-using IsThereAnyNews.DataAccess.Implementation;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.Services;
-using IsThereAnyNews.Services.Implementation;
-
-namespace IsThereAnyNews.RssChannelUpdater
+﻿namespace IsThereAnyNews.RssChannelUpdater
 {
+    using FluentScheduler;
+
+    using IsThereAnyNews.DataAccess.Implementation;
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.Services.Implementation;
+
     public class RssReadersJob : IJob
     {
         private readonly TestService testService;

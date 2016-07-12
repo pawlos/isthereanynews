@@ -1,7 +1,7 @@
-using AutoMapper;
-
 namespace IsThereAnyNews.Automapper
 {
+    using AutoMapper;
+
     public static class IsThereAnyNewsAutomapper
     {
         public static IMapper ConfigureMapper()
@@ -10,6 +10,7 @@ namespace IsThereAnyNews.Automapper
             {
                 cfg.AddProfile<ModelToViewModelProfile>();
                 cfg.AddProfile<DtoToEntityModelProfile>();
+                cfg.AddProfile<SyndicationToAdapter>();
             });
             var mapper = config.CreateMapper();
             return mapper;

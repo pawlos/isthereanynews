@@ -81,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\ActivityPerWeek.cs" />
+    <Compile Include="Implementation\ISyndicationFeedAdapter.cs" />
+    <Compile Include="Implementation\SyndicationFeedAdapter.cs" />
+    <Compile Include="Implementation\SyndicationItemAdapter.cs" />
     <Compile Include="ISubscriptionHandler.cs" />
     <Compile Include="ISubscriptionHandlerFactory.cs" />
     <Compile Include="Implementation\PersonSubscriptionHandler.cs" />

@@ -1,7 +1,7 @@
-﻿using FluentScheduler;
-
-namespace IsThereAnyNews.RssChannelUpdater
+﻿namespace IsThereAnyNews.RssChannelUpdater
 {
+    using FluentScheduler;
+
     public static class IsThereAnyNewsScheduler
     {
         public static void ScheduleRssUpdater()

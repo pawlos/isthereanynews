@@ -1,12 +1,12 @@
-﻿using FluentScheduler;
-
-namespace IsThereAnyNews.RssChannelUpdater
+﻿namespace IsThereAnyNews.RssChannelUpdater
 {
+    using FluentScheduler;
+
     public class RssUpdateRegistry : Registry
     {
         public RssUpdateRegistry()
         {
-            Schedule<RssUpdateJob>()
+            this.Schedule<RssUpdateJob>()
                 .NonReentrant()
                 .ToRunNow()
                 .AndEvery(15)
