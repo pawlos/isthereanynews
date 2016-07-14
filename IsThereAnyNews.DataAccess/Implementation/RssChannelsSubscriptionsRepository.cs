@@ -43,10 +43,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssChannelSubscription> LoadAllSubscriptionsForUser(long currentUserId)
         {
-            var rssChannelSubscriptions = this.database
-                .RssChannelsSubscriptions
-                .Where(x => x.UserId == currentUserId)
-                .ToList();
+            var rssChannelSubscriptions =
+                this.database
+                    .RssChannelsSubscriptions
+                    .Include(x => x.RssEntriesToRead)
+                    .Where(x => x.UserId == currentUserId)
+                    .ToList();
             return rssChannelSubscriptions;
         }
 
