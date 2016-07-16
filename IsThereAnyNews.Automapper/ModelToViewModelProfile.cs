@@ -14,7 +14,7 @@ namespace IsThereAnyNews.Automapper
 
     public class ModelToViewModelProfile : Profile
     {
-        protected override void Configure()
+        public ModelToViewModelProfile()
         {
             this.CreateMap<RssChannelSubscription, RssChannelSubscriptionViewModel>()
                 .ForMember(d => d.RssToRead, o => o.MapFrom(s => s.RssEntriesToRead.Count(x => !x.IsRead)));

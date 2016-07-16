@@ -8,7 +8,7 @@ namespace IsThereAnyNews.Automapper
 
     public class SyndicationToAdapter : Profile
     {
-        protected override void Configure()
+        public SyndicationToAdapter()
         {
             this.CreateMap<SyndicationItem, SyndicationItemAdapter>();
         }

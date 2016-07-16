@@ -1,18 +1,23 @@
-﻿using Autofac;
-using Autofac.Integration.Mvc;
-using AutoMapper;
-using IsThereAnyNews.Automapper;
-using IsThereAnyNews.RssChannelUpdater;
-using IsThereAnyNews.SharedData;
-
-namespace IsThereAnyNews.Autofac
+﻿namespace IsThereAnyNews.Autofac
 {
     using System;
     using System.Reflection;
     using System.Web.Mvc;
+
+    using AutoMapper;
+
     using EntityFramework;
+
+    using global::Autofac;
+    using global::Autofac.Integration.Mvc;
+
     using Infrastructure.ConfigurationReader;
     using Infrastructure.ConfigurationReader.Implementation;
+
+    using IsThereAnyNews.Automapper;
+    using IsThereAnyNews.RssChannelUpdater;
+    using IsThereAnyNews.SharedData;
+
     using Services;
     using Services.Implementation;
 

@@ -1,13 +1,15 @@
-using AutoMapper;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
 namespace IsThereAnyNews.Automapper
 {
-    public class DtoToEntityModelProfile : Profile {
-        protected override void Configure()
+    using AutoMapper;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
+    public class DtoToEntityModelProfile : Profile
+    {
+        public DtoToEntityModelProfile()
         {
-            CreateMap<AddChannelDto, RssChannel>()
+            this.CreateMap<AddChannelDto, RssChannel>()
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.RssChannelName))
                 .ForMember(d => d.Url, o => o.MapFrom(s => s.RssChannelLink))
                 .ForMember(d => d.Created, o => o.Ignore())
