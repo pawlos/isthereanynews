@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Net.Sockets;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
-namespace IsThereAnyNews.DataAccess.Implementation
+﻿namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
     public class RssChannelsRepository : IRssChannelsRepository
     {
         private readonly ItanDatabaseContext database;
@@ -73,8 +72,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<long> GetIdByChannelUrl(List<string> urlstoChannels)
         {
-            var longs = this.database.RssChannels.
-                Where(channel => urlstoChannels.Contains(channel.Url))
+            var longs = this.database.RssChannels
+                .Where(channel => urlstoChannels.Contains(channel.Url))
                 .Select(channel => channel.Id)
                 .ToList();
 

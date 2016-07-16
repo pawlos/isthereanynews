@@ -1,18 +1,14 @@
-﻿using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Services;
-
-namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Mvc.Controllers
 {
     using System.Web.Mvc;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Services;
+
     [AllowAnonymous]
     public class HomeController : BaseController
     {
         private readonly IRssChannelsRepository rssRepository;
-
-        public ActionResult Index()
-        {
-            return this.View("Index");
-        }
 
         public HomeController(
             IUserAuthentication authentication,
@@ -22,6 +18,11 @@ namespace IsThereAnyNews.Mvc.Controllers
             : base(authentication, loginService, sessionProvider)
         {
             this.rssRepository = rssRepository;
+        }
+
+        public ActionResult Index()
+        {
+            return this.View("Index");
         }
 
         public ActionResult Blah()
