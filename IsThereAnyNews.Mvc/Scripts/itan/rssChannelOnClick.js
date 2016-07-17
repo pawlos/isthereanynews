@@ -1,6 +1,9 @@
 ﻿(function ($) {
     var onSuccessRssChannelClick = function (response) {
         $(".nocss-rsschannel-container").html(response);
+        $('.collapsible').collapsible({
+            accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
     };
     var onErrorRssChannelClick = function () { };
 

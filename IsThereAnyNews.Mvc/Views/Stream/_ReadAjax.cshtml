@@ -4,41 +4,25 @@
 <div class="row">
     @Html.ActionLink("Show read entries", "Read", "Stream", new { streamType = Model.StreamType, id = Model.SubscriptionId, showReadEntries = ShowReadEntries.Show }, null)
 </div>
-<div class="row col-lg-12">
+<div class="row col s12">
     <span>
         <h2>@Model.ChannelInformation.Title</h2>
-        <h3>@Model.ChannelInformation.Created</h3>
+        <h4>@Model.ChannelInformation.Created</h4>
     </span>
 </div>
-<div class="row col-lg-12 nocss-rss-item-list">
-    @foreach (var entry in Model.RssEntryToReadViewModels)
-    {
-        <div class="row">
-            <div class="row col-lg-12">
-                <h4 class="nocss-show-preview-text"
-                    data-toggle="collapse"
-                    data-url-mark-as-read="@Url.Action("MarkReadWithEvent", "Stream", new {StreamType = Model.StreamType, DisplayedItems = entry.Id, Id = Model.SubscriptionId})"
-                    href="#preview_@entry.Id">
-                    @entry.RssEntryViewModel.Title
-                    <span class="small pull-right">
-                        @entry.RssEntryViewModel.PublicationDate
-                    </span>
-                </h4>
-                <div id="preview_@entry.Id"
-                class="collapse nocss-preview-text"
-                data-url-full-entry="@entry.RssEntryViewModel.Url"
-                data-url-mark-as-clicked="@Url.Action("MarkClicked", "Stream", new { id = entry.Id })">
-                @Html.Raw(entry.RssEntryViewModel.PreviewText)
-                </div>
-            </div>
-            <div class="row col-lg-12">
-                @Html.Partial("_RssItemAction", entry)
-            </div>
-        </div>
-        <hr />
-    }
+<div class="row nocss-rss-item-list">
+    <div class="col s12">
+        <ul class="collapsible" data-collapsible="expandable">
+            @foreach (var entry in Model.RssEntryToReadViewModels)
+            {
+                <li>
+                    @Html.Partial("_Entry", entry, new ViewDataDictionary { new KeyValuePair<string, object>("StreamType", Model.StreamType), new KeyValuePair<string, object>("SubscriptionId", Model.SubscriptionId) })
+                </li>
+            }
+        </ul>
+    </div>
 </div>
-<div class="row col-lg-12">
+<div class="row col s12">
     @using (Html.BeginForm("MarkRead", "Stream", FormMethod.Post, new { @class = "nocss-mark-channel-read" }))
     {
         <input type="hidden" name="StreamType" value="@Model.StreamType" />

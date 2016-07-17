@@ -14,7 +14,7 @@ namespace IsThereAnyNews.ViewModels
         {
             this.SubscriptionId = subscriptionId;
             this.ChannelInformation = channelInformation;
-            StreamType = streamType;
+            this.StreamType = streamType;
             this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel;
         }
 
