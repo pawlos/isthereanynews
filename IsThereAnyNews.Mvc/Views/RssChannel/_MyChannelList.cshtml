@@ -5,7 +5,7 @@
 {
     <a href="@Url.Action("Read", "Stream", new {streamType = StreamType.Rss, id = channel.Id})"
        data-url-read-rss="@Url.Action("ReadAjax", "Stream", new {streamType = StreamType.Rss ,id = channel.Id})"
-       class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+       class="btn btn-flat text-nowrap text-ellipse-too-long nocss-rsschannel">
         <i class="fa fa-rss"></i>
         @channel.Title (@channel.RssToRead)
     </a>

@@ -91,5 +91,19 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .Single(u => u.Id == currentUserId);
             return user;
         }
+
+        public void ChangeEmail(long currentUserId, string email)
+        {
+            var single = this.database.Users.Single(u => u.Id == currentUserId);
+            single.Email = email;
+            this.database.SaveChanges();
+        }
+
+        public void ChangeDisplayName(long currentUserId, string displayname)
+        {
+            var single = this.database.Users.Single(u => u.Id == currentUserId);
+            single.DisplayName = displayname;
+            this.database.SaveChanges();
+        }
     }
 }

@@ -15,5 +15,7 @@ namespace IsThereAnyNews.DataAccess
         List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount();
         User LoadUserPublicProfile(long id);
         User GetUserPrivateDetails(long currentUserId);
+        void ChangeEmail(long currentUserId, string email);
+        void ChangeDisplayName(long currentUserId, string displayname);
     }
 }

@@ -1,0 +1,22 @@
+﻿@model IsThereAnyNews.ViewModels.AccountDetailsViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="col s12">
+        <div class="row">
+            @using (Html.BeginForm())
+            {
+                <div class="input-field col s12">
+                    <label>Email</label><br />
+                    <input placeholder="@Model.Email" name="Email" id="Email" type="text" class="validate">
+                </div>
+                <div class="input-field col s12">
+                    <input type="submit" class="btn" value="change" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

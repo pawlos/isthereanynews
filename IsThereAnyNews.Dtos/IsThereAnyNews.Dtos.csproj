@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddChannelDto.cs" />
+    <Compile Include="ChangeDisplayNameModel.cs" />
+    <Compile Include="ChangeEmailModel.cs" />
     <Compile Include="MarkClickedDto.cs" />
     <Compile Include="MarkReadDto.cs" />
     <Compile Include="MarkReadForSubscriptionDto.cs" />

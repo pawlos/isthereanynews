@@ -18,13 +18,13 @@
                 All actions will be shown under this display name:
             </div>
             <div>
-                @Model.DisplayName
+                @Model.DisplayName <span>@Html.ActionLink("change", "ChangeDisplayName")</span>
             </div>
             <div>
                 We will contact you via
             </div>
             <div>
-                @Model.Email
+                @Model.Email <span>@Html.ActionLink("change", "ChangeEmail")</span>
             </div>
         </div>
     </div>

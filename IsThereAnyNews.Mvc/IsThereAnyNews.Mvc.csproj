@@ -339,6 +339,8 @@
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\ChangeDisplayName.cshtml" />
+    <Content Include="Views\Account\ChangeEmail.cshtml" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\RssChannel\Public.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />

@@ -3,7 +3,7 @@
     using AutoMapper;
 
     using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.Mvc.Controllers;
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.ViewModels;
 
     public class AccountService : IAccountService
@@ -27,6 +27,18 @@
             var userPrivateDetails = this.userRepository.GetUserPrivateDetails(currentUserId);
             var accountDetailsViewModel = this.mapper.Map<AccountDetailsViewModel>(userPrivateDetails);
             return accountDetailsViewModel;
+        }
+
+        public void ChangeEmail(ChangeEmailModelDto model)
+        {
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            this.userRepository.ChangeEmail(currentUserId, model.Email);
+        }
+
+        public void ChangeDisplayName(ChangeDisplayNameModelDto model)
+        {
+            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            this.userRepository.ChangeDisplayName(currentUserId, model.Displayname);
         }
     }
 }
