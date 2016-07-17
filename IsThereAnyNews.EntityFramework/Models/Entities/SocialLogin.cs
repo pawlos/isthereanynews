@@ -1,13 +1,16 @@
-using System;
-using IsThereAnyNews.EntityFramework.Models.Interfaces;
-using IsThereAnyNews.SharedData;
-
 namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
+    using System;
+
+    using IsThereAnyNews.EntityFramework.Models.Interfaces;
+    using IsThereAnyNews.SharedData;
+
     public sealed class SocialLogin : IEntity, ICreatable, IModifiable
     {
-        public SocialLogin() : this(string.Empty, AuthenticationTypeProvider.Unknown, -1)
-        { }
+        public SocialLogin()
+            : this(string.Empty, AuthenticationTypeProvider.Unknown, -1)
+        {
+        }
 
         public SocialLogin(string identifier, AuthenticationTypeProvider authenticationTypeProvider, long userId)
         {

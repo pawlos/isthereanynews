@@ -2,7 +2,7 @@
 @foreach (var channel in Model.AllChannels)
 {
     <a href="@Url.Action("Public", "RssChannel", new {id = channel.Id})"
-       class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
+       class="btn text-ellipse-too-long nocss-rsschannel">
         <div>@channel.Title</div>
         <i class="fa fa-calendar"></i>@channel.Created
         <i class="fa fa-refresh"></i>@channel.Updated

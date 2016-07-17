@@ -47,6 +47,14 @@ namespace IsThereAnyNews.Automapper
 
             this.CreateMap<UserRole, Claim>()
                 .ConstructUsing(this.CreateClaim);
+
+            this.CreateMap<User, AccountDetailsViewModel>()
+                .ForMember(d => d.Registered, o => o.MapFrom(s => s.Created))
+                .ForMember(d => d.SocialLogins, o => o.MapFrom(s => s.SocialLogins));
+
+            this.CreateMap<SocialLogin, SocialLoginViewModel>()
+                .ForMember(d => d.AuthenticationTypeProvider, o => o.MapFrom(s => s.Provider))
+                .ForMember(d => d.Registered, o => o.MapFrom(s => s.Created));
         }
 
         private Claim CreateClaim(UserRole role)

@@ -280,6 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\RssChannelController.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Content\font-awesome-4.5.0\scss\_variables.scss" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
+    <Content Include="Views\Account\Index.cshtml" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\RssChannel\Public.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
@@ -421,7 +423,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59372</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:59372/</IISUrl>
+          <IISUrl>http://localhost:59373/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

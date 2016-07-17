@@ -3,10 +3,12 @@
 }
 
 <div class="container">
-    <div class="col-lg-4">
-       @Html.Action("PublicChannels")
-    </div>
-    <div class="col-lg-8">
-        <h3>Please select channel to see news</h3>
+    <div class="row">
+        <div class="col s4">
+            @Html.Action("PublicChannels")
+        </div>
+        <div class="col s8">
+            <h3>Please select channel to see news</h3>
+        </div>
     </div>
 </div>

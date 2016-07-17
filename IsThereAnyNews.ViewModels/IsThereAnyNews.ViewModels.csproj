@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountDetailsViewModel.cs" />
     <Compile Include="AllUsersPublicProfilesViewModel.cs" />
     <Compile Include="ChannelInformationViewModel.cs" />
     <Compile Include="ChannelWithSubscriptionCountViewModel.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="RssEntryViewModel.cs" />
     <Compile Include="RssStatisticsViewModel.cs" />
     <Compile Include="RssSubscriptionIndexViewModel.cs" />
+    <Compile Include="SocialLoginViewModel.cs" />
     <Compile Include="TopReadChannelsViewModel.cs" />
     <Compile Include="UserDetailedPublicProfileViewModel.cs" />
     <Compile Include="UserPublicProfileViewModel.cs" />

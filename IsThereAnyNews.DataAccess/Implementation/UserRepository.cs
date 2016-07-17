@@ -1,13 +1,12 @@
-using System;
-using System.Data.Entity;
-using System.Linq;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
 
     public class UserRepository : IUserRepository
     {
@@ -81,6 +80,15 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .Include(x => x.EventsRssViewed)
                 .Include(x => x.EventsRssViewed.Select(e => e.RssEntry))
                 .Single(x => x.Id == id);
+            return user;
+        }
+
+        public User GetUserPrivateDetails(long currentUserId)
+        {
+            var user = this.database
+                .Users
+                .Include(u => u.SocialLogins)
+                .Single(u => u.Id == currentUserId);
             return user;
         }
     }
