@@ -1,9 +1,10 @@
-﻿using System.Web.Mvc;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.Services;
-
-namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Mvc.Controllers
 {
+    using System.Web.Mvc;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services;
+
     public class UsersController : Controller
     {
         private readonly IUsersService usersService;

@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
-namespace IsThereAnyNews.DataAccess.Implementation
+﻿namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
     public class UsersSubscriptionRepository : IUsersSubscriptionRepository
     {
         private readonly ItanDatabaseContext database;

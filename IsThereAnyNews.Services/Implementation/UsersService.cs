@@ -23,7 +23,7 @@ namespace IsThereAnyNews.Services.Implementation
         public AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile()
         {
             var publicProfiles = this.usersRepository.LoadAllUsersPublicProfileWithChannelsCount();
-            var list = publicProfiles.Select(ProjectToViewModel).ToList();
+            var list = publicProfiles.Select(this.ProjectToViewModel).ToList();
             var viewmodel = new AllUsersPublicProfilesViewModel
             {
                 Profiles = list

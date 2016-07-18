@@ -1,22 +1,23 @@
 ﻿@using IsThereAnyNews.SharedData
 @model IsThereAnyNews.ViewModels.RssChannelsMyViewModel
 
-@foreach (var channel in Model.ChannelsSubscriptions)
-{
-    <a href="@Url.Action("Read", "Stream", new {streamType = StreamType.Rss, id = channel.Id})"
-       data-url-read-rss="@Url.Action("ReadAjax", "Stream", new {streamType = StreamType.Rss ,id = channel.Id})"
-       class="btn btn-flat text-nowrap text-ellipse-too-long nocss-rsschannel">
-        <i class="fa fa-rss"></i>
-        @channel.Title (@channel.RssToRead)
-    </a>
-}
+<ul>
+    @foreach (var channel in Model.ChannelsSubscriptions)
+    {
+        <li data-url-read-rss="@Url.Action("ReadAjax", "Stream", new {streamType = StreamType.Rss ,id = channel.Id})"
+             class="nocss-rsschannel">
+            <i class="fa fa-rss"></i>
+            @channel.Title (@channel.RssToRead)
+        </li>
+    }
 
-@foreach (var channel in Model.Users)
-{
-    <a href="@Url.Action("Read", "Stream", new {streamType = StreamType.Person ,id = channel.Id})"
-       data-url-read-rss="@Url.Action("ReadAjax", "Stream", new {streamType = StreamType.Person ,id = channel.Id})"
-       class="btn btn-default btn-xs btn-block text-nowrap text-ellipse-too-long nocss-rsschannel">
-        <i class="fa fa-user"></i>
-        @channel.Name (@channel.Count)
-    </a>
-}
+    @foreach (var channel in Model.Users)
+    {
+        <li href="@Url.Action("Read", "Stream", new {streamType = StreamType.Person ,id = channel.Id})"
+           data-url-read-rss="@Url.Action("ReadAjax", "Stream", new {streamType = StreamType.Person ,id = channel.Id})"
+           class="nocss-rsschannel">
+            <i class="fa fa-user"></i>
+            @channel.Name (@channel.Count)
+        </li>
+    }
+</ul>
