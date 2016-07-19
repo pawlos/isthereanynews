@@ -12,7 +12,6 @@
 
         var href = $(e.currentTarget);
 
-
         var ajaxOptions = {
             url: href.data("url-read-rss"),
             method: "GET",
@@ -20,7 +19,7 @@
             success: onSuccessRssChannelClick,
             error: onErrorRssChannelClick
         }
-        window.history.pushState("test", "url", href.attr("href"));
+        window.history.pushState("test", "url", href.data("url-read-rss"));
         $.ajax(ajaxOptions);
     }
 

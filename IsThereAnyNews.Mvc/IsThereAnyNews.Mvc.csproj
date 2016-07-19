@@ -282,6 +282,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\RssChannelController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -341,6 +342,7 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\ChangeDisplayName.cshtml" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\RssChannel\Public.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />

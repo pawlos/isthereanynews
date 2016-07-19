@@ -52,6 +52,7 @@
     <Compile Include="AllUsersPublicProfilesViewModel.cs" />
     <Compile Include="ChannelInformationViewModel.cs" />
     <Compile Include="ChannelWithSubscriptionCountViewModel.cs" />
+    <Compile Include="ContactViewModel.cs" />
     <Compile Include="EventRssViewedViewModel.cs" />
     <Compile Include="LoginSuccessViewModel.cs" />
     <Compile Include="Login\AuthorizationIndexViewModel.cs" />

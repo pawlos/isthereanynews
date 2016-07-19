@@ -1,0 +1,35 @@
+﻿@model IsThereAnyNews.ViewModels.ContactViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <ul class="collapsible" data-collapsible="expandable">
+        <li>
+            <div class="collapsible-header">Contact administration</div>
+            <div class="collapsible-body">form</div>
+        </li>
+        <li>
+            <div class="collapsible-header">Submit feature request</div>
+            <div class="collapsible-body">form</div>
+        </li>
+        <li>
+            <div class="collapsible-header">Submit bug</div>
+            <div class="collapsible-body">form</div>
+        </li>
+        <li>
+            <div class="collapsible-header">Just let us know about something important</div>
+            <div class="collapsible-body">form</div>
+        </li>
+    </ul>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $('.collapsible').collapsible({
+            accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        });
+    </script>
+}
