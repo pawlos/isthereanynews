@@ -21,7 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <UseGlobalApplicationHostFile />
+    <UseGlobalApplicationHostFile>true</UseGlobalApplicationHostFile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -188,6 +188,7 @@
     <Content Include="Content\materialize\js\jquery.hammer.js" />
     <Content Include="Content\materialize\js\leanModal.js" />
     <Content Include="Content\materialize\js\materialbox.js" />
+    <Content Include="Content\materialize\js\materialize.js" />
     <Content Include="Content\materialize\js\parallax.js" />
     <Content Include="Content\materialize\js\pushpin.js" />
     <Content Include="Content\materialize\js\scrollFire.js" />
@@ -343,6 +344,10 @@
     <Content Include="Views\Account\ChangeDisplayName.cshtml" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="Views\Contact\_ContactAdministration.cshtml" />
+    <Content Include="Views\Contact\_FeatureRequest.cshtml" />
+    <Content Include="Views\Contact\_SubmitBug.cshtml" />
+    <Content Include="Views\Contact\_ItsImportantForYouToKnow.cshtml" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\RssChannel\Public.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />

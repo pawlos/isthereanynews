@@ -8,19 +8,33 @@
     <ul class="collapsible" data-collapsible="expandable">
         <li>
             <div class="collapsible-header">Contact administration</div>
-            <div class="collapsible-body">form</div>
+            <div class="collapsible-body">
+                <div class="container">
+                    @Html.Partial("_ContactAdministration")
+                </div>
+            </div>
         </li>
         <li>
             <div class="collapsible-header">Submit feature request</div>
-            <div class="collapsible-body">form</div>
+            <div class="collapsible-body">
+                <div class="row">
+                    @Html.Partial("_FeatureRequest")
+                </div>
+            </div>
         </li>
         <li>
             <div class="collapsible-header">Submit bug</div>
-            <div class="collapsible-body">form</div>
+            <div class="collapsible-body">
+                @Html.Partial("_SubmitBug")
+            </div>
         </li>
         <li>
             <div class="collapsible-header">Just let us know about something important</div>
-            <div class="collapsible-body">form</div>
+            <div class="collapsible-body">
+                @Html.Partial("_ItsImportantForYouToKnow")
+
+                
+            </div>
         </li>
     </ul>
 </div>
@@ -31,5 +45,9 @@
         $('.collapsible').collapsible({
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
+        $(document)
+            .ready(function () {
+                Materialize.updateTextFields();
+            });
     </script>
 }
