@@ -2,3 +2,6 @@
   text-overflow: ellipsis;
   overflow: hidden; }
 
+.collapsible-body {
+  padding: 0 1em; }
+

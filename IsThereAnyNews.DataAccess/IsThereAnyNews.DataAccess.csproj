@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\ContactAdministrationEventRepository.cs" />
+    <Compile Include="Implementation\ContactAdministrationRepository.cs" />
+    <Compile Include="IContactAdministrationEventRepository.cs" />
+    <Compile Include="IContactAdministrationRepository.cs" />
     <Compile Include="Implementation\EventRssChannelCreatedRepository.cs" />
     <Compile Include="IEventRssChannelCreatedRepository.cs" />
     <Compile Include="Implementation\ChannelWithSubscriptionCount.cs" />

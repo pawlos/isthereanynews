@@ -64,10 +64,16 @@
     <Compile Include="Migrations\201607052316076_m0002_Trigger_User_InsteadOfDelete.Designer.cs">
       <DependentUpon>201607052316076_m0002_Trigger_User_InsteadOfDelete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607212341131_contact_administration.cs" />
+    <Compile Include="Migrations\201607212341131_contact_administration.Designer.cs">
+      <DependentUpon>201607212341131_contact_administration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\UserRole.cs" />
     <Compile Include="Models\Entities\UserSubscription.cs" />
     <Compile Include="Models\Entities\UserSubscriptionEntryToRead.cs" />
+    <Compile Include="Models\Events\ContactAdministrationEvent.cs" />
     <Compile Include="Models\Events\EventRssChannelCreated.cs" />
     <Compile Include="Models\Events\EventRssRead.cs" />
     <Compile Include="Models\Events\EventRssViewed.cs" />
@@ -100,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607052316076_m0002_Trigger_User_InsteadOfDelete.resx">
       <DependentUpon>201607052316076_m0002_Trigger_User_InsteadOfDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607212341131_contact_administration.resx">
+      <DependentUpon>201607212341131_contact_administration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

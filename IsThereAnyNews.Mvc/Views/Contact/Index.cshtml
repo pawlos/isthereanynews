@@ -5,11 +5,11 @@
 }
 
 <div class="container">
-    <ul class="collapsible" data-collapsible="expandable">
+    <ul class="collapsible" data-collapsible="accordion">
         <li>
             <div class="collapsible-header">Contact administration</div>
             <div class="collapsible-body">
-                <div class="container">
+                <div class="row">
                     @Html.Partial("_ContactAdministration")
                 </div>
             </div>
@@ -25,15 +25,17 @@
         <li>
             <div class="collapsible-header">Submit bug</div>
             <div class="collapsible-body">
-                @Html.Partial("_SubmitBug")
+                <div class="row">
+                    @Html.Partial("_SubmitBug")
+                </div>
             </div>
         </li>
         <li>
             <div class="collapsible-header">Just let us know about something important</div>
             <div class="collapsible-body">
-                @Html.Partial("_ItsImportantForYouToKnow")
-
-                
+                <div class="row">
+                    @Html.Partial("_ItsImportantForYouToKnow")
+                </div>
             </div>
         </li>
     </ul>
