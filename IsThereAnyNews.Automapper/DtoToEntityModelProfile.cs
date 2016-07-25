@@ -4,6 +4,7 @@ namespace IsThereAnyNews.Automapper
 
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.EntityFramework.Models.Events;
 
     public class DtoToEntityModelProfile : Profile
     {
@@ -18,6 +19,11 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.RssLastUpdatedTime, o => o.Ignore())
                 .ForMember(d => d.Subscriptions, o => o.Ignore())
                 .ForMember(d => d.Updated, o => o.Ignore());
+
+            this.CreateMap<ContactAdministrationModel, ContactAdministration>();
+
+            this.CreateMap<ContactAdministration, ContactAdministrationEvent>()
+                .ForMember(d => d.ContactAdministrationId, o => o.MapFrom(s => s.Id));
         }
     }
 }

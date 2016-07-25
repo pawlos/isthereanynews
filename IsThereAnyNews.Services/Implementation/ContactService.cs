@@ -33,7 +33,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var entity = this.mapper.Map<ContactAdministration>(model);
             this.repositoryContactAdministration.SaveToDatabase(entity);
-            var contactEvent = this.mapper.Map<ContactAdministrationEvent>(model);
+            var contactEvent = this.mapper.Map<ContactAdministrationEvent>(entity);
             this.eventsContactAdministration.SaveToDatabase(contactEvent);
         }
     }

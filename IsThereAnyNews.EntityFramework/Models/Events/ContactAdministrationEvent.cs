@@ -11,7 +11,6 @@ namespace IsThereAnyNews.EntityFramework.Models.Events
         public DateTime Created { get; set; }
 
         public long ContactAdministrationId { get; set; }
-
         public ContactAdministration ContactAdministration { get; set; }
     }
 }
