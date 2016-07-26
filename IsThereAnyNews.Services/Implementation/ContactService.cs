@@ -29,9 +29,9 @@ namespace IsThereAnyNews.Services.Implementation
             return new ContactViewModel();
         }
 
-        public void SaveAdministrationContact(ContactAdministrationModel model)
+        public void SaveAdministrationContact(ContactAdministrationDto dto)
         {
-            var entity = this.mapper.Map<ContactAdministration>(model);
+            var entity = this.mapper.Map<ContactAdministration>(dto);
             this.repositoryContactAdministration.SaveToDatabase(entity);
             var contactEvent = this.mapper.Map<ContactAdministrationEvent>(entity);
             this.eventsContactAdministration.SaveToDatabase(contactEvent);

@@ -21,11 +21,11 @@ namespace IsThereAnyNews.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult ContactAdministration(ContactAdministrationModel model)
+        public ActionResult ContactAdministration(ContactAdministrationDto dto)
         {
             if (this.ModelState.IsValid)
             {
-                this.contactService.SaveAdministrationContact(model);
+                this.contactService.SaveAdministrationContact(dto);
                 return this.RedirectToAction("Index");
             }
 

@@ -7,6 +7,6 @@ namespace IsThereAnyNews.Services
     {
         ContactViewModel GetViewModel();
 
-        void SaveAdministrationContact(ContactAdministrationModel model);
+        void SaveAdministrationContact(ContactAdministrationDto dto);
     }
 }
