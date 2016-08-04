@@ -1,10 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Web;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Web;
+
     public class SessionProvider : ISessionProvider
     {
         private const string UserIdKey = "SessionProvider.Long.UserId";

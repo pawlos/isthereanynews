@@ -1,8 +1,8 @@
-using System.Collections.Generic;
-using System.Security.Claims;
-
 namespace IsThereAnyNews.Services
 {
+    using System.Collections.Generic;
+    using System.Security.Claims;
+
     public interface ISessionProvider
     {
         void SetUserId(long userId);

@@ -13,5 +13,6 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
         public string Typeof { get; set; }
         public string Stacktrace { get; set; }
         public Guid ErrorId { get; set; }
+        public long UserId { get; set; }
     }
 }

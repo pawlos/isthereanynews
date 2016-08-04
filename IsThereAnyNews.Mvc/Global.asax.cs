@@ -12,6 +12,7 @@
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.Mvc.Controllers;
     using IsThereAnyNews.RssChannelUpdater;
+    using IsThereAnyNews.Services;
 
     public class MvcApplication : HttpApplication
     {
@@ -70,8 +71,9 @@
         private void SaveExceptionToDatabase(Exception httpException)
         {
             var exceptionGuid = Guid.NewGuid();
-            IExceptionRepository repository =
-                DependencyResolver.Current.GetService(typeof(IExceptionRepository)) as IExceptionRepository;
+            IExceptionRepository repository = DependencyResolver.Current.GetService(typeof(IExceptionRepository)) as IExceptionRepository;
+            IUserAuthentication authentication = DependencyResolver.Current.GetService(typeof(IUserAuthentication)) as IUserAuthentication;
+            ISessionProvider sessionProvider = DependencyResolver.Current.GetService(typeof(ISessionProvider)) as ISessionProvider;
             var exceptions = this.GetAllExceptions(httpException)
                 .ToList()
                 .Select(
@@ -82,7 +84,8 @@
                         Source = exception.Source,
                         Stacktrace = exception.StackTrace,
                         Typeof = exception.GetType().ToString(),
-                        ErrorId = exceptionGuid
+                        ErrorId = exceptionGuid,
+                        UserId = authentication.CurrentUserIsAuthenticated() ? sessionProvider.GetCurrentUserId() : 0
                     });
 
             repository.SaveToDatabase(exceptions);
