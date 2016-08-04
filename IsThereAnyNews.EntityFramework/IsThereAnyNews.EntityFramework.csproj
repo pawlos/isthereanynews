@@ -68,8 +68,13 @@
     <Compile Include="Migrations\201607212341131_contact_administration.Designer.cs">
       <DependentUpon>201607212341131_contact_administration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608042223476_itan-exceptions.cs" />
+    <Compile Include="Migrations\201608042223476_itan-exceptions.Designer.cs">
+      <DependentUpon>201608042223476_itan-exceptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
+    <Compile Include="Models\Entities\ItanException.cs" />
     <Compile Include="Models\Entities\UserRole.cs" />
     <Compile Include="Models\Entities\UserSubscription.cs" />
     <Compile Include="Models\Entities\UserSubscriptionEntryToRead.cs" />
@@ -109,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607212341131_contact_administration.resx">
       <DependentUpon>201607212341131_contact_administration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608042223476_itan-exceptions.resx">
+      <DependentUpon>201608042223476_itan-exceptions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

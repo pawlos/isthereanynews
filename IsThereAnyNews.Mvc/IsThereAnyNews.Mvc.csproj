@@ -294,6 +294,7 @@
     <Compile Include="Controllers\StreamController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -348,6 +349,7 @@
     <Content Include="Views\Contact\_FeatureRequest.cshtml" />
     <Content Include="Views\Contact\_SubmitBug.cshtml" />
     <Content Include="Views\Contact\_ItsImportantForYouToKnow.cshtml" />
+    <Content Include="Views\Error\Execute.cshtml" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\RssChannel\Public.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />

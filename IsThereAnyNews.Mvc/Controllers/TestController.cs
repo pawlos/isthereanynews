@@ -63,5 +63,13 @@
             this.testService.AssignUserRolesToAllUsers();
             return this.RedirectToAction("Index");
         }
+
+        public ActionResult DivByZero()
+        {
+            var one = 1;
+            var zero = 0;
+            var x = one / zero;
+            return this.RedirectToAction("Index");
+        }
     }
 }
