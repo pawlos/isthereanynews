@@ -33,6 +33,7 @@
         public DbSet<ContactAdministration> ContactsAdministration { get; set; }
         public DbSet<ContactAdministrationEvent> ContactsAdministrationEvents { get; set; }
         public DbSet<ItanException> ItanExceptions { get; set; }
+        public DbSet<EventItanException> EventException { get; set; }
 
         public override int SaveChanges()
         {

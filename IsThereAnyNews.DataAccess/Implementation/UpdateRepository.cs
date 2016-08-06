@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
     public class UpdateRepository : IUpdateRepository
     {
         private readonly ItanDatabaseContext database;

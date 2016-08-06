@@ -1,13 +1,15 @@
-﻿using IsThereAnyNews.Infrastructure.ConfigurationReader.Implementation;
-
-namespace IsThereAnyNews.Mvc
+﻿namespace IsThereAnyNews.Mvc
 {
+    using IsThereAnyNews.Infrastructure.ConfigurationReader.Implementation;
+
     using Microsoft.Owin;
     using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.Facebook;
     using Microsoft.Owin.Security.Google;
     using Microsoft.Owin.Security.Twitter;
+
     using Owin;
+
     using SharedData;
 
     public static class Startup

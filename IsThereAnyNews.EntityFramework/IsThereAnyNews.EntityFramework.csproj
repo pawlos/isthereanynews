@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201608042236087_exception-with-userid.Designer.cs">
       <DependentUpon>201608042236087_exception-with-userid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608062248375_exception-events.cs" />
+    <Compile Include="Migrations\201608062248375_exception-events.Designer.cs">
+      <DependentUpon>201608062248375_exception-events.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\ItanException.cs" />
@@ -83,6 +87,7 @@
     <Compile Include="Models\Entities\UserSubscription.cs" />
     <Compile Include="Models\Entities\UserSubscriptionEntryToRead.cs" />
     <Compile Include="Models\Events\ContactAdministrationEvent.cs" />
+    <Compile Include="Models\Events\EventItanException.cs" />
     <Compile Include="Models\Events\EventRssChannelCreated.cs" />
     <Compile Include="Models\Events\EventRssRead.cs" />
     <Compile Include="Models\Events\EventRssViewed.cs" />
@@ -124,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608042236087_exception-with-userid.resx">
       <DependentUpon>201608042236087_exception-with-userid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608062248375_exception-events.resx">
+      <DependentUpon>201608062248375_exception-events.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

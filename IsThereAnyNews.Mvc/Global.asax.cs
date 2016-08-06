@@ -10,6 +10,7 @@
     using IsThereAnyNews.Autofac;
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.Mvc.Controllers;
     using IsThereAnyNews.RssChannelUpdater;
     using IsThereAnyNews.Services;
@@ -71,7 +72,8 @@
         private void SaveExceptionToDatabase(Exception httpException)
         {
             var exceptionGuid = Guid.NewGuid();
-            IExceptionRepository repository = DependencyResolver.Current.GetService(typeof(IExceptionRepository)) as IExceptionRepository;
+            IExceptionRepository exceptionRepository = DependencyResolver.Current.GetService(typeof(IExceptionRepository)) as IExceptionRepository;
+            IExceptionEventRepository exceptionEventRepository = DependencyResolver.Current.GetService(typeof(IExceptionEventRepository)) as IExceptionEventRepository;
             IUserAuthentication authentication = DependencyResolver.Current.GetService(typeof(IUserAuthentication)) as IUserAuthentication;
             ISessionProvider sessionProvider = DependencyResolver.Current.GetService(typeof(ISessionProvider)) as ISessionProvider;
             var exceptions = this.GetAllExceptions(httpException)
@@ -88,7 +90,10 @@
                         UserId = authentication.CurrentUserIsAuthenticated() ? sessionProvider.GetCurrentUserId() : 0
                     });
 
-            repository.SaveToDatabase(exceptions);
+            var eventItanExceptions = exceptions.Select(e => new EventItanException() { ErrorId = exceptionGuid, ItanException = e });
+
+            //exceptionRepository.SaveToDatabase(exceptions);
+            exceptionEventRepository.SaveToDatabase(eventItanExceptions);
         }
 
         private IEnumerable<Exception> GetAllExceptions(Exception ex)
