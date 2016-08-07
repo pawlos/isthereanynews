@@ -90,12 +90,9 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void CreateRssToRead()
         {
-            for (int i = 0; i < 1000; i++)
+            var users = this.usersRepository.GetAllUsers();
+            foreach (var user in users)
             {
-                var r = new Random(DateTime.Now.Millisecond);
-                var users = this.usersRepository.GetAllUsers();
-                var user = users[r.Next(users.Count)];
-
                 var rssSubscriptions = this.rssSubscriptionRepository.LoadAllSubscriptionsForUser(user.Id);
                 this.rssToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(user.Id, rssSubscriptions);
             }
