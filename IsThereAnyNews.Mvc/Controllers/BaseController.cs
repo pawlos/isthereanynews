@@ -1,11 +1,12 @@
-using System.Linq;
-using System.Security.Claims;
-using System.Web.Mvc;
-using System.Web.Mvc.Filters;
-using IsThereAnyNews.Services;
-
 namespace IsThereAnyNews.Mvc.Controllers
 {
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Web.Mvc;
+    using System.Web.Mvc.Filters;
+
+    using IsThereAnyNews.Services;
+
     public abstract class BaseController : Controller
     {
         protected readonly ILoginService loginService;
@@ -22,21 +23,24 @@ namespace IsThereAnyNews.Mvc.Controllers
         protected override void OnAuthentication(AuthenticationContext filterContext)
         {
             var claims = this.sessionProvider.LoadClaims();
-            if (claims != null)
+            if (claims == null)
             {
-                var claimsIdentity = this.User as ClaimsPrincipal;
-                if (claimsIdentity.Identities.Any(i => i.AuthenticationType == "ITAN"))
-                {
-                    return;
-                }
-                var itanIdentity = new ClaimsIdentity(claims, "ITAN");
-                claimsIdentity.AddIdentity(itanIdentity);
+                return;
             }
+
+            var claimsIdentity = this.User as ClaimsPrincipal;
+            if (claimsIdentity.Identities.Any(i => i.AuthenticationType == "ITAN"))
+            {
+                return;
+            }
+
+            var itanIdentity = new ClaimsIdentity(claims, "ITAN");
+            claimsIdentity.AddIdentity(itanIdentity);
         }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (Session.IsNewSession)
+            if (this.Session.IsNewSession)
             {
                 var claimsPrincipal = this.authentication.GetCurrentUser();
                 if (claimsPrincipal != null && claimsPrincipal.Identity.IsAuthenticated)

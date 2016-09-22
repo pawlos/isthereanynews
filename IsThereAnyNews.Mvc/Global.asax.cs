@@ -7,6 +7,8 @@
     using System.Web.Mvc;
     using System.Web.Routing;
 
+    using Exceptionless;
+
     using IsThereAnyNews.Autofac;
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework.Models.Entities;
@@ -33,6 +35,10 @@
         private void ShowCustomErrorPage(Exception exception)
         {
             var httpException = exception as HttpException ?? new HttpException(500, "Internal Server Error", exception);
+
+            exception.ToExceptionless()
+                .Submit();
+
 
             this.SaveExceptionToDatabase(httpException as Exception);
 
