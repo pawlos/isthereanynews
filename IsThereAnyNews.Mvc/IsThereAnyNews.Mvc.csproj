@@ -981,10 +981,6 @@
     <Content Include="Scripts\angular-1.5.8\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\angular-1.5.8\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\angular-1.5.8\version.txt" />
-    <Content Include="Scripts\itan\rssPreviewTextOnClick.js" />
-    <Content Include="Scripts\itan\rssMarkChannelRead.js" />
-    <Content Include="Scripts\itan\rssItemOnPreviewClick.js" />
-    <Content Include="Scripts\itan\rssChannelOnClick.js" />
     <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.eot" />
     <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.ttf" />
     <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff" />
@@ -1059,6 +1055,7 @@
     <Content Include="Scripts\angular-1.5.8\errors.json" />
     <Content Include="Scripts\angular-1.5.8\version.json" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\itan\myRssChannelsCtrl.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
     <Content Include="Scripts\jquery-3.1.0.slim.js" />

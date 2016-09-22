@@ -120,7 +120,7 @@
     <Compile Include="Implementation\StatisticsService.cs" />
     <Compile Include="Implementation\RssItemActionService.cs" />
     <Compile Include="Implementation\UsersService.cs" />
-    <Compile Include="UserSubscriptionService.cs" />
+    <Compile Include="Implementation\UserSubscriptionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">

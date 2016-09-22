@@ -1,12 +1,13 @@
-﻿using System.Net;
-using System.Web.Mvc;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.Mvc.Infrastructure;
-using IsThereAnyNews.Services;
-using IsThereAnyNews.SharedData;
-
-namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Mvc.Controllers
 {
+    using System.Net;
+    using System.Web.Mvc;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Mvc.Infrastructure;
+    using IsThereAnyNews.Services;
+    using IsThereAnyNews.SharedData;
+
     [RoleAuthorize(Roles = new[] { ItanRole.User })]
     public class RssChannelController : BaseController
     {
@@ -54,13 +55,12 @@ namespace IsThereAnyNews.Mvc.Controllers
             return this.View("My");
         }
 
-        [ChildActionOnly]
-        public PartialViewResult MyChannelList()
+        public JsonResult MyChannelList()
         {
             var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
             var listofusers = this.userSubscriptionServiceService.LoadAllObservableSubscription();
             viewmodel.Users = listofusers;
-            return this.PartialView("_MyChannelList", viewmodel);
+            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
         [Authorize]

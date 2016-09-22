@@ -23,7 +23,8 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.ChannelsSubscriptions, o => o.MapFrom(s => s))
                 .ForMember(d => d.Users, o => o.UseValue(new List<ObservableUserEventsInformation>()));
 
-            this.CreateMap<RssEntry, RssEntryViewModel>();
+            this.CreateMap<RssEntry, RssEntryViewModel>()
+                .ForMember(d => d.PreviewText, o => o.MapFrom(s => s.PreviewText));
 
             this.CreateMap<RssEntryToRead, RssEntryToReadViewModel>()
                 .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.RssEntry));

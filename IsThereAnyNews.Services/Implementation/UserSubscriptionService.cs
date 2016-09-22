@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.DataAccess.Implementation;
-using IsThereAnyNews.ViewModels;
-
-namespace IsThereAnyNews.Services
+namespace IsThereAnyNews.Services.Implementation
 {
-    class UserSubscriptionService : IUserSubscriptionService
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.DataAccess.Implementation;
+    using IsThereAnyNews.ViewModels;
+
+    public class UserSubscriptionService : IUserSubscriptionService
     {
         private readonly ISessionProvider sessionProvider;
         private readonly IUsersSubscriptionRepository userSubscriptionsRepository;
@@ -29,8 +30,8 @@ namespace IsThereAnyNews.Services
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             this.userSubscriptionsEntryToReadRepository.CopyAllUnreadElementsToUser(currentUserId);
             var loadNameAndCountForUser = this.userSubscriptionsRepository.LoadNameAndCountForUser(currentUserId);
-            this.userSubscriptionsRepository.UpdateUserLastReadTime(currentUserId,now);
-            var list = loadNameAndCountForUser.Select(ProjectToObservableUserEventsInformation).ToList();
+            this.userSubscriptionsRepository.UpdateUserLastReadTime(currentUserId, now);
+            var list = loadNameAndCountForUser.Select(this.ProjectToObservableUserEventsInformation).ToList();
             return list;
         }
 

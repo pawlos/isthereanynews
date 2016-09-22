@@ -1,11 +1,12 @@
-﻿using System.Net;
-using System.Web.Mvc;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.Services;
-using IsThereAnyNews.SharedData;
-
-namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Mvc.Controllers
 {
+    using System.Net;
+    using System.Web.Mvc;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services;
+    using IsThereAnyNews.SharedData;
+
     [Authorize]
     public class StreamController : BaseController
     {
@@ -22,19 +23,12 @@ namespace IsThereAnyNews.Mvc.Controllers
         }
 
         [HttpGet]
-        public ActionResult Read(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
-        {
-            var entries = this.rssSubscriptionService
-                .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
-            return this.View("Read", entries);
-        }
-
-        [HttpGet]
         public ActionResult ReadAjax(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
         {
             var entries = this.rssSubscriptionService
                 .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
-            return this.PartialView("_ReadAjax", entries);
+            var result = this.Json(entries, JsonRequestBehavior.AllowGet);
+            return result;
         }
 
         [HttpPost]
