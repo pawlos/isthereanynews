@@ -6,6 +6,7 @@
 @section scripts
 {
     <script src="~/Scripts/itan/myRssChannelsCtrl.js"></script>
+<script src="~/Scripts/itan/filterRawHtml.js"></script>
     <script src="~/Scripts/itan/filterMoment.js"></script>
 }
 
@@ -59,13 +60,15 @@
                 </div>
                 <div class="row nocss-rss-item-list">
                     <div class="col s12">
-                        <ul>
+                        <ul class="collapsible">
                             <li ng-repeat="item in channel.entries.RssEntryToReadViewModels">
-                                <div>
+                                <div class="collapsible-header">
                                     {{item.RssEntryViewModel.Title}}
                                     <span>
                                         {{item.RssEntryViewModel.PublicationDate|moment:'DD/MMMM/YYYY'}}
                                     </span>
+                                </div>
+                                <div class="collapsible-body" ng-bind-html="item.RssEntryViewModel.PreviewText | rawHtml">
                                 </div>
                             </li>
                         </ul>
