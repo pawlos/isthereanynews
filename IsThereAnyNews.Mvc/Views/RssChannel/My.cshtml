@@ -69,7 +69,8 @@
                                         {{item.RssEntryViewModel.PublicationDate|moment:'DD/MMMM/YYYY'}}
                                     </span>
                                 </div>
-                                <div class="collapsible-body" 
+                                <div class="collapsible-body"
+                                     ng-click="onArticleBodyClicked(channel.entries.StreamType, item.Id, item.Url)"
                                      ng-bind-html="item.RssEntryViewModel.PreviewText | rawHtml">
                                 </div>
                             </li>

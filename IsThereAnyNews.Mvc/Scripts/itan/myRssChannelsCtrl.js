@@ -24,19 +24,25 @@
         };
 
         $scope.markReadWithEvent = function(streamType, id) {
-            var getOptions= {
-                method:'POST',
+            var getOptions = {
+                method: 'POST',
                 url: "/Stream/MarkReadWithEvent",
                 data: {
-                    StreamType:streamType,
+                    StreamType: streamType,
                     DisplayedItems: id,
-                    Id:id
+                    Id: id
                 }
-            }
+            };
             $http(getOptions)
                 .success(function() {
                     console.log("successufully marked as read");
                 });
         };
+
+        $scope.onArticleBodyClicked=function(streamType, id, url) {
+            console.log(streamType);
+            console.log(id);
+            console.log(url);
+        }
     });
 
