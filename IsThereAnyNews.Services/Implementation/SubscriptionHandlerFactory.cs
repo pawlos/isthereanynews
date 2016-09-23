@@ -1,8 +1,9 @@
-using Autofac.Features.Indexed;
-using IsThereAnyNews.SharedData;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using Autofac.Features.Indexed;
+
+    using IsThereAnyNews.SharedData;
+
     public class SubscriptionHandlerFactory : ISubscriptionHandlerFactory
     {
         private readonly IIndex<StreamType, ISubscriptionHandler> handlers;

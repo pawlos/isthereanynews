@@ -1,7 +1,7 @@
-﻿using IsThereAnyNews.SharedData;
-
-namespace IsThereAnyNews.Dtos
+﻿namespace IsThereAnyNews.Dtos
 {
+    using IsThereAnyNews.SharedData;
+
     public class MarkReadDto
     {
         public StreamType StreamType { get; set; }
