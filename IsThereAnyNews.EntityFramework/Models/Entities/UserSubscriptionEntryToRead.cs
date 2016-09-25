@@ -11,7 +11,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
 
-        public long EventRssViewedId { get; set; }
+        public long EventRssUserInteractionId { get; set; }
         public EventRssUserInteraction EventRssUserInteraction { get; set; }
 
         public long UserSubscriptionId { get; set; }
