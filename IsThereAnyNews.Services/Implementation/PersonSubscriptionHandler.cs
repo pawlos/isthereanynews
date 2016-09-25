@@ -30,7 +30,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries)
         {
-            return GetPersonSubscriptionIndexViewModel(subscriptionId, showReadEntries);
+            return this.GetPersonSubscriptionIndexViewModel(subscriptionId, showReadEntries);
         }
 
         public void MarkRead(string displayedItems)
@@ -40,6 +40,11 @@ namespace IsThereAnyNews.Services.Implementation
                     .Select(i => long.Parse(i))
                     .ToList();
             this.rssEventsRepository.MarkRead(ids);
+        }
+
+        public void AddEventViewed(long dtoId)
+        {
+            // do nothing for now
         }
 
         private RssSubscriptionIndexViewModel GetPersonSubscriptionIndexViewModel(long subscriptionId, ShowReadEntries showReadEntries)

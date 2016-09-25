@@ -32,7 +32,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             };
 
             // act
-            this.sut.MarkEntryClicked(stub);
+            this.sut.MarkClicked(stub);
 
             // assert
             this.mockSessionProvider
@@ -50,7 +50,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             };
 
             // act
-            this.sut.MarkEntryClicked(stub);
+            this.sut.MarkClicked(stub);
 
             // assert
             this.mockRssEventRepository

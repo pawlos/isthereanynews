@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.SharedData;
-using IsThereAnyNews.ViewModels;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels;
+
     public class RssSubscriptionService : IRssSubscriptionService
     {
         private readonly ISessionProvider sessionProvider;
@@ -36,7 +37,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var provider = subscriptionHandlerFactory.GetProvider(streamType);
+            var provider = this.subscriptionHandlerFactory.GetProvider(streamType);
             var viewmodel = provider.GetSubscriptionViewModel(subscriptionId, showReadEntries);
             return viewmodel;
         }
@@ -49,13 +50,6 @@ namespace IsThereAnyNews.Services.Implementation
                 .Select(long.Parse)
                 .ToList();
             this.rssToReadRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
-        }
-
-        public void MarkEntryViewed(long rssToReadId)
-        {
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
-            this.rssToReadRepository.MarkEntryViewedByUser(currentUserId, rssToReadId);
-            this.rssEventsRepository.AddEventRssViewed(currentUserId, rssToReadId);
         }
 
         public void UnsubscribeCurrentUserFromChannelId(long id)
@@ -73,12 +67,6 @@ namespace IsThereAnyNews.Services.Implementation
                 RssChannelName = rssChannel.Title
             };
             this.SubscribeCurrentUserToChannel(addChannelDto);
-        }
-
-        public void MarkRead(MarkReadDto dto)
-        {
-            var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
-            subscriptionHandler.MarkRead(dto.DisplayedItems);
         }
 
         public void SubscribeCurrentUserToChannel(AddChannelDto channelId)
@@ -103,7 +91,14 @@ namespace IsThereAnyNews.Services.Implementation
             }
         }
 
-        public void MarkEntryClicked(MarkClickedDto dto)
+        public void MarkRead(MarkReadDto dto)
+        {
+            var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
+            subscriptionHandler.MarkRead(dto.DisplayedItems);
+            subscriptionHandler.AddEventViewed(dto.Id);
+        }
+
+        public void MarkClicked(MarkClickedDto dto)
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
             this.rssEventsRepository.MarkClicked(dto.Id, currentUserId);

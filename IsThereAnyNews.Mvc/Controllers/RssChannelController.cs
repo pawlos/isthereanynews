@@ -82,7 +82,6 @@
 
         public HttpStatusCodeResult MarkRssEntryViewed(long id)
         {
-            this.rssSubscriptionService.MarkEntryViewed(id);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 

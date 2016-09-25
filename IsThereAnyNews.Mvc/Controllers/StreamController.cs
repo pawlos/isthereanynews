@@ -29,20 +29,19 @@
                 .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
             var result = this.Json(entries, JsonRequestBehavior.AllowGet);
             return result;
-        }
+        } 
 
         [HttpPost]
         public ActionResult MarkReadWithEvent(MarkReadDto dto)
         {
             this.rssSubscriptionService.MarkRead(dto);
-            this.rssSubscriptionService.MarkEntryViewed(long.Parse(dto.DisplayedItems));
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
         public ActionResult MarkClickedWithEvent(MarkClickedDto dto)
         {
-            this.rssSubscriptionService.MarkEntryClicked(dto);
+            this.rssSubscriptionService.MarkClicked(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }

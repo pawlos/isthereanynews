@@ -1,10 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models.Events;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Events;
+
     public class RssEventRepository : IRssEventRepository
     {
         private readonly ItanDatabaseContext database;
@@ -31,7 +32,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
         public void MarkRead(List<long> ids)
         {
             this.database.UsersSubscriptionsToRead
-                .Where(x => ids.Contains(x.Id)).ToList()
+                .Where(x => ids.Contains(x.Id))
+                .ToList()
                 .ForEach(x => x.IsRead = true);
             this.database.SaveChanges();
         }

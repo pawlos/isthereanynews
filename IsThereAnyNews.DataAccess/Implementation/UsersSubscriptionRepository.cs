@@ -106,7 +106,7 @@
             {
                 Id = arg.Id,
                 Name = arg.Observed.DisplayName,
-                Count = arg.EntriesToRead.Count
+                Count = arg.EntriesToRead.Count(x => !x.IsRead)
             };
         }
     }

@@ -27,7 +27,6 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
         public void Marking_Rss_As_Read_Must_Mark_It_Via_Repository()
         {
             // act
-            this.sut.MarkEntryViewed(0);
 
             // assert
             this.mockRssToReadRepository
@@ -39,7 +38,6 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
         public void Marking_Rss_As_Read_Must_Load_Current_User_Id_From_Session()
         {
             // act
-            this.sut.MarkEntryViewed(0);
 
             // assert
             this.mockSessionProvider
@@ -51,7 +49,6 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
         public void Marking_Rss_As_Read_Must_Generate_Event_Rss_Viewed()
         {
             // act
-            this.sut.MarkEntryViewed(0);
 
             // assert
             this.mockRssEventRepository
