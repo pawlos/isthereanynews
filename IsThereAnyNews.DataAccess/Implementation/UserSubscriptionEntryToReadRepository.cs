@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
-namespace IsThereAnyNews.DataAccess.Implementation
+﻿namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
     public class UserSubscriptionEntryToReadRepository : IUserSubscriptionEntryToReadRepository
     {
         private readonly ItanDatabaseContext database;
@@ -34,7 +33,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             var eventRssClicked = this.database.EventsRssClicked
                 .Where(x => currentUserObservedUsersIds.Contains(x.UserId))
-                 .Where(x => x.Created >= lastReadTime)
+                .Where(x => x.Created >= lastReadTime)
                 .ToList();
 
             foreach (var rssViewed in eventRssVieweds)
@@ -45,7 +44,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
                     UserSubscriptionId = observedUsersId.Single(o => o.ObservedId == rssViewed.UserId).Id
                 };
                 this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
-                this.database.SaveChanges();
             }
 
             foreach (var rssClicked in eventRssClicked)
@@ -56,8 +54,9 @@ namespace IsThereAnyNews.DataAccess.Implementation
                     UserSubscriptionId = observedUsersId.Single(o => o.ObservedId == rssClicked.UserId).Id
                 };
                 this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
-                this.database.SaveChanges();
             }
+
+            this.database.SaveChanges();
         }
     }
 }

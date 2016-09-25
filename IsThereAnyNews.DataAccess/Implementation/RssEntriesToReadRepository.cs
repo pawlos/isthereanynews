@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
-namespace IsThereAnyNews.DataAccess.Implementation
+﻿namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
     public class RssEntriesToReadRepository : IRssEntriesToReadRepository
     {
         private readonly ItanDatabaseContext database;
@@ -39,7 +39,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             this.database.RssEntriesToRead.AddRange(toread);
             this.database.SaveChanges();
-
         }
 
         public void MarkAllReadForUserAndSubscription(long subscriptionId, List<long> id)

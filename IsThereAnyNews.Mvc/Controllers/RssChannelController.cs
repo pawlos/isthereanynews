@@ -58,8 +58,8 @@
         public JsonResult MyChannelList()
         {
             var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
-            var listofusers = this.userSubscriptionServiceService.LoadAllObservableSubscription();
-            viewmodel.Users = listofusers;
+            var listOfUsers = this.userSubscriptionServiceService.LoadAllObservableSubscription();
+            viewmodel.Users = listOfUsers;
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 

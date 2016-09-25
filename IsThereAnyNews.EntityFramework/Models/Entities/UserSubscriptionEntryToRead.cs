@@ -1,9 +1,10 @@
-using System;
-using IsThereAnyNews.EntityFramework.Models.Events;
-using IsThereAnyNews.EntityFramework.Models.Interfaces;
-
 namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
+    using System;
+
+    using IsThereAnyNews.EntityFramework.Models.Events;
+    using IsThereAnyNews.EntityFramework.Models.Interfaces;
+
     public class UserSubscriptionEntryToRead : IEntity, ICreatable, IModifiable
     {
         public long Id { get; set; }
