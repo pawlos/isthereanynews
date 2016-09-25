@@ -1,4 +1,4 @@
-﻿angular.module("itan")
+angular.module("itan")
 .controller("itan.MyRssChannelsCtrl", function ($scope, $http) {
     $scope.channels = {
         loaded: false
@@ -24,7 +24,7 @@
         };
 
         $scope.markReadWithEvent = function(streamType, id) {
-            var getOptions = {
+            var httpOptions = {
                 method: 'POST',
                 url: "/Stream/MarkReadWithEvent",
                 data: {
@@ -33,16 +33,25 @@
                     Id: id
                 }
             };
-            $http(getOptions)
+            $http(httpOptions)
                 .success(function() {
                     console.log("successufully marked as read");
                 });
         };
 
         $scope.onArticleBodyClicked=function(streamType, id, url) {
-            console.log(streamType);
-            console.log(id);
-            console.log(url);
+            var httpOptions = {
+                method: 'POST',
+                url: "/Stream/MarkClickedWithEvent",
+                data: {
+                    Id: id
+                }
+            };
+            $http(httpOptions)
+                .success(function() {
+                    console.log("successufully marked as read");
+                });
+           window.open(url, "_blank");
         }
     });
 

@@ -32,13 +32,6 @@
         }
 
         [HttpPost]
-        public ActionResult MarkRead(MarkReadDto dto)
-        {
-            this.rssSubscriptionService.MarkRead(dto);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-        [HttpPost]
         public ActionResult MarkReadWithEvent(MarkReadDto dto)
         {
             this.rssSubscriptionService.MarkRead(dto);
@@ -47,7 +40,7 @@
         }
 
         [HttpPost]
-        public ActionResult MarkClicked(MarkClickedDto dto)
+        public ActionResult MarkClickedWithEvent(MarkClickedDto dto)
         {
             this.rssSubscriptionService.MarkEntryClicked(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
