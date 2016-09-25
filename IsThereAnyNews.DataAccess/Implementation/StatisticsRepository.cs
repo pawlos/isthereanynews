@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using IsThereAnyNews.EntityFramework;
-using System.Data.Entity;
-using System.Linq;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.EntityFramework.Models.Events;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.EntityFramework.Models.Events;
+
     public class StatisticsRepository : IStatisticsRepository
     {
         private readonly ItanDatabaseContext database;
@@ -23,7 +23,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             var list = this.database
                 .RssChannels
                 .Include(channel => channel.Subscriptions)
-                .Select(ToChannelStatistics)
+                .Select(this.ToChannelStatistics)
                 .OrderByDescending(x => x.SubscriptionCount)
                 .Take(count)
                 .ToList();
@@ -46,7 +46,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             var list = this.database.Users
                 .Include(x => x.RssSubscriptionList)
                 .Include(x => x.RssSubscriptionList.Select(c => c.RssEntriesToRead))
-                .Select(ProjectToUserStatistics)
+                .Select(this.ProjectToUserStatistics)
                 .OrderByDescending(x => x.Count)
                 .Take(i)
                 .ToList();
@@ -72,7 +72,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             var list = this.database
                 .RssEntriesToRead
                 .Include(x => x.RssEntry)
-                .Select(ToRssStatistics)
+                .Select(this.ToRssStatistics)
                 .OrderByDescending(x => x.Count)
                 .Take(i)
                 .ToList();
@@ -80,12 +80,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return list;
         }
 
-        public List<EventRssViewed> LoadAllEventsFromAndToDate(DateTime startDate, DateTime endDate)
+        public List<EventRssUserInteraction> LoadAllEventsFromAndToDate(DateTime startDate, DateTime endDate)
         {
-            var eventRssVieweds = this.database.EventsRssViewed
+            var eventRssVieweds = this.database.EventsRssUserInteraction
                 .Where(e => e.Created >= startDate)
                 .Where(e => e.Created < endDate)
-                .Include(e=>e.RssEntry)
+                .Include(e => e.RssEntry)
                 .ToList();
 
             return eventRssVieweds;
@@ -102,6 +102,5 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             return projection;
         }
-
     }
 }

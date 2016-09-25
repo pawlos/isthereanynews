@@ -12,7 +12,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
         public DateTime Updated { get; set; }
 
         public long EventRssViewedId { get; set; }
-        public EventRssViewed EventRssViewed { get; set; }
+        public EventRssUserInteraction EventRssUserInteraction { get; set; }
 
         public long UserSubscriptionId { get; set; }
         public UserSubscription Subscription { get; set; }

@@ -7,9 +7,9 @@ namespace IsThereAnyNews.Services.Implementation
     {
         public int WeekNumber { get; set; }
         public int RssCount { get; set; }
-        public List<EventRssViewed> RssVieweds { get; set; }
+        public List<EventRssUserInteraction> RssVieweds { get; set; }
 
-        public ActivityPerWeek(int weekNumber, int rssCount, List<EventRssViewed> rssVieweds)
+        public ActivityPerWeek(int weekNumber, int rssCount, List<EventRssUserInteraction> rssVieweds)
         {
             WeekNumber = weekNumber;
             RssCount = rssCount;

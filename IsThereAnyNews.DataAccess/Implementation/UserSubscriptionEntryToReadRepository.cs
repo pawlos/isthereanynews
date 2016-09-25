@@ -26,12 +26,7 @@
             var lastReadTime = this.database.Users.Single(x => x.Id == currentUserId).LastReadTime;
 
             var eventRssVieweds = this.database
-                .EventsRssViewed
-                .Where(x => currentUserObservedUsersIds.Contains(x.UserId))
-                .Where(x => x.Created >= lastReadTime)
-                .ToList();
-
-            var eventRssClicked = this.database.EventsRssClicked
+                .EventsRssUserInteraction
                 .Where(x => currentUserObservedUsersIds.Contains(x.UserId))
                 .Where(x => x.Created >= lastReadTime)
                 .ToList();
@@ -42,16 +37,6 @@
                 {
                     EventRssViewedId = rssViewed.Id,
                     UserSubscriptionId = observedUsersId.Single(o => o.ObservedId == rssViewed.UserId).Id
-                };
-                this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
-            }
-
-            foreach (var rssClicked in eventRssClicked)
-            {
-                var userSubscriptionEntryToRead = new UserSubscriptionEntryToRead
-                {
-                    EventRssViewedId = rssClicked.Id,
-                    UserSubscriptionId = observedUsersId.Single(o => o.ObservedId == rssClicked.UserId).Id
                 };
                 this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
             }

@@ -10,6 +10,6 @@ namespace IsThereAnyNews.DataAccess
         List<ChannelWithSubscriptionCount> GetToReadChannels(int count);
         List<UserWithStatistics> GetUsersThatReadMostNews(int i);
         List<RssStatistics> GetNewsThatWasReadMost(int i);
-        List<EventRssViewed> LoadAllEventsFromAndToDate(DateTime startDate, DateTime endDate);
+        List<EventRssUserInteraction> LoadAllEventsFromAndToDate(DateTime startDate, DateTime endDate);
     }
 }

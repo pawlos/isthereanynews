@@ -25,9 +25,8 @@
         public DbSet<FeatureRequest> FeatureRequests { get; set; }
         public DbSet<UserSubscription> UsersSubscriptions { get; set; }
         public DbSet<UserSubscriptionEntryToRead> UsersSubscriptionsToRead { get; set; }
-        public DbSet<EventRssViewed> EventsRssViewed { get; set; }
+        public DbSet<EventRssUserInteraction> EventsRssUserInteraction { get; set; }
         public DbSet<EventRssChannelUpdated> RssChannelUpdates { get; set; }
-        public DbSet<EventRssClicked> EventsRssClicked { get; set; }
         public DbSet<EventRssChannelCreated> EventRssChannelCreated { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<ContactAdministration> ContactsAdministration { get; set; }

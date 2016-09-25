@@ -30,7 +30,7 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.RssEntry));
 
             this.CreateMap<UserSubscriptionEntryToRead, RssEntryToReadViewModel>()
-                .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.EventRssViewed.RssEntry));
+                .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.EventRssUserInteraction.RssEntry));
 
             this.CreateMap<RssChannelSubscriptionWithStatisticsData, RssChannelWithStatisticsViewModel>();
 

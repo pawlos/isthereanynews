@@ -92,10 +92,10 @@ namespace IsThereAnyNews.Services.Implementation
 
             var getWeekOfYear = new Func<DateTime, CalendarWeekRule, DayOfWeek, int>(CultureInfo.CurrentCulture.Calendar.GetWeekOfYear);
 
-            var x = new List<List<EventRssViewed>>(52);
+            var x = new List<List<EventRssUserInteraction>>(52);
             for (int i = 0; i < 52; i++)
             {
-                x.Add(new List<EventRssViewed>());
+                x.Add(new List<EventRssUserInteraction>());
             }
 
             loadAllEventsFromAndToDate.ForEach(e =>

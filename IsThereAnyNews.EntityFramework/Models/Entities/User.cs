@@ -24,7 +24,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
 
         public List<SocialLogin> SocialLogins { get; set; }
         public List<RssChannelSubscription> RssSubscriptionList { get; set; }
-        public List<EventRssViewed> EventsRssViewed { get; set; }
+        public List<EventRssUserInteraction> EventsRssViewed { get; set; }
 
         public List<UserRole> UserRoles { get; set; }
 

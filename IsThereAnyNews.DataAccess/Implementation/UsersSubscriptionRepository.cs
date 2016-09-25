@@ -60,8 +60,8 @@
                  .Where(s => s.Id == subscriptionId)
                  .Include(s => s.EntriesToRead)
                  .SelectMany(s => s.EntriesToRead)
-                 .Include(s => s.EventRssViewed)
-                 .Include(s => s.EventRssViewed.RssEntry)
+                 .Include(s => s.EventRssUserInteraction)
+                 .Include(s => s.EventRssUserInteraction.RssEntry)
                  .Where(s => !s.IsRead)
                  .ToList();
 
@@ -74,8 +74,8 @@
                            .Where(s => s.Id == subscriptionId)
                            .Include(s => s.EntriesToRead)
                            .SelectMany(s => s.EntriesToRead)
-                           .Include(s => s.EventRssViewed)
-                           .Include(s => s.EventRssViewed.RssEntry)
+                           .Include(s => s.EventRssUserInteraction)
+                           .Include(s => s.EventRssUserInteraction.RssEntry)
                            .ToList();
 
             return userSubscriptions.ToList();

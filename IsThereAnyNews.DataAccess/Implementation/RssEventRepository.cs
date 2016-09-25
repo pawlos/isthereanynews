@@ -17,13 +17,14 @@ namespace IsThereAnyNews.DataAccess.Implementation
         public void AddEventRssViewed(long currentUserId, long rssToReadId)
         {
             var rssEntryId = this.database.RssEntriesToRead.Single(r => r.Id == rssToReadId).RssEntryId;
-            var eventRssViewed = new EventRssViewed
+            var eventRssViewed = new EventRssUserInteraction
             {
                 RssEntryId = rssEntryId,
-                UserId = currentUserId
+                UserId = currentUserId,
+                InteractionType = InteractionType.Viewed
             };
 
-            this.database.EventsRssViewed.Add(eventRssViewed);
+            this.database.EventsRssUserInteraction.Add(eventRssViewed);
             this.database.SaveChanges();
         }
 
@@ -37,17 +38,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public void MarkClicked(long id, long currentUserId)
         {
-            var rssEntryToRead = this.database.RssEntriesToRead
-                .Where(x => x.Id == id)
-                .Single();
+            var rssEntryToRead = this.database.RssEntriesToRead.Single(x => x.Id == id);
 
-            var eventRssClicked = new EventRssClicked()
+            var eventRssClicked = new EventRssUserInteraction()
             {
                 UserId = currentUserId,
-                RssEntryId = rssEntryToRead.RssEntryId
+                RssEntryId = rssEntryToRead.RssEntryId,
+                InteractionType = InteractionType.Clicked
             };
 
-            this.database.EventsRssClicked.Add(eventRssClicked);
+            this.database.EventsRssUserInteraction.Add(eventRssClicked);
             this.database.SaveChanges();
         }
     }

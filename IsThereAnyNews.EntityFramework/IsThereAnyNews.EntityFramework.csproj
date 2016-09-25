@@ -80,6 +80,18 @@
     <Compile Include="Migrations\201608062248375_exception-events.Designer.cs">
       <DependentUpon>201608062248375_exception-events.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609250605133_db-table-name-changed.cs" />
+    <Compile Include="Migrations\201609250605133_db-table-name-changed.Designer.cs">
+      <DependentUpon>201609250605133_db-table-name-changed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609250612456_interaction-type-added-to-table.cs" />
+    <Compile Include="Migrations\201609250612456_interaction-type-added-to-table.Designer.cs">
+      <DependentUpon>201609250612456_interaction-type-added-to-table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609250620399_table dropped.cs" />
+    <Compile Include="Migrations\201609250620399_table dropped.Designer.cs">
+      <DependentUpon>201609250620399_table dropped.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\ItanException.cs" />
@@ -89,10 +101,10 @@
     <Compile Include="Models\Events\ContactAdministrationEvent.cs" />
     <Compile Include="Models\Events\EventItanException.cs" />
     <Compile Include="Models\Events\EventRssChannelCreated.cs" />
-    <Compile Include="Models\Events\EventRssRead.cs" />
-    <Compile Include="Models\Events\EventRssViewed.cs" />
+    <Compile Include="Models\Events\EventRssUserInteraction.cs" />
     <Compile Include="Models\Entities\FeatureRequest.cs" />
     <Compile Include="Models\Events\EventRssChannelUpdated.cs" />
+    <Compile Include="Models\Events\InteractionType.cs" />
     <Compile Include="Models\Interfaces\ICreatable.cs" />
     <Compile Include="Models\Interfaces\IEntity.cs" />
     <Compile Include="Models\Entities\RssChannelSubscription.cs" />
@@ -132,6 +144,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608062248375_exception-events.resx">
       <DependentUpon>201608062248375_exception-events.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609250605133_db-table-name-changed.resx">
+      <DependentUpon>201609250605133_db-table-name-changed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609250612456_interaction-type-added-to-table.resx">
+      <DependentUpon>201609250612456_interaction-type-added-to-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609250620399_table dropped.resx">
+      <DependentUpon>201609250620399_table dropped.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
