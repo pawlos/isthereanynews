@@ -13,7 +13,7 @@
             <div class="col s4">
                 @if (Model.IsUserAlreadySubscribed)
                 {
-                    using (Html.BeginForm("Unubscribe", "Users", FormMethod.Post))
+                    using (Html.BeginForm("Unsubscribe", "Users", FormMethod.Post))
                     {
                         @Html.HiddenFor(m => m.ViewingUserId)
                         <button type="submit"

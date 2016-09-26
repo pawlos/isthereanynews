@@ -4,16 +4,21 @@
 
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Services;
-
-    public class UsersController : Controller
+    [Authorize]
+    public class UsersController : BaseController
     {
         private readonly IUsersService usersService;
 
-        public UsersController(IUsersService usersService)
+        public UsersController(IUsersService usersService,
+                               IUserAuthentication authentication,
+                               ILoginService loginService, 
+                               ISessionProvider sessionProvider)
+            : base(authentication, loginService, sessionProvider)
         {
             this.usersService = usersService;
         }
 
+        [AllowAnonymous]
         public ActionResult Index()
         {
             var usersPublicProfileViewModel = this.usersService.LoadAllUsersPublicProfile();
@@ -33,7 +38,7 @@
             return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
         }
 
-        public ActionResult Unubscribe(SubscribeToUserActivityDto model)
+        public ActionResult Unsubscribe(SubscribeToUserActivityDto model)
         {
             this.usersService.UnsubscribeToUser(model);
             return this.RedirectToAction("Profile", new { id = model.ViewingUserId });

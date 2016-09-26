@@ -19,12 +19,12 @@
 
         public void CreateNewSubscription(long followerId, long observedId)
         {
-            var userSubscription = new UserSubscription
+            if (this.IsUserSubscribedToUser(followerId, observedId))
             {
-                FollowerId = followerId,
-                ObservedId = observedId
-            };
+                return;
+            }
 
+            var userSubscription = new UserSubscription { FollowerId = followerId, ObservedId = observedId };
             this.database.UsersSubscriptions.Add(userSubscription);
             this.database.SaveChanges();
         }
@@ -35,7 +35,7 @@
                 .Include(us => us.Observed)
                 .Include(us => us.EntriesToRead)
                 .Where(us => us.FollowerId == currentUserId)
-                .Select(ProjectToNameAndCountUserSubscription)
+                .Select(this.ProjectToNameAndCountUserSubscription)
                 .ToList();
             return nameAndCountUserSubscriptions;
         }
@@ -91,6 +91,11 @@
 
         public void DeleteUserSubscription(long followerId, long observedId)
         {
+            if (this.IsUserSubscribedToUser(followerId, observedId) == false)
+            {
+                return;
+            }
+
             var userSubscription = this.database
                                        .UsersSubscriptions
                                        .Single(x => x.FollowerId == followerId && x.ObservedId == observedId);
