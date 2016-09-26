@@ -29,7 +29,13 @@
         [HttpPost]
         public ActionResult Subscribe(SubscribeToUserActivityDto model)
         {
-            this.usersService.SubscribeToUser(model.ViewingUserId);
+            this.usersService.SubscribeToUser(model);
+            return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
+        }
+
+        public ActionResult Unubscribe(SubscribeToUserActivityDto model)
+        {
+            this.usersService.UnsubscribeToUser(model);
             return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
         }
     }

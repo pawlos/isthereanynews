@@ -81,6 +81,23 @@
             return userSubscriptions.ToList();
         }
 
+        public bool IsUserSubscribedToUser(long followerId, long observedId)
+        {
+            var isSubscribed = this.database
+                                   .UsersSubscriptions
+                                   .Any(s => s.FollowerId == followerId && s.ObservedId == observedId);
+            return isSubscribed;
+        }
+
+        public void DeleteUserSubscription(long followerId, long observedId)
+        {
+            var userSubscription = this.database
+                                       .UsersSubscriptions
+                                       .Single(x => x.FollowerId == followerId && x.ObservedId == observedId);
+            this.database.UsersSubscriptions.Remove(userSubscription);
+            this.database.SaveChanges();
+        }
+
         public RssChannelSubscription LoadChannelInformation(long subscriptionId)
         {
             var userSubscription =
@@ -97,8 +114,6 @@
 
             return rssChannelSubscription;
         }
-
-
 
         private NameAndCountUserSubscription ProjectToNameAndCountUserSubscription(UserSubscription arg)
         {

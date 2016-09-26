@@ -10,5 +10,7 @@ namespace IsThereAnyNews.ViewModels
         public List<EventRssViewedViewModel> Events { get; set; }
         public int EventsCount { get; set; }
         public long ViewingUserId { get; set; }
+
+        public bool IsUserAlreadySubscribed { get; set; }
     }
 }

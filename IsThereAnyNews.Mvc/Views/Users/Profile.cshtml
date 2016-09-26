@@ -11,13 +11,31 @@
                 <h2><i class="fa fa-user"></i>@Model.DisplayName</h2>
             </div>
             <div class="col s4">
-                @using (Html.BeginForm("Subscribe", "Users", FormMethod.Post))
+                @if (Model.IsUserAlreadySubscribed)
                 {
-                    @Html.HiddenFor(m => m.ViewingUserId)
-                    <input type="submit"
-                           role="button"
-                           class="btn"
-                           value="subscribe"/>
+                    using (Html.BeginForm("Unubscribe", "Users", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(m => m.ViewingUserId)
+                        <button type="submit"
+                                role="button"
+                                class="btn"
+                                value="subscribe">
+                            <i class="fa fa-user-times"></i>unsubscribe
+                        </button>
+                    }
+                }
+                else
+                {
+                    using (Html.BeginForm("Subscribe", "Users", FormMethod.Post))
+                    {
+                        @Html.HiddenFor(m => m.ViewingUserId)
+                        <button type="submit"
+                                role="button"
+                                class="btn"
+                                value="subscribe">
+                            <i class="fa fa-user-plus"></i>subscribe
+                        </button>
+                    }
                 }
             </div>
         </div>

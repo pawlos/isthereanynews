@@ -1,10 +1,12 @@
-﻿using System.Linq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.DataAccess.Implementation;
-using IsThereAnyNews.ViewModels;
-
-namespace IsThereAnyNews.Services.Implementation
+﻿namespace IsThereAnyNews.Services.Implementation
 {
+    using System.Linq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.DataAccess.Implementation;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.ViewModels;
+
     public class UsersService : IUsersService
     {
         private readonly IUserRepository usersRepository;
@@ -12,7 +14,7 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IUsersSubscriptionRepository usersSubscriptionRepository;
 
         public UsersService(IUserRepository usersRepository,
-                            ISessionProvider sessionProvider, 
+                            ISessionProvider sessionProvider,
                             IUsersSubscriptionRepository usersSubscriptionRepository)
         {
             this.usersRepository = usersRepository;
@@ -33,6 +35,8 @@ namespace IsThereAnyNews.Services.Implementation
 
         public UserDetailedPublicProfileViewModel LoadUserPublicProfile(long id)
         {
+            var cui = this.sessionProvider.GetCurrentUserId();
+            var isUserAlreadySubscribed = this.usersSubscriptionRepository.IsUserSubscribedToUser(cui, id);
             var publicProfile = this.usersRepository.LoadUserPublicProfile(id);
             var userDetailedPublicProfileViewModel = new UserDetailedPublicProfileViewModel
             {
@@ -50,15 +54,22 @@ namespace IsThereAnyNews.Services.Implementation
                     RssId = e.RssEntryId
                 }).ToList(),
                 EventsCount = publicProfile.EventsRssViewed.Count,
-                ViewingUserId = id
+                ViewingUserId = id,
+                IsUserAlreadySubscribed = isUserAlreadySubscribed
             };
             return userDetailedPublicProfileViewModel;
         }
 
-        public void SubscribeToUser(long viewingUserId)
+        public void UnsubscribeToUser(SubscribeToUserActivityDto model)
+        {
+            var cui = this.sessionProvider.GetCurrentUserId();
+            this.usersSubscriptionRepository.DeleteUserSubscription(cui, model.ViewingUserId);
+        }
+
+        public void SubscribeToUser(SubscribeToUserActivityDto model)
         {
             var currentUserId = this.sessionProvider.GetCurrentUserId();
-            this.usersSubscriptionRepository.CreateNewSubscription(currentUserId, viewingUserId);
+            this.usersSubscriptionRepository.CreateNewSubscription(currentUserId, model.ViewingUserId);
         }
 
         private UserPublicProfileViewModel ProjectToViewModel(UserPublicProfile model)
