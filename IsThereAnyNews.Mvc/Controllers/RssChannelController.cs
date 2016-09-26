@@ -36,18 +36,17 @@
         }
 
         [HttpGet]
-        [ChildActionOnly]
         public ActionResult PublicChannels()
         {
             var viewmodel = this.rssChannelsService.LoadAllChannels();
-            return this.PartialView("_PublicChannels", viewmodel);
+            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult Public(long id)
         {
             var viewmodel = this.rssChannelsService.GetViewModelFormChannelId(id);
-            return this.View("Public", viewmodel);
+            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult My()
@@ -78,7 +77,6 @@
             this.rssSubscriptionService.SubscribeCurrentUserToChannel(id);
             return this.RedirectToAction("Public", new { id = id });
         }
-
 
         public HttpStatusCodeResult MarkRssEntryViewed(long id)
         {

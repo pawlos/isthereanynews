@@ -1,14 +1,60 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="container">
+@section scripts
+{
+    <script src="~/Scripts/itan/filterMoment.js"></script>
+    <script src="~/Scripts/itan/filterRawHtml.js"></script>
+    <script src="~/Scripts/itan/publicRssChannelsCtrl.js"></script>
+}
+<div class="container" ng-controller="itan.PublicRssChannelsCtrl">
     <div class="row">
         <div class="col s4">
-            @Html.Action("PublicChannels")
+            <div ng-hide="channels.loaded"
+                 class="fa fa-4x fa-spin fa-spinner"></div>
+            <div ng-show="channels.loaded">
+                <a ng-repeat="channel in channels.list.AllChannels"
+                   ng-click="onChannelClick(channel.Id)"
+                   class="btn btn-large">
+                    <div>
+                        <div>
+                            {{channel.Title}}
+                        </div>
+                        <div>
+                            <i class="fa fa-calendar"></i>{{channel.Created | moment:''}}
+                            <i class="fa fa-refresh"></i>{{channel.Updated | moment:''}}
+                            <i class="fa fa-user"></i>{{channel.SubscriptionsCount}}
+                            <i class="fa fa-newspaper-o"></i>{{channel.RssEntriesCount}}
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
         <div class="col s8">
-            <h3>Please select channel to see news</h3>
+            <div ng-hide="channel.loaded">
+                <h3>Please select channel to see news</h3>
+            </div>
+            <div ng-show="channel.loaded">
+                <div class="row">
+                    <h2>{{channel.entries.Title}}</h2>
+                    <h3>{{channel.entries.Added|moment:'YYYY-MM-DD'}}</h3>
+                </div>
+                <div class="row">
+
+                    <ul class="collapsible">
+                        <li ng-repeat="item in channel.entries.Entries">
+                            <div class="collapsible-header">
+                                <span>{{item.Title}}</span>
+                                <span>{{item.PublicationDate|moment:'DD/MMMM/YYYY'}}</span>
+                            </div>
+                            <div class="collapsible-body"
+                                 ng-bind-html="item.PreviewText | rawHtml">
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

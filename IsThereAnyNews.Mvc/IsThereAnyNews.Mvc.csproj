@@ -1065,6 +1065,7 @@
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\itan\filterRawHtml.js" />
     <Content Include="Scripts\itan\filterMoment.js" />
+    <Content Include="Scripts\itan\publicRssChannelsCtrl.js" />
     <Content Include="Scripts\itan\myRssChannelsCtrl.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
     <Content Include="Scripts\jquery-3.1.0.min.js" />
@@ -1159,7 +1160,6 @@
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Stream\Read.cshtml" />
     <Content Include="Views\Statistics\ActivityPerWeek.cshtml" />
-    <Content Include="Views\RssChannel\_PublicChannels.cshtml" />
     <Content Include="Views\Stream\_ReadAjax.cshtml" />
     <Content Include="Views\Stream\_Entry.cshtml" />
     <None Include="Web.Debug.config">

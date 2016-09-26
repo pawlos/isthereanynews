@@ -64,12 +64,12 @@
         public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
         {
             var rssChannel = this.channelsRepository.LoadRssChannel(id);
-            var rssChannelIndexViewModel = this.mapping.Map<RssChannelIndexViewModel>(rssChannel);
+            var rssChannelIndexViewModel = this.mapping.Map<RssChannel, RssChannelIndexViewModel>(rssChannel);
 
             if (this.authentication.CurrentUserIsAuthenticated())
             {
                 rssChannelIndexViewModel.IsAuthenticatedUser = true;
-                var userRssSubscriptionInfoViewModel = CreateUserSubscriptionInfo(id);
+                var userRssSubscriptionInfoViewModel = this.CreateUserSubscriptionInfo(id);
                 rssChannelIndexViewModel.SubscriptionInfo = userRssSubscriptionInfoViewModel;
             }
             return rssChannelIndexViewModel;
