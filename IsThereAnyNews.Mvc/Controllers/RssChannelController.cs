@@ -64,21 +64,21 @@
 
         [Authorize]
         [HttpPost]
-        public ActionResult Unsubscribe(long subscriptionId, long channelId)
+        public ActionResult Unsubscribe(long channelId)
         {
-            this.rssSubscriptionService.UnsubscribeCurrentUserFromChannelId(subscriptionId);
-            return this.RedirectToAction("Public", new { id = channelId });
+            this.rssSubscriptionService.UnsubscribeCurrentUserFromChannelId(channelId);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult Subscribe(long id)
+        public ActionResult Subscribe(long channelId)
         {
-            this.rssSubscriptionService.SubscribeCurrentUserToChannel(id);
-            return this.RedirectToAction("Public", new { id = id });
+            this.rssSubscriptionService.SubscribeCurrentUserToChannel(channelId);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        public HttpStatusCodeResult MarkRssEntryViewed(long id)
+        public HttpStatusCodeResult MarkRssEntryViewed(long channelId)
         {
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }

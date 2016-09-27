@@ -71,13 +71,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
                x => x.UserId == currentUserId && x.Id == subscriptionId);
         }
 
-        public void DeleteSubscriptionFromUser(long subscriptionId, long userId)
+        public void DeleteSubscriptionFromUser(long channelId, long userId)
         {
             var channelSubscription = this.database
-                .RssChannelsSubscriptions
-                .Where(subscription => subscription.Id == subscriptionId)
-                .Where(subscription => subscription.UserId == userId)
-                .Single();
+                                          .RssChannelsSubscriptions
+                                          .Where(subscription => subscription.RssChannelId == channelId)
+                                          .Where(subscription => subscription.UserId == userId)
+                                          .Single();
             this.database.RssChannelsSubscriptions.Remove(channelSubscription);
             this.database.SaveChanges();
         }

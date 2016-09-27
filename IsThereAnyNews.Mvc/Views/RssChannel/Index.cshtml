@@ -38,6 +38,10 @@
                 <div class="row">
                     <h2>{{channel.entries.Title}}</h2>
                     <h3>{{channel.entries.Added|moment:'YYYY-MM-DD'}}</h3>
+                    <button class="btn"
+                            ng-click="onSubscribeClick(channel.entries.ChannelId,channel.entries.SubscriptionInfo.IsSubscribed)">
+                        {{channel.entries.SubscriptionInfo.IsSubscribed?"unsubscribe":"subscribe"}}
+                    </button>
                 </div>
                 <div class="row">
                     <ul class="collapsible">
