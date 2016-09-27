@@ -22,7 +22,7 @@
         public ActionResult Index()
         {
             var viewmodel = new AuthorizationIndexViewModel();
-            var providers = HttpContext.GetOwinContext()
+            var providers = this.HttpContext.GetOwinContext()
                                        .Authentication
                                        .GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption))
                                        .ToList();
@@ -39,7 +39,8 @@
                 RedirectUri = "/Login/Success",
                 IsPersistent = true
             };
-            HttpContext.GetOwinContext().Authentication.Challenge(authenticationProperties, id.ToString());
+
+            this.HttpContext.GetOwinContext().Authentication.Challenge(authenticationProperties, id.ToString());
             return new HttpUnauthorizedResult();
         }
 
@@ -47,6 +48,7 @@
         {
             this.loginService.RegisterIfNewUser();
             this.loginService.StoreCurrentUserIdInSession();
+            this.loginService.AssignToUserRole();
             this.loginService.StoreItanRolesToSession();
             var viewmodel = new LoginSuccessViewModel();
             return this.View("Success", viewmodel);

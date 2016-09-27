@@ -38,13 +38,19 @@ namespace IsThereAnyNews.Services.Implementation
         public void RegisterIfNewUser()
         {
             var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider();
-            var currentUserId = this.authentication.GetCurrentUserSocialLoginId();
+                var currentUserId = this.authentication.GetCurrentUserSocialLoginId();
 
             var socialLogin = this.socialLoginRepository.FindSocialLogin(currentUserId, authenticationTypeProvider);
             if (socialLogin == null)
             {
                 this.RegisterCurrentSocialLogin();
             }
+        }
+
+        public void AssignToUserRole()
+        {
+            var cui = this.sessionProvider.GetCurrentUserId();
+            this.repositoryUserRoles.AssignUserRole(cui);
         }
 
         public void StoreCurrentUserIdInSession()
@@ -66,7 +72,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         private void RegisterCurrentSocialLogin()
         {
-            var newUser = CreateNewApplicationUser();
+            var newUser = this.CreateNewApplicationUser();
             var authenticationTypeProvider = this.GetUserAuthenticationProviderFromAuthentication();
             var identifier = this.FindCurrentUserClaimNameIdentifier();
             this.CreateAndAssignNewSocialLoginForApplicationUser(identifier, authenticationTypeProvider, newUser);

@@ -5,5 +5,6 @@ namespace IsThereAnyNews.Services
         void RegisterIfNewUser();
         void StoreCurrentUserIdInSession();
         void StoreItanRolesToSession();
+        void AssignToUserRole();
     }
 }

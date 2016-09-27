@@ -47,7 +47,6 @@
             return this.View("ChangeDisplayName", viewmodel);
         }
 
-
         [HttpGet]
         public ActionResult ChangeEmail()
         {
