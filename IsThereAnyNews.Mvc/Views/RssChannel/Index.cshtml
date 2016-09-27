@@ -12,13 +12,13 @@
         <div class="col s4">
             <div ng-hide="channels.loaded"
                  class="fa fa-4x fa-spin fa-spinner"></div>
-            <div ng-show="channels.loaded">
+            <div ng-show="channels.loaded" class="text-ellipse-too-long">
                 <a ng-repeat="channel in channels.list.AllChannels"
                    ng-click="onChannelClick(channel.Id)"
                    class="btn btn-large">
                     <div>
                         <div>
-                            {{channel.Title}}
+                            {{channel.Title}} ({{channel.RssEntriesCount}})
                         </div>
                         <div>
                             <i class="fa fa-calendar"></i>{{channel.Created | moment:''}}
@@ -40,7 +40,6 @@
                     <h3>{{channel.entries.Added|moment:'YYYY-MM-DD'}}</h3>
                 </div>
                 <div class="row">
-
                     <ul class="collapsible">
                         <li ng-repeat="item in channel.entries.Entries">
                             <div class="collapsible-header">
@@ -52,7 +51,6 @@
                             </div>
                         </li>
                     </ul>
-
                 </div>
             </div>
         </div>
