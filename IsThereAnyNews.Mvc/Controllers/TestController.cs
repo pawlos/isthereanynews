@@ -71,5 +71,11 @@
             var x = one / zero;
             return this.RedirectToAction("Index");
         }
+
+        public ActionResult FixDuplicatedChannels()
+        {
+            this.testService.FixDuplicatedChannels();
+            return RedirectToAction("Index");
+        }
     }
 }

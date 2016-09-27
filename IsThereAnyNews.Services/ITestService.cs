@@ -10,5 +10,7 @@ namespace IsThereAnyNews.Services
         void FixSubscriptions();
         void ReadRandomRssEvent();
         void AssignUserRolesToAllUsers();
+
+        void FixDuplicatedChannels();
     }
 }

@@ -139,6 +139,18 @@ namespace IsThereAnyNews.Services.Implementation
             this.database.SaveChanges();
         }
 
+        public void FixDuplicatedChannels()
+        {
+            var rssChannels = this.database.RssChannels.ToList();
+            var groupByUrl = rssChannels.GroupBy(x => x.Url);
+            foreach (IGrouping<string, RssChannel> grouping in groupByUrl)
+            {
+                grouping.OrderBy(x => x.Created).Skip(1).ToList().ForEach(x => this.database.RssChannels.Remove(x));
+            }
+
+            this.database.SaveChanges();
+        }
+
         public void FixSubscriptions()
         {
             List<RssChannelSubscription> rssChannelSubscriptions = this.database.RssChannelsSubscriptions.ToList();
@@ -159,7 +171,6 @@ namespace IsThereAnyNews.Services.Implementation
                     }
                 }
             }
-
         }
     }
 }
