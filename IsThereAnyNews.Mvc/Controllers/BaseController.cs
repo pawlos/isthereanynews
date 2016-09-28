@@ -22,6 +22,11 @@ namespace IsThereAnyNews.Mvc.Controllers
 
         protected override void OnAuthentication(AuthenticationContext filterContext)
         {
+            if (this.Session.IsNewSession)
+            {
+                this.RestoreUserCredentials();
+            }
+
             var claims = this.sessionProvider.LoadClaims();
             if (claims == null)
             {
@@ -38,19 +43,14 @@ namespace IsThereAnyNews.Mvc.Controllers
             claimsIdentity.AddIdentity(itanIdentity);
         }
 
-        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        private void RestoreUserCredentials()
         {
-            if (this.Session.IsNewSession)
+            var claimsPrincipal = this.authentication.GetCurrentUser();
+            if (claimsPrincipal != null && claimsPrincipal.Identity.IsAuthenticated)
             {
-                var claimsPrincipal = this.authentication.GetCurrentUser();
-                if (claimsPrincipal != null && claimsPrincipal.Identity.IsAuthenticated)
-                {
-                    this.loginService.StoreCurrentUserIdInSession();
-                    this.loginService.StoreItanRolesToSession();
-                }
+                this.loginService.StoreCurrentUserIdInSession();
+                this.loginService.StoreItanRolesToSession();
             }
-
-            base.OnActionExecuting(filterContext);
         }
     }
 }
