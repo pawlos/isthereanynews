@@ -1,15 +1,20 @@
-using System.Collections.Generic;
-using AutoMapper;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
+    using System.Collections.Generic;
+
+    using AutoMapper;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+
+    using Moq;
+
+    using Xunit;
+
     public class CreateNewChannelIfNotExists
     {
         private readonly AutoMoqer moqer;
