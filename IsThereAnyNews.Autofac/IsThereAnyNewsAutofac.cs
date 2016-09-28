@@ -42,7 +42,6 @@
             builder.RegisterType<RssReadersJob>().InstancePerLifetimeScope();
 
             builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
-            builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterType<OpmlReader>().As<IOpmlReader>();
 
             builder.RegisterType<SessionProvider>().As<ISessionProvider>();
