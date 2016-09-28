@@ -96,6 +96,10 @@
     <Compile Include="Migrations\201609250627082_fixed id name in table.Designer.cs">
       <DependentUpon>201609250627082_fixed id name in table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609280649066_feature-request-extended.cs" />
+    <Compile Include="Migrations\201609280649066_feature-request-extended.Designer.cs">
+      <DependentUpon>201609280649066_feature-request-extended.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\ItanException.cs" />
@@ -160,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609250627082_fixed id name in table.resx">
       <DependentUpon>201609250627082_fixed id name in table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609280649066_feature-request-extended.resx">
+      <DependentUpon>201609280649066_feature-request-extended.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

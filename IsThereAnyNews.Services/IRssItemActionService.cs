@@ -1,13 +1,14 @@
 ﻿namespace IsThereAnyNews.Services
 {
+    using IsThereAnyNews.Dtos;
+
     public interface IRssItemActionService
     {
-        void CurrentVoteupForArticleByCurrentUser(long id);
-        void MarkRssItemAsNotReadByCurrentUser(long id);
-        void ShareRssItem(long id);
-        void AddCommentToRssItemByCurrentUser(long id);
-        void OpenFullArticle(long id);
-        void AddToReadLaterQueueForCurrentUser(long id);
-        void CurrentVotedownForArticleByCurrentUser(long id);
+        void CurrentVoteupForArticleByCurrentUser(RssActionModel id);
+        void MarkRssItemAsNotReadByCurrentUser(RssActionModel id);
+        void ShareRssItem(RssActionModel id);
+        void AddCommentToRssItemByCurrentUser(RssActionModel id);
+        void AddToReadLaterQueueForCurrentUser(RssActionModel id);
+        void CurrentVotedownForArticleByCurrentUser(RssActionModel id);
     }
 }

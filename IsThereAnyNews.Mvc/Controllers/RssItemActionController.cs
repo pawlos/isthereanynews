@@ -1,9 +1,11 @@
-﻿using System.Net;
-using System.Web.Mvc;
-using IsThereAnyNews.Services;
-
-namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Mvc.Controllers
 {
+    using System.Net;
+    using System.Web.Mvc;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services;
+
     [Authorize]
     public class RssItemActionController : Controller
     {
@@ -15,51 +17,44 @@ namespace IsThereAnyNews.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Voteup(long id)
+        public ActionResult Voteup(RssActionModel model)
         {
-            this.rssItemActionService.CurrentVoteupForArticleByCurrentUser(id);
+            this.rssItemActionService.CurrentVoteupForArticleByCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public ActionResult VoteDown(long id)
+        public ActionResult VoteDown(RssActionModel model)
         {
-            this.rssItemActionService.CurrentVotedownForArticleByCurrentUser(id);
+            this.rssItemActionService.CurrentVotedownForArticleByCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public ActionResult MarkNotRead(long id)
+        public ActionResult MarkNotRead(RssActionModel model)
         {
-            this.rssItemActionService.MarkRssItemAsNotReadByCurrentUser(id);
+            this.rssItemActionService.MarkRssItemAsNotReadByCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public ActionResult Share(long id)
+        public ActionResult Share(RssActionModel model)
         {
-            this.rssItemActionService.ShareRssItem(id);
+            this.rssItemActionService.ShareRssItem(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public ActionResult AddComment(long id)
+        public ActionResult AddComment(RssActionModel model)
         {
-            this.rssItemActionService.AddCommentToRssItemByCurrentUser(id);
+            this.rssItemActionService.AddCommentToRssItemByCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public ActionResult OpenFull(long id)
+        public ActionResult AddToReadLater(RssActionModel model)
         {
-            this.rssItemActionService.OpenFullArticle(id);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-        [HttpPost]
-        public ActionResult AddToReadLater(long id)
-        {
-            this.rssItemActionService.AddToReadLaterQueueForCurrentUser(id);
+            this.rssItemActionService.AddToReadLaterQueueForCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }

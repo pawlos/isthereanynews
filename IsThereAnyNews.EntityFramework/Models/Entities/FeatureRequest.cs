@@ -13,6 +13,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
         public FeatureRequestType Type { get; set; }
         public long UserId { get; set; }
         public long RssEntryId { get; set; }
+        public StreamType StreamType { get; set; }
 
         public User User { get; set; }
         public RssEntry RssEntry { get; set; }

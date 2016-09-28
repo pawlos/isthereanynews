@@ -1155,7 +1155,6 @@
     <Content Include="Views\Statistics\Channels.cshtml" />
     <Content Include="Views\Statistics\News.cshtml" />
     <Content Include="Views\Statistics\Users.cshtml" />
-    <Content Include="Views\Stream\_RssItemAction.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Stream\Read.cshtml" />

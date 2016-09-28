@@ -1,10 +1,9 @@
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.SharedData;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.SharedData;
+
     public class RssActionRepository : IRssActionRepository
     {
         private readonly ItanDatabaseContext database;
@@ -14,12 +13,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public void AddVoteUpRequestByUserForArticle(long userId, long id)
+        public void AddVoteUpRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
             var featureRequest = new FeatureRequest
             {
                 UserId = userId,
                 RssEntryId = id,
+                StreamType = modelStreamType,
                 Type = FeatureRequestType.Voteup
             };
 
@@ -27,12 +27,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
         }
 
-        public void AddNotReadRequestByUserForArticle(long userId, long id)
+        public void AddNotReadRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
             var featureRequest = new FeatureRequest
             {
                 UserId = userId,
                 RssEntryId = id,
+                StreamType = modelStreamType,
                 Type = FeatureRequestType.NotRead
             };
 
@@ -40,12 +41,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
         }
 
-        public void AddShareRequestByUserForArticle(long userId, long id)
+        public void AddShareRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
             var featureRequest = new FeatureRequest
             {
                 UserId = userId,
                 RssEntryId = id,
+                StreamType = modelStreamType,
                 Type = FeatureRequestType.Share
             };
 
@@ -53,12 +55,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
         }
 
-        public void AddCommentRequestByUserForArticle(long userId, long id)
+        public void AddCommentRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
             var featureRequest = new FeatureRequest
             {
                 UserId = userId,
                 RssEntryId = id,
+                StreamType = modelStreamType,
                 Type = FeatureRequestType.AddComment
             };
 
@@ -66,12 +69,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
         }
 
-        public void AddFullArticleRequestByUserForArticle(long userId, long id)
+        public void AddFullArticleRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
             var featureRequest = new FeatureRequest
             {
                 UserId = userId,
                 RssEntryId = id,
+                StreamType = modelStreamType,
                 Type = FeatureRequestType.FullArticle
             };
 
@@ -79,12 +83,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
         }
 
-        public void AddReadLaterRequestByUserForArticle(long userId, long id)
+        public void AddReadLaterRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
             var featureRequest = new FeatureRequest
             {
                 UserId = userId,
                 RssEntryId = id,
+                StreamType = modelStreamType,
                 Type = FeatureRequestType.ReadLater
             };
 
@@ -92,12 +97,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
         }
 
-        public void AddVoteDownRequestByUserForArticle(long userId, long id)
+        public void AddVoteDownRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
             var featureRequest = new FeatureRequest
             {
                 UserId = userId,
                 RssEntryId = id,
+                StreamType = modelStreamType,
                 Type = FeatureRequestType.VoteDown
             };
 

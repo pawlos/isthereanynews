@@ -19,11 +19,11 @@
                     <label for="rssChannelLink">Rss channel link</label>
                     <input type="url" name="rssChannelLink" class="form-control" />
                 </div>
-                    <div class="form-group">
-                        <label for="rssChannelName">Rss channel name</label>
-                        <input type="text" name="rssChannelName" class="form-control" />
-                    </div>
-                    <button type="submit" name="add channel" class="btn btn-default pull-right">Add channel</button>
+                <div class="form-group">
+                    <label for="rssChannelName">Rss channel name</label>
+                    <input type="text" name="rssChannelName" class="form-control" />
+                </div>
+                <button type="submit" name="add channel" class="btn btn-default pull-right">Add channel</button>
             }
         </div>
     </div>
@@ -69,9 +69,32 @@
                                         {{item.RssEntryViewModel.PublicationDate|moment:'DD/MMMM/YYYY'}}
                                     </span>
                                 </div>
-                                <div class="collapsible-body"
-                                     ng-click="onArticleBodyClicked(channel.entries.StreamType, item.Id, item.RssEntryViewModel.Url)"
-                                     ng-bind-html="item.RssEntryViewModel.PreviewText | rawHtml">
+                                <div class="collapsible-body">
+                                    <div ng-bind-html="item.RssEntryViewModel.PreviewText | rawHtml">
+                                    </div>
+                                    <div>
+                                        <i ng-click="onThumbsUpClicked(channel.entries.StreamType, item.Id)"
+                                           style="color:lightgray"
+                                           class="fa fa-thumbs-up"></i>
+                                        <i ng-click="onThumbsDownClick(channel.entries.StreamType, item.Id)"
+                                           style="color:lightgray"
+                                           class="fa fa-thumbs-down"></i>
+                                        <i ng-click="onMarkUnreadClicked(channel.entries.StreamType, item.Id)"
+                                           style="color:lightgray"
+                                           class="fa fa-undo"></i>
+                                        <i ng-click="onShareClicked(channel.entries.StreamType, item.Id)"
+                                           style="color:lightgray"
+                                           class="fa fa-share-alt"></i>
+                                        <i ng-click="onCommentsClicked(channel.entries.StreamType, item.Id)"
+                                           style="color:lightgray"
+                                           class="fa fa-commenting-o"></i>
+                                        <i ng-click="onArticleBodyClicked(channel.entries.StreamType, item.Id, item.RssEntryViewModel.Url)"
+                                           style="color:black"
+                                           class="fa fa-external-link"></i>
+                                        <i ng-click="onReadLaterClicked(channel.entries.StreamType, item.Id)"
+                                           style="color:lightgray"
+                                           class="fa fa-clock-o"></i>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
