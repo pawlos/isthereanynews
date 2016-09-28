@@ -44,6 +44,7 @@ namespace IsThereAnyNews.Services.Implementation
             if (socialLogin == null)
             {
                 this.RegisterCurrentSocialLogin();
+                this.AssignToUserRole();
             }
         }
 
