@@ -1,22 +1,28 @@
-using System.Collections.Generic;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
+    using System.Collections.Generic;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class SubscribeCurrentUserToChannel
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssSubscriptionService sut;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssChannelSubscriptionRepository;
-        private readonly Mock<IRssChannelsRepository> mockRssChannelRepository;
+        private AutoMoqer moqer;
+        private RssSubscriptionService sut;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IRssChannelsSubscriptionsRepository> mockRssChannelSubscriptionRepository;
+        private Mock<IRssChannelsRepository> mockRssChannelRepository;
 
-        public SubscribeCurrentUserToChannel()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
@@ -25,7 +31,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             this.mockRssChannelRepository = this.moqer.GetMock<IRssChannelsRepository>();
         }
 
-        [Fact]
+        [Test]
         public void Subscribing_To_Channel_Must_Load_Current_User_From_Session()
         {
             // arrange
@@ -50,7 +56,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                     Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void Subscribing_To_Channel_Must_Load_Channel_From_Repository()
         {
             // arrange
@@ -75,7 +81,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                     Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void When_Subscribing_To_Subscribed_Channel_Must_Not_Update_Database_With_New_Subscription()
         {
             // arrange
@@ -100,7 +106,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 Times.Never());
         }
 
-        [Fact]
+        [Test]
         public void When_Subscribing_To_Not_Subscribed_Channel_Must_Update_Database_With_New_Subscription()
         {
             // arrange
@@ -130,7 +136,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
         }
 
 
-        [Fact]
+        [Test]
         public void When_Subscribing_To_Not_Subscribed_Channel_Must_Load_Channel_By_Url()
         {
             // arrange

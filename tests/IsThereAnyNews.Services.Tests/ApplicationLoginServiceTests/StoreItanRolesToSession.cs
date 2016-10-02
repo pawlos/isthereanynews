@@ -1,24 +1,31 @@
-using System.Collections.Generic;
-using System.Security.Claims;
-using AutoMapper;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
 {
+    using System.Collections.Generic;
+    using System.Security.Claims;
+
+    using AutoMapper;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class StoreItanRolesToSession
     {
-        private readonly ILoginService sut;
-        private readonly AutoMoqer moqer;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IUserRoleRepository> mockRepositoryUserRoles;
-        private readonly Mock<IMapper> mockAutomapper;
+        private ILoginService sut;
+        private AutoMoqer moqer;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IUserRoleRepository> mockRepositoryUserRoles;
+        private Mock<IMapper> mockAutomapper;
 
-        public StoreItanRolesToSession()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoqer();
             this.sut = moqer.Resolve<ApplicationLoginService>();
@@ -27,7 +34,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
             this.mockAutomapper = moqer.GetMock<IMapper>();
         }
 
-        [Fact]
+        [Test]
         public void When_Storing_Roles_To_Session_Must_First_Read_Current_User_From_Session()
         {
             // arrange
@@ -48,7 +55,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
                 Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void When_Storing_Roles_To_Session_Must_First_Load_Roles_From_Database()
         {
             // arrange
@@ -69,7 +76,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
                 Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void When_Storing_Roles_To_Session_Must_First_User_Automapper_To_Convert_From_Application_Roles_To_Claims()
         {
             // arrange
@@ -94,7 +101,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
                 Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void Converted_Roles_Must_Be_Stored_In_Session()
         {
             // arrange

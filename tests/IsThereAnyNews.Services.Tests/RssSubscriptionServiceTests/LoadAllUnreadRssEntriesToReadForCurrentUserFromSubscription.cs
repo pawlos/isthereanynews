@@ -1,19 +1,24 @@
-﻿using AutoMoq;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.SharedData;
-using Moq;
-using Xunit;
-
-namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
+﻿namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
+    using AutoMoq;
+
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.SharedData;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssSubscriptionService sut;
-        private readonly Mock<ISubscriptionHandlerFactory> mockHandlerFactory;
-        private readonly Mock<ISubscriptionHandler> mockSubscriptionHandler;
+        private AutoMoqer moqer;
+        private RssSubscriptionService sut;
+        private Mock<ISubscriptionHandlerFactory> mockHandlerFactory;
+        private Mock<ISubscriptionHandler> mockSubscriptionHandler;
 
-        public LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
@@ -21,9 +26,8 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             this.mockSubscriptionHandler = this.moqer.GetMock<ISubscriptionHandler>();
         }
 
-        [Theory]
-        [InlineData(StreamType.Person)]
-        [InlineData(StreamType.Rss)]
+        [TestCase(StreamType.Person)]
+        [TestCase(StreamType.Rss)]
         public void When_Loading_Unread_Entries_Must_Call_To_Factory_For_Proper_Handler(StreamType streamType)
         {
             // assert
@@ -40,9 +44,8 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 Times.Once);
         }
 
-        [Theory]
-        [InlineData(StreamType.Person)]
-        [InlineData(StreamType.Rss)]
+        [TestCase(StreamType.Person)]
+        [TestCase(StreamType.Rss)]
         public void When_Provider_Is_Provided_Must_Pass_Parameters_To_Provider(StreamType streamType)
         {
             // assert

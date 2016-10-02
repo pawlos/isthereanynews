@@ -1,26 +1,33 @@
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.ViewModels;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using AutoMapper;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.ViewModels;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class LoadAllChannelsOfCurrentUser
     {
-        private readonly AutoMoqer moqer;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockChannelsSubscriptionRepository;
-        private readonly Mock<IRssEntriesToReadRepository> mockRssEntriesRepository;
-        private readonly IRssChannelsService sut;
-        private readonly Mock<IMapper> mockMapper;
+        private AutoMoqer moqer;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IRssChannelsSubscriptionsRepository> mockChannelsSubscriptionRepository;
+        private Mock<IRssEntriesToReadRepository> mockRssEntriesRepository;
+        private IRssChannelsService sut;
+        private Mock<IMapper> mockMapper;
 
-        public LoadAllChannelsOfCurrentUser()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
 
@@ -32,7 +39,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.sut = this.moqer.Resolve<RssChannelsService>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Loading_Channels_Of_Current_User_Then_User_Must_Be_Read_From_Session_Provider()
         {
             // arrange
@@ -44,7 +51,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.mockSessionProvider.Verify(x => x.GetCurrentUserId(), Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T002_When_Loading_Channels_Of_Current_User_Then_Repository_Must_Be_Called_With_UserId_Fetched_From_SessionProvider()
         {
             // arrange
@@ -61,7 +68,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                 Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T003_When_Loading_Channels_Of_Current_Users_Then_RssEntriesToReadRepository_For_Copy_New_Entries()
         {
             // arrange
@@ -87,7 +94,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                     , Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T004_When_Loading_Channels_Of_Current_Users_Then_Mapper_Must_Be_Called()
         {
             // arrange

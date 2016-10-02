@@ -2,30 +2,31 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
     using AutoMoq;
 
-    using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Services.Implementation;
     using IsThereAnyNews.SharedData;
 
     using Moq;
 
-    using Xunit;
+    using NUnit.Framework;
 
+    [TestFixture]
     public class MarkEntryViewed
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssSubscriptionService sut;
-        private readonly Mock<ISubscriptionHandlerFactory> mockSubscriptionHandlerFactory;
+        private AutoMoqer moqer;
+        private RssSubscriptionService sut;
+        private Mock<ISubscriptionHandlerFactory> mockSubscriptionHandlerFactory;
 
 
-        public MarkEntryViewed()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
             this.mockSubscriptionHandlerFactory = this.moqer.GetMock<ISubscriptionHandlerFactory>();
         }
 
-        [Fact]
+        [Test]
         public void T001_Marking_Rss_As_Read_Must_Mark_It_Via_Repository()
         {
             // assert
@@ -44,7 +45,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             mockSubscriptionHandler.Verify(v => v.MarkRead(It.IsAny<string>()), Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void T002_Marking_As_Read_Must_Fetch_Handler_For_Proper_Stream_Type()
         {
             // assert
@@ -65,7 +66,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void T003_Marking_As_Read_Must_Create_An_Event_Viewed_With_Id_Of_That_Rss()
         {
             // assert

@@ -1,29 +1,37 @@
-using System.Collections.Generic;
-using System.Security.Claims;
-using AutoMapper;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.SharedData;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
 {
+    using System.Collections.Generic;
+    using System.Security.Claims;
+
+    using AutoMapper;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.SharedData;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+
+    [TestFixture]
     public class RegisterIfNewUser
     {
-        private readonly AutoMoqer moqer;
-        private readonly ApplicationLoginService sut;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
-        private readonly Mock<IMapper> mockMapper;
-        private readonly Mock<IRssChannelsRepository> mockChannelRepository;
-        private readonly Mock<IUserAuthentication> mockAuthentication;
-        private readonly Mock<ISocialLoginRepository> mockSocialLoginRepository;
-        private readonly Mock<IUserRepository> mockUserRepository;
+        private AutoMoqer moqer;
+        private ApplicationLoginService sut;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
+        private Mock<IMapper> mockMapper;
+        private Mock<IRssChannelsRepository> mockChannelRepository;
+        private Mock<IUserAuthentication> mockAuthentication;
+        private Mock<ISocialLoginRepository> mockSocialLoginRepository;
+        private Mock<IUserRepository> mockUserRepository;
 
-        public RegisterIfNewUser()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<ApplicationLoginService>();
@@ -36,7 +44,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
             this.mockUserRepository = this.moqer.GetMock<IUserRepository>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Checking_If_User_Is_Not_Registered_Then_Must_Read_Current_Logged_User_Social_Provider_Type()
         {
             // arrange
@@ -52,7 +60,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
                 .Verify(v => v.GetCurrentUserLoginProvider(), Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T002_When_Checking_If_User_Is_Not_Registered_Then_Must_Read_Current_User_SocialId_From_Authentication()
         {
             // arrange
@@ -68,7 +76,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
                 .Verify(v => v.GetCurrentUserSocialLoginId(), Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T003_When_User_Is_Already_Registered_In_Application_Then_Must_Not_Create_And_Save_New_Account_In_Repository()
         {
             // arrange
@@ -87,7 +95,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
         }
 
 
-        [Fact]
+        [Test]
         public void T003_When_User_Is_Not_Registered_In_Application_Then_Must_Create_And_Save_New_Account_In_Repository()
         {
             // arrange

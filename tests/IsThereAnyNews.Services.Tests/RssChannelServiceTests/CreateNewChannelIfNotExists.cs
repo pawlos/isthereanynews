@@ -13,18 +13,20 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 
     using Moq;
 
-    using Xunit;
+    using NUnit.Framework;
 
+    [TestFixture]
     public class CreateNewChannelIfNotExists
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssChannelsService sut;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
-        private readonly Mock<IMapper> mockMapper;
-        private readonly Mock<IRssChannelsRepository> mockChannelRepository;
+        private AutoMoqer moqer;
+        private RssChannelsService sut;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
+        private Mock<IMapper> mockMapper;
+        private Mock<IRssChannelsRepository> mockChannelRepository;
 
-        public CreateNewChannelIfNotExists()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssChannelsService>();
@@ -34,7 +36,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.mockChannelRepository = this.moqer.GetMock<IRssChannelsRepository>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Checking_If_Channel_Exists_Then_Must_Load_It_First_From_Repository()
         {
             // arrange
@@ -55,7 +57,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                     Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T002_When_Channel_Does_Not_Exists_Then_New_Channel_Must_Be_Created_Using_Automapper()
         {
             // arrange
@@ -84,7 +86,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                 Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T003_When_Channel_Does_Not_Exists_Then_New_Channel_Must_Be_Saved_To_Repository()
         {
             // arrange
@@ -116,7 +118,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                 Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T004_When_Channel_Does_Exists_Then_Channel_Must_Not_Be_Saved_To_Repository_And_Mapper_Must_Not_Be_Called()
         {
             // arrange

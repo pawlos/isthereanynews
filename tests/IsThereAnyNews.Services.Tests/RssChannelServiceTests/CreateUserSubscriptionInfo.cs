@@ -1,22 +1,28 @@
-using AutoMapper;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.ViewModels;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
+    using AutoMapper;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.ViewModels;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class CreateUserSubscriptionInfo
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssChannelsService sut;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
-        private readonly Mock<IMapper> mockMapper;
+        private AutoMoqer moqer;
+        private RssChannelsService sut;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
+        private Mock<IMapper> mockMapper;
 
-        public CreateUserSubscriptionInfo()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssChannelsService>();
@@ -25,7 +31,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.mockMapper = this.moqer.GetMock<IMapper>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Subscription_Is_Created_Then_Current_User_Id_Is_Loaded_From_Session()
         {
             // arrange
@@ -38,7 +44,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.mockSessionProvider.Verify(v => v.GetCurrentUserId(), Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T002_When_Subscription_Is_Created_Then_Subscription_Id_Is_Loaded_From_Repository()
         {
             // arrange
@@ -60,7 +66,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                 Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T003_When_Repository_Find_Subscription_Then_Automapper_Must_Be_Called()
         {
             // arrange

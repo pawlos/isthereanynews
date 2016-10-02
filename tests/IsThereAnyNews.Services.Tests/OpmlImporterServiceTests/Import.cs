@@ -14,17 +14,19 @@ namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
 
     using Moq;
 
-    using Xunit;
+    using NUnit.Framework;
 
+    [TestFixture]
     public class Import
     {
-        private readonly IOpmlImporterService sut;
-        private readonly AutoMoqer moqer;
-        private readonly Mock<IOpmlReader> mockOpmlReader;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockSubscriptionRepository;
-        private readonly Mock<IRssChannelsRepository> mockRssChannelRepository;
+        private IOpmlImporterService sut;
+        private AutoMoqer moqer;
+        private Mock<IOpmlReader> mockOpmlReader;
+        private Mock<IRssChannelsSubscriptionsRepository> mockSubscriptionRepository;
+        private Mock<IRssChannelsRepository> mockRssChannelRepository;
 
-        public Import()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<OpmlImporterService>();
@@ -34,7 +36,7 @@ namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
             this.mockRssChannelRepository = this.moqer.GetMock<IRssChannelsRepository>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Nothing_New_Was_Added_By_User_No_New_Subscriptions_Must_Be_Defined()
         {
             // arrange
@@ -73,7 +75,7 @@ namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
                 Times.Never);
         }
 
-        [Fact]
+        [Test]
         public void T002_When_New_Channel_Was_Added_By_User_One_New_Subscriptions_Must_Be_Defined()
         {
             // arrange

@@ -1,23 +1,30 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.DataAccess.Implementation;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.ViewModels;
-using Moq;
-using Xunit;
-
-namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
+﻿namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
+    using System.Collections.Generic;
+
+    using AutoMapper;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.DataAccess.Implementation;
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.ViewModels;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class LoadAllChannels
     {
-        private readonly AutoMoqer moqer;
-        private readonly Mock<IMapper> mockMapper;
-        private readonly Mock<IRssChannelsRepository> mockRssChannelsRepository;
-        private readonly IRssChannelsService sut;
+        private AutoMoqer moqer;
+        private Mock<IMapper> mockMapper;
+        private Mock<IRssChannelsRepository> mockRssChannelsRepository;
+        private IRssChannelsService sut;
 
-        public LoadAllChannels()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             mockRssChannelsRepository = moqer.GetMock<IRssChannelsRepository>();
@@ -25,7 +32,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.sut = this.moqer.Resolve<RssChannelsService>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Loading_AllChannels_Then_LoadFromRepositoryIsCalled()
         {
             // arrange 
@@ -45,7 +52,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.mockRssChannelsRepository.Verify(x => x.LoadAllChannelsWithStatistics(), Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T002_When_Repository_Returned_Values_Then_Automapper_Is_Called()
         {
             // arrange 

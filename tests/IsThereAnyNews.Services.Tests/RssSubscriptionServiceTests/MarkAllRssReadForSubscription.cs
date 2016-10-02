@@ -1,27 +1,33 @@
-using System.Collections.Generic;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
+    using System.Collections.Generic;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services.Implementation;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class MarkAllRssReadForSubscription
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssSubscriptionService sut;
-        private readonly Mock<IRssEntriesToReadRepository> mockRssToReadRepository;
+        private AutoMoqer moqer;
+        private RssSubscriptionService sut;
+        private Mock<IRssEntriesToReadRepository> mockRssToReadRepository;
 
-        public MarkAllRssReadForSubscription()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
             this.mockRssToReadRepository = this.moqer.GetMock<IRssEntriesToReadRepository>();
         }
 
-        [Fact]
+        [Test]
         public void When_Passed_String_Of_Separated_Ids_Then_Must_Split_And_Parse()
         {
             // arrange
@@ -45,7 +51,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void When_Marking_As_Read_Must_Call_Repository_To_Update_Entries()
         {
             // arrange

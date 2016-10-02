@@ -1,19 +1,24 @@
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Services.Implementation;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class UnsubscribeCurrentUserFromChannelId
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssSubscriptionService sut;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssChannelSubscriptionRepository;
+        private AutoMoqer moqer;
+        private RssSubscriptionService sut;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IRssChannelsSubscriptionsRepository> mockRssChannelSubscriptionRepository;
 
-        public UnsubscribeCurrentUserFromChannelId()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
@@ -21,7 +26,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             this.mockSessionProvider = this.moqer.GetMock<ISessionProvider>();
         }
 
-        [Fact]
+        [Test]
         public void Unsubscribing_Must_Load_Current_User_From_Session()
         {
             // act
@@ -33,7 +38,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                     Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void Unsubscribing_Must_Delete_Subscription_From_User_Via_Repository()
         {
             // act

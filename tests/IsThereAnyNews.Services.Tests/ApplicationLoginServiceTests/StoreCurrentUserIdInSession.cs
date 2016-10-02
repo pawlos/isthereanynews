@@ -1,25 +1,33 @@
-using AutoMapper;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.SharedData;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
 {
+    using AutoMapper;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.SharedData;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class StoreCurrentUserIdInSession
     {
-        private readonly AutoMoqer moqer;
-        private readonly ApplicationLoginService sut;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
-        private readonly Mock<IMapper> mockMapper;
-        private readonly Mock<IRssChannelsRepository> mockChannelRepository;
-        private readonly Mock<IUserAuthentication> mockAuthentication;
-        private readonly Mock<ISocialLoginRepository> mockSocialLoginRepository;
-        private readonly Mock<IUserRepository> mockUserRepository; public StoreCurrentUserIdInSession()
+        private AutoMoqer moqer;
+        private ApplicationLoginService sut;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionRepository;
+        private Mock<IMapper> mockMapper;
+        private Mock<IRssChannelsRepository> mockChannelRepository;
+        private Mock<IUserAuthentication> mockAuthentication;
+        private Mock<ISocialLoginRepository> mockSocialLoginRepository;
+        private Mock<IUserRepository> mockUserRepository;
+
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<ApplicationLoginService>();
@@ -32,7 +40,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
             this.mockUserRepository = this.moqer.GetMock<IUserRepository>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Storing_Then_Must_Read_Id_And_Provider_Type_From_Authentication()
         {
             // arrange      
@@ -54,7 +62,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
         }
 
 
-        [Fact]
+        [Test]
         public void T002_When_Storing_Then_Load_Social_Login_From_Database()
         {
             // arrange      
@@ -72,7 +80,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
         }
 
 
-        [Fact]
+        [Test]
         public void T002_When_Found_Social_Login_In_Repository_Then_Must_Store_It_In_Session()
         {
             // arrange      

@@ -1,24 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
-namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
+﻿namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class AddNewChannelsToGlobalSpace
     {
-        private readonly AutoMoqer moqer;
-        private readonly OpmlImporterService sut;
-        private readonly Mock<IRssChannelsRepository> mockRssChannelsRepository;
-        private readonly Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionsRepository;
+        private AutoMoqer moqer;
+        private OpmlImporterService sut;
+        private Mock<IRssChannelsRepository> mockRssChannelsRepository;
+        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionsRepository;
 
-        public AddNewChannelsToGlobalSpace()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<OpmlImporterService>();
@@ -26,7 +30,7 @@ namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
             this.mockRssSubscriptionsRepository = this.moqer.GetMock<IRssChannelsSubscriptionsRepository>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Importing_From_List_Of_Channels_Then_Must_Load_RssChannels_From_Repository()
         {
             // arrange
@@ -40,7 +44,7 @@ namespace IsThereAnyNews.Services.Tests.OpmlImporterServiceTests
                     Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T002_When_There_Are_New_Channels_Then_Must_Save_Them_To_Repository()
         {
             // arrange

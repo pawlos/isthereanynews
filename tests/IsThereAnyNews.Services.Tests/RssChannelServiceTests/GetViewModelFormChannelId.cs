@@ -11,17 +11,19 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 
     using Moq;
 
-    using Xunit;
+    using NUnit.Framework;
 
+    [TestFixture]
     public class GetViewModelFormChannelId
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssChannelsService sut;
-        private readonly Mock<IRssChannelsRepository> mockChannelsRepository;
-        private readonly Mock<IMapper> mockMapper;
-        private readonly Mock<IUserAuthentication> mockUserAuthentication;
+        private AutoMoqer moqer;
+        private RssChannelsService sut;
+        private Mock<IRssChannelsRepository> mockChannelsRepository;
+        private Mock<IMapper> mockMapper;
+        private Mock<IUserAuthentication> mockUserAuthentication;
 
-        public GetViewModelFormChannelId()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoqer();
 
@@ -32,7 +34,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.sut = this.moqer.Resolve<RssChannelsService>();
         }
 
-        [Fact]
+        [Test]
         public void T001_When_Creating_RssChannelIndexViewModel_From_Channel_Id_Then_Channel_Must_Be_Read_From_Repository()
         {
             // arrange
@@ -49,7 +51,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             this.mockChannelsRepository.Verify(v => v.LoadRssChannel(It.Is<long>(p => p == 33)), Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T002_When_Repository_Returns_Model_Then_Automapper_Must_Be_Called()
         {
             // arrange
@@ -69,7 +71,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                     Times.Once());
         }
 
-        [Fact]
+        [Test]
         public void T003_When_User_Is_Not_Authenticated_Then_ViewModel_Must_Have_Flag_Set_To_False()
         {
             // arrange
@@ -94,7 +96,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             Assert.False(result.IsAuthenticatedUser);
         }
 
-        [Fact]
+        [Test]
         public void T004_When_User_Is_Authenticated_Then_ViewModel_Must_Have_Flag_Set_To_True_And_UserSubscription_Is_Set()
         {
             // arrange

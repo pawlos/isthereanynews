@@ -8,22 +8,24 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 
     using Moq;
 
-    using Xunit;
+    using NUnit.Framework;
 
+    [TestFixture]
     public class MarkRead
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssSubscriptionService sut;
-        private readonly Mock<ISubscriptionHandlerFactory> mockSubscriptionHandlerFactory;
+        private AutoMoqer moqer;
+        private RssSubscriptionService sut;
+        private Mock<ISubscriptionHandlerFactory> mockSubscriptionHandlerFactory;
 
-        public MarkRead()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
             this.mockSubscriptionHandlerFactory = this.moqer.GetMock<ISubscriptionHandlerFactory>();
         }
 
-        [Fact]
+        [Test]
         public void Marking_As_Read_Must_Load_Handler_From_Factory()
         {
             // arrange
@@ -49,7 +51,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                     Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void Marking_As_Read_Must_Call_Mark_Read_On_Handler()
         {
             // arrange

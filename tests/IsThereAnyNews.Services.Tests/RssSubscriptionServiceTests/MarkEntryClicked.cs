@@ -1,20 +1,25 @@
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services.Implementation;
+
+    using Moq;
+
+    using NUnit.Framework;
+
+    [TestFixture]
     public class MarkEntryClicked
     {
-        private readonly AutoMoqer moqer;
-        private readonly RssSubscriptionService sut;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
-        private readonly Mock<IRssEventRepository> mockRssEventRepository;
+        private AutoMoqer moqer;
+        private RssSubscriptionService sut;
+        private Mock<ISessionProvider> mockSessionProvider;
+        private Mock<IRssEventRepository> mockRssEventRepository;
 
-        public MarkEntryClicked()
+        [SetUp]
+        public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
@@ -22,7 +27,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             this.mockRssEventRepository = this.moqer.GetMock<IRssEventRepository>();
         }
 
-        [Fact]
+        [Test]
         public void Marking_As_Clicked_Must_Load_Current_User_From_Session()
         {
             // arrange
@@ -40,7 +45,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                     Times.Once);
         }
 
-        [Fact]
+        [Test]
         public void Marking_As_Clicked_Must_Generate_Event()
         {
             // arrange
