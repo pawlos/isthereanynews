@@ -1,13 +1,15 @@
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.SharedData;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
+    using AutoMoq;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.SharedData;
+
+    using Moq;
+
+    using Xunit;
+
     public class MarkRead
     {
         private readonly AutoMoqer moqer;

@@ -1,59 +1,88 @@
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.Services.Implementation;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.SharedData;
+
+    using Moq;
+
+    using Xunit;
+
     public class MarkEntryViewed
     {
         private readonly AutoMoqer moqer;
         private readonly RssSubscriptionService sut;
-        private readonly Mock<IRssEntriesToReadRepository> mockRssToReadRepository;
-        private readonly Mock<IRssEventRepository> mockRssEventRepository;
-        private readonly Mock<ISessionProvider> mockSessionProvider;
+        private readonly Mock<ISubscriptionHandlerFactory> mockSubscriptionHandlerFactory;
+
 
         public MarkEntryViewed()
         {
-            this.moqer = new AutoMoq.AutoMoqer();
+            this.moqer = new AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
-            this.mockRssToReadRepository = this.moqer.GetMock<IRssEntriesToReadRepository>();
-            this.mockRssEventRepository = this.moqer.GetMock<IRssEventRepository>();
-            this.mockSessionProvider = this.moqer.GetMock<ISessionProvider>();
+            this.mockSubscriptionHandlerFactory = this.moqer.GetMock<ISubscriptionHandlerFactory>();
         }
 
         [Fact]
-        public void Marking_Rss_As_Read_Must_Mark_It_Via_Repository()
+        public void T001_Marking_Rss_As_Read_Must_Mark_It_Via_Repository()
         {
+            // assert
+            var mockSubscriptionHandler = this.moqer.GetMock<ISubscriptionHandler>();
+
+            this.mockSubscriptionHandlerFactory
+                .Setup(s => s.GetProvider(It.IsAny<StreamType>()))
+                .Returns(mockSubscriptionHandler.Object);
+
+            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 0, DisplayedItems = "0" };
+
             // act
+            this.sut.MarkRead(markReadDto);
 
             // assert
-            this.mockRssToReadRepository
-                .Verify(v => v.MarkEntryViewedByUser(It.IsAny<long>(), It.IsAny<long>()),
-                    Times.Once);
+            mockSubscriptionHandler.Verify(v => v.MarkRead(It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
-        public void Marking_Rss_As_Read_Must_Load_Current_User_Id_From_Session()
+        public void T002_Marking_As_Read_Must_Fetch_Handler_For_Proper_Stream_Type()
         {
+            // assert
+            var mockSubscriptionHandler = this.moqer.GetMock<ISubscriptionHandler>();
+
+            this.mockSubscriptionHandlerFactory
+                .Setup(s => s.GetProvider(It.IsAny<StreamType>()))
+                .Returns(mockSubscriptionHandler.Object);
+
+            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 0, DisplayedItems = "0" };
+
             // act
+            this.sut.MarkRead(markReadDto);
 
             // assert
-            this.mockSessionProvider
-                .Verify(v => v.GetCurrentUserId(),
-                    Times.Once);
-        }
-
-        [Fact]
-        public void Marking_Rss_As_Read_Must_Generate_Event_Rss_Viewed()
-        {
-            // act
-
-            // assert
-            this.mockRssEventRepository
-                .Verify(v => v.AddEventRssViewed(It.IsAny<long>(), It.IsAny<long>()),
+            this.mockSubscriptionHandlerFactory
+                .Verify(v => v.GetProvider(It.Is<StreamType>(p => p == StreamType.Rss)),
                 Times.Once);
         }
+
+        [Fact]
+        public void T003_Marking_As_Read_Must_Create_An_Event_Viewed_With_Id_Of_That_Rss()
+        {
+            // assert
+            var mockSubscriptionHandler = this.moqer.GetMock<ISubscriptionHandler>();
+
+            this.mockSubscriptionHandlerFactory
+                .Setup(s => s.GetProvider(It.IsAny<StreamType>()))
+                .Returns(mockSubscriptionHandler.Object);
+
+            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 3345, DisplayedItems = "0" };
+
+            // act
+            this.sut.MarkRead(markReadDto);
+
+            // assert
+            mockSubscriptionHandler.Verify(v => v.AddEventViewed(It.Is<long>(p => p == 3345)));
+        }
+
     }
 }

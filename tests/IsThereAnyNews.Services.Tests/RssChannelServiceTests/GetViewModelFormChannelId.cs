@@ -1,14 +1,18 @@
-using AutoMapper;
-using AutoMoq;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Services.Implementation;
-using IsThereAnyNews.ViewModels;
-using Moq;
-using Xunit;
-
 namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
+    using AutoMapper;
+
+    using AutoMoq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.ViewModels;
+
+    using Moq;
+
+    using Xunit;
+
     public class GetViewModelFormChannelId
     {
         private readonly AutoMoqer moqer;
@@ -19,7 +23,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 
         public GetViewModelFormChannelId()
         {
-            this.moqer = new AutoMoq.AutoMoqer();
+            this.moqer = new AutoMoqer();
 
             this.mockChannelsRepository = this.moqer.GetMock<IRssChannelsRepository>();
             this.mockMapper = this.moqer.GetMock<IMapper>();
@@ -60,7 +64,9 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 
             // assert 
             this.mockMapper
-                .Verify(v => v.Map<RssChannelIndexViewModel>(It.IsAny<RssChannel>()), Times.Once());
+                .Verify(v => v.Map<RssChannel, RssChannelIndexViewModel>(
+                    It.IsAny<RssChannel>()),
+                    Times.Once());
         }
 
         [Fact]
@@ -78,7 +84,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                 .Returns(false);
 
             this.mockMapper
-                .Setup(s => s.Map<RssChannelIndexViewModel>(It.IsAny<RssChannel>()))
+                .Setup(s => s.Map<RssChannel, RssChannelIndexViewModel>(It.IsAny<RssChannel>()))
                 .Returns(new RssChannelIndexViewModel());
 
             // act
@@ -103,7 +109,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
                 .Returns(true);
 
             this.mockMapper
-                .Setup(s => s.Map<RssChannelIndexViewModel>(It.IsAny<RssChannel>()))
+                .Setup(s => s.Map<RssChannel, RssChannelIndexViewModel>(It.IsAny<RssChannel>()))
                 .Returns(new RssChannelIndexViewModel());
 
             this.mockMapper
