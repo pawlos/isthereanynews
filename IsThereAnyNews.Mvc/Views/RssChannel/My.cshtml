@@ -34,19 +34,20 @@
                     <div>List of channels loading...</div>
                     <div class="fa-4x fa fa-spinner fa-spin"></div>
                 </div>
-
-                <ul ng-show="channels.loaded">
-                    <li ng-repeat="channel in channels.list.ChannelsSubscriptions"
-                        ng-click="onChannelClick('@StreamType.Rss',channel.Id)">
-                        <i class="fa fa-rss"></i>
+                <div ng-show="channels.loaded">
+                    <a ng-repeat="channel in channels.list.ChannelsSubscriptions"
+                       class="btn btn-default full"
+                       ng-click="onChannelClick('@StreamType.Rss',channel.Id)">
+                        <i class="fa fa-rss left"></i>
                         {{channel.Title}} ({{channel.RssToRead}})
-                    </li>
-                    <li ng-repeat="channel in channels.list.Users"
-                        ng-click="onChannelClick('@StreamType.Person',channel.Id)">
-                        <i class="fa fa-user"></i>
+                    </a>
+                    <a ng-repeat="channel in channels.list.Users"
+                       class="btn btn-default full"
+                       ng-click="onChannelClick('@StreamType.Person',channel.Id)">
+                        <i class="fa fa-user left"></i>
                         {{channel.Name}} ({{channel.Count}})
-                    </li>
-                </ul>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="col s9 nocss-rsschannel-container">
