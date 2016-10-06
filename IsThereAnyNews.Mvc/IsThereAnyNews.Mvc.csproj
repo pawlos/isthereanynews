@@ -163,58 +163,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.svg" />
-    <Content Include="Content\font-awesome-4.5.0\scss\font-awesome.css">
-      <DependentUpon>font-awesome.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\font-awesome-4.5.0\scss\font-awesome.min.css">
-      <DependentUpon>font-awesome.css</DependentUpon>
-    </Content>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\IsThereAnyNews.css">
       <DependentUpon>IsThereAnyNews.scss</DependentUpon>
     </Content>
     <Content Include="Content\IsThereAnyNews.min.css">
       <DependentUpon>IsThereAnyNews.css</DependentUpon>
     </Content>
-    <Content Include="Content\materialize\js\animation.js" />
-    <Content Include="Content\materialize\js\bin\materialize.js" />
-    <Content Include="Content\materialize\js\bin\materialize.min.js" />
-    <Content Include="Content\materialize\js\buttons.js" />
-    <Content Include="Content\materialize\js\cards.js" />
-    <Content Include="Content\materialize\js\carousel.js" />
-    <Content Include="Content\materialize\js\character_counter.js" />
-    <Content Include="Content\materialize\js\chips.js" />
-    <Content Include="Content\materialize\js\collapsible.js" />
-    <Content Include="Content\materialize\js\date_picker\picker.date.js" />
-    <Content Include="Content\materialize\js\date_picker\picker.js" />
-    <Content Include="Content\materialize\js\dropdown.js" />
-    <Content Include="Content\materialize\js\forms.js" />
-    <Content Include="Content\materialize\js\global.js" />
-    <Content Include="Content\materialize\js\hammer.min.js" />
-    <Content Include="Content\materialize\js\initial.js" />
-    <Content Include="Content\materialize\js\jquery.easing.1.3.js" />
-    <Content Include="Content\materialize\js\jquery.hammer.js" />
-    <Content Include="Content\materialize\js\leanModal.js" />
-    <Content Include="Content\materialize\js\materialbox.js" />
-    <Content Include="Content\materialize\js\materialize.js" />
-    <Content Include="Content\materialize\js\parallax.js" />
-    <Content Include="Content\materialize\js\pushpin.js" />
-    <Content Include="Content\materialize\js\scrollFire.js" />
-    <Content Include="Content\materialize\js\scrollspy.js" />
-    <Content Include="Content\materialize\js\sideNav.js" />
-    <Content Include="Content\materialize\js\slider.js" />
-    <Content Include="Content\materialize\js\tabs.js" />
-    <Content Include="Content\materialize\js\toasts.js" />
-    <Content Include="Content\materialize\js\tooltip.js" />
-    <Content Include="Content\materialize\js\transitions.js" />
-    <Content Include="Content\materialize\js\velocity.min.js" />
-    <Content Include="Content\materialize\js\waves.js" />
-    <Content Include="Content\materialize\sass\materialize.css">
-      <DependentUpon>materialize.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\materialize\sass\materialize.min.css">
-      <DependentUpon>materialize.css</DependentUpon>
-    </Content>
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="icon.gif" />
     <Content Include="Scripts\angular-1.5.8\angular-animate.js" />
@@ -989,65 +951,6 @@
     <Content Include="Scripts\angular-1.5.8\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\angular-1.5.8\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\angular-1.5.8\version.txt" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Bold.woff2" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Light.woff2" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Medium.woff2" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Regular.woff2" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.eot" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.ttf" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff" />
-    <Content Include="Content\materialize\fonts\roboto\Roboto-Thin.woff2" />
-    <Content Include="Content\materialize\sass\components\date_picker\_default.date.scss" />
-    <Content Include="Content\materialize\sass\components\date_picker\_default.scss" />
-    <Content Include="Content\materialize\sass\components\date_picker\_default.time.scss" />
-    <Content Include="Content\materialize\sass\components\forms\_checkboxes.scss" />
-    <Content Include="Content\materialize\sass\components\forms\_file-input.scss" />
-    <Content Include="Content\materialize\sass\components\forms\_forms.scss" />
-    <Content Include="Content\materialize\sass\components\forms\_input-fields.scss" />
-    <Content Include="Content\materialize\sass\components\forms\_radio-buttons.scss" />
-    <Content Include="Content\materialize\sass\components\forms\_range.scss" />
-    <Content Include="Content\materialize\sass\components\forms\_select.scss" />
-    <Content Include="Content\materialize\sass\components\forms\_switches.scss" />
-    <Content Include="Content\materialize\sass\components\_buttons.scss" />
-    <Content Include="Content\materialize\sass\components\_cards.scss" />
-    <Content Include="Content\materialize\sass\components\_carousel.scss" />
-    <Content Include="Content\materialize\sass\components\_chips.scss" />
-    <Content Include="Content\materialize\sass\components\_collapsible.scss" />
-    <Content Include="Content\materialize\sass\components\_color.scss" />
-    <Content Include="Content\materialize\sass\components\_dropdown.scss" />
-    <Content Include="Content\materialize\sass\components\_global.scss" />
-    <Content Include="Content\materialize\sass\components\_grid.scss" />
-    <Content Include="Content\materialize\sass\components\_icons-material-design.scss" />
-    <Content Include="Content\materialize\sass\components\_materialbox.scss" />
-    <Content Include="Content\materialize\sass\components\_mixins.scss" />
-    <Content Include="Content\materialize\sass\components\_modal.scss" />
-    <Content Include="Content\materialize\sass\components\_navbar.scss" />
-    <Content Include="Content\materialize\sass\components\_normalize.scss" />
-    <Content Include="Content\materialize\sass\components\_prefixer.scss" />
-    <Content Include="Content\materialize\sass\components\_preloader.scss" />
-    <Content Include="Content\materialize\sass\components\_roboto.scss" />
-    <Content Include="Content\materialize\sass\components\_sideNav.scss" />
-    <Content Include="Content\materialize\sass\components\_slider.scss" />
-    <Content Include="Content\materialize\sass\components\_table_of_contents.scss" />
-    <Content Include="Content\materialize\sass\components\_tabs.scss" />
-    <Content Include="Content\materialize\sass\components\_toast.scss" />
-    <Content Include="Content\materialize\sass\components\_tooltip.scss" />
-    <Content Include="Content\materialize\sass\components\_typography.scss" />
-    <Content Include="Content\materialize\sass\components\_variables.scss" />
-    <Content Include="Content\materialize\sass\components\_waves.scss" />
-    <Content Include="Content\materialize\sass\materialize.scss" />
     <Content Include="Scripts\angular-1.5.8\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-1.5.8\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-1.5.8\angular-cookies.min.js.map" />
@@ -1062,7 +965,25 @@
     <Content Include="Scripts\angular-1.5.8\angular.min.js.map" />
     <Content Include="Scripts\angular-1.5.8\errors.json" />
     <Content Include="Scripts\angular-1.5.8\version.json" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="..\..\itan.secrets.config">
+      <Link>itan.secrets.config</Link>
+    </Content>
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\itan\filterRawHtml.js" />
     <Content Include="Scripts\itan\filterMoment.js" />
     <Content Include="Scripts\itan\publicRssChannelsCtrl.js" />
@@ -1112,30 +1033,11 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <Content Include="secrets.config" />
     <Content Include="Views\Syndication\Index.cshtml" />
     <Content Include="Views\OpmlImporter\Index.cshtml" />
     <Content Include="Views\RssChannel\Index.cshtml" />
     <Content Include="Views\Login\Success.cshtml" />
     <Content Include="IsThereAnyNews.Mvc.ruleset" />
-    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.eot" />
-    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\font-awesome-4.5.0\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\font-awesome-4.5.0\fonts\FontAwesome.otf" />
-    <Content Include="Content\font-awesome-4.5.0\scss\font-awesome.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_animated.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_bordered-pulled.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_core.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_fixed-width.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_icons.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_larger.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_list.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_mixins.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_path.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_rotated-flipped.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_stacked.scss" />
-    <Content Include="Content\font-awesome-4.5.0\scss\_variables.scss" />
     <Content Include="Scripts\jquery-3.1.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.0.min.map" />
     <Content Include="Views\Account\Index.cshtml" />

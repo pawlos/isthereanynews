@@ -2,9 +2,6 @@
   text-overflow: ellipsis;
   overflow: hidden; }
 
-.btn.full {
-  width: 100%; }
-
-.collapsible-body {
-  padding: 0 1em; }
+.navbarfix {
+  margin-bottom: 51px; }
 

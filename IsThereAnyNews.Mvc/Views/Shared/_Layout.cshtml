@@ -1,18 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html ng-app="itan">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="~/Content/materialize/sass/materialize.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.1.0.min.js"></script>
-    <script src="~/Content/materialize/js/collapsible.js"></script>
-    <script src="~/Content/materialize/js/materialize.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <script src="~/Scripts/moment-with-locales.js"></script>
     <script src="~/Scripts/angular-1.5.8/angular.js"></script>
     <link href="~/Content/IsThereAnyNews.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome-4.5.0/scss/font-awesome.css" rel="stylesheet" />
     <link rel="shortcut icon" href="~/icon.gif" type="image/x-icon" />
     <script>
         var m = angular.module("itan", []);
@@ -20,48 +19,44 @@
 
 </head>
 <body>
-    <header>
-        <div class="navbar-fixed">
-            <ul id="dropdown1" class="dropdown-content">
-                <li>@Html.ActionLink("Logout", "Index", "Logout")</li>
-                <li>@Html.ActionLink("Settings", "Index", "Account")</li>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">ITAN</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span></a></li>
+                <li><a href="@Url.Action("Index", "RssChannel")"><span class="fa fa-list"></span></a></li>
+                <li><a href="@Url.Action("Index", "Users")"><span class="fa fa-users"></span></a></li>
             </ul>
-            <nav>
-                <div class="nav-wrapper">
-                    <a href="/" class="brand-logo">ITAN</a>
-                    <ul class="right">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Browse", "Index", "RssChannel")</li>
-                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                        <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-
-                            <li>@Html.ActionLink("My channels", "My", "RssChannel")</li>
-                            <li>@Html.ActionLink("Import", "Index", "OpmlImporter")</li>
-                            <li>
-                                <span>
-                                    <img class="material-icons" src="https://graph.facebook.com/10205806873714010/picture" />
-                                </span>
-                                <a class="dropdown-button"
-                                   href="#"
-                                   data-activates="dropdown1">
-                                    Account
-                                    <i class="material-icons right">arrow_drop_down</i>
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li> @Html.ActionLink("Login", "Index", "Login") </li>
-                        }
-                        <li>@Html.ActionLink("Tests", "Index", "Test")</li>
-                        <li>@Html.ActionLink("Contact", "Index", "Contact")</li>
-                    </ul>
-                </div>
-            </nav>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form class="navbar-form navbar-right">
+                    <button type="submit" class="btn btn-danger"><span class="fa fa-sign-out"></span></button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <span>
+                            <img src="https://graph.facebook.com/10205806873714010/picture" />
+                        </span>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Index", "Account")">Account</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Action("Index", "Login")" class="btn btn-primary"><span class="fa fa-sign-in"></span></a></li>
+                </ul>
+            }
         </div>
-    </header>
+    </nav>
+    <div class="clearfix navbarfix"></div>
     @RenderBody()
     @RenderSection("scripts", required: false)
 </body>
