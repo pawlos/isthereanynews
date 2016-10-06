@@ -4,7 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Hi, please use menu to navigate thru page</h1>
+    </div>
+</div>
+
+<div class="container">
     Session is new: @Session.IsNewSession
     <p>Is user authenticated: @User.Identity.IsAuthenticated</p>
     @foreach (var claim in ((System.Security.Claims.ClaimsPrincipal) User).Claims)
@@ -14,7 +20,5 @@
             <span>@claim.Value</span>
         </div>
     }
-
-    @Html.ActionLink("Blah", "Blah")
 </div>
 

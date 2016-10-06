@@ -19,9 +19,12 @@ angular.module("itan")
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
-                $(".nocss-rss-item-list").collapsible();
             });
     };
+
+    $scope.buttonSubscriptionClass = function (channel) {
+        return channel.entries.SubscriptionInfo.IsSubscribed ? "btn-danger" : "btn-primary";
+    }
 
     $scope.onSubscribeClick = function (channelId, isSubscribed) {
         if (isSubscribed) {
@@ -31,33 +34,33 @@ angular.module("itan")
         }
     };
 
-        var subscribe = function(channelId) {
-            var httpOptions = {
-                method: 'POST',
-                url: "/RssChannel/Subscribe",
-                data: {
-                    channelId: channelId
-                }
-            };
-            $http(httpOptions)
-                .success(function() {
-                    console.log("subscribed");
-                });
+    var subscribe = function (channelId) {
+        var httpOptions = {
+            method: 'POST',
+            url: "/RssChannel/Subscribe",
+            data: {
+                channelId: channelId
+            }
         };
+        $http(httpOptions)
+            .success(function () {
+                console.log("subscribed");
+            });
+    };
 
-        var unsubscribe = function (channelId) {
-            var httpOptions = {
-                method: 'POST',
-                url: "/RssChannel/Unsubscribe",
-                data: {
-                    channelId: channelId
-                }
-            };
-            $http(httpOptions)
-                .success(function () {
-                    console.log("unsubscribed");
-                });
+    var unsubscribe = function (channelId) {
+        var httpOptions = {
+            method: 'POST',
+            url: "/RssChannel/Unsubscribe",
+            data: {
+                channelId: channelId
+            }
         };
+        $http(httpOptions)
+            .success(function () {
+                console.log("unsubscribed");
+            });
+    };
 
-    });
+});
 
