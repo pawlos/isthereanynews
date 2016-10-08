@@ -19,7 +19,6 @@ angular.module("itan")
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
-                $(".nocss-rss-item-list").collapsible();
             });
     };
 

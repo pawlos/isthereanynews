@@ -52,7 +52,9 @@
                                 <a role="button" data-toggle="collapse" data-parent="#accordion"
                                    href="#rss-{{item.Id}}">
                                     <span>{{item.Title}}</span>
-                                    <span>{{item.PublicationDate|moment:'DD/MMMM/YYYY'}}</span>
+                                    <span class="small right">
+                                        {{item.PublicationDate|moment:'DD/MMMM/YYYY'}}
+                                    </span>
                                 </a>
                             </h4>
                         </div>
@@ -64,9 +66,8 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
+</div>

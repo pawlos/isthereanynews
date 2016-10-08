@@ -12,7 +12,7 @@
 
 <div class="container" ng-controller="itan.MyRssChannelsCtrl">
     <div class="row">
-        <div class="col s12">
+        <div class="col-sm-12">
             @using (Html.BeginForm("AddChannel", "RssChannel"))
             {
                 <div class="form-group">
@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col s3 nocss-mychannel-list">
+        <div class="col-sm-3 nocss-mychannel-list">
             <div class="nothing">
                 <div ng-hide="channels.loaded">
                     <div>List of channels loading...</div>
@@ -36,13 +36,13 @@
                 </div>
                 <div ng-show="channels.loaded">
                     <a ng-repeat="channel in channels.list.ChannelsSubscriptions"
-                       class="btn btn-default full"
+                       class="btn btn-default btn-xs full-width"
                        ng-click="onChannelClick('@StreamType.Rss',channel.Id)">
                         <i class="fa fa-rss left"></i>
                         {{channel.Title}} ({{channel.RssToRead}})
                     </a>
                     <a ng-repeat="channel in channels.list.Users"
-                       class="btn btn-default full"
+                       class="btn btn-xs btn-default full-width"
                        ng-click="onChannelClick('@StreamType.Person',channel.Id)">
                         <i class="fa fa-user left"></i>
                         {{channel.Name}} ({{channel.Count}})
@@ -50,55 +50,66 @@
                 </div>
             </div>
         </div>
-        <div class="col s9 nocss-rsschannel-container">
+        <div class="col-sm-9 nocss-rsschannel-container">
             <h2 ng-hide="channel.loaded">Select channel to see news</h2>
             <div ng-show="channel.loaded">
-                <div class="row col s12">
-                    <span>
-                        <h2>{{channel.entries.ChannelInformation.Title}}</h2>
-                        <h4>{{channel.entries.ChannelInformation.Created|moment:'DD/MMMM/YYYY'}}</h4>
-                    </span>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <span>
+                            <h2>{{channel.entries.ChannelInformation.Title}}</h2>
+                            <h4>{{channel.entries.ChannelInformation.Created|moment:'DD/MMMM/YYYY'}}</h4>
+                        </span>
+                    </div>
                 </div>
                 <div class="row nocss-rss-item-list">
-                    <div class="col s12">
-                        <ul class="collapsible">
-                            <li ng-repeat="item in channel.entries.RssEntryToReadViewModels">
-                                <div class="collapsible-header"
-                                     ng-click="markReadWithEvent(channel.entries.StreamType, item.Id)">
-                                    {{item.RssEntryViewModel.Title}}
-                                    <span>
-                                        {{item.RssEntryViewModel.PublicationDate|moment:'DD/MMMM/YYYY'}}
-                                    </span>
+                    <div class="col-sm-12">
+
+                        <div class="panel-group" id="accordion" role="tablist">
+                            <div class="panel panel-default" ng-repeat="item in channel.entries.RssEntryToReadViewModels">
+                                <div class="panel-heading" role="tab">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                           href="#rss-{{item.Id}}"
+                                           ng-click="markReadWithEvent(channel.entries.StreamType, item.Id)">
+                                            <span class="">{{item.RssEntryViewModel.Title}}</span>
+                                            <span class="text small right">
+                                                {{item.RssEntryViewModel.PublicationDate|moment:'DD/MMMM/YYYY'}}
+                                            </span>
+                                        </a>
+                                    </h4>
                                 </div>
-                                <div class="collapsible-body">
-                                    <div ng-bind-html="item.RssEntryViewModel.PreviewText | rawHtml">
-                                    </div>
-                                    <div>
-                                        <i ng-click="onThumbsUpClicked(channel.entries.StreamType, item.Id)"
-                                           style="color:lightgray"
-                                           class="fa fa-thumbs-up"></i>
-                                        <i ng-click="onThumbsDownClick(channel.entries.StreamType, item.Id)"
-                                           style="color:lightgray"
-                                           class="fa fa-thumbs-down"></i>
-                                        <i ng-click="onMarkUnreadClicked(channel.entries.StreamType, item.Id)"
-                                           style="color:lightgray"
-                                           class="fa fa-undo"></i>
-                                        <i ng-click="onShareClicked(channel.entries.StreamType, item.Id)"
-                                           style="color:lightgray"
-                                           class="fa fa-share-alt"></i>
-                                        <i ng-click="onCommentsClicked(channel.entries.StreamType, item.Id)"
-                                           style="color:lightgray"
-                                           class="fa fa-commenting-o"></i>
-                                        <i ng-click="onArticleBodyClicked(channel.entries.StreamType, item.Id, item.RssEntryViewModel.Url)"
-                                           style="color:black"
-                                           class="fa fa-external-link"></i>
-                                        <i ng-click="onReadLaterClicked(channel.entries.StreamType, item.Id)"
-                                           style="color:lightgray"
-                                           class="fa fa-clock-o"></i>
+                                <div id="rss-{{item.Id}}"
+                                     class="panel-collapse collapse"
+                                     role="tabpanel">
+                                    <div class="panel-body">
+                                        <div ng-bind-html="item.RssEntryViewModel.PreviewText | rawHtml"></div>
+                                        <div>
+                                            <i ng-click="onThumbsUpClicked(channel.entries.StreamType, item.Id)"
+                                               style="color: lightgray"
+                                               class="fa fa-thumbs-up"></i>
+                                            <i ng-click="onThumbsDownClick(channel.entries.StreamType, item.Id)"
+                                               style="color: lightgray"
+                                               class="fa fa-thumbs-down"></i>
+                                            <i ng-click="onMarkUnreadClicked(channel.entries.StreamType, item.Id)"
+                                               style="color: lightgray"
+                                               class="fa fa-undo"></i>
+                                            <i ng-click="onShareClicked(channel.entries.StreamType, item.Id)"
+                                               style="color: lightgray"
+                                               class="fa fa-share-alt"></i>
+                                            <i ng-click="onCommentsClicked(channel.entries.StreamType, item.Id)"
+                                               style="color: lightgray"
+                                               class="fa fa-commenting-o"></i>
+                                            <i ng-click="onArticleBodyClicked(channel.entries.StreamType, item.Id, item.RssEntryViewModel.Url)"
+                                               style="color: black"
+                                               class="fa fa-external-link"></i>
+                                            <i ng-click="onReadLaterClicked(channel.entries.StreamType, item.Id)"
+                                               style="color: lightgray"
+                                               class="fa fa-clock-o"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

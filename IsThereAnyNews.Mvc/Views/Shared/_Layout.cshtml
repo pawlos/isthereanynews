@@ -26,8 +26,12 @@
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span></a></li>
-                <li><a href="@Url.Action("Index", "RssChannel")"><span class="fa fa-list"></span></a></li>
+                <li><a href="@Url.Action("Index", "RssChannel")"><span class="fa fa-globe"></span></a></li>
                 <li><a href="@Url.Action("Index", "Users")"><span class="fa fa-users"></span></a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li><a href="@Url.Action("My", "RssChannel")"><span class="fa fa-rss"></span></a></li>
+                }
             </ul>
             @if (User.Identity.IsAuthenticated)
             {

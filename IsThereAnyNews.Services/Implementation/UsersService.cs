@@ -52,7 +52,7 @@
                     Title = e.RssEntry.Title,
                     Viewed = e.Created,
                     RssId = e.RssEntryId
-                }).ToList(),
+                }).OrderByDescending(e => e.Viewed).ToList(),
                 EventsCount = publicProfile.EventsRssViewed.Count,
                 ViewingUserId = id,
                 IsUserAlreadySubscribed = isUserAlreadySubscribed
