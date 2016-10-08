@@ -4,11 +4,13 @@
     ViewBag.Title = "title";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>title</h2>
-@foreach (var provider in Model.Providers)
-{
-    <div>
-        @Html.ActionLink("Login with " + provider.Caption, "SocialLogin", new { id = provider.AuthenticationType })
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            @foreach (var provider in Model.Providers)
+            {
+                <a href="@Url.Action("SocialLogin", "Login", new { id = provider.AuthenticationType })" class="btn btn-lg btn-default full-width">@provider.Caption</a>
+            }
+        </div>
     </div>
-}
+</div>

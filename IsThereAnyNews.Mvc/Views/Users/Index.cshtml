@@ -7,9 +7,9 @@
 <div class="container">
     @foreach (var profile in Model.Profiles)
     {
-        <a href="@Url.Action("Profile",new {id=profile.Id})" class="col-lg-2 btn btn-default" role="button">
-            <div>@profile.DisplayName</div>
-            <div><i class="fa fa-rss">@profile.ChannelsCount</i></div>
+        <a href="@Url.Action("Profile",new {id=profile.Id})" class="col-sm-2 btn btn-default btn-xs border-less" role="button">
+            <span>@profile.DisplayName</span>
+            <span><i class="fa fa-rss">@profile.ChannelsCount</i></span>
         </a>
     }
 </div>

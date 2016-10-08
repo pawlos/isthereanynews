@@ -50,7 +50,7 @@
             this.loginService.StoreCurrentUserIdInSession();
             this.loginService.StoreItanRolesToSession();
             var viewmodel = new LoginSuccessViewModel();
-            return this.View("Success", viewmodel);
+            return this.RedirectToAction("Index", "Home");
         }
     }
 }

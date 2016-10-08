@@ -15,17 +15,11 @@
             <div ng-show="channels.loaded" class="text-ellipse-too-long">
                 <a ng-repeat="channel in channels.list.AllChannels"
                    ng-click="onChannelClick(channel.Id)"
-                   class="btn btn-xs btn-default full-width">
+                   class="btn btn-xs btn-default full-width border-less">
                     <div>
                         <div>
                             {{channel.Title}} ({{channel.RssEntriesCount}})
                         </div>
-                        @*<div>
-                                <i class="fa fa-calendar"></i>{{channel.Created | moment:''}}
-                                <i class="fa fa-refresh"></i>{{channel.Updated | moment:''}}
-                                <i class="fa fa-user"></i>{{channel.SubscriptionsCount}}
-                                <i class="fa fa-newspaper-o"></i>{{channel.RssEntriesCount}}
-                            </div>*@
                     </div>
                 </a>
             </div>

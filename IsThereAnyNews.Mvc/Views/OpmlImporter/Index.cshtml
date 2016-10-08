@@ -5,10 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
-@using (Html.BeginForm("Index", "OpmlImporter", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <label>Please select an opml file</label>
-    <input type="file" name="importFile" />
-    <button type="submit">upload</button>
-}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            @using (Html.BeginForm("Index", "OpmlImporter", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                    <label>Please select an opml file</label>
+                    <input class="form-control" type="file" name="importFile" />
+                    <button type="submit" class="btn btn-primary pull-right">upload</button>
+            }
+        </div>
+    </div>
+</div>
