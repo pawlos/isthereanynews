@@ -5,12 +5,12 @@
 }
 
 <div class="container">
-    <div class="col s12">
+    <div class="col-sm-12">
         <div class="row">
-            <div class="col s4">
+            <div class="col-sm-4">
                 <h2><i class="fa fa-user"></i>@Model.DisplayName</h2>
             </div>
-            <div class="col s4">
+            <div class="col-sm-4">
                 @if (Model.IsUserAlreadySubscribed)
                 {
                     using (Html.BeginForm("Unsubscribe", "Users", FormMethod.Post))
@@ -18,7 +18,7 @@
                         @Html.HiddenFor(m => m.ViewingUserId)
                         <button type="submit"
                                 role="button"
-                                class="btn"
+                                class="btn btn-warning"
                                 value="subscribe">
                             <i class="fa fa-user-times"></i>unsubscribe
                         </button>
@@ -31,7 +31,7 @@
                         @Html.HiddenFor(m => m.ViewingUserId)
                         <button type="submit"
                                 role="button"
-                                class="btn"
+                                class="btn btn-primary"
                                 value="subscribe">
                             <i class="fa fa-user-plus"></i>subscribe
                         </button>
@@ -40,24 +40,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s6">
+            <div class="col-sm-6">
                 <h4><i class="fa fa-rss"></i>Subscriptions: @Model.ChannelsCount</h4>
                 <div class="row">
                     @foreach (var channel in Model.Channels)
                     {
-                        <div class="col s12">
+                        <div class="col-sm-12">
                             <i class="fa fa-rss-square"></i>@channel.Name
                         </div>
                     }
                 </div>
             </div>
-            <div class="col s6">
+            <div class="col-sm-6">
                 <h4><div class="row">Activities (@Model.EventsCount)</div></h4>
                 <div class="row">
                     @foreach (var rssEvent in Model.Events)
                     {
-                        <div class="col s4">@rssEvent.Viewed</div>
-                        <div class="col s8">@rssEvent.Title</div>
+                        <div class="col-sm-4">@rssEvent.Viewed</div>
+                        <div class="col-sm-8">@rssEvent.Title</div>
                     }
                 </div>
             </div>
