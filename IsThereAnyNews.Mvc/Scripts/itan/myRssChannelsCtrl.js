@@ -8,6 +8,14 @@ angular.module("itan")
         loaded: false
     };
 
+    $scope.loadChannels = function () {
+        $http.get("/RssChannel/MyChannelList")
+       .success(function (data) {
+           $scope.channels.list = data;
+           $scope.channels.loaded = true;
+       });
+    }
+
     $http.get("/RssChannel/MyChannelList")
         .success(function (data) {
             $scope.channels.list = data;
@@ -74,7 +82,8 @@ angular.module("itan")
             }
         };
         $http(httpOptions);
-    }
+    };
+
     $scope.onMarkUnreadClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
@@ -85,7 +94,8 @@ angular.module("itan")
             }
         };
         $http(httpOptions);
-    }
+    };
+
     $scope.onShareClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
@@ -96,7 +106,7 @@ angular.module("itan")
             }
         };
         $http(httpOptions);
-    }
+    };
     $scope.onCommentsClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
@@ -107,7 +117,8 @@ angular.module("itan")
             }
         };
         $http(httpOptions);
-    }
+    };
+
     $scope.onReadLaterClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
@@ -118,6 +129,22 @@ angular.module("itan")
             }
         };
         $http(httpOptions);
-    }
+    };
+
+    $scope.onAddChannelClicked = function (newChannel) {
+        var options = {
+            method: "POST",
+            url: "/RssChannel/AddChannel",
+            data: {
+                RssChannelLink: newChannel.link,
+                RssChannelName: newChannel.title
+            }
+        };
+        $http(options)
+            .success(function () {
+                $scope.loadChannels();
+            });
+    };
+
 });
 

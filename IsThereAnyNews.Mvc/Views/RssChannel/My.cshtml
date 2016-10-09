@@ -12,22 +12,6 @@
 
 <div class="container" ng-controller="itan.MyRssChannelsCtrl">
     <div class="row">
-        <div class="col-sm-12">
-            @using (Html.BeginForm("AddChannel", "RssChannel"))
-            {
-                <div class="form-group">
-                    <label for="rssChannelLink">Rss channel link</label>
-                    <input type="url" name="rssChannelLink" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="rssChannelName">Rss channel name</label>
-                    <input type="text" name="rssChannelName" class="form-control" />
-                </div>
-                <button type="submit" name="add channel" class="btn btn-default pull-right">Add channel</button>
-            }
-        </div>
-    </div>
-    <div class="row">
         <div class="col-sm-3 nocss-mychannel-list">
             <div class="nothing">
                 <div ng-hide="channels.loaded">
@@ -36,13 +20,13 @@
                 </div>
                 <div ng-show="channels.loaded">
                     <a ng-repeat="channel in channels.list.ChannelsSubscriptions"
-                       class="btn btn-default btn-xs full-width"
+                       class="btn btn-default btn-xs full-width border-less text-left"
                        ng-click="onChannelClick('@StreamType.Rss',channel.Id)">
                         <i class="fa fa-rss left"></i>
                         {{channel.Title}} ({{channel.RssToRead}})
                     </a>
                     <a ng-repeat="channel in channels.list.Users"
-                       class="btn btn-xs btn-default full-width"
+                       class="btn btn-xs btn-default full-width border-less text-left"
                        ng-click="onChannelClick('@StreamType.Person',channel.Id)">
                         <i class="fa fa-user left"></i>
                         {{channel.Name}} ({{channel.Count}})

@@ -1048,6 +1048,7 @@
     <Content Include="Views\Contact\_SubmitBug.cshtml" />
     <Content Include="Views\Contact\_ItsImportantForYouToKnow.cshtml" />
     <Content Include="Views\Error\Execute.cshtml" />
+    <Content Include="Views\RssChannel\Add.cshtml" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />

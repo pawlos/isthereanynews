@@ -49,11 +49,13 @@
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
         public ActionResult My()
         {
             return this.View("My");
         }
 
+        [HttpGet]
         public JsonResult MyChannelList()
         {
             var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
@@ -62,7 +64,6 @@
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult Unsubscribe(long channelId)
         {
@@ -70,7 +71,6 @@
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult Subscribe(long channelId)
         {
@@ -78,20 +78,33 @@
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
+        [HttpPost]
         public HttpStatusCodeResult MarkRssEntryViewed(long channelId)
         {
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
+        [HttpPost]
         public HttpStatusCodeResult MarkAllReadForSubscription(MarkReadForSubscriptionDto model)
         {
             this.rssSubscriptionService.MarkAllRssReadForSubscription(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [HttpPost]
-        public ActionResult AddChannel(AddChannelDto dto)
+        [HttpGet]
+        public ActionResult Add()
         {
+            return this.View("Add");
+        }
+
+        [HttpPost]
+        public ActionResult Add(AddChannelDto dto)
+        {
+            if (this.ModelState.IsValid == false)
+            {
+                return this.View("Add", dto);
+            }
+
             this.rssChannelsService.CreateNewChannelIfNotExists(dto);
             this.rssSubscriptionService.SubscribeCurrentUserToChannel(dto);
             return this.RedirectToAction("My");
