@@ -6,25 +6,29 @@
 
 <div class="container">
     <div class="row">
-        <div class="col s4">
+        <div class="col-sm-4">
             Registered accounts:
             @foreach (var social in Model.SocialLogins)
             {
                 <div>@social.AuthenticationTypeProvider.ToString()</div>
             }
         </div>
-        <div class="col s8">
-            <div>
-                All actions will be shown under this display name:
+        <div class="col-sm-8">
+            <div class="row">
+                <div>
+                    All actions will be shown under this display name:
+                </div>
+                <div>
+                    @Model.DisplayName <span>@Html.ActionLink("change", "ChangeDisplayName")</span>
+                </div>
             </div>
-            <div>
-                @Model.DisplayName <span>@Html.ActionLink("change", "ChangeDisplayName")</span>
-            </div>
-            <div>
-                We will contact you via
-            </div>
-            <div>
-                @Model.Email <span>@Html.ActionLink("change", "ChangeEmail")</span>
+            <div class="row">
+                <div>
+                    We will contact you via
+                </div>
+                <div>
+                    @Model.Email <span>@Html.ActionLink("change", "ChangeEmail")</span>
+                </div>
             </div>
         </div>
     </div>

@@ -5,16 +5,18 @@
 }
 
 <div class="container">
-    <div class="col s12">
+    <div class="col-sm-4 col-sm-offset-4">
         <div class="row">
             @using (Html.BeginForm())
             {
-                <div class="input-field col s12">
+                <div class="form-group">
                     <label>Email</label><br />
-                    <input placeholder="@Model.Email" name="Email" id="Email" type="text" class="validate">
+                    <input placeholder="@Model.Email" 
+                           name="Email" id="Email" type="text" class="form-control">
                 </div>
-                <div class="input-field col s12">
-                    <input type="submit" class="btn" value="change" />
+                <div class="pull-right">
+                    @Html.ActionLink("back", "Index", "Account")
+                    <input type="submit" class="btn btn-primary" value="change" />
                 </div>
             }
         </div>
