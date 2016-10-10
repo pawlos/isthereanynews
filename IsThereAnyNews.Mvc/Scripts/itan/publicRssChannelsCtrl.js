@@ -28,13 +28,13 @@ angular.module("itan")
 
     $scope.onSubscribeClick = function (channelId, isSubscribed) {
         if (isSubscribed) {
-            unsubscribe(channelId);
+            this.unsubscribe(channelId);
         } else {
-            subscribe(channelId);
+            this.subscribe(channelId);
         }
     };
 
-    var subscribe = function (channelId) {
+    $scope.subscribe = function (channelId) {
         var httpOptions = {
             method: 'POST',
             url: "/RssChannel/Subscribe",
@@ -44,11 +44,11 @@ angular.module("itan")
         };
         $http(httpOptions)
             .success(function () {
-                console.log("subscribed");
+                $scope.updateSubscriptionStatus(channelId, true);
             });
     };
 
-    var unsubscribe = function (channelId) {
+    $scope.unsubscribe = function (channelId) {
         var httpOptions = {
             method: 'POST',
             url: "/RssChannel/Unsubscribe",
@@ -58,9 +58,14 @@ angular.module("itan")
         };
         $http(httpOptions)
             .success(function () {
-                console.log("unsubscribed");
+                $scope.updateSubscriptionStatus(channelId, false);
             });
     };
 
+    $scope.updateSubscriptionStatus = function (channelId, newstatus) {
+        if ($scope.channel.entries.ChannelId === channelId) {
+            $scope.channel.entries.SubscriptionInfo.IsSubscribed = newstatus;
+        }
+    }
 });
 
