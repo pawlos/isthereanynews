@@ -86,7 +86,6 @@
     <Compile Include="Implementation\AccountService.cs" />
     <Compile Include="IAccountService.cs" />
     <Compile Include="Implementation\ActivityPerWeek.cs" />
-    <Compile Include="Implementation\ISyndicationFeedAdapter.cs" />
     <Compile Include="Implementation\SyndicationFeedAdapter.cs" />
     <Compile Include="Implementation\SyndicationItemAdapter.cs" />
     <Compile Include="ISubscriptionHandler.cs" />
@@ -101,6 +100,7 @@
     <Compile Include="IRssItemActionService.cs" />
     <Compile Include="IRssSubscriptionService.cs" />
     <Compile Include="IStatisticsService.cs" />
+    <Compile Include="ISyndicationFeedAdapter.cs" />
     <Compile Include="ITestService.cs" />
     <Compile Include="IUpdateService.cs" />
     <Compile Include="IUsersService.cs" />
