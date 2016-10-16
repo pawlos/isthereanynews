@@ -19,13 +19,16 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IUserRoleRepository repositoryUserRoles;
         private readonly IMapper mapper;
 
+        private readonly IApplicationSettingsRepository applicationSettingsRepository;
+
         public ApplicationLoginService(
             IUserAuthentication authentication,
             IUserRepository userRepository,
             ISocialLoginRepository socialLoginRepository,
             ISessionProvider sessionProvider,
-            IUserRoleRepository repositoryUserRoles, 
-            IMapper mapper)
+            IUserRoleRepository repositoryUserRoles,
+            IMapper mapper,
+            IApplicationSettingsRepository applicationSettingsRepository)
         {
             this.authentication = authentication;
             this.userRepository = userRepository;
@@ -33,14 +36,13 @@ namespace IsThereAnyNews.Services.Implementation
             this.sessionProvider = sessionProvider;
             this.repositoryUserRoles = repositoryUserRoles;
             this.mapper = mapper;
+            this.applicationSettingsRepository = applicationSettingsRepository;
         }
 
         public void RegisterIfNewUser()
         {
-            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider();
-                var currentUserId = this.authentication.GetCurrentUserSocialLoginId();
+            var socialLogin = this.FindUserSocialLogin();
 
-            var socialLogin = this.socialLoginRepository.FindSocialLogin(currentUserId, authenticationTypeProvider);
             if (socialLogin == null)
             {
                 this.RegisterCurrentSocialLogin();
@@ -48,10 +50,33 @@ namespace IsThereAnyNews.Services.Implementation
             }
         }
 
+        public SocialLogin FindUserSocialLogin()
+        {
+            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider();
+            var currentUserId = this.authentication.GetCurrentUserSocialLoginId();
+            var socialLogin = this.socialLoginRepository.FindSocialLogin(currentUserId, authenticationTypeProvider);
+            return socialLogin;
+        }
+
         public void AssignToUserRole()
         {
             var cui = this.sessionProvider.GetCurrentUserId();
             this.repositoryUserRoles.AssignUserRole(cui);
+        }
+
+        public bool IsUserRegistered()
+        {
+            return this.FindUserSocialLogin() != null;
+        }
+
+        public RegistrationSupported GetCurrentRegistrationStatus()
+        {
+            return this.applicationSettingsRepository.GetCurrentRegistrationStatus();
+        }
+
+        public bool CanRegisterIfWithinLimits()
+        {
+            return this.applicationSettingsRepository.CanRegisterWithinLimits();
         }
 
         public void StoreCurrentUserIdInSession()

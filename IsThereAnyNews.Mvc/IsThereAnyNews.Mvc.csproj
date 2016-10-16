@@ -1052,6 +1052,7 @@
     <Content Include="Views\Error\Execute.cshtml" />
     <Content Include="Views\RssChannel\Add.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <None Include="Views\Login\RegistrationClosed.cshtml" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />

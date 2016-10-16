@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\ApplicationSettingsRepository.cs" />
     <Compile Include="Implementation\AdminRepository.cs" />
     <Compile Include="IAdminRepository.cs" />
     <Compile Include="Implementation\ExceptionEventRepository.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Implementation\UsersSubscriptionRepository.cs" />
     <Compile Include="Implementation\UserWithStatistics.cs" />
     <Compile Include="IPersonSubscriptionRepository.cs" />
+    <Compile Include="IApplicationSettingsRepository.cs" />
     <Compile Include="IRssActionRepository.cs" />
     <Compile Include="IRssChannelsSubscriptionsRepository.cs" />
     <Compile Include="IRssChannelUpdateRepository.cs" />

@@ -1,5 +1,6 @@
 ﻿namespace IsThereAnyNews.Mvc.Controllers
 {
+    using System;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -27,7 +28,10 @@
                                        .GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption))
                                        .ToList();
 
+            var currentRegistrationStatus = this.loginService.GetCurrentRegistrationStatus();
+
             viewmodel.Providers = providers;
+            viewmodel.CurrentRegistrationStatus = currentRegistrationStatus.ToString();
 
             return this.View("Index", viewmodel);
         }
@@ -46,11 +50,50 @@
 
         public ActionResult Success()
         {
+            var currentRegistrationStatus = this.loginService.GetCurrentRegistrationStatus();
+            switch (currentRegistrationStatus)
+            {
+                case RegistrationSupported.Closed:
+                    if (this.loginService.IsUserRegistered() == false)
+                    {
+                        return this.RedirectToAction("RegistrationClosed");
+                    }
+
+                    break;
+                case RegistrationSupported.Open:
+                    // nothing here, proceed with regular registration
+                    break;
+                case RegistrationSupported.InviteOnly:
+                    // not supported yet
+                    break;
+                case RegistrationSupported.Limited:
+                    if (this.loginService.IsUserRegistered() == false &&
+                        this.loginService.CanRegisterIfWithinLimits() == false)
+                    {
+                        return this.RedirectToAction("RegistrationClosed");
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             this.loginService.RegisterIfNewUser();
             this.loginService.StoreCurrentUserIdInSession();
             this.loginService.StoreItanRolesToSession();
-            var viewmodel = new LoginSuccessViewModel();
             return this.RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult RegistrationClosed()
+        {
+            this.Session.Clear();
+            Request.GetOwinContext()
+                .Authentication.SignOut(
+                    HttpContext.GetOwinContext()
+                        .Authentication.GetAuthenticationTypes()
+                        .Select(o => o.AuthenticationType)
+                        .ToArray());
+            return this.View("RegistrationClosed");
         }
     }
 }
