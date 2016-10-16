@@ -4,7 +4,7 @@
 
     public class ItanApplicationConfigurationViewModel
     {
-        public RegistrationSupported UserRegistration { get; set; }
+        public string UserRegistration { get; set; }
 
         public long UserLimit { get; set; }
 

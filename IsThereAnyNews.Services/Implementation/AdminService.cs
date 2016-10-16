@@ -1,6 +1,7 @@
 ﻿namespace IsThereAnyNews.Services.Implementation
 {
     using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
@@ -24,13 +25,23 @@
             var x =
                 new ItanApplicationConfigurationViewModel
                 {
-                    UserRegistration = appConfiguration.RegistrationSupported,
+                    UserRegistration = appConfiguration.RegistrationSupported.ToString(),
                     UserLimit = appConfiguration.UsersLimit,
                     CurrentUsers = numberOfRegisteredUsers,
                     Subscriptions = numberOfRssSubscriptions,
                     RssNews = numberOfRssNews,
                 };
             return x;
+        }
+
+        public void ChangeRegistration(ChangeRegistrationDto dto)
+        {
+            this.adminRepository.ChangeApplicationRegistration(dto.Status);
+        }
+
+        public void ChangeUsersLimit(ChangeUsersLimitDto dto)
+        {
+            this.adminRepository.ChangeUserLimit(dto.Limit);
         }
     }
 }

@@ -4,6 +4,7 @@
 
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.SharedData;
 
     public class AdminRepository : IAdminRepository
     {
@@ -32,6 +33,18 @@
         public long GetNumberOfRssNews()
         {
             return this.database.RssEntries.Count();
+        }
+
+        public void ChangeApplicationRegistration(RegistrationSupported dtoStatus)
+        {
+            this.database.ApplicationConfiguration.Single().RegistrationSupported = dtoStatus;
+            this.database.SaveChanges();
+        }
+
+        public void ChangeUserLimit(long dtoLimit)
+        {
+            this.database.ApplicationConfiguration.Single().UsersLimit = dtoLimit;
+            this.database.SaveChanges();
         }
     }
 }

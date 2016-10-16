@@ -46,6 +46,8 @@
     <Compile Include="AddChannelDto.cs" />
     <Compile Include="ChangeDisplayNameModel.cs" />
     <Compile Include="ChangeEmailModel.cs" />
+    <Compile Include="ChangeRegistrationDto.cs" />
+    <Compile Include="ChangeUsersLimitDto.cs" />
     <Compile Include="ContactAdministrationModel.cs" />
     <Compile Include="MarkClickedDto.cs" />
     <Compile Include="MarkReadDto.cs" />

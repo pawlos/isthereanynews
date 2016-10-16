@@ -1,6 +1,7 @@
 ﻿namespace IsThereAnyNews.DataAccess
 {
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.SharedData;
 
     public interface IAdminRepository
     {
@@ -11,5 +12,9 @@
         long GetNumberOfRssSubscriptions();
 
         long GetNumberOfRssNews();
+
+        void ChangeApplicationRegistration(RegistrationSupported dtoStatus);
+
+        void ChangeUserLimit(long dtoLimit);
     }
 }

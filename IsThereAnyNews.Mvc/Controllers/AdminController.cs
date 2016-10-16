@@ -1,7 +1,9 @@
 ﻿namespace IsThereAnyNews.Mvc.Controllers
 {
+    using System.Net;
     using System.Web.Mvc;
 
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Mvc.Infrastructure;
     using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
@@ -32,6 +34,20 @@
         {
             var configurationStatus = this.adminService.ReadConfiguration();
             return this.Json(configurationStatus, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public HttpStatusCodeResult ChangeRegistration(ChangeRegistrationDto dto)
+        {
+            this.adminService.ChangeRegistration(dto);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        public HttpStatusCodeResult ChangeUsersLimit(ChangeUsersLimitDto dto)
+        {
+            this.adminService.ChangeUsersLimit(dto);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }
 }

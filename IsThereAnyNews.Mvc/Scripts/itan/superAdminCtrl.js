@@ -11,5 +11,37 @@ angular.module("itan")
         $scope.configurationStatus.data = data;
         $scope.configurationStatus.loaded = true;
     });
+
+
+    $scope.onRegistrationClick = function (newRegistrationStatus) {
+        var httpOptions = {
+            method: 'POST',
+            url: "/Admin/ChangeRegistration",
+            data: {
+                status: newRegistrationStatus
+            }
+        };
+        $http(httpOptions)
+            .success(function () {
+                $scope.configurationStatus.data.UserRegistration = newRegistrationStatus;
+            });
+    };
+
+    $scope.onUsersLimitClicked = function (newLimit) {
+        var httpOptions = {
+            method: 'POST',
+            url: "/Admin/ChangeUsersLimit",
+            data: {
+                limit: newLimit
+            }
+        };
+
+        $http(httpOptions)
+            .success(function () {
+                $scope.configurationStatus.data.UserLimit = newLimit;
+            });
+    };
+
+
 });
 
