@@ -1,4 +1,4 @@
-namespace IsThereAnyNews.EntityFramework.Models.Entities
+namespace IsThereAnyNews.SharedData
 {
     public enum RegistrationSupported
     {

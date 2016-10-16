@@ -2,7 +2,6 @@
 {
     using System.Web.Mvc;
 
-    using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.Mvc.Infrastructure;
     using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
@@ -10,12 +9,16 @@
     [RoleAuthorize(Roles = new[] { ItanRole.SuperAdmin })]
     public class AdminController : BaseController
     {
+        private readonly IAdminService adminService;
+
         public AdminController(
             IUserAuthentication authentication,
             ILoginService loginService,
-            ISessionProvider sessionProvider)
+            ISessionProvider sessionProvider,
+            IAdminService adminService)
             : base(authentication, loginService, sessionProvider)
         {
+            this.adminService = adminService;
         }
 
         [HttpGet]
@@ -27,17 +30,8 @@
         [HttpGet]
         public JsonResult ConfigurationStatus()
         {
-            var x =
-                new
-                {
-                    UserRegistration = RegistrationSupported.Closed,
-                    UserLimit = 198312,
-                    CurrentUsers = 33,
-                    Subscriptions = 3232,
-                    RssNews = 9393939393,
-                };
-
-            return this.Json(x, JsonRequestBehavior.AllowGet);
+            var configurationStatus = this.adminService.ReadConfiguration();
+            return this.Json(configurationStatus, JsonRequestBehavior.AllowGet);
         }
     }
 }

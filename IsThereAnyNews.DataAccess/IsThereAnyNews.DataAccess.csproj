@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\AdminRepository.cs" />
+    <Compile Include="IAdminRepository.cs" />
     <Compile Include="Implementation\ExceptionEventRepository.cs" />
     <Compile Include="IExceptionEventRepository.cs" />
     <Compile Include="Implementation\ExceptionRepository.cs" />

@@ -3,6 +3,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
     using System;
 
     using IsThereAnyNews.EntityFramework.Models.Interfaces;
+    using IsThereAnyNews.SharedData;
 
     public class ApplicationConfiguration : IEntity, ICreatable, IModifiable
     {

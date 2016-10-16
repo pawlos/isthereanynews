@@ -81,6 +81,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAdminService.cs" />
+    <Compile Include="Implementation\AdminService.cs" />
     <Compile Include="Implementation\ContactService.cs" />
     <Compile Include="IContactService.cs" />
     <Compile Include="Implementation\AccountService.cs" />
