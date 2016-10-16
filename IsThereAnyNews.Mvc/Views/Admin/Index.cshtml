@@ -1,18 +1,35 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section scripts
+{
+    <script src="~/Scripts/itan/superAdminCtrl.js"></script>
+}
 
-<div class="container">
+<div class="container" ng-controller="itan.SuperAdminCtrl">
     <div class="row">
-        Current status of new user registration is: <span class="fa fa-spin fa-spinner"></span>
+        Current status of new user registration is:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.UserRegistration}}</span>
     </div>
     <div class="row">
-        Current number of registered users: <span class="fa fa-spin fa-spinner"></span>
+        Current number of registered users:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.UserLimit}}</span>
     </div>
     <div class="row">
-        Current number subscriptions: <span class="fa fa-spin fa-spinner"></span>
+        Current number subscriptions:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.CurrentUsers}}</span>
     </div>
     <div class="row">
-        Current number of rss news: <span class="fa fa-spin fa-spinner"></span>
+        Current number of rss news:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.Subscriptions}}</span>
+    </div>
+    <div class="row">
+        Current number of rss news:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.RssNews}}</span>
     </div>
 </div>

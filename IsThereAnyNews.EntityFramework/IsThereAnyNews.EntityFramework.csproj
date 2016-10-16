@@ -100,9 +100,19 @@
     <Compile Include="Migrations\201609280649066_feature-request-extended.Designer.cs">
       <DependentUpon>201609280649066_feature-request-extended.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610161521025_application_configuration.cs" />
+    <Compile Include="Migrations\201610161521025_application_configuration.Designer.cs">
+      <DependentUpon>201610161521025_application_configuration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610161522104_users_limit.cs" />
+    <Compile Include="Migrations\201610161522104_users_limit.Designer.cs">
+      <DependentUpon>201610161522104_users_limit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Entities\ApplicationConfiguration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\ItanException.cs" />
+    <Compile Include="Models\Entities\RegistrationSupported.cs" />
     <Compile Include="Models\Entities\UserRole.cs" />
     <Compile Include="Models\Entities\UserSubscription.cs" />
     <Compile Include="Models\Entities\UserSubscriptionEntryToRead.cs" />
@@ -167,6 +177,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609280649066_feature-request-extended.resx">
       <DependentUpon>201609280649066_feature-request-extended.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610161521025_application_configuration.resx">
+      <DependentUpon>201610161521025_application_configuration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610161522104_users_limit.resx">
+      <DependentUpon>201610161522104_users_limit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -986,6 +986,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\itan\filterRawHtml.js" />
     <Content Include="Scripts\itan\filterMoment.js" />
+    <Content Include="Scripts\itan\superAdminCtrl.js" />
     <Content Include="Scripts\itan\publicRssChannelsCtrl.js" />
     <Content Include="Scripts\itan\myRssChannelsCtrl.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />

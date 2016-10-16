@@ -34,6 +34,8 @@
         public DbSet<ItanException> ItanExceptions { get; set; }
         public DbSet<EventItanException> EventException { get; set; }
 
+        public DbSet<ApplicationConfiguration> ApplicationConfiguration { get; set; }
+
         public override int SaveChanges()
         {
             var now = DateTime.Now;
