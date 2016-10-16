@@ -22,7 +22,12 @@
         </div>
     </div>
     <div class="row">
-        Current number of registered users:
+        Current number of users:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.CurrentUsers}}</span>
+    </div>
+    <div class="row">
+        Current limit of users:
         <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
         <span ng-show="configurationStatus.loaded">{{configurationStatus.data.UserLimit}}</span>
         <div ng-show="configurationStatus.loaded">
