@@ -1,11 +1,11 @@
-using System;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using IsThereAnyNews.SharedData;
-
 namespace IsThereAnyNews.Mvc.Infrastructure
 {
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using IsThereAnyNews.SharedData;
+
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class RoleAuthorizeAttribute : AuthorizeAttribute
     {
@@ -20,7 +20,11 @@ namespace IsThereAnyNews.Mvc.Infrastructure
                     .ToArray();
                 return itanRoles;
             }
-            set { base.Roles = String.Join(",", value); }
+
+            set
+            {
+                base.Roles = String.Join(",", value);
+            }
         }
     }
 }

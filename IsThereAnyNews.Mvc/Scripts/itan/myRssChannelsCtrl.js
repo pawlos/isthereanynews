@@ -27,6 +27,10 @@ angular.module("itan")
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
+                $(".nocss-rss-item-list")
+               .collapse({
+                   toggle: false
+               });
             });
     };
 
@@ -42,7 +46,6 @@ angular.module("itan")
         };
         $http(httpOptions)
             .success(function () {
-                console.log("successufully marked as read");
             });
     };
 
@@ -56,7 +59,6 @@ angular.module("itan")
         };
         $http(httpOptions)
             .success(function () {
-                console.log("successufully marked as read");
             });
         window.open(url, "_blank");
     };

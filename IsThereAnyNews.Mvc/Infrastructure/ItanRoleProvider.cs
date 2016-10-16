@@ -1,10 +1,10 @@
-using System.Linq;
-using System.Security.Claims;
-using System.Web;
-using System.Web.Security;
-
 namespace IsThereAnyNews.Mvc.Infrastructure
 {
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Web;
+    using System.Web.Security;
+
     public class ItanRoleProvider : RoleProvider
     {
         public override bool IsUserInRole(string username, string roleName)
@@ -19,7 +19,6 @@ namespace IsThereAnyNews.Mvc.Infrastructure
             if (claimsIdentity == null)
             {
                 return false;
-
             }
 
             return claimsIdentity.Claims
