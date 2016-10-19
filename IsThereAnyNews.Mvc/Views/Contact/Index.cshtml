@@ -5,51 +5,38 @@
 }
 
 <div class="container">
-    <ul class="collapsible" data-collapsible="accordion">
-        <li>
-            <div class="collapsible-header">Contact administration</div>
-            <div class="collapsible-body">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            @using (Html.BeginForm("ContactAdministration", "Contact", FormMethod.Post))
+            {
                 <div class="row">
-                    @Html.Partial("_ContactAdministration")
+                    <div class="col-sm6 form-group">
+                        <label for="name">Your name</label>
+                        <input placeholder="So we know how to address you" name="name" id="name" type="text" class="form-control">
+                    </div>
+                    <div class="col-sm6 form-group">
+                        <label for="name">Your email</label>
+                        <input placeholder="Your email so we can reply" name="email" id="email" type="email" class="form-control">
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li>
-            <div class="collapsible-header">Submit feature request</div>
-            <div class="collapsible-body">
                 <div class="row">
-                    @Html.Partial("_FeatureRequest")
+                    <div class="col-sm12 form-group">
+                        <label for="topic">Topic</label>
+                        <input placeholder="Topic" id="topic" name="topic" type="text" class="form-control">
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li>
-            <div class="collapsible-header">Submit bug</div>
-            <div class="collapsible-body">
                 <div class="row">
-                    @Html.Partial("_SubmitBug")
+                    <div class="col-sm12 form-group">
+                        <label for="Message">Message</label>
+                        <textarea placeholder="Message" id="Message" name="message" type="text" class="form-control"></textarea>
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li>
-            <div class="collapsible-header">Just let us know about something important</div>
-            <div class="collapsible-body">
                 <div class="row">
-                    @Html.Partial("_ItsImportantForYouToKnow")
+                    <div class="form-group">
+                        <button class="btn btn-primary pull-right" name="submit" value="administration">send</button>
+                    </div>
                 </div>
-            </div>
-        </li>
-    </ul>
+            }
+        </div>
+    </div>
 </div>
-
-@section scripts
-{
-    <script type="text/javascript">
-        $('.collapsible').collapsible({
-            accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-        });
-        $(document)
-            .ready(function () {
-                Materialize.updateTextFields();
-            });
-    </script>
-}

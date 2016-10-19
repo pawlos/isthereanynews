@@ -1000,6 +1000,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -1046,12 +1047,11 @@
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Contact\_ContactAdministration.cshtml" />
-    <Content Include="Views\Contact\_FeatureRequest.cshtml" />
-    <Content Include="Views\Contact\_SubmitBug.cshtml" />
-    <Content Include="Views\Contact\_ItsImportantForYouToKnow.cshtml" />
     <Content Include="Views\Error\Execute.cshtml" />
     <Content Include="Views\RssChannel\Add.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Contact\Success.cshtml" />
     <None Include="Views\Login\RegistrationClosed.cshtml" />
     <None Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />

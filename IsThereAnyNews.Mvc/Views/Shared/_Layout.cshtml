@@ -34,15 +34,12 @@
                     <li><a href="@Url.Action("My", "RssChannel")"><span class="fa fa-rss"></span></a></li>
                 }
             </ul>
+
             @if (User.Identity.IsAuthenticated)
             {
-                <form class="navbar-form navbar-right" action="@Url.Action("Index", "Logout")" method="post">
-                    <button type="submit" class="btn btn-danger"><span class="fa fa-sign-out"></span></button>
-                </form>
+
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <span class="fa fa-user fa-4x"></span>
-                    </li>
+                    <li><span class="fa fa-user fa-4x"></span></li>
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
@@ -50,6 +47,7 @@
                             <li><a href="@Url.Action("Index", "Account")">Account</a></li>
                             <li><a href="@Url.Action("Index", "OpmlImporter")">Import OPML</a></li>
                             <li><a href="@Url.Action("Add", "RssChannel")">Add new channel</a></li>
+                            <li><a href="@Url.Action("Index", "Logout")">Logout <span style="color:red" class="fa fa-sign-out"></span></a></li>
                             @if (User.IsInRole(ItanRole.SuperAdmin.ToString()))
                             {
                                 <li>
@@ -60,14 +58,14 @@
                             }
                         </ul>
                     </li>
-
-
+                    <li><a href="@Url.Action("Index", "Contact")"><span class="fa fa-envelope"></span></a></li>
+                    <li><a href="@Url.Action("Index", "About")"><span style="color:green" class="fa fa-question"></span></a></li>
                 </ul>
             }
             else
             {
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="@Url.Action("Index", "Login")" class="btn btn-primary"><span class="fa fa-sign-in"></span></a></li>
+                    <li><a href="@Url.Action("Index", "Login")" class="btn"><span class="fa fa-sign-in"></span></a></li>
                 </ul>
             }
         </div>

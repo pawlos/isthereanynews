@@ -26,11 +26,17 @@ namespace IsThereAnyNews.Mvc.Controllers
             if (this.ModelState.IsValid)
             {
                 this.contactService.SaveAdministrationContact(dto);
-                return this.RedirectToAction("Index");
+                return this.RedirectToAction("Success");
             }
 
             var contactViewModel = this.contactService.GetViewModel();
             return this.View("Index", contactViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult Success()
+        {
+            return this.View("Success");
         }
     }
 }
