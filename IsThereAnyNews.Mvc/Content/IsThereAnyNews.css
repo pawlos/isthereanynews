@@ -6,11 +6,15 @@
   width: 100%; }
 
 .navbarfix {
-  margin-bottom: 57px; }
+  margin-bottom: 60px; }
 
 .border-less {
   border: 0; }
 
 .btn.text-left {
   text-align: left; }
+
+.navbar-nav > li > a.avatar {
+  padding-top: 0;
+  padding-bottom: 0; }
 

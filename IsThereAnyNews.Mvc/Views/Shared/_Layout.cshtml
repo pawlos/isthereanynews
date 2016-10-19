@@ -26,12 +26,12 @@
                 <a class="navbar-brand" href="#">ITAN</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span></a></li>
-                <li><a href="@Url.Action("Index", "RssChannel")"><span class="fa fa-globe"></span></a></li>
-                <li><a href="@Url.Action("Index", "Users")"><span class="fa fa-users"></span></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Home page"><a href="@Url.Action("Index", "Home")" ><span class="fa fa-home"></span></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Public channels"><a href="@Url.Action("Index", "RssChannel")" ><span class="fa fa-globe"></span></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Users list"><a href="@Url.Action("Index", "Users")" ><span class="fa fa-users"></span></a></li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li><a href="@Url.Action("My", "RssChannel")"><span class="fa fa-rss"></span></a></li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="Subscription"><a href="@Url.Action("My", "RssChannel")"><span class="fa fa-rss"></span></a></li>
                 }
             </ul>
 
@@ -39,8 +39,7 @@
             {
 
                 <ul class="nav navbar-nav navbar-right">
-                    <li><span class="fa fa-user fa-4x"></span></li>
-
+                    <li><a class="avatar" href="@Url.Action("Index","Account")"><span class="fa fa-user fa-4x"></span></a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -58,8 +57,8 @@
                             }
                         </ul>
                     </li>
-                    <li><a href="@Url.Action("Index", "Contact")"><span class="fa fa-envelope"></span></a></li>
-                    <li><a href="@Url.Action("Index", "About")"><span style="color:green" class="fa fa-question"></span></a></li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="Contact"><a href="@Url.Action("Index", "Contact")"><span class="fa fa-envelope"></span></a></li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="About"><a href="@Url.Action("Index", "About")"><span style="color:green" class="fa fa-question"></span></a></li>
                 </ul>
             }
             else
@@ -73,6 +72,11 @@
     <div class="clearfix navbarfix"></div>
     @RenderBody()
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
 </body>
 
 </html>
