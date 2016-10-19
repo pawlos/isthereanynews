@@ -1,24 +1,11 @@
-﻿
-@{
-    ViewBag.Title = "title";
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
-    <div class="jumbotron">
-        <h1>Hi, please use menu to navigate thru page</h1>
+    <div class="jumbotron text-center">
+        <h4>New RSS reader for you</h4>
+        <h1>Is there any news</h1>
+        <h4>Use menu to navigate through page</h4>
     </div>
 </div>
-
-<div class="container">
-    Session is new: @Session.IsNewSession
-    <p>Is user authenticated: @User.Identity.IsAuthenticated</p>
-    @foreach (var claim in ((System.Security.Claims.ClaimsPrincipal) User).Claims)
-    {
-        <div>
-            <span>@claim.Type</span> :
-            <span>@claim.Value</span>
-        </div>
-    }
-</div>
-

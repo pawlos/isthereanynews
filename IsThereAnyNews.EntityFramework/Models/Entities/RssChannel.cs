@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using IsThereAnyNews.EntityFramework.Models.Interfaces;
-
-namespace IsThereAnyNews.EntityFramework.Models.Entities
+﻿namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
+    using System;
+    using System.Collections.Generic;
+
+    using IsThereAnyNews.EntityFramework.Models.Interfaces;
+
     public sealed class RssChannel : IEntity, ICreatable, IModifiable, IEqualityComparer<RssChannel>
     {
         public RssChannel() : this(string.Empty, string.Empty)

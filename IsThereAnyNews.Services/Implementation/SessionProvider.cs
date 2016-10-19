@@ -16,7 +16,8 @@ namespace IsThereAnyNews.Services.Implementation
 
         public long GetCurrentUserId()
         {
-            return (long)HttpContext.Current.Session[UserIdKey];
+            object id = HttpContext.Current.Session[UserIdKey] ?? 0L;
+            return (long)id;
         }
 
         public void SaveClaims(IEnumerable<Claim> claims)

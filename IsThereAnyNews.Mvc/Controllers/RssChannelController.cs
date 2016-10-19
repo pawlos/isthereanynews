@@ -8,7 +8,6 @@
     using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
 
-    [RoleAuthorize(Roles = new[] { ItanRole.User })]
     public class RssChannelController : BaseController
     {
         private readonly IRssChannelsService rssChannelsService;
@@ -50,12 +49,14 @@
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult My()
         {
             return this.View("My");
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public JsonResult MyChannelList()
         {
             var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
@@ -65,6 +66,7 @@
         }
 
         [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Unsubscribe(long channelId)
         {
             this.rssSubscriptionService.UnsubscribeCurrentUserFromChannelId(channelId);
@@ -72,6 +74,7 @@
         }
 
         [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Subscribe(long channelId)
         {
             this.rssSubscriptionService.SubscribeCurrentUserToChannel(channelId);
@@ -79,12 +82,14 @@
         }
 
         [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public HttpStatusCodeResult MarkRssEntryViewed(long channelId)
         {
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public HttpStatusCodeResult MarkAllReadForSubscription(MarkReadForSubscriptionDto model)
         {
             this.rssSubscriptionService.MarkAllRssReadForSubscription(model);
@@ -92,12 +97,14 @@
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Add()
         {
             return this.View("Add");
         }
 
         [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Add(AddChannelDto dto)
         {
             if (this.ModelState.IsValid == false)

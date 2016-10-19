@@ -10,34 +10,37 @@
             <div class="col-sm-4">
                 <h2><i class="fa fa-user"></i>@Model.DisplayName</h2>
             </div>
-            <div class="col-sm-4">
-                @if (Model.IsUserAlreadySubscribed)
-                {
-                    using (Html.BeginForm("Unsubscribe", "Users", FormMethod.Post))
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="col-sm-4">
+                    @if (Model.IsUserAlreadySubscribed)
                     {
-                        @Html.HiddenFor(m => m.ViewingUserId)
-                        <button type="submit"
-                                role="button"
-                                class="btn btn-warning"
-                                value="subscribe">
-                            <i class="fa fa-user-times"></i>unsubscribe
-                        </button>
+                        using (Html.BeginForm("Unsubscribe", "Users", FormMethod.Post))
+                        {
+                            @Html.HiddenFor(m => m.ViewingUserId)
+                            <button type="submit"
+                                    role="button"
+                                    class="btn btn-warning"
+                                    value="subscribe">
+                                <i class="fa fa-user-times"></i>unsubscribe
+                            </button>
+                        }
                     }
-                }
-                else
-                {
-                    using (Html.BeginForm("Subscribe", "Users", FormMethod.Post))
+                    else
                     {
-                        @Html.HiddenFor(m => m.ViewingUserId)
-                        <button type="submit"
-                                role="button"
-                                class="btn btn-primary"
-                                value="subscribe">
-                            <i class="fa fa-user-plus"></i>subscribe
-                        </button>
+                        using (Html.BeginForm("Subscribe", "Users", FormMethod.Post))
+                        {
+                            @Html.HiddenFor(m => m.ViewingUserId)
+                            <button type="submit"
+                                    role="button"
+                                    class="btn btn-primary"
+                                    value="subscribe">
+                                <i class="fa fa-user-plus"></i>subscribe
+                            </button>
+                        }
                     }
-                }
-            </div>
+                </div>
+            }
         </div>
         <div class="row">
             <div class="col-sm-6">

@@ -4,14 +4,14 @@
 
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Services;
-    [Authorize]
+
     public class UsersController : BaseController
     {
         private readonly IUsersService usersService;
 
         public UsersController(IUsersService usersService,
                                IUserAuthentication authentication,
-                               ILoginService loginService, 
+                               ILoginService loginService,
                                ISessionProvider sessionProvider)
             : base(authentication, loginService, sessionProvider)
         {
@@ -19,12 +19,15 @@
         }
 
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult Index()
         {
             var usersPublicProfileViewModel = this.usersService.LoadAllUsersPublicProfile();
             return this.View("Index", usersPublicProfileViewModel);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
         public ActionResult Profile(long id)
         {
             var userPublicProfile = this.usersService.LoadUserPublicProfile(id);
@@ -32,12 +35,15 @@
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult Subscribe(SubscribeToUserActivityDto model)
         {
             this.usersService.SubscribeToUser(model);
             return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
         }
 
+        [Authorize]
+        [HttpPost]
         public ActionResult Unsubscribe(SubscribeToUserActivityDto model)
         {
             this.usersService.UnsubscribeToUser(model);
