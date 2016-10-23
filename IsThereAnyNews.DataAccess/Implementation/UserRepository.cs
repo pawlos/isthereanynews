@@ -17,12 +17,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public User CreateNewUser()
+        public User CreateNewUser(string name, string email)
         {
             var user = new User
             {
-                DisplayName = Faker.Name.FullName(),
-                Email = Faker.Internet.Email()
+                DisplayName = name,
+                Email = email
             };
 
             this.database.Users.Add(user);

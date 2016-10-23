@@ -1,11 +1,12 @@
-using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Web;
-using IsThereAnyNews.SharedData;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Web;
+
+    using IsThereAnyNews.SharedData;
+
     public class UserAuthentication : IUserAuthentication
     {
         public string GetCurrentUserSocialLoginId()

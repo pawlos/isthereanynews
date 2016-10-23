@@ -50,6 +50,7 @@
 
         public ActionResult Success()
         {
+            
             var currentRegistrationStatus = this.loginService.GetCurrentRegistrationStatus();
             switch (currentRegistrationStatus)
             {

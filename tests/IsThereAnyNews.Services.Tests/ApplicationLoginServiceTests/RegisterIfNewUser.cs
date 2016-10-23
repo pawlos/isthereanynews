@@ -114,7 +114,7 @@ namespace IsThereAnyNews.Services.Tests.ApplicationLoginServiceTests
                 }));
 
             this.mockUserRepository
-                .Setup(s => s.CreateNewUser())
+                .Setup(s => s.CreateNewUser("test-name", "test-email"))
                 .Returns(new User());
 
 

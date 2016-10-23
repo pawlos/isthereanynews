@@ -1,5 +1,10 @@
 ﻿namespace IsThereAnyNews.Mvc
 {
+    using System;
+    using System.Net.Http;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using IsThereAnyNews.Infrastructure.ConfigurationReader.Implementation;
 
     using Microsoft.Owin;
@@ -28,7 +33,32 @@
             {
                 AppId = cfgReader.FacebookAppId,
                 AppSecret = cfgReader.FacebookAppSecret,
-                SignInAsAuthenticationType = ConstantStrings.AuthorizationCookieName
+                Scope =
+                    {
+                        "email"
+                    },
+                SignInAsAuthenticationType = ConstantStrings.AuthorizationCookieName,
+                BackchannelHttpHandler = new FacebookBackChannelHandler(),
+                UserInformationEndpoint = "https://graph.facebook.com/v2.4/me?fields=id,name,email",
+                Provider = new FacebookAuthenticationProvider
+                {
+                    OnAuthenticated = (context) =>
+                    {
+                        //context.Identity.AddClaim(new System.Security.Claims.Claim("FacebookAccessToken", context.AccessToken));
+                        ////foreach (var claim in context.User)
+                        ////{
+                        //    //var claimType = string.Format("urn:facebook:{0}", claim.Key);
+                        //    //string claimValue = claim.Value.ToString();
+                        //    //if (!context.Identity.HasClaim(claimType, claimValue))
+                        //    //{
+                        //        //context.Identity.AddClaim(new System.Security.Claims.Claim(claimType, claimValue, "XmlSchemaString", "Facebook"));
+                        //    //}
+
+                        ////}
+
+                        return System.Threading.Tasks.Task.FromResult(0);
+                    }
+                }
             });
 
             appBuilder.UseTwitterAuthentication(new TwitterAuthenticationOptions
@@ -46,6 +76,22 @@
                 ClientSecret = cfgReader.GoogleClientSecret,
                 SignInAsAuthenticationType = ConstantStrings.AuthorizationCookieName
             });
+        }
+    }
+
+    public class FacebookBackChannelHandler : HttpClientHandler
+    {
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            {
+                // Replace the RequestUri so it's not malformed
+                if (!request.RequestUri.AbsolutePath.Contains("/oauth"))
+                {
+                    request.RequestUri = new Uri(request.RequestUri.AbsoluteUri.Replace("?access_token", "&access_token"));
+                }
+
+                return await base.SendAsync(request, cancellationToken);
+            }
         }
     }
 }

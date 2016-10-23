@@ -46,6 +46,7 @@ namespace IsThereAnyNews.Services.Implementation
             if (socialLogin == null)
             {
                 this.RegisterCurrentSocialLogin();
+                this.StoreCurrentUserIdInSession();
                 this.AssignToUserRole();
             }
         }
@@ -98,9 +99,9 @@ namespace IsThereAnyNews.Services.Implementation
 
         private void RegisterCurrentSocialLogin()
         {
+            var identifier = this.FindCurrentUserClaimNameIdentifier();
             var newUser = this.CreateNewApplicationUser();
             var authenticationTypeProvider = this.GetUserAuthenticationProviderFromAuthentication();
-            var identifier = this.FindCurrentUserClaimNameIdentifier();
             this.CreateAndAssignNewSocialLoginForApplicationUser(identifier, authenticationTypeProvider, newUser);
         }
 
@@ -111,7 +112,9 @@ namespace IsThereAnyNews.Services.Implementation
 
         private User CreateNewApplicationUser()
         {
-            return this.userRepository.CreateNewUser();
+            var name = this.FindCurrentUserClaimName();
+            var email = this.FindCurrentUserClaimEmail();
+            return this.userRepository.CreateNewUser(name.Value, email.Value);
         }
 
         private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier,
@@ -129,5 +132,22 @@ namespace IsThereAnyNews.Services.Implementation
             var identifier = claims.First(x => x.Type == ClaimTypes.NameIdentifier);
             return identifier;
         }
+
+        private Claim FindCurrentUserClaimName()
+        {
+            var user = this.authentication.GetCurrentUser();
+            var claims = user.Claims.ToList();
+            var identifier = claims.First(x => x.Type == ClaimTypes.Name);
+            return identifier;
+        }
+
+        private Claim FindCurrentUserClaimEmail()
+        {
+            var user = this.authentication.GetCurrentUser();
+            var claims = user.Claims.ToList();
+            var identifier = claims.First(x => x.Type == ClaimTypes.Email);
+            return identifier;
+        }
+
     }
 }

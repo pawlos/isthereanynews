@@ -26,9 +26,9 @@
                 <a class="navbar-brand" href="#">ITAN</a>
             </div>
             <ul class="nav navbar-nav">
-                <li data-toggle="tooltip" data-placement="bottom" title="Home page"><a href="@Url.Action("Index", "Home")" ><span class="fa fa-home"></span></a></li>
-                <li data-toggle="tooltip" data-placement="bottom" title="Public channels"><a href="@Url.Action("Index", "RssChannel")" ><span class="fa fa-globe"></span></a></li>
-                <li data-toggle="tooltip" data-placement="bottom" title="Users list"><a href="@Url.Action("Index", "Users")" ><span class="fa fa-users"></span></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Home page"><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Public channels"><a href="@Url.Action("Index", "RssChannel")"><span class="fa fa-globe"></span></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Users list"><a href="@Url.Action("Index", "Users")"><span class="fa fa-users"></span></a></li>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li data-toggle="tooltip" data-placement="bottom" title="Subscription"><a href="@Url.Action("My", "RssChannel")"><span class="fa fa-rss"></span></a></li>
@@ -71,6 +71,12 @@
     </nav>
     <div class="clearfix navbarfix"></div>
     @RenderBody()
+    <div class="clearfix navbarfix"></div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <span>Is there any news 2016 (C)</span>
+        </div>
+    </nav>
     @RenderSection("scripts", required: false)
     <script type="text/javascript">
         $(function () {

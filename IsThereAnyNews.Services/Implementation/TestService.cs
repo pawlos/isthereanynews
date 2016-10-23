@@ -45,7 +45,7 @@ namespace IsThereAnyNews.Services.Implementation
             FixUsersWithEmptyNames();
             for (int i = 0; i < 1000; i++)
             {
-                this.usersRepository.CreateNewUser();
+                this.usersRepository.CreateNewUser(Faker.Name.FullName(), Faker.Internet.Email());
             }
         }
 

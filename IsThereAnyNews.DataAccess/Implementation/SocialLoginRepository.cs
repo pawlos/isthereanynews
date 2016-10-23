@@ -1,11 +1,11 @@
-using System.Linq;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.SharedData;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Linq;
+
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.SharedData;
+
     public class SocialLoginRepository : ISocialLoginRepository
     {
         private readonly ItanDatabaseContext itanDatabaseContext;
@@ -23,11 +23,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public SocialLogin FindSocialLogin(string socialLoginId, AuthenticationTypeProvider provider)
         {
-            var socialLogin = this.itanDatabaseContext
-                .SocialLogins
-                .Where(login => login.SocialId == socialLoginId)
-                .Where(login => login.Provider == provider)
-                .SingleOrDefault();
+            var socialLogin =
+                this.itanDatabaseContext
+                    .SocialLogins
+                    .Where(login => login.SocialId == socialLoginId)
+                    .Where(login => login.Provider == provider)
+                    .SingleOrDefault();
 
             return socialLogin;
         }
