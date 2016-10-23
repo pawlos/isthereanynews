@@ -2,12 +2,24 @@
 {
     using System;
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security;
+
     using Services;
+
     using SharedData;
-    using ViewModels;
+
     using ViewModels.Login;
 
     [AllowAnonymous]
@@ -48,9 +60,15 @@
             return new HttpUnauthorizedResult();
         }
 
-        public ActionResult Success()
+        public async Task<ActionResult> Success()
         {
-            
+            var claimsIdentity = await this.GetExtStatus();
+
+            if (claimsIdentity == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
             var currentRegistrationStatus = this.loginService.GetCurrentRegistrationStatus();
             switch (currentRegistrationStatus)
             {
@@ -82,6 +100,11 @@
             this.loginService.StoreCurrentUserIdInSession();
             this.loginService.StoreItanRolesToSession();
             return this.RedirectToAction("Index", "Home");
+        }
+
+        private async Task<ClaimsIdentity> GetExtStatus()
+        {
+            return await this.HttpContext.GetOwinContext().Authentication.GetExternalIdentityAsync(ConstantStrings.AuthorizationCookieName);
         }
 
         [HttpGet]
