@@ -8,5 +8,13 @@ namespace IsThereAnyNews.EntityFramework.Migrations
         {
             AutomaticMigrationsEnabled = false;
         }
+
+        //protected override void Seed(ItanDatabaseContext context)
+        //{
+        //    context.ApplicationConfiguration.Add(
+        //        new ApplicationConfiguration { RegistrationSupported = RegistrationSupported.Open, UsersLimit = 1 });
+        //    context.SaveChanges();
+        //    base.Seed(context);
+        //}
     }
 }
