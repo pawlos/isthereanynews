@@ -64,6 +64,8 @@
             else
             {
                 <ul class="nav navbar-nav navbar-right">
+                    <li data-toggle="tooltip" data-placement="bottom" title="Contact"><a href="@Url.Action("Index", "Contact")"><span class="fa fa-envelope"></span></a></li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="About"><a href="@Url.Action("Index", "About")"><span style="color:green" class="fa fa-question"></span></a></li>
                     <li><a href="@Url.Action("Index", "Login")" class="btn"><span class="fa fa-sign-in"></span></a></li>
                 </ul>
             }
