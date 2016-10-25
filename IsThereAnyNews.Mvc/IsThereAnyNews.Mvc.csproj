@@ -1056,8 +1056,8 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Contact\Success.cshtml" />
-    <None Include="Views\Login\RegistrationClosed.cshtml" />
-    <None Include="Views\RssChannel\My.cshtml" />
+    <Content Include="Views\Login\RegistrationClosed.cshtml" />
+    <Content Include="Views\RssChannel\My.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
