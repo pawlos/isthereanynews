@@ -191,3 +191,4 @@ ModelManifest.xml
 /IsThereAnyNews.Mvc/secrets.config
 *.scgdat
 .vs/config/applicationhost.config
+*.tss
