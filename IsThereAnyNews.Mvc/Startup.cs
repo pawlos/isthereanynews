@@ -56,18 +56,18 @@
 
                         ////}
 
-                        return System.Threading.Tasks.Task.FromResult(0);
+                        return Task.FromResult(0);
                     }
                 }
             });
 
-            appBuilder.UseTwitterAuthentication(new TwitterAuthenticationOptions
-            {
-                ConsumerKey = cfgReader.TwitterConsumerKey,
-                ConsumerSecret = cfgReader.TwitterConsumerSecret,
-                SignInAsAuthenticationType = ConstantStrings.AuthorizationCookieName,
-                BackchannelCertificateValidator = null   // can be for demo purposes
-            });
+            //appBuilder.UseTwitterAuthentication(new TwitterAuthenticationOptions
+            //{
+            //    ConsumerKey = cfgReader.TwitterConsumerKey,
+            //    ConsumerSecret = cfgReader.TwitterConsumerSecret,
+            //    SignInAsAuthenticationType = ConstantStrings.AuthorizationCookieName,
+            //    BackchannelCertificateValidator = null   // can be for demo purposes
+            //});
 
 
             appBuilder.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
