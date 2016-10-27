@@ -1,7 +1,9 @@
 ﻿namespace IsThereAnyNews.Autofac
 {
     using System;
+    using System.Linq;
     using System.Reflection;
+    using System.Web.Compilation;
     using System.Web.Mvc;
 
     using AutoMapper;
@@ -27,13 +29,15 @@
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterControllers(Assembly.GetCallingAssembly());
+            var assemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>().ToArray();
 
-            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+            builder.RegisterControllers(assemblies);
+
+            builder.RegisterAssemblyTypes(assemblies)
                 .Where(t => t.Name.EndsWith("Repository"))
                 .AsImplementedInterfaces();
 
-            builder.RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+            builder.RegisterAssemblyTypes(assemblies)
                 .Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces();
 
