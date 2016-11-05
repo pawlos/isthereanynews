@@ -1,0 +1,70 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    <script src="~/Scripts/itan/filterMoment.js"></script>
+    <script src="~/Scripts/itan/filterRawHtml.js"></script>
+    <script src="~/Scripts/itan/publicRssChannelsCtrl.js"></script>
+}
+<div class="container" ng-controller="itan.PublicRssChannelsCtrl">
+    <div class="row">
+        <div class="col-sm-4">
+            <div ng-hide="channels.loaded"
+                 class="fa fa-4x fa-spin fa-spinner"></div>
+            <div ng-show="channels.loaded" class="text-ellipse-too-long">
+                <a ng-repeat="channel in channels.list.AllChannels"
+                   ng-click="onChannelClick(channel.Id)"
+                   class="btn btn-xs btn-default full-width border-less text-left">
+                    <div>
+                        <div>
+                            {{channel.Title}} ({{channel.RssEntriesCount}})
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div ng-hide="channel.loaded">
+                <h3>Please select channel to see news</h3>
+            </div>
+            <div ng-show="channel.loaded">
+                <div class="row">
+                    <h2>{{channel.entries.Title}}</h2>
+                    <h3>{{channel.entries.Added|moment:'YYYY-MM-DD'}}</h3>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <button class="btn"
+                                ng-class="buttonSubscriptionClass(channel)"
+                                ng-click="onSubscribeClick(channel.entries.ChannelId,channel.entries.SubscriptionInfo.IsSubscribed)">
+                            {{channel.entries.SubscriptionInfo.IsSubscribed?"unsubscribe":"subscribe"}}
+                        </button>
+                    }
+                </div>
+
+                <div class="panel-group" id="accordion" role="tablist">
+                    <div class="panel panel-default" ng-repeat="item in channel.entries.Entries">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#rss-{{item.Id}}">
+                                    <span>{{item.Title}}</span>
+                                    <span class="small right">
+                                        {{item.PublicationDate|moment:'DD/MMMM/YYYY'}}
+                                    </span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="rss-{{item.Id}}"
+                             class="panel-collapse collapse"
+                             role="tabpanel">
+                            <div class="panel-body"
+                                 ng-bind-html="item.PreviewText | rawHtml">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

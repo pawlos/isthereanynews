@@ -9,22 +9,20 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class UserAuthentication : IUserAuthentication
     {
-        public string GetCurrentUserSocialLoginId()
+        public string GetUserSocialIdFromIdentity(ClaimsIdentity identity)
         {
-            var claimsPrincipal = GetCurrentUserClaimsFromOwinAuthentication();
-            var claim = claimsPrincipal.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
+            var claim = identity.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
             return claim.Value;
         }
 
         public ClaimsPrincipal GetCurrentUser()
         {
-            return GetCurrentUserClaimsFromOwinAuthentication();
+            return HttpContext.Current.GetOwinContext().Authentication.User;
         }
 
-        public AuthenticationTypeProvider GetCurrentUserLoginProvider()
+        public AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity)
         {
-            var claimsPrincipal = GetCurrentUserClaimsFromOwinAuthentication();
-            var issuer = claimsPrincipal.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer)).Issuer;
+            var issuer = identity.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer)).Issuer;
             AuthenticationTypeProvider enumResult;
             Enum.TryParse(issuer, true, out enumResult);
             return enumResult;
@@ -41,9 +39,13 @@ namespace IsThereAnyNews.Services.Implementation
                 .IsAuthenticated;
         }
 
-        private static ClaimsPrincipal GetCurrentUserClaimsFromOwinAuthentication()
+        public long GetCurrentUserId()
         {
-            return HttpContext.Current.GetOwinContext().Authentication.User;
+            return
+                long.Parse(
+                    this.GetCurrentUser()
+                        .Claims.Single(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
+                        .Value);
         }
     }
 }

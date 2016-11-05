@@ -1,0 +1,23 @@
+﻿@model IsThereAnyNews.ViewModels.RssSubscriptionIndexViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col s3">
+            @Html.Action("MyChannelList", "RssChannel")
+        </div>
+        <div class="col s9 nocss-rsschannel-container">
+            @Html.Partial("_ReadAjax", Model)
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/itan/rssChannelOnClick.js"></script>
+    <script src="~/Scripts/itan/rssItemOnPreviewClick.js"></script>
+    <script src="~/Scripts/itan/rssMarkChannelRead.js"></script>
+    <script src="~/Scripts/itan/rssPreviewTextOnClick.js"></script>
+}

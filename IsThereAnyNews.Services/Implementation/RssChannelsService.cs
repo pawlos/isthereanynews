@@ -14,33 +14,29 @@
     public class RssChannelsService : IRssChannelsService
     {
         private readonly IRssChannelsRepository channelsRepository;
-        private readonly ISessionProvider sessionProvider;
+
         private readonly IRssChannelsSubscriptionsRepository channelsSubscriptionRepository;
         private readonly IRssEntriesToReadRepository rssEntriesToReadRepository;
         private readonly IUserAuthentication authentication;
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
-        private readonly ISessionProvider session;
+
         private readonly IMapper mapping;
         private readonly IEventRssChannelCreatedRepository eventRssChannelCreatedRepository;
 
         public RssChannelsService(
             IRssChannelsRepository channelsRepository,
-            ISessionProvider sessionProvider,
             IRssChannelsSubscriptionsRepository channelsSubscriptionRepository,
             IRssEntriesToReadRepository rssEntriesToReadRepository,
             IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
-            ISessionProvider session,
             IMapper mapping,
             IEventRssChannelCreatedRepository eventRssChannelCreatedRepository)
         {
             this.channelsRepository = channelsRepository;
-            this.sessionProvider = sessionProvider;
             this.channelsSubscriptionRepository = channelsSubscriptionRepository;
             this.rssEntriesToReadRepository = rssEntriesToReadRepository;
             this.authentication = authentication;
             this.rssSubscriptionRepository = rssSubscriptionRepository;
-            this.session = session;
             this.mapping = mapping;
             this.eventRssChannelCreatedRepository = eventRssChannelCreatedRepository;
         }
@@ -54,7 +50,7 @@
 
         public RssChannelsMyViewModel LoadAllChannelsOfCurrentUser()
         {
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var currentUserId = this.authentication.GetCurrentUserId();
             var rssSubscriptions = this.channelsSubscriptionRepository.LoadAllSubscriptionsForUser(currentUserId);
             this.rssEntriesToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(currentUserId, rssSubscriptions);
             var viewmodel = this.mapping.Map<RssChannelsMyViewModel>(rssSubscriptions);
@@ -77,7 +73,7 @@
 
         public UserRssSubscriptionInfoViewModel CreateUserSubscriptionInfo(long id)
         {
-            var userId = this.session.GetCurrentUserId();
+            var userId = this.authentication.GetCurrentUserId();
             var subscriptionInfo = this.rssSubscriptionRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
             var userRssSubscriptionInfoViewModel = this.mapping.Map<UserRssSubscriptionInfoViewModel>(subscriptionInfo);
             return userRssSubscriptionInfoViewModel;

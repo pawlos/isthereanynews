@@ -110,7 +110,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ILoginService.cs" />
     <Compile Include="Implementation\ApplicationLoginService.cs" />
-    <Compile Include="ISessionProvider.cs" />
     <Compile Include="Implementation\OpmlImporterService.cs" />
     <Compile Include="Implementation\RssChannelsService.cs" />
     <Compile Include="Implementation\SessionProvider.cs" />

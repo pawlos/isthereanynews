@@ -6,9 +6,11 @@
 
     public interface IUserAuthentication
     {
-        string GetCurrentUserSocialLoginId();
+        string GetUserSocialIdFromIdentity(ClaimsIdentity identity);
         ClaimsPrincipal GetCurrentUser();
-        AuthenticationTypeProvider GetCurrentUserLoginProvider();
+        AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity);
         bool CurrentUserIsAuthenticated();
+
+        long GetCurrentUserId();
     }
 }

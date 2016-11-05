@@ -12,27 +12,28 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class RssSubscriptionService : IRssSubscriptionService
     {
-        private readonly ISessionProvider sessionProvider;
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
         private readonly IRssEntriesToReadRepository rssToReadRepository;
         private readonly IRssEventRepository rssEventsRepository;
         private readonly IRssChannelsRepository rssChannelsRepository;
         private readonly ISubscriptionHandlerFactory subscriptionHandlerFactory;
 
+        private readonly IUserAuthentication authentication;
+
         public RssSubscriptionService(
-            ISessionProvider sessionProvider,
             IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
             IRssEntriesToReadRepository rssToReadRepository,
             IRssEventRepository rssEventsRepository,
             IRssChannelsRepository rssChannelsRepository,
-            ISubscriptionHandlerFactory subscriptionHandlerFactory)
+            ISubscriptionHandlerFactory subscriptionHandlerFactory,
+            IUserAuthentication authentication)
         {
-            this.sessionProvider = sessionProvider;
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
             this.rssToReadRepository = rssToReadRepository;
             this.rssEventsRepository = rssEventsRepository;
             this.rssChannelsRepository = rssChannelsRepository;
             this.subscriptionHandlerFactory = subscriptionHandlerFactory;
+            this.authentication = authentication;
         }
 
         public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
@@ -54,7 +55,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void UnsubscribeCurrentUserFromChannelId(long id)
         {
-            var userId = this.sessionProvider.GetCurrentUserId();
+            var userId = this.authentication.GetCurrentUserId();
             this.rssSubscriptionsRepository.DeleteSubscriptionFromUser(id, userId);
         }
 
@@ -71,7 +72,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void SubscribeCurrentUserToChannel(AddChannelDto channelId)
         {
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var currentUserId = this.authentication.GetCurrentUserId();
             var isUserSubscribedToChannelUrl = this.rssSubscriptionsRepository.IsUserSubscribedToChannelUrl(currentUserId, channelId.RssChannelLink);
 
             if (!isUserSubscribedToChannelUrl)
@@ -100,7 +101,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void MarkClicked(MarkClickedDto dto)
         {
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var currentUserId = this.authentication.GetCurrentUserId();
             this.rssEventsRepository.MarkClicked(dto.Id, currentUserId);
         }
     }

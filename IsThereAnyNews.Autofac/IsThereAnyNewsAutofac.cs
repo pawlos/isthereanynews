@@ -48,7 +48,6 @@
             builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
             builder.RegisterType<OpmlReader>().As<IOpmlReader>();
 
-            builder.RegisterType<SessionProvider>().As<ISessionProvider>();
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();
 
             builder.RegisterType<RssSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Rss);

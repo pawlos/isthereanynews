@@ -1,0 +1,89 @@
+﻿@using IsThereAnyNews.SharedData
+<!DOCTYPE html>
+<html ng-app="itan">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Is there any news</title>
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/moment-with-locales.min.js"></script>
+    <script src="~/Scripts/angular.js"></script>
+    <link href="~/Content/IsThereAnyNews.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/icon.gif" type="image/x-icon" />
+    <script>
+        var m = angular.module("itan", []);
+    </script>
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">ITAN</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li data-toggle="tooltip" data-placement="bottom" title="Home page"><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Public channels"><a href="@Url.Action("Index", "RssChannel")"><span class="fa fa-globe"></span></a></li>
+                <li data-toggle="tooltip" data-placement="bottom" title="Users list"><a href="@Url.Action("Index", "Users")"><span class="fa fa-users"></span></a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li data-toggle="tooltip" data-placement="bottom" title="Subscription"><a href="@Url.Action("My", "RssChannel")"><span class="fa fa-rss"></span></a></li>
+                }
+            </ul>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-toggle="tooltip" data-placement="bottom" title="You"><a class="avatar" href="@Url.Action("Index","Account")"><span class="fa fa-user fa-4x"></span></a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("Index", "Account")">Account</a></li>
+                            <li><a href="@Url.Action("Index", "OpmlImporter")">Import OPML</a></li>
+                            <li><a href="@Url.Action("Add", "RssChannel")">Add new channel</a></li>
+                            <li><a href="@Url.Action("LogOff", "Social")">Logout <span style="color:red" class="fa fa-sign-out"></span></a></li>
+                            @if (User.IsInRole(ItanRole.SuperAdmin.ToString()))
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "Admin")">
+                                        Supa Admin <span class="fa fa-lock"></span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="Contact"><a href="@Url.Action("Index", "Contact")"><span class="fa fa-envelope"></span></a></li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="About"><a href="@Url.Action("Index", "About")"><span style="color:green" class="fa fa-question"></span></a></li>
+                </ul>
+            }
+            else
+            {
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-toggle="tooltip" data-placement="bottom" title="Contact"><a href="@Url.Action("Index", "Contact")"><span class="fa fa-envelope"></span></a></li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="About"><a href="@Url.Action("Index", "About")"><span style="color:green" class="fa fa-question"></span></a></li>
+                    <li><a href="@Url.Action("Login", "Social")" class="btn"><span class="fa fa-sign-in"></span></a></li>
+                </ul>
+            }
+        </div>
+    </nav>
+    <div class="clearfix navbarfix"></div>
+    @RenderBody()
+    <div class="clearfix navbarfix"></div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <span>Is there any news 2016 (C)</span>
+        </div>
+    </nav>
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+</body>
+
+</html>

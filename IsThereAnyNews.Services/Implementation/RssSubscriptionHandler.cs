@@ -14,24 +14,26 @@ namespace IsThereAnyNews.Services.Implementation
     public class RssSubscriptionHandler : ISubscriptionHandler
     {
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
-        private readonly ISessionProvider sessionProvider;
+
         private readonly IRssEntriesToReadRepository rssToReadRepository;
         private readonly IMapper mapper;
 
         private readonly IRssEventRepository rssEventsRepository;
 
+        private readonly IUserAuthentication authentication;
+
         public RssSubscriptionHandler(
             IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
-            ISessionProvider sessionProvider,
             IRssEntriesToReadRepository rssToReadRepository,
             IMapper mapper,
-            IRssEventRepository rssEventsRepository)
+            IRssEventRepository rssEventsRepository, 
+            IUserAuthentication authentication)
         {
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
-            this.sessionProvider = sessionProvider;
             this.rssToReadRepository = rssToReadRepository;
             this.mapper = mapper;
             this.rssEventsRepository = rssEventsRepository;
+            this.authentication = authentication;
         }
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries)
@@ -49,13 +51,13 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void AddEventViewed(long dtoId)
         {
-            var cui = this.sessionProvider.GetCurrentUserId();
+            var cui = this.authentication.GetCurrentUserId();
             this.rssEventsRepository.AddEventRssViewed(cui, dtoId);
         }
 
         private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModel(long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var currentUserId = this.authentication.GetCurrentUserId();
 
             if (!this.rssSubscriptionsRepository.DoesUserOwnsSubscription(subscriptionId, currentUserId))
             {

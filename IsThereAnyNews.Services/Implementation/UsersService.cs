@@ -10,16 +10,18 @@
     public class UsersService : IUsersService
     {
         private readonly IUserRepository usersRepository;
-        private readonly ISessionProvider sessionProvider;
+
         private readonly IUsersSubscriptionRepository usersSubscriptionRepository;
 
+        private readonly IUserAuthentication authentication;
+
         public UsersService(IUserRepository usersRepository,
-                            ISessionProvider sessionProvider,
-                            IUsersSubscriptionRepository usersSubscriptionRepository)
+                            IUsersSubscriptionRepository usersSubscriptionRepository,
+                            IUserAuthentication authentication)
         {
             this.usersRepository = usersRepository;
-            this.sessionProvider = sessionProvider;
             this.usersSubscriptionRepository = usersSubscriptionRepository;
+            this.authentication = authentication;
         }
 
         public AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile()
@@ -35,7 +37,7 @@
 
         public UserDetailedPublicProfileViewModel LoadUserPublicProfile(long id)
         {
-            var cui = this.sessionProvider.GetCurrentUserId();
+            var cui = this.authentication.GetCurrentUserId();
             var isUserAlreadySubscribed = this.usersSubscriptionRepository.IsUserSubscribedToUser(cui, id);
             var publicProfile = this.usersRepository.LoadUserPublicProfile(id);
             var userDetailedPublicProfileViewModel = new UserDetailedPublicProfileViewModel
@@ -62,13 +64,13 @@
 
         public void UnsubscribeToUser(SubscribeToUserActivityDto model)
         {
-            var cui = this.sessionProvider.GetCurrentUserId();
+            var cui = this.authentication.GetCurrentUserId();
             this.usersSubscriptionRepository.DeleteUserSubscription(cui, model.ViewingUserId);
         }
 
         public void SubscribeToUser(SubscribeToUserActivityDto model)
         {
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var currentUserId = this.authentication.GetCurrentUserId();
             this.usersSubscriptionRepository.CreateNewSubscription(currentUserId, model.ViewingUserId);
         }
 

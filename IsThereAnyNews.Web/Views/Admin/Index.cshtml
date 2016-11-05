@@ -1,0 +1,53 @@
+﻿@using IsThereAnyNews.SharedData
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts
+{
+    <script src="~/Scripts/itan/superAdminCtrl.js"></script>
+}
+
+<div class="container" ng-controller="itan.SuperAdminCtrl">
+    <div class="row">
+        Current status of new user registration is:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">
+            {{configurationStatus.data.UserRegistration}}
+        </span>
+        <div ng-show="configurationStatus.loaded">
+            <span class="btn btn-xs btn-default" ng-click="onRegistrationClick('@RegistrationSupported.Closed')">@RegistrationSupported.Closed.ToString()</span>
+            <span class="btn btn-xs btn-default" ng-click="onRegistrationClick('@RegistrationSupported.InviteOnly')">@RegistrationSupported.InviteOnly.ToString()</span>
+            <span class="btn btn-xs btn-default" ng-click="onRegistrationClick('@RegistrationSupported.Limited')">@RegistrationSupported.Limited.ToString()</span>
+            <span class="btn btn-xs btn-default" ng-click="onRegistrationClick('@RegistrationSupported.Open')">@RegistrationSupported.Open.ToString()</span>
+        </div>
+    </div>
+    <div class="row">
+        Current number of users:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.CurrentUsers}}</span>
+    </div>
+    <div class="row">
+        Current limit of users:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.UserLimit}}</span>
+        <div ng-show="configurationStatus.loaded">
+            <input type="number" name="newUserLimit" ng-model="newUsersLimit" />
+            <div class="btn btn-xs btn-default" ng-click="onUsersLimitClicked(newUsersLimit)">update</div>
+        </div>
+    </div>
+    <div class="row">
+        Current number subscriptions:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.Subscriptions}}</span>
+    </div>
+    <div class="row">
+        Current number cuurent users:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.CurrentUsers}}</span>
+    </div>
+    <div class="row">
+        Current number of rss news:
+        <span ng-hide="configurationStatus.loaded" class="fa fa-spin fa-spinner"></span>
+        <span ng-show="configurationStatus.loaded">{{configurationStatus.data.RssNews}}</span>
+    </div>
+</div>

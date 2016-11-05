@@ -1,0 +1,29 @@
+﻿`@model List<IsThereAnyNews.Services.Implementation.ActivityPerWeek>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h3>Activity per weeks</h3>
+
+    @foreach (var a in Model.OrderBy(x => x.WeekNumber))
+    {
+        <div class="row">
+            <div class="col-lg-2">
+                <span>Week: @a.WeekNumber</span>
+                <span>Rss read: @a.RssCount</span>
+            </div>
+            <div class="col-lg-10">
+                @foreach (var popular in a.RssVieweds)
+                {
+                    <div class="row">
+                        <span>@popular.RssEntry.Title</span>
+                        <span>@popular.RssEntry.PublicationDate</span>
+                        <span>@Html.ActionLink("see channel", "Public", "RssChannel", new { id = popular.RssEntry.RssChannelId }, new { @class = "btn btn-default btn-xs" })</span>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>  

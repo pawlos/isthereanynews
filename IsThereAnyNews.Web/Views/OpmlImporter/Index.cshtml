@@ -1,0 +1,19 @@
+﻿@model IsThereAnyNews.ViewModels.OpmlImporterIndexViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
+            @using (Html.BeginForm("Index", "OpmlImporter", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                    <label>Please select an opml file</label>
+                    <input class="form-control" type="file" name="importFile" />
+                    <button type="submit" class="btn btn-primary pull-right">upload</button>
+            }
+        </div>
+    </div>
+</div>

@@ -12,20 +12,22 @@
     public class OpmlImporterService : IOpmlImporterService
     {
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
-        private readonly ISessionProvider sessionProvider;
+
         private readonly IRssChannelsRepository rssChannelsRepository;
         private readonly IOpmlReader opmlHandler;
 
+        private readonly IUserAuthentication authentication;
+
         public OpmlImporterService(
             IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
-            ISessionProvider sessionProvider,
             IRssChannelsRepository rssChannelsRepository,
-            IOpmlReader opmlHandler)
+            IOpmlReader opmlHandler,
+            IUserAuthentication authentication)
         {
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
-            this.sessionProvider = sessionProvider;
             this.rssChannelsRepository = rssChannelsRepository;
             this.opmlHandler = opmlHandler;
+            this.authentication = authentication;
         }
 
 
@@ -34,7 +36,7 @@
             var urlstoChannels = importFromUpload.Select(x => x.Url.ToLowerInvariant()).ToList();
             var listOfChannelsIds = this.rssChannelsRepository.GetIdByChannelUrl(urlstoChannels);
 
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var currentUserId = this.authentication.GetCurrentUserId();
             var existringChannelIdSubscriptions = 
                 this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
 
@@ -74,7 +76,7 @@
             var newChannelsIds = toRssChannelList.Where(c => c.Id != 0).Select(c => c.Id).ToList();
             existingChannelsIds.AddRange(newChannelsIds);
 
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var currentUserId = this.authentication.GetCurrentUserId();
 
             var alreadySubscribedToChannelsId = this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
             alreadySubscribedToChannelsId.ForEach(c => existingChannelsIds.Remove(c));

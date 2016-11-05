@@ -1,0 +1,12 @@
+﻿@model IsThereAnyNews.ViewModels.UserStatisticsViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var user in Model.List)
+{
+    <h1>@user.Name</h1>
+    <h2>Subscribers: @user.Count</h2>
+}

@@ -1,0 +1,14 @@
+﻿@model IsThereAnyNews.ViewModels.TopReadChannelsViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>title</h2>
+
+@foreach (var channel in Model.ViewModels)
+{
+    <h1>@channel.Title</h1>
+    <h2>Subscribers: @channel.SubscriptionCount</h2>
+}

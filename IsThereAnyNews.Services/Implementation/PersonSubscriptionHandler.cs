@@ -1,31 +1,34 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.SharedData;
-using IsThereAnyNews.ViewModels;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using AutoMapper;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels;
+
     public class PersonSubscriptionHandler : ISubscriptionHandler
     {
         private readonly IRssEventRepository rssEventsRepository;
-        private readonly ISessionProvider sessionProvider;
         private readonly IUsersSubscriptionRepository usersSubscriptionRepository;
         private readonly IMapper mapper;
 
+        private readonly IUserAuthentication authentication;
+
         public PersonSubscriptionHandler(
             IRssEventRepository rssEventsRepository,
-            ISessionProvider sessionProvider,
             IUsersSubscriptionRepository usersSubscriptionRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IUserAuthentication authentication)
         {
             this.rssEventsRepository = rssEventsRepository;
-            this.sessionProvider = sessionProvider;
             this.usersSubscriptionRepository = usersSubscriptionRepository;
             this.mapper = mapper;
+            this.authentication = authentication;
         }
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries)
@@ -49,7 +52,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         private RssSubscriptionIndexViewModel GetPersonSubscriptionIndexViewModel(long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var currentUserId = this.sessionProvider.GetCurrentUserId();
+            var currentUserId = this.authentication.GetCurrentUserId();
 
             if (!this.usersSubscriptionRepository.DoesUserOwnsSubscription(subscriptionId, currentUserId))
             {
