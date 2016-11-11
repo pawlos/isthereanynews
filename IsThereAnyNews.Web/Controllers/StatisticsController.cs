@@ -1,8 +1,9 @@
-﻿using System.Web.Mvc;
-using IsThereAnyNews.Services;
-
-namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Web.Controllers
 {
+    using System.Web.Mvc;
+
+    using IsThereAnyNews.Services;
+
     public class StatisticsController : Controller
     {
         private readonly IStatisticsService statisticsService;

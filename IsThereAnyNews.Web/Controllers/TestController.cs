@@ -1,4 +1,4 @@
-﻿namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Web.Controllers
 {
     using System.Web.Mvc;
 
@@ -75,7 +75,7 @@
         public ActionResult FixDuplicatedChannels()
         {
             this.testService.FixDuplicatedChannels();
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
     }
 }

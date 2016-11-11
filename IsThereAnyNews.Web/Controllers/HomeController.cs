@@ -1,9 +1,6 @@
-﻿namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Web.Controllers
 {
     using System.Web.Mvc;
-
-    using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.Services;
 
     [AllowAnonymous]
     public class HomeController : Controller

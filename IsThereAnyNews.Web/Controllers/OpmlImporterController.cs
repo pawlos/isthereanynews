@@ -1,9 +1,10 @@
-﻿namespace IsThereAnyNews.Mvc.Controllers
+﻿namespace IsThereAnyNews.Web.Controllers
 {
     using System.Web.Mvc;
-    using Dtos;
-    using Services;
-    using ViewModels;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services;
+    using IsThereAnyNews.ViewModels;
 
     [Authorize]
     public class OpmlImporterController : BaseController

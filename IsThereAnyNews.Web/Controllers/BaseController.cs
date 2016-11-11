@@ -1,9 +1,6 @@
-namespace IsThereAnyNews.Mvc.Controllers
+namespace IsThereAnyNews.Web.Controllers
 {
-    using System.Linq;
-    using System.Security.Claims;
     using System.Web.Mvc;
-    using System.Web.Mvc.Filters;
 
     using IsThereAnyNews.Services;
 
