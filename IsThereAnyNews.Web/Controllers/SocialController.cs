@@ -9,6 +9,7 @@
 
     using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels.Login;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.Owin.Security;
@@ -37,8 +38,17 @@
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            this.ViewBag.ReturnUrl = returnUrl;
-            return this.View();
+            var viewmodel = new AuthorizationIndexViewModel();
+            var providers = this.HttpContext.GetOwinContext()
+                                       .Authentication
+                                       .GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption))
+                                       .ToList();
+
+            var currentRegistrationStatus = this.loginService.GetCurrentRegistrationStatus();
+
+            viewmodel.Providers = providers;
+            viewmodel.CurrentRegistrationStatus = currentRegistrationStatus.ToString();
+            return this.View("Login", viewmodel);
         }
 
         [HttpPost]
