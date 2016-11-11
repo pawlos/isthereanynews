@@ -23,7 +23,7 @@ angular.module("itan")
         });
 
     $scope.onChannelClick = function (streamType, subscriptionId) {
-        $http.get("/Stream/ReadAjax/" + streamType + "/" + subscriptionId)
+        $http.get("/Stream/ReadAjax?streamType=" + streamType + "&id=" + subscriptionId)
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
