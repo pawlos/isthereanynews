@@ -11,11 +11,13 @@ namespace IsThereAnyNews.HtmlStrip
             var htmlDocument = new HtmlAgilityPack.HtmlDocument();
             htmlDocument.LoadHtml(itemSummary);
             StringBuilder content = new StringBuilder();
-            foreach (HtmlNode node in htmlDocument.DocumentNode.SelectNodes("//text()"))
+
+            foreach (var node in htmlDocument.DocumentNode.SelectNodes("//text()"))
             {
                 content.AppendLine(node.InnerText);
             }
-            return content.ToString();
+
+            return content.ToString().Replace("\n", "<br/>");
         }
     }
 }
