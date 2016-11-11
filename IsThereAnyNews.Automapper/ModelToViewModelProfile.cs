@@ -9,6 +9,7 @@ namespace IsThereAnyNews.Automapper
 
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
@@ -16,6 +17,7 @@ namespace IsThereAnyNews.Automapper
     {
         public ModelToViewModelProfile()
         {
+            var htmlstrip = new HtmlStripper();
             this.CreateMap<RssChannelSubscription, RssChannelSubscriptionViewModel>()
                 .ForMember(d => d.RssToRead, o => o.MapFrom(s => s.RssEntriesToRead.Count(x => !x.IsRead)));
 
@@ -24,7 +26,7 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.Users, o => o.UseValue(new List<ObservableUserEventsInformation>()));
 
             this.CreateMap<RssEntry, RssEntryViewModel>()
-                .ForMember(d => d.PreviewText, o => o.MapFrom(s => s.PreviewText));
+                .ForMember(d => d.PreviewText, o => o.MapFrom(s => htmlstrip.GetContentOnly(s.PreviewText)));
 
             this.CreateMap<RssEntryToRead, RssEntryToReadViewModel>()
                 .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.RssEntry));

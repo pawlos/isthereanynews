@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B24157E9-5C64-46D3-A7EF-A603969BCC76}</ProjectGuid>
+    <ProjectGuid>{25C15560-5C76-4AB2-9B0C-AABF93F6318A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IsThereAnyNews.Automapper</RootNamespace>
-    <AssemblyName>IsThereAnyNews.Automapper</AssemblyName>
+    <RootNamespace>IsThereAnyNews.HtmlStrip</RootNamespace>
+    <AssemblyName>IsThereAnyNews.HtmlStrip</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,13 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,41 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DtoToEntityModelProfile.cs" />
-    <Compile Include="IsThereAnyNewsAutomapper.cs" />
-    <Compile Include="ModelToViewModelProfile.cs" />
+    <Compile Include="HtmlStripper.cs" />
+    <Compile Include="IHtmlStripper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyndicationToAdapter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
-      <Project>{112524E8-F4E5-4874-A870-79F2FEC8947C}</Project>
-      <Name>IsThereAnyNews.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Dtos\IsThereAnyNews.Dtos.csproj">
-      <Project>{756F51E8-7A9C-4645-8858-55C91561F131}</Project>
-      <Name>IsThereAnyNews.Dtos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
-      <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
-      <Name>IsThereAnyNews.EntityFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.HtmlStrip\IsThereAnyNews.HtmlStrip.csproj">
-      <Project>{25C15560-5C76-4AB2-9B0C-AABF93F6318A}</Project>
-      <Name>IsThereAnyNews.HtmlStrip</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
-      <Project>{936C3CB3-6EA8-4A2F-861B-CE9F40E96EE3}</Project>
-      <Name>IsThereAnyNews.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
-      <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
-      <Name>IsThereAnyNews.SharedData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.ViewModels\IsThereAnyNews.ViewModels.csproj">
-      <Project>{F3FF82BF-CDF6-4F3E-821C-63E0011BB9C6}</Project>
-      <Name>IsThereAnyNews.ViewModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

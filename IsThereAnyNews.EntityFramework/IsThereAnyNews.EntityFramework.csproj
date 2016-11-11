@@ -108,6 +108,10 @@
     <Compile Include="Migrations\201610161522104_users_limit.Designer.cs">
       <DependentUpon>201610161522104_users_limit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611112240306_stripped-text.cs" />
+    <Compile Include="Migrations\201611112240306_stripped-text.Designer.cs">
+      <DependentUpon>201611112240306_stripped-text.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationConfiguration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
@@ -182,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610161522104_users_limit.resx">
       <DependentUpon>201610161522104_users_limit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611112240306_stripped-text.resx">
+      <DependentUpon>201611112240306_stripped-text.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

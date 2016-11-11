@@ -114,6 +114,10 @@
       <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
       <Name>IsThereAnyNews.EntityFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.HtmlStrip\IsThereAnyNews.HtmlStrip.csproj">
+      <Project>{25C15560-5C76-4AB2-9B0C-AABF93F6318A}</Project>
+      <Name>IsThereAnyNews.HtmlStrip</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Infrastructure.ConfigurationReader\IsThereAnyNews.Infrastructure.ConfigurationReader.csproj">
       <Project>{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}</Project>
       <Name>IsThereAnyNews.Infrastructure.ConfigurationReader</Name>

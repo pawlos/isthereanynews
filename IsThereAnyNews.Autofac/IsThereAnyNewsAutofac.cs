@@ -17,6 +17,7 @@
     using Infrastructure.ConfigurationReader.Implementation;
 
     using IsThereAnyNews.Automapper;
+    using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.RssChannelUpdater;
     using IsThereAnyNews.SharedData;
 
@@ -47,6 +48,7 @@
 
             builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
             builder.RegisterType<OpmlReader>().As<IOpmlReader>();
+            builder.RegisterType<HtmlStripper>().As<IHtmlStripper>();
 
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();
 

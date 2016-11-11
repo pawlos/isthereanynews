@@ -1,7 +1,7 @@
-using System;
-
 namespace IsThereAnyNews.ViewModels
 {
+    using System;
+
     public class RssEntryViewModel
     {
         public string Title { get; set; }

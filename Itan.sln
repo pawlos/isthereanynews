@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Automapper",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Web", "IsThereAnyNews.Web\IsThereAnyNews.Web.csproj", "{251B3684-BCAF-49B0-AF76-E2C62A68B2AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.HtmlStrip", "IsThereAnyNews.HtmlStrip\IsThereAnyNews.HtmlStrip.csproj", "{25C15560-5C76-4AB2-9B0C-AABF93F6318A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{251B3684-BCAF-49B0-AF76-E2C62A68B2AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{251B3684-BCAF-49B0-AF76-E2C62A68B2AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{251B3684-BCAF-49B0-AF76-E2C62A68B2AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25C15560-5C76-4AB2-9B0C-AABF93F6318A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25C15560-5C76-4AB2-9B0C-AABF93F6318A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25C15560-5C76-4AB2-9B0C-AABF93F6318A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25C15560-5C76-4AB2-9B0C-AABF93F6318A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
