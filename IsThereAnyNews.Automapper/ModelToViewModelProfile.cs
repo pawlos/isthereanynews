@@ -65,12 +65,11 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.EventsCount, o => o.MapFrom(s => s.EventsRssViewed.Count))
                 .ForMember(d => d.Events, o => o.MapFrom(s => s.EventsRssViewed))
                 .ForMember(d => d.Channels, o => o.MapFrom(s => s.RssSubscriptionList))
-                //.ForMember(d => d.Users, o => o.MapFrom(s => s.UserSubscriptions))
                 .ForMember(d => d.ViewingUserId, o => o.MapFrom(s => s.Id));
 
-            this.CreateMap<UserSubscription, PublicProfileChannelInformation>()
-                .ForMember(d => d.Name, o => o.MapFrom(s => s.Observed.DisplayName))
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.ObservedId));
+            this.CreateMap<NameAndCountUserSubscription, PublicProfileChannelInformation>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
 
             this.CreateMap<RssChannelSubscription, PublicProfileChannelInformation>()
                .ForMember(d => d.Name, o => o.MapFrom(s => s.Title));

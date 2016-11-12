@@ -44,12 +44,19 @@
         </div>
         <div class="row">
             <div class="col-sm-6">
-                <h4><i class="fa fa-rss"></i>Subscriptions: @Model.ChannelsCount</h4>
+                <h4><i class="fa fa-rss"></i>Subscriptions: @(Model.ChannelsCount+Model.Users.Count)</h4>
                 <div class="row">
                     @foreach (var channel in Model.Channels)
                     {
                         <div class="col-sm-12">
                             <i class="fa fa-rss-square"></i>@channel.Name
+                        </div>
+                    }
+                    
+                    @foreach (var channel in Model.Users)
+                    {
+                        <div class="col-sm-12">
+                            <i class="fa fa-user"></i>@channel.Name
                         </div>
                     }
                 </div>

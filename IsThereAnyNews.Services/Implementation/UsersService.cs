@@ -1,5 +1,6 @@
 ﻿namespace IsThereAnyNews.Services.Implementation
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     using AutoMapper;
@@ -53,6 +54,10 @@
             userDetailedPublicProfileViewModel.Events =
                 userDetailedPublicProfileViewModel.Events.OrderByDescending(e => e.Viewed).ToList();
 
+            var loadNameAndCountForUser = this.usersSubscriptionRepository.LoadNameAndCountForUser(cui);
+
+            var publicProfileUsersInformations = this.mapper.Map<List<NameAndCountUserSubscription>, List<PublicProfileChannelInformation>>(loadNameAndCountForUser);
+            userDetailedPublicProfileViewModel.Users = publicProfileUsersInformations;
             return userDetailedPublicProfileViewModel;
         }
 
