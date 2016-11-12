@@ -11,6 +11,7 @@
 }
 
 <div class="container" ng-controller="itan.MyRssChannelsCtrl">
+
     <div class="row">
         <div class="col-sm-3 nocss-mychannel-list text-ellipse-too-long">
             <div class="nothing">
@@ -38,6 +39,8 @@
             <h2 ng-hide="channel.loaded">Select channel to see news</h2>
             <div ng-show="channel.loaded">
                 <div class="row">
+                </div>
+                <div class="row">
                     <div class="col-sm-12">
                         <span>
                             <h2>{{channel.entries.ChannelInformation.Title}}</h2>
@@ -45,9 +48,14 @@
                         </span>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="btn btn-xs btn-warning"
+                         ng-click="markEntriesRead(channel.entries)">
+                        mark all read
+                    </div>
+                </div>
                 <div class="row nocss-rss-item-list">
                     <div class="col-sm-12">
-
                         <div class="panel-group" id="accordion" role="tablist">
                             <div class="panel panel-default" ng-repeat="item in channel.entries.RssEntryToReadViewModels">
                                 <div class="panel-heading" role="tab">

@@ -104,5 +104,11 @@ namespace IsThereAnyNews.Services.Implementation
             var currentUserId = this.authentication.GetCurrentUserId();
             this.rssEventsRepository.MarkClicked(dto.Id, currentUserId);
         }
+
+        public void MarkEntriesRead(MarkReadDto dto)
+        {
+            var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
+            subscriptionHandler.MarkRead(dto.DisplayedItems);
+        }
     }
 }

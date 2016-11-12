@@ -14,5 +14,7 @@ namespace IsThereAnyNews.Services
         void MarkRead(MarkReadDto dto);
         void SubscribeCurrentUserToChannel(AddChannelDto channelId);
         void MarkClicked(MarkClickedDto dto);
+
+        void MarkEntriesRead(MarkReadDto dto);
     }
 }

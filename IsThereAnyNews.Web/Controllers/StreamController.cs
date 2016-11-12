@@ -28,7 +28,14 @@
                 .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
             var result = this.Json(entries, JsonRequestBehavior.AllowGet);
             return result;
-        } 
+        }
+
+        [HttpPost]
+        public ActionResult MarkEntriesRead(MarkReadDto dto)
+        {
+            this.rssSubscriptionService.MarkEntriesRead(dto);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
 
         [HttpPost]
         public ActionResult MarkReadWithEvent(MarkReadDto dto)

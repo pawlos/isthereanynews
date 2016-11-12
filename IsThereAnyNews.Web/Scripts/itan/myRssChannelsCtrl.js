@@ -34,14 +34,30 @@ angular.module("itan")
             });
     };
 
+    $scope.markEntriesRead = function (entries) {
+        var ids = entries.RssEntryToReadViewModels.map(function (e) {
+            return e.Id;
+        });
+        var httpOptions = {
+            method: 'POST',
+            url: "/Stream/MarkEntriesRead",
+            data: {
+                StreamType: entries.StreamType,
+                DisplayedItems: ids.join(),
+                Id:entries.SubscriptionId
+            }
+
+        };
+        $http(httpOptions);
+    }
+
     $scope.markReadWithEvent = function (streamType, id) {
         var httpOptions = {
             method: 'POST',
             url: "/Stream/MarkReadWithEvent",
             data: {
                 StreamType: streamType,
-                DisplayedItems: id,
-                Id: id
+                subscriptionId: id
             }
         };
         $http(httpOptions)
