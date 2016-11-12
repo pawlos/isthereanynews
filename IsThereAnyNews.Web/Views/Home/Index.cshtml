@@ -10,13 +10,4 @@
         <h1>Is there any news</h1>
         <h4>Use menu to navigate through page</h4>
     </div>
-    @if (User.Identity.IsAuthenticated)
-    {
-        var claims = this.User.Identity as ClaimsIdentity;
-
-        foreach (var claim in claims.Claims)
-        {
-            <div>@claim.Type : @claim.Value : @claim.Issuer</div>
-        }
-    }
 </div>
