@@ -57,7 +57,8 @@ angular.module("itan")
             url: "/Stream/MarkReadWithEvent",
             data: {
                 StreamType: streamType,
-                subscriptionId: id
+                Id: id,
+                DisplayedItems:id
             }
         };
         $http(httpOptions)
