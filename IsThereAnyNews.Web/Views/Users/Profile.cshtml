@@ -1,4 +1,5 @@
-﻿@model IsThereAnyNews.ViewModels.UserDetailedPublicProfileViewModel
+﻿@using IsThereAnyNews.Extensions
+@model IsThereAnyNews.ViewModels.UserDetailedPublicProfileViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,7 +11,7 @@
             <div class="col-sm-4">
                 <h2><i class="fa fa-user"></i>@Model.DisplayName</h2>
             </div>
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity.IsAuthenticated && User.Identity.GetItanUserId() != Model.ViewingUserId)
             {
                 <div class="col-sm-4">
                     @if (Model.IsUserAlreadySubscribed)

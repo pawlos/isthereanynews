@@ -149,11 +149,5 @@ namespace IsThereAnyNews.Services.Implementation
             var identifier = claims.First(x => x.Type == ClaimTypes.Email);
             return identifier;
         }
-
-    }
-
-    public class ItanClaimTypes
-    {
-        public const string ApplicationIdentifier = "ItanClaimTypes.ApplicationIdentifier";
     }
 }

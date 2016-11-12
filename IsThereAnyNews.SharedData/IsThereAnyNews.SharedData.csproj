@@ -43,6 +43,7 @@
     <Compile Include="AuthenticationTypeProvider.cs" />
     <Compile Include="ConstantStrings.cs" />
     <Compile Include="FeatureRequestType.cs" />
+    <Compile Include="ItanClaimTypes.cs" />
     <Compile Include="ItanRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationSupported.cs" />
