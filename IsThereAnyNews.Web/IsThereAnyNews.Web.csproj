@@ -1062,7 +1062,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Social\Login.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Account\ChangeDisplayName.cshtml" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
