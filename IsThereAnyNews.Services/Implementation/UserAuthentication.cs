@@ -41,11 +41,13 @@ namespace IsThereAnyNews.Services.Implementation
 
         public long GetCurrentUserId()
         {
-            return
-                long.Parse(
-                    this.GetCurrentUser()
-                        .Claims.Single(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
-                        .Value);
+            long r = 0;
+            long.TryParse(
+                this.GetCurrentUser()
+                    .Claims
+                    .SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
+                    ?.Value, out r);
+            return r;
         }
     }
 }
