@@ -14,7 +14,10 @@ namespace IsThereAnyNews.HtmlStrip
 
             foreach (var node in htmlDocument.DocumentNode.SelectNodes("//text()"))
             {
-                content.AppendLine(node.InnerText);
+                if (!string.IsNullOrWhiteSpace(node.InnerText))
+                {
+                    content.AppendLine(node.InnerText);
+                }
             }
 
             return content.ToString().Replace("\n", "<br/>");
