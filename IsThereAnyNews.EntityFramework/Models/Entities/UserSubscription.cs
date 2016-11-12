@@ -1,10 +1,11 @@
-using System;
-using System.Collections.Generic;
-using IsThereAnyNews.EntityFramework.Models.Events;
-using IsThereAnyNews.EntityFramework.Models.Interfaces;
-
 namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using IsThereAnyNews.EntityFramework.Models.Interfaces;
+
     public class UserSubscription : IEntity, ICreatable, IModifiable, IEqualityComparer<UserSubscription>
     {
         public long Id { get; set; }
@@ -15,6 +16,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
         public User Follower { get; set; }
 
         public long ObservedId { get; set; }
+
         public User Observed { get; set; }
 
         public List<UserSubscriptionEntryToRead> EntriesToRead { get; set; }

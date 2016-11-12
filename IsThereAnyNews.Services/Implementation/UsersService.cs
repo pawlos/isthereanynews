@@ -2,9 +2,12 @@
 {
     using System.Linq;
 
+    using AutoMapper;
+
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ViewModels;
 
     public class UsersService : IUsersService
@@ -15,13 +18,17 @@
 
         private readonly IUserAuthentication authentication;
 
+        private readonly IMapper mapper;
+
         public UsersService(IUserRepository usersRepository,
                             IUsersSubscriptionRepository usersSubscriptionRepository,
-                            IUserAuthentication authentication)
+                            IUserAuthentication authentication, 
+                            IMapper mapper)
         {
             this.usersRepository = usersRepository;
             this.usersSubscriptionRepository = usersSubscriptionRepository;
             this.authentication = authentication;
+            this.mapper = mapper;
         }
 
         public AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile()
@@ -40,25 +47,12 @@
             var cui = this.authentication.GetCurrentUserId();
             var isUserAlreadySubscribed = this.usersSubscriptionRepository.IsUserSubscribedToUser(cui, id);
             var publicProfile = this.usersRepository.LoadUserPublicProfile(id);
-            var userDetailedPublicProfileViewModel = new UserDetailedPublicProfileViewModel
-            {
-                DisplayName = publicProfile.DisplayName,
-                ChannelsCount = publicProfile.RssSubscriptionList.Count,
-                Channels = publicProfile.RssSubscriptionList.Distinct().Select(channelSubscription => new PublicProfileChannelInformation
-                {
-                    Id = channelSubscription.Id,
-                    Name = channelSubscription.Title
-                }).ToList(),
-                Events = publicProfile.EventsRssViewed.Select(e => new EventRssViewedViewModel
-                {
-                    Title = e.RssEntry.Title,
-                    Viewed = e.Created,
-                    RssId = e.RssEntryId
-                }).OrderByDescending(e => e.Viewed).ToList(),
-                EventsCount = publicProfile.EventsRssViewed.Count,
-                ViewingUserId = id,
-                IsUserAlreadySubscribed = isUserAlreadySubscribed
-            };
+            var userDetailedPublicProfileViewModel = this.mapper.Map<User, UserDetailedPublicProfileViewModel>(publicProfile);
+            userDetailedPublicProfileViewModel.IsUserAlreadySubscribed = isUserAlreadySubscribed;
+
+            userDetailedPublicProfileViewModel.Events =
+                userDetailedPublicProfileViewModel.Events.OrderByDescending(e => e.Viewed).ToList();
+
             return userDetailedPublicProfileViewModel;
         }
 

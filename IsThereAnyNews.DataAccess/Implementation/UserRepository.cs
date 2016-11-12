@@ -77,6 +77,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
             var user = this.database.Users
                 .Include(x => x.RssSubscriptionList)
                 .Include(x => x.RssSubscriptionList.Select(c => c.RssChannel))
+                //.Include(x => x.UserSubscriptions)
+                //.Include(x => x.UserSubscriptions.Select(u => u.Observed))
                 .Include(x => x.EventsRssViewed)
                 .Include(x => x.EventsRssViewed.Select(e => e.RssEntry))
                 .Single(x => x.Id == id);

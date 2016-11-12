@@ -9,6 +9,7 @@ namespace IsThereAnyNews.Automapper
 
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
@@ -58,6 +59,26 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<SocialLogin, SocialLoginViewModel>()
                 .ForMember(d => d.AuthenticationTypeProvider, o => o.MapFrom(s => s.Provider))
                 .ForMember(d => d.Registered, o => o.MapFrom(s => s.Created));
+
+            this.CreateMap<User, UserDetailedPublicProfileViewModel>()
+                .ForMember(d => d.ChannelsCount, o => o.MapFrom(s => s.RssSubscriptionList.Count))
+                .ForMember(d => d.EventsCount, o => o.MapFrom(s => s.EventsRssViewed.Count))
+                .ForMember(d => d.Events, o => o.MapFrom(s => s.EventsRssViewed))
+                .ForMember(d => d.Channels, o => o.MapFrom(s => s.RssSubscriptionList))
+                //.ForMember(d => d.Users, o => o.MapFrom(s => s.UserSubscriptions))
+                .ForMember(d => d.ViewingUserId, o => o.MapFrom(s => s.Id));
+
+            this.CreateMap<UserSubscription, PublicProfileChannelInformation>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Observed.DisplayName))
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.ObservedId));
+
+            this.CreateMap<RssChannelSubscription, PublicProfileChannelInformation>()
+               .ForMember(d => d.Name, o => o.MapFrom(s => s.Title));
+
+            this.CreateMap<EventRssUserInteraction, EventRssViewedViewModel>()
+                .ForMember(d => d.Title, o => o.MapFrom(s => s.RssEntry.Title))
+                .ForMember(d => d.Viewed, o => o.MapFrom(s => s.Created))
+                .ForMember(d => d.RssId, o => o.MapFrom(s => s.Id));
         }
 
         private Claim CreateClaim(UserRole role)
