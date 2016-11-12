@@ -7,6 +7,7 @@
 
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.EntityFramework.Comparers;
     using IsThereAnyNews.EntityFramework.Models.Entities;
 
     public class OpmlImporterService : IOpmlImporterService
@@ -37,7 +38,7 @@
             var listOfChannelsIds = this.rssChannelsRepository.GetIdByChannelUrl(urlstoChannels);
 
             var currentUserId = this.authentication.GetCurrentUserId();
-            var existringChannelIdSubscriptions = 
+            var existringChannelIdSubscriptions =
                 this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
 
             var rssChannelSubscriptions =
@@ -93,6 +94,7 @@
                       new RssChannel(
                           o.Attributes.GetNamedItem("xmlUrl").Value,
                           o.Attributes.GetNamedItem("title").Value))
+                .Distinct(new RssChannelUrlComparer())
                 .ToList();
             return urls;
         }

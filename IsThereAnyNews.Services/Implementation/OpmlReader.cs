@@ -1,11 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Xml;
+
     public class OpmlReader : IOpmlReader
     {
         public IEnumerable<XmlNode> GetOutlines(Stream inputStream)

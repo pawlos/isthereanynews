@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparers\RssChannelUrlComparer.cs" />
     <Compile Include="ItanDatabaseContext.cs" />
     <Compile Include="Migrations\201607052313561_m0001_initial.cs" />
     <Compile Include="Migrations\201607052313561_m0001_initial.Designer.cs">
