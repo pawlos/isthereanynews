@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using IsThereAnyNews.SharedData;
-
-namespace IsThereAnyNews.ViewModels
+﻿namespace IsThereAnyNews.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using IsThereAnyNews.SharedData;
+
     public class RssSubscriptionIndexViewModel
     {
         public RssSubscriptionIndexViewModel(

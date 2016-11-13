@@ -1,11 +1,14 @@
 angular.module("itan")
 .controller("itan.MyRssChannelsCtrl", function ($scope, $http) {
     $scope.channels = {
-        loaded: false
+        loaded: false,
+        list: {},
+        current: {}
     };
 
     $scope.channel = {
-        loaded: false
+        loaded: false,
+        entries: {}
     };
 
     $scope.loadChannels = function () {
@@ -22,8 +25,9 @@ angular.module("itan")
             $scope.channels.loaded = true;
         });
 
-    $scope.onChannelClick = function (streamType, subscriptionId) {
-        $http.get("/Stream/ReadAjax?streamType=" + streamType + "&id=" + subscriptionId)
+    $scope.onChannelClick = function (channel) {
+        $scope.channels.current = channel;
+        $http.get("/Stream/ReadAjax?streamType=" + channel.StreamType + "&id=" + channel.Id)
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
@@ -48,21 +52,28 @@ angular.module("itan")
             }
 
         };
-        $http(httpOptions);
+        $http(httpOptions)
+        .success(function() {
+                $scope.channels.current.Count = 0;
+            });
     }
 
-    $scope.markReadWithEvent = function (streamType, id) {
+    $scope.markReadWithEvent = function (streamType, item) {
         var httpOptions = {
             method: 'POST',
             url: "/Stream/MarkReadWithEvent",
             data: {
                 StreamType: streamType,
-                Id: id,
-                DisplayedItems:id
+                Id: item.Id,
+                DisplayedItems:item.Id
             }
         };
         $http(httpOptions)
             .success(function () {
+                if (!item.wasRead) {
+                    $scope.channels.current.Count--;
+                }
+                item.wasRead = true;
             });
     };
 

@@ -20,7 +20,7 @@ namespace IsThereAnyNews.Automapper
         {
             var htmlstrip = new HtmlStripper();
             this.CreateMap<RssChannelSubscription, RssChannelSubscriptionViewModel>()
-                .ForMember(d => d.RssToRead, o => o.MapFrom(s => s.RssEntriesToRead.Count(x => !x.IsRead)));
+                .ForMember(d => d.Count, o => o.MapFrom(s => s.RssEntriesToRead.Count(x => !x.IsRead)));
 
             this.CreateMap<List<RssChannelSubscription>, RssChannelsMyViewModel>()
                 .ForMember(d => d.ChannelsSubscriptions, o => o.MapFrom(s => s))

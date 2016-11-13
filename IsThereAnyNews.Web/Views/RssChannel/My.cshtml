@@ -24,15 +24,16 @@
                 </div>
                 <div ng-show="channels.loaded">
                     <a ng-repeat="channel in channels.list.ChannelsSubscriptions"
-                       ng-if="showAllChannels || channel.RssToRead!=0"
+                       ng-if="showAllChannels || channel.Count!=0"
                        class="btn btn-default btn-xs full-width border-less text-left"
-                       ng-click="onChannelClick('@StreamType.Rss',channel.Id)">
+                       ng-click="onChannelClick(channel)">
                         <i class="fa fa-rss left"></i>
-                        {{channel.Title}} ({{channel.RssToRead}})
+                        {{channel.Title}} ({{channel.Count}})
                     </a>
                     <a ng-repeat="channel in channels.list.Users"
                        class="btn btn-xs btn-default full-width border-less text-left"
-                       ng-click="onChannelClick('@StreamType.Person',channel.Id)">
+                       ng-if="showAllChannels || channel.Count!=0"
+                       ng-click="onChannelClick(channel)">
                         <i class="fa fa-user left"></i>
                         {{channel.Name}} ({{channel.Count}})
                     </a>
@@ -66,7 +67,7 @@
                                     <h4 class="panel-title">
                                         <a role="button" data-toggle="collapse" data-parent="#accordion"
                                            href="#rss-{{item.Id}}"
-                                           ng-click="markReadWithEvent(channel.entries.StreamType, item.Id)">
+                                           ng-click="markReadWithEvent(channel.entries.StreamType, item)">
                                             <span class="">{{item.RssEntryViewModel.Title}}</span>
                                             <span class="text small right">
                                                 {{item.RssEntryViewModel.PublicationDate|moment:'DD/MMMM/YYYY'}}
