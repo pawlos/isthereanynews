@@ -1083,7 +1083,6 @@
     <Content Include="Views\Statistics\Users.cshtml" />
     <Content Include="Views\Stream\_Entry.cshtml" />
     <Content Include="Views\Stream\_ReadAjax.cshtml" />
-    <Content Include="Views\Stream\Read.cshtml" />
     <Content Include="Views\Syndication\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />
