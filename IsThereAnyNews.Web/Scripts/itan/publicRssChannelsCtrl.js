@@ -1,7 +1,9 @@
 angular.module("itan")
 .controller("itan.PublicRssChannelsCtrl", function ($scope, $http) {
     $scope.channels = {
-        loaded: false
+        loaded: false,
+        list: {},
+        current: {}
     };
 
     $scope.channel = {
@@ -14,13 +16,23 @@ angular.module("itan")
             $scope.channels.loaded = true;
         });
 
-    $scope.onChannelClick = function (channelId) {
-        $http.get("/RssChannel/Public/" + channelId)
-            .success(function (data) {
+    $scope.onChannelClick = function (channel) {
+        $http.get("/RssChannel/Public/" + channel.Id)
+            .success(function(data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
+                $scope.channels.current = channel;
             });
+
     };
+
+    $scope.isCurrent = function (channel) {
+        var x = channel === $scope.channels.current;
+        if (x) {
+            return "btn-info";
+        }
+        return "";
+    }
 
     $scope.buttonSubscriptionClass = function (channel) {
         return channel.entries.SubscriptionInfo.IsSubscribed ? "btn-danger" : "btn-primary";

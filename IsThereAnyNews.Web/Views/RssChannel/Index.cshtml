@@ -14,7 +14,8 @@
                  class="fa fa-4x fa-spin fa-spinner"></div>
             <div ng-show="channels.loaded" class="text-ellipse-too-long">
                 <a ng-repeat="channel in channels.list.AllChannels"
-                   ng-click="onChannelClick(channel.Id)"
+                   ng-class="isCurrent(channel)"
+                   ng-click="onChannelClick(channel)"
                    class="btn btn-xs btn-default full-width border-less text-left">
                     <div>
                         <div>
@@ -35,7 +36,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <button class="btn"
-                                ng-class="buttonSubscriptionClass(channel)"
+                                ng-class="buttonSubscriptionClass(channel)"                                
                                 ng-click="onSubscribeClick(channel.entries.ChannelId,channel.entries.SubscriptionInfo.IsSubscribed)">
                             {{channel.entries.SubscriptionInfo.IsSubscribed?"unsubscribe":"subscribe"}}
                         </button>
