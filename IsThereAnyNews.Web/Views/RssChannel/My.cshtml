@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-sm-3 nocss-mychannel-list text-ellipse-too-long">
             <div class="row">
-                <input type="checkbox" ng-model="showAllChannels"/>show all channels
+                <input type="checkbox" ng-model="showAllChannels" />show all channels
             </div>
             <div class="row">
                 <div ng-hide="channels.loaded">
@@ -26,6 +26,7 @@
                     <a ng-repeat="channel in channels.list.ChannelsSubscriptions"
                        ng-if="showAllChannels || channel.Count!=0"
                        class="btn btn-default btn-xs full-width border-less text-left"
+                       ng-class="isCurrent(channel)"
                        ng-click="onChannelClick(channel)">
                         <i class="fa fa-rss left"></i>
                         {{channel.Title}} ({{channel.Count}})
@@ -33,6 +34,7 @@
                     <a ng-repeat="channel in channels.list.Users"
                        class="btn btn-xs btn-default full-width border-less text-left"
                        ng-if="showAllChannels || channel.Count!=0"
+                       ng-class="isCurrent(channel)"
                        ng-click="onChannelClick(channel)">
                         <i class="fa fa-user left"></i>
                         {{channel.Name}} ({{channel.Count}})

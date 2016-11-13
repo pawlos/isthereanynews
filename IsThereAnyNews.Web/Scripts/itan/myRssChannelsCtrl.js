@@ -19,6 +19,14 @@ angular.module("itan")
        });
     }
 
+    $scope.isCurrent = function (channel) {
+        var x = channel === $scope.channels.current;
+        if (x) {
+            return "btn-info";
+        }
+        return "";
+    }
+
     $http.get("/RssChannel/MyChannelList")
         .success(function (data) {
             $scope.channels.list = data;
@@ -48,14 +56,14 @@ angular.module("itan")
             data: {
                 StreamType: entries.StreamType,
                 DisplayedItems: ids.join(),
-                Id:entries.SubscriptionId
+                Id: entries.SubscriptionId
             }
 
         };
         $http(httpOptions)
-        .success(function() {
-                $scope.channels.current.Count = 0;
-            });
+        .success(function () {
+            $scope.channels.current.Count = 0;
+        });
     }
 
     $scope.markReadWithEvent = function (streamType, item) {
@@ -65,7 +73,7 @@ angular.module("itan")
             data: {
                 StreamType: streamType,
                 Id: item.Id,
-                DisplayedItems:item.Id
+                DisplayedItems: item.Id
             }
         };
         $http(httpOptions)
