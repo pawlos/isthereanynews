@@ -13,7 +13,7 @@
 <div class="container" ng-controller="itan.MyRssChannelsCtrl">
 
     <div class="row">
-        <div class="col-sm-3 nocss-mychannel-list text-ellipse-too-long">
+        <div class="col-sm-3 nocss-mychannel-list text-ellipse-too-long height">
             <div class="row">
                 <input type="checkbox" ng-model="showAllChannels" />show all channels
             </div>
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 nocss-rsschannel-container">
+        <div class="col-sm-9 nocss-rsschannel-container height">
             <h2 ng-hide="channel.loaded">Select channel to see news</h2>
             <div ng-show="channel.loaded">
                 <div class="row">

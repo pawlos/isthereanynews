@@ -11,6 +11,29 @@ angular.module("itan")
         entries: {}
     };
 
+    $scope.maxHeight = function () {
+        var h = document.documentElement.clientHeight -
+            $(".navbar-fixed-top").height() -
+            $(".navbar-fixed-bottom").height() -
+            20; // missing px somewhere :)
+        return h;
+    };
+
+    $(window).on("resize.doResize", function () {
+        $scope.$apply(function () {
+            $scope.setHeights();
+        });
+    });
+
+    $scope.setHeights = function () {
+        var h = $(".height");
+        h.height($scope.maxHeight());
+        h[0].style.overflowY = "auto";
+        h[1].style.overflowY = "auto";
+        h[0].style.overflowX = "hidden";
+        h[1].style.overflowX = "hidden";
+    }
+
     $scope.loadChannels = function () {
         $http.get("/RssChannel/MyChannelList")
        .success(function (data) {
@@ -31,6 +54,7 @@ angular.module("itan")
         .success(function (data) {
             $scope.channels.list = data;
             $scope.channels.loaded = true;
+            $scope.setHeights();
         });
 
     $scope.onChannelClick = function (channel) {
@@ -39,6 +63,7 @@ angular.module("itan")
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
+                $scope.setHeights();
                 $(".nocss-rss-item-list")
                .collapse({
                    toggle: false
