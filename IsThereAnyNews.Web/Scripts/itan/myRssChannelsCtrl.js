@@ -88,7 +88,8 @@ angular.module("itan")
         $http(httpOptions)
         .success(function () {
             $scope.channels.current.Count = 0;
-        });
+                $scope.channel.entries.RssEntryToReadViewModels = [];
+            });
     }
 
     $scope.markReadWithEvent = function (streamType, item) {

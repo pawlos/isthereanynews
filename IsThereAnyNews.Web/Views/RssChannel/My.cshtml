@@ -57,8 +57,9 @@
                 </div>
                 <div class="row">
                     <div class="btn btn-xs btn-warning"
+                         ng-show="channels.current.Count>0"
                          ng-click="markEntriesRead(channel.entries)">
-                        mark all read
+                        mark all ({{channel.entries.RssEntryToReadViewModels.length}}) read
                     </div>
                 </div>
                 <div class="row nocss-rss-item-list">
