@@ -39,7 +39,7 @@ namespace IsThereAnyNews.Services.Implementation
         public void MarkRead(string displayedItems)
         {
             var ids =
-                displayedItems.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries)
+                displayedItems.Split(new[] { ";", "," }, StringSplitOptions.RemoveEmptyEntries)
                     .Select(i => long.Parse(i))
                     .ToList();
             this.rssEventsRepository.MarkRead(ids);
