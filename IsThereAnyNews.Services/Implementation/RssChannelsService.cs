@@ -60,14 +60,23 @@
         public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
         {
             var rssChannel = this.channelsRepository.LoadRssChannel(id);
-            var rssChannelIndexViewModel = this.mapping.Map<RssChannel, RssChannelIndexViewModel>(rssChannel);
+            var rssChannelIndexViewModel = this.mapping.Map<RssChannel, RssChannelIndexViewModel>(
+                rssChannel,
+                o => o.AfterMap(
+                    (s, d) =>
+                        {
+                            d.Entries = d.Entries.OrderByDescending(item => item.PublicationDate).ToList();
+                        }));
 
-            if (this.authentication.CurrentUserIsAuthenticated())
+            if (!this.authentication.CurrentUserIsAuthenticated())
             {
-                rssChannelIndexViewModel.IsAuthenticatedUser = true;
-                var userRssSubscriptionInfoViewModel = this.CreateUserSubscriptionInfo(id);
-                rssChannelIndexViewModel.SubscriptionInfo = userRssSubscriptionInfoViewModel;
+                return rssChannelIndexViewModel;
             }
+
+            rssChannelIndexViewModel.IsAuthenticatedUser = true;
+            var userRssSubscriptionInfoViewModel = this.CreateUserSubscriptionInfo(id);
+            rssChannelIndexViewModel.SubscriptionInfo = userRssSubscriptionInfoViewModel;
+
             return rssChannelIndexViewModel;
         }
 
