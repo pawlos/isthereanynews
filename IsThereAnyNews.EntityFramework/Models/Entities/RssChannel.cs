@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
 
+    using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.EntityFramework.Models.Interfaces;
 
     public sealed class RssChannel : IEntity, ICreatable, IModifiable, IEqualityComparer<RssChannel>
@@ -26,6 +27,8 @@
 
         public List<RssChannelSubscription> Subscriptions { get; set; }
         public List<RssEntry> RssEntries { get; set; }
+
+        public List<EventRssChannelUpdated> Updates { get; set; }
 
         public bool Equals(RssChannel x, RssChannel y)
         {

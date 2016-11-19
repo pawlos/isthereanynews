@@ -11,5 +11,7 @@
         public UserRssSubscriptionInfoViewModel SubscriptionInfo { get; set; }
         public long ChannelId { get; set; }
         public List<RssEntryViewModel> Entries { get; set; }
+
+        public DateTime Updated { get; set; }
     }
 }

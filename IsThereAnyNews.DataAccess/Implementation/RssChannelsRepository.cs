@@ -85,6 +85,7 @@
             return this.database
                 .RssChannels
                 .Include(channel => channel.RssEntries)
+                .Include(channel => channel.Updates)
                 .Single(x => x.Id == id);
         }
 

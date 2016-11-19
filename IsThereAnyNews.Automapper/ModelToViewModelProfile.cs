@@ -43,8 +43,8 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<RssChannel, RssChannelIndexViewModel>()
                 .ForMember(d => d.Entries, o => o.MapFrom(s => s.RssEntries))
                 .ForMember(d => d.Added, o => o.MapFrom(s => s.Created))
-                .ForMember(d => d.ChannelId, o => o.MapFrom(s => s.Id));
-
+                .ForMember(d => d.ChannelId, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.Updated, o => o.ResolveUsing<UpdateResolver>());
             this.CreateMap<long, UserRssSubscriptionInfoViewModel>()
                 .ForMember(d => d.ChannelSubscriptionId, o => o.MapFrom(s => s))
                 .ForMember(d => d.IsSubscribed, o => o.Ignore());
@@ -83,6 +83,18 @@ namespace IsThereAnyNews.Automapper
         private Claim CreateClaim(UserRole role)
         {
             return new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), role.RoleType));
+        }
+    }
+
+    public class UpdateResolver : IValueResolver<RssChannel, RssChannelIndexViewModel, DateTime>
+    {
+        public DateTime Resolve(
+            RssChannel source,
+            RssChannelIndexViewModel destination,
+            DateTime destMember,
+            ResolutionContext context)
+        {
+            return source.Updates.OrderByDescending(o => o.Created).FirstOrDefault()?.Created ?? DateTime.MinValue;
         }
     }
 }

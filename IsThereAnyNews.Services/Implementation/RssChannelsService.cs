@@ -60,7 +60,8 @@
         public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
         {
             var rssChannel = this.channelsRepository.LoadRssChannel(id);
-            var rssChannelIndexViewModel = this.mapping.Map<RssChannel, RssChannelIndexViewModel>(
+            var rssChannelIndexViewModel =
+                this.mapping.Map<RssChannel, RssChannelIndexViewModel>(
                 rssChannel,
                 o => o.AfterMap(
                     (s, d) =>

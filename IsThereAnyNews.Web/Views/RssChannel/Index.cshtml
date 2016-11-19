@@ -33,6 +33,7 @@
                 <div class="row">
                     <h2>{{channel.entries.Title}}</h2>
                     <h3>{{channel.entries.Added|moment:'YYYY-MM-DD'}}</h3>
+                    <h3>{{channel.entries.Updated|moment:'YYYY-MM-DD HH:mm'}}</h3>
                     @if (User.Identity.IsAuthenticated)
                     {
                         <button class="btn"
