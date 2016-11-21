@@ -40,9 +40,20 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void UpdateGlobalRss()
         {
-            var rssChannels = this.updateRepository.LoadAllGlobalRssChannels();
+            var rssChannels = this.updateRepository.LoadAllGlobalRssChannelsSortedByUpdate();
+            var list = rssChannels.Select(
+                x =>
+                    new
+                    {
+                        x.Url,
+                        x.RssLastUpdatedTime,
+                        x.Id,
+                        Updated = x.Updates.OrderBy(xx => xx.Created).FirstOrDefault()?.Created ?? DateTime.MinValue
+                    }).ToList();
+
             var rssEntriesList = new List<RssEntry>();
-            foreach (var rssChannel in rssChannels)
+            var orderedEnumerable = list.OrderBy(o => o.Updated).ToList();
+            foreach (var rssChannel in orderedEnumerable)
             {
                 try
                 {
@@ -63,17 +74,11 @@ namespace IsThereAnyNews.Services.Implementation
 
                     if (syndicationEntries.Any())
                     {
-                        rssChannel.RssLastUpdatedTime = syndicationEntries.Max(d => d.PublishDate);
+                        var channel = rssChannels.Single(x => x.Id == rssChannel.Id);
+                        channel.RssLastUpdatedTime = syndicationEntries.Max(d => d.PublishDate);
                     }
 
                     this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
-
-                    var rssChannelUpdated = new EventRssChannelUpdated
-                    {
-                        RssChannelId = rssChannel.Id
-                    };
-
-                    this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
                 }
                 catch (XmlException e)
                 {
@@ -83,6 +88,13 @@ namespace IsThereAnyNews.Services.Implementation
                 {
                     System.Diagnostics.Debug.WriteLine(e.Message);
                 }
+
+                var rssChannelUpdated = new EventRssChannelUpdated
+                {
+                    RssChannelId = rssChannel.Id
+                };
+
+                this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
 
                 rssEntriesList.Clear();
             }

@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
-namespace IsThereAnyNews.DataAccess
+﻿namespace IsThereAnyNews.DataAccess
 {
+    using System.Collections.Generic;
+
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
     public interface IUpdateRepository
     {
-        List<RssChannel> LoadAllGlobalRssChannels();
+        List<RssChannel> LoadAllGlobalRssChannelsSortedByUpdate();
     }
 }

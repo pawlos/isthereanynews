@@ -1,6 +1,7 @@
 namespace IsThereAnyNews.DataAccess.Implementation
 {
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     using IsThereAnyNews.EntityFramework;
@@ -15,9 +16,9 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public List<RssChannel> LoadAllGlobalRssChannels()
+        public List<RssChannel> LoadAllGlobalRssChannelsSortedByUpdate()
         {
-            var rssChannels = this.database.RssChannels.ToList();
+            var rssChannels = this.database.RssChannels.Include(x => x.Updates).ToList();
             return rssChannels;
         }
     }
