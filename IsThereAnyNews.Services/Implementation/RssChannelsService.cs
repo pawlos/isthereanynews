@@ -23,6 +23,8 @@
         private readonly IMapper mapping;
         private readonly IEventRssChannelCreatedRepository eventRssChannelCreatedRepository;
 
+        private readonly IUpdateService updateService;
+
         public RssChannelsService(
             IRssChannelsRepository channelsRepository,
             IRssChannelsSubscriptionsRepository channelsSubscriptionRepository,
@@ -30,7 +32,8 @@
             IUserAuthentication authentication,
             IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
             IMapper mapping,
-            IEventRssChannelCreatedRepository eventRssChannelCreatedRepository)
+            IEventRssChannelCreatedRepository eventRssChannelCreatedRepository,
+            IUpdateService updateService)
         {
             this.channelsRepository = channelsRepository;
             this.channelsSubscriptionRepository = channelsSubscriptionRepository;
@@ -39,6 +42,7 @@
             this.rssSubscriptionRepository = rssSubscriptionRepository;
             this.mapping = mapping;
             this.eventRssChannelCreatedRepository = eventRssChannelCreatedRepository;
+            this.updateService = updateService;
         }
 
         public RssChannelsIndexViewModel LoadAllChannels()
@@ -111,6 +115,9 @@
             };
 
             this.eventRssChannelCreatedRepository.SaveToDatabase(eventRssChannelCreated);
+
+            
+            this.updateService.UpdateChannel(rssChannel);
         }
     }
 }

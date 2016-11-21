@@ -14,8 +14,11 @@ namespace IsThereAnyNews.Services.Implementation
     public class UpdateService : IUpdateService
     {
         private readonly IUpdateRepository updateRepository;
+
         private readonly IRssEntriesRepository rssEntriesRepository;
+
         private readonly IRssChannelsRepository rssChannelsRepository;
+
         private readonly IRssChannelUpdateRepository rssChannelsUpdatedRepository;
 
         private readonly ISyndicationFeedAdapter syndicationFeedAdapter;
@@ -41,66 +44,84 @@ namespace IsThereAnyNews.Services.Implementation
         public void UpdateGlobalRss()
         {
             var rssChannels = this.updateRepository.LoadAllGlobalRssChannelsSortedByUpdate();
-            var list = rssChannels.Select(
-                x =>
-                    new
-                    {
-                        x.Url,
-                        x.RssLastUpdatedTime,
-                        x.Id,
-                        Updated = x.Updates.OrderBy(xx => xx.Created).FirstOrDefault()?.Created ?? DateTime.MinValue
-                    }).ToList();
+            var list =
+                rssChannels.Select(
+                    x =>
+                        new UpdateableChannel
+                            {
+                                Url = x.Url,
+                                RssLastUpdatedTime = x.RssLastUpdatedTime,
+                                Id = x.Id,
+                                Updated = x.Updates.OrderBy(xx => xx.Created).FirstOrDefault()?.Created ?? DateTime.MinValue
+                            }).ToList();
 
-            var rssEntriesList = new List<RssEntry>();
             var orderedEnumerable = list.OrderBy(o => o.Updated).ToList();
             foreach (var rssChannel in orderedEnumerable)
             {
-                try
-                {
-                    var syndicationEntries = this.syndicationFeedAdapter.Load(rssChannel.Url);
-
-                    foreach (var item in syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime))
-                    {
-                        var rssEntry = new RssEntry(
-                                           item.Id,
-                                           item.PublishDate,
-                                           item.Title,
-                                           item.Summary,
-                                           this.htmlStripper.GetContentOnly(item.Summary),
-                                           rssChannel.Id,
-                                           item.Url);
-                        rssEntriesList.Add(rssEntry);
-                    }
-
-                    if (syndicationEntries.Any())
-                    {
-                        var channel = rssChannels.Single(x => x.Id == rssChannel.Id);
-                        channel.RssLastUpdatedTime = syndicationEntries.Max(d => d.PublishDate);
-                    }
-
-                    this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
-                }
-                catch (XmlException e)
-                {
-                    System.Diagnostics.Debug.WriteLine(e.Message);
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine(e.Message);
-                }
-
-                var rssChannelUpdated = new EventRssChannelUpdated
-                {
-                    RssChannelId = rssChannel.Id
-                };
-
-                this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
-
-                rssEntriesList.Clear();
+                this.UpdateChannel(rssChannel);
             }
 
             this.rssChannelsRepository.UpdateRssLastUpdateTimeToDatabase(rssChannels);
             rssChannels.Clear();
+        }
+
+        private void UpdateChannel(UpdateableChannel rssChannel)
+        {
+            var rssEntriesList = new List<RssEntry>();
+            try
+            {
+                var syndicationEntries = this.syndicationFeedAdapter.Load(rssChannel.Url);
+
+                foreach (var item in syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime))
+                {
+                    var rssEntry = new RssEntry(
+                                       item.Id,
+                                       item.PublishDate,
+                                       item.Title,
+                                       item.Summary,
+                                       this.htmlStripper.GetContentOnly(item.Summary),
+                                       rssChannel.Id,
+                                       item.Url);
+                    rssEntriesList.Add(rssEntry);
+                }
+                this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
+            }
+            catch (XmlException e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+
+            var rssChannelUpdated = new EventRssChannelUpdated { RssChannelId = rssChannel.Id };
+
+            this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
+        }
+
+        public void UpdateChannel(RssChannel id)
+        {
+            var updateableChannel = new UpdateableChannel
+                                        {
+                                            Id = id.Id,
+                                            RssLastUpdatedTime = id.RssLastUpdatedTime,
+                                            Updated = DateTime.MinValue,
+                                            Url = id.Url
+                                        };
+
+            this.UpdateChannel(updateableChannel);
+        }
+
+        public class UpdateableChannel
+        {
+            public string Url { get; set; }
+
+            public DateTimeOffset RssLastUpdatedTime { get; set; }
+
+            public long Id { get; set; }
+
+            public DateTime Updated { get; set; }
         }
     }
 }

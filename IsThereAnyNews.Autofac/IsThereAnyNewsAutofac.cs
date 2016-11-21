@@ -56,6 +56,7 @@
             builder.RegisterType<PersonSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Person);
 
             builder.RegisterType<SubscriptionHandlerFactory>().As<ISubscriptionHandlerFactory>();
+            builder.RegisterType<SyndicationFeedAdapter>().As<ISyndicationFeedAdapter>();
 
             builder.Register(c => IsThereAnyNewsAutomapper.ConfigureMapper()).As<IMapper>()
                 .InstancePerLifetimeScope();
