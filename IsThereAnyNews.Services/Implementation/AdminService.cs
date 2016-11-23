@@ -3,7 +3,6 @@
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Services;
-    using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
     public class AdminService : IAdminService

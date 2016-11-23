@@ -1,15 +1,13 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
     using AutoMapper;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class PersonSubscriptionHandler : ISubscriptionHandler
     {
@@ -102,7 +100,5 @@ namespace IsThereAnyNews.Services.Implementation
 
             return viewModel;
         }
-
-
     }
 }

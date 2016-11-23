@@ -6,8 +6,11 @@
     public interface IUsersService
     {
         AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile();
+
         UserDetailedPublicProfileViewModel LoadUserPublicProfile(long id);
+
         void SubscribeToUser(SubscribeToUserActivityDto model);
+
         void UnsubscribeToUser(SubscribeToUserActivityDto model);
     }
 }

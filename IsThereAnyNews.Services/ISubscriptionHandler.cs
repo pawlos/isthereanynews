@@ -6,6 +6,7 @@ namespace IsThereAnyNews.Services
     public interface ISubscriptionHandler
     {
         RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries);
+
         void MarkRead(string displayedItems);
 
         void AddEventViewed(long dtoId);

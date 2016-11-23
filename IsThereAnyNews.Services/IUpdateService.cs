@@ -5,6 +5,7 @@
     public interface IUpdateService
     {
         void UpdateGlobalRss();
+
         void UpdateChannel(RssChannel id);
     }
 }

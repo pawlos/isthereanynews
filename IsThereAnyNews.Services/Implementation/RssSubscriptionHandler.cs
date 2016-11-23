@@ -1,15 +1,12 @@
 namespace IsThereAnyNews.Services.Implementation
 {
+    using AutoMapper;
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
-    using AutoMapper;
-
-    using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
-    using IsThereAnyNews.SharedData;
-    using IsThereAnyNews.ViewModels;
 
     public class RssSubscriptionHandler : ISubscriptionHandler
     {
@@ -26,7 +23,7 @@ namespace IsThereAnyNews.Services.Implementation
             IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
             IRssEntriesToReadRepository rssToReadRepository,
             IMapper mapper,
-            IRssEventRepository rssEventsRepository, 
+            IRssEventRepository rssEventsRepository,
             IUserAuthentication authentication)
         {
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
@@ -43,7 +40,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void MarkRead(string displayedItems)
         {
-            var ids = displayedItems.Split(new[] { ";","," }, StringSplitOptions.RemoveEmptyEntries)
+            var ids = displayedItems.Split(new[] { ";", "," }, StringSplitOptions.RemoveEmptyEntries)
                 .Select(i => long.Parse(i))
                 .ToList();
             this.rssSubscriptionsRepository.MarkRead(ids);

@@ -1,11 +1,10 @@
 namespace IsThereAnyNews.Services.Implementation
 {
+    using AutoMapper;
     using System.Collections.Generic;
     using System.Linq;
     using System.ServiceModel.Syndication;
     using System.Xml;
-
-    using AutoMapper;
 
     public class SyndicationFeedAdapter : ISyndicationFeedAdapter
     {

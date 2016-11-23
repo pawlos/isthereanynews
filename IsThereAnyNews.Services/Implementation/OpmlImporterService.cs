@@ -1,14 +1,13 @@
 ﻿namespace IsThereAnyNews.Services.Implementation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Xml;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Comparers;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml;
 
     public class OpmlImporterService : IOpmlImporterService
     {
@@ -30,7 +29,6 @@
             this.opmlHandler = opmlHandler;
             this.authentication = authentication;
         }
-
 
         public void AddToCurrentUserChannelList(List<RssChannel> importFromUpload)
         {

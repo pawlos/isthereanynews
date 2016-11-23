@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using IsThereAnyNews.DataAccess;
 using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework.Models.Events;
 using IsThereAnyNews.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace IsThereAnyNews.Services.Implementation
 {

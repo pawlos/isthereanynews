@@ -1,17 +1,15 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Entity;
-    using System.Linq;
-
     using Faker;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.Extensions;
     using IsThereAnyNews.SharedData;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
 
     public class TestService : ITestService
     {

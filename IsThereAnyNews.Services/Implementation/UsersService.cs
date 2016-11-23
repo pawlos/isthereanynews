@@ -1,15 +1,13 @@
 ﻿namespace IsThereAnyNews.Services.Implementation
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     using AutoMapper;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ViewModels;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class UsersService : IUsersService
     {
@@ -23,7 +21,7 @@
 
         public UsersService(IUserRepository usersRepository,
                             IUsersSubscriptionRepository usersSubscriptionRepository,
-                            IUserAuthentication authentication, 
+                            IUserAuthentication authentication,
                             IMapper mapper)
         {
             this.usersRepository = usersRepository;

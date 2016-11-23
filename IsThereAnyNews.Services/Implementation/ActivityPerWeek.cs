@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using IsThereAnyNews.EntityFramework.Models.Events;
+using System.Collections.Generic;
 
 namespace IsThereAnyNews.Services.Implementation
 {

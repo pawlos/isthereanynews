@@ -1,14 +1,16 @@
 namespace IsThereAnyNews.Services
 {
-    using System.Security.Claims;
-
     using IsThereAnyNews.SharedData;
+    using System.Security.Claims;
 
     public interface ILoginService
     {
         void RegisterIfNewUser(ClaimsIdentity identity);
+
         void StoreCurrentUserIdInSession(ClaimsIdentity identity);
+
         void StoreItanRolesToSession(ClaimsIdentity identity);
+
         void AssignToUserRole(ClaimsIdentity identity);
 
         bool IsUserRegistered(ClaimsIdentity identity);

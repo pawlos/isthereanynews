@@ -1,8 +1,7 @@
 namespace IsThereAnyNews.Services
 {
-    using System.Collections.Generic;
-
     using IsThereAnyNews.Services.Implementation;
+    using System.Collections.Generic;
 
     public interface ISyndicationFeedAdapter
     {

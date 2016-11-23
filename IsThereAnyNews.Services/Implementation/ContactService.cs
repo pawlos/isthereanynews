@@ -15,8 +15,8 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IContactAdministrationEventRepository eventsContactAdministration;
 
         public ContactService(
-            IMapper mapper, 
-            IContactAdministrationRepository repositoryContactAdministration, 
+            IMapper mapper,
+            IContactAdministrationRepository repositoryContactAdministration,
             IContactAdministrationEventRepository eventsContactAdministration)
         {
             this.mapper = mapper;

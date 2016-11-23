@@ -1,15 +1,13 @@
 ﻿namespace IsThereAnyNews.Services.Implementation
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     using AutoMapper;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.ViewModels;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class RssChannelsService : IRssChannelsService
     {
@@ -116,7 +114,6 @@
 
             this.eventRssChannelCreatedRepository.SaveToDatabase(eventRssChannelCreated);
 
-            
             this.updateService.UpdateChannel(rssChannel);
         }
     }

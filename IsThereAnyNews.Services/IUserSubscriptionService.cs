@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using IsThereAnyNews.ViewModels;
+﻿using IsThereAnyNews.ViewModels;
+using System.Collections.Generic;
 
 namespace IsThereAnyNews.Services
 {

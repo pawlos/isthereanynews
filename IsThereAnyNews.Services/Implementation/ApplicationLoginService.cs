@@ -1,14 +1,12 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Security.Claims;
-
     using AutoMapper;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.SharedData;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
 
     public class ApplicationLoginService : ILoginService
     {

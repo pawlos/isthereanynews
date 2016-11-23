@@ -1,11 +1,10 @@
 namespace IsThereAnyNews.Services.Implementation
 {
+    using IsThereAnyNews.SharedData;
     using System;
     using System.Linq;
     using System.Security.Claims;
     using System.Web;
-
-    using IsThereAnyNews.SharedData;
 
     public class UserAuthentication : IUserAuthentication
     {

@@ -1,15 +1,13 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.InteropServices;
-    using System.Xml;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.HtmlStrip;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Xml;
 
     public class UpdateService : IUpdateService
     {
@@ -48,12 +46,12 @@ namespace IsThereAnyNews.Services.Implementation
                 rssChannels.Select(
                     x =>
                         new UpdateableChannel
-                            {
-                                Url = x.Url,
-                                RssLastUpdatedTime = x.RssLastUpdatedTime,
-                                Id = x.Id,
-                                Updated = x.Updates.OrderBy(xx => xx.Created).FirstOrDefault()?.Created ?? DateTime.MinValue
-                            }).ToList();
+                        {
+                            Url = x.Url,
+                            RssLastUpdatedTime = x.RssLastUpdatedTime,
+                            Id = x.Id,
+                            Updated = x.Updates.OrderBy(xx => xx.Created).FirstOrDefault()?.Created ?? DateTime.MinValue
+                        }).ToList();
 
             var orderedEnumerable = list.OrderBy(o => o.Updated).ToList();
             foreach (var rssChannel in orderedEnumerable)
@@ -103,12 +101,12 @@ namespace IsThereAnyNews.Services.Implementation
         public void UpdateChannel(RssChannel id)
         {
             var updateableChannel = new UpdateableChannel
-                                        {
-                                            Id = id.Id,
-                                            RssLastUpdatedTime = id.RssLastUpdatedTime,
-                                            Updated = DateTime.MinValue,
-                                            Url = id.Url
-                                        };
+            {
+                Id = id.Id,
+                RssLastUpdatedTime = id.RssLastUpdatedTime,
+                Updated = DateTime.MinValue,
+                Url = id.Url
+            };
 
             this.UpdateChannel(updateableChannel);
         }
