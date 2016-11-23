@@ -13,100 +13,50 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public void AddVoteUpRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
-        {
-            var featureRequest = new FeatureRequest
-            {
-                UserId = userId,
-                RssEntryId = id,
-                StreamType = modelStreamType,
-                Type = FeatureRequestType.Voteup
-            };
-
-            this.database.FeatureRequests.Add(featureRequest);
-            this.database.SaveChanges();
-        }
-
-        public void AddNotReadRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
-        {
-            var featureRequest = new FeatureRequest
-            {
-                UserId = userId,
-                RssEntryId = id,
-                StreamType = modelStreamType,
-                Type = FeatureRequestType.NotRead
-            };
-
-            this.database.FeatureRequests.Add(featureRequest);
-            this.database.SaveChanges();
-        }
-
-        public void AddShareRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
-        {
-            var featureRequest = new FeatureRequest
-            {
-                UserId = userId,
-                RssEntryId = id,
-                StreamType = modelStreamType,
-                Type = FeatureRequestType.Share
-            };
-
-            this.database.FeatureRequests.Add(featureRequest);
-            this.database.SaveChanges();
-        }
-
         public void AddCommentRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
-            var featureRequest = new FeatureRequest
-            {
-                UserId = userId,
-                RssEntryId = id,
-                StreamType = modelStreamType,
-                Type = FeatureRequestType.AddComment
-            };
-
-            this.database.FeatureRequests.Add(featureRequest);
-            this.database.SaveChanges();
+            var featureRequest = new FeatureRequest(userId, id, modelStreamType, FeatureRequestType.AddComment);
+            this.SaveFeatureRequestToDatabase(featureRequest);
         }
 
         public void AddFullArticleRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
-            var featureRequest = new FeatureRequest
-            {
-                UserId = userId,
-                RssEntryId = id,
-                StreamType = modelStreamType,
-                Type = FeatureRequestType.FullArticle
-            };
+            var featureRequest = new FeatureRequest(userId, id, modelStreamType, FeatureRequestType.FullArticle);
+            this.SaveFeatureRequestToDatabase(featureRequest);
+        }
 
-            this.database.FeatureRequests.Add(featureRequest);
-            this.database.SaveChanges();
+        public void AddNotReadRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
+        {
+            var featureRequest = new FeatureRequest(userId, id, modelStreamType, FeatureRequestType.NotRead);
+            this.SaveFeatureRequestToDatabase(featureRequest);
         }
 
         public void AddReadLaterRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
-            var featureRequest = new FeatureRequest
-            {
-                UserId = userId,
-                RssEntryId = id,
-                StreamType = modelStreamType,
-                Type = FeatureRequestType.ReadLater
-            };
+            var featureRequest = new FeatureRequest(userId, id, modelStreamType, FeatureRequestType.ReadLater);
+            this.SaveFeatureRequestToDatabase(featureRequest);
+        }
 
-            this.database.FeatureRequests.Add(featureRequest);
-            this.database.SaveChanges();
+        public void AddShareRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
+        {
+            var featureRequest = new FeatureRequest(userId, id, modelStreamType, FeatureRequestType.Share);
+            this.SaveFeatureRequestToDatabase(featureRequest);
         }
 
         public void AddVoteDownRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
         {
-            var featureRequest = new FeatureRequest
-            {
-                UserId = userId,
-                RssEntryId = id,
-                StreamType = modelStreamType,
-                Type = FeatureRequestType.VoteDown
-            };
+            var featureRequest = new FeatureRequest(userId, id, modelStreamType, FeatureRequestType.VoteDown);
+            this.SaveFeatureRequestToDatabase(featureRequest);
+        }
 
+        public void AddVoteUpRequestByUserForArticle(long userId, StreamType modelStreamType, long id)
+        {
+            var featureRequest = new FeatureRequest(userId, id, modelStreamType, FeatureRequestType.Voteup);
+            this.SaveFeatureRequestToDatabase(featureRequest);
+        }
+
+        private void SaveFeatureRequestToDatabase(FeatureRequest featureRequest)
+        {
             this.database.FeatureRequests.Add(featureRequest);
             this.database.SaveChanges();
         }
