@@ -4,9 +4,9 @@
     using System.Web.Mvc;
 
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.Mvc.Infrastructure;
     using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.Web.Infrastructure;
 
     [RoleAuthorize(Roles = new[] { ItanRole.SuperAdmin })]
     public class AdminController : BaseController

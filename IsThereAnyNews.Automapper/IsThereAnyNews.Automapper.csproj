@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DtoToEntityModelProfile.cs" />
+    <Compile Include="EntityToProjectionModels.cs" />
     <Compile Include="IsThereAnyNewsAutomapper.cs" />
     <Compile Include="ModelToViewModelProfile.cs" />
+    <Compile Include="ProjectionToViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyndicationToAdapter.cs" />
   </ItemGroup>
@@ -67,6 +69,10 @@
     <ProjectReference Include="..\IsThereAnyNews.HtmlStrip\IsThereAnyNews.HtmlStrip.csproj">
       <Project>{25C15560-5C76-4AB2-9B0C-AABF93F6318A}</Project>
       <Name>IsThereAnyNews.HtmlStrip</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.ProjectionModels\IsThereAnyNews.ProjectionModels.csproj">
+      <Project>{F34CB611-4687-4B21-AEA9-3E62C1898E68}</Project>
+      <Name>IsThereAnyNews.ProjectionModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
       <Project>{936C3CB3-6EA8-4A2F-861B-CE9F40E96EE3}</Project>

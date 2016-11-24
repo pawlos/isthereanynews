@@ -11,6 +11,8 @@ namespace IsThereAnyNews.Automapper
                 cfg.AddProfile<ModelToViewModelProfile>();
                 cfg.AddProfile<DtoToEntityModelProfile>();
                 cfg.AddProfile<SyndicationToAdapter>();
+                cfg.AddProfile<EntityToProjectionModels>();
+                cfg.AddProfile<ProjectionToViewModel>();
             });
             var mapper = config.CreateMapper();
             return mapper;

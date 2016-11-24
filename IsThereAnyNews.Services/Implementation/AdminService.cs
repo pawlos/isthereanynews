@@ -1,7 +1,10 @@
 ﻿namespace IsThereAnyNews.Services.Implementation
 {
+    using AutoMapper;
+
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.Services;
     using IsThereAnyNews.ViewModels;
 
@@ -9,9 +12,12 @@
     {
         private readonly IAdminRepository adminRepository;
 
-        public AdminService(IAdminRepository adminRepository)
+        private readonly IMapper mapper;
+
+        public AdminService(IAdminRepository adminRepository, IMapper mapper)
         {
             this.adminRepository = adminRepository;
+            this.mapper = mapper;
         }
 
         public ItanApplicationConfigurationViewModel ReadConfiguration()
@@ -20,17 +26,13 @@
             var numberOfRegisteredUsers = this.adminRepository.GetNumberOfRegisteredUsers();
             var numberOfRssSubscriptions = this.adminRepository.GetNumberOfRssSubscriptions();
             var numberOfRssNews = this.adminRepository.GetNumberOfRssNews();
+            var viewmodel = this.mapper.Map<ApplicationConfigurationDTO, ItanApplicationConfigurationViewModel>(appConfiguration);
 
-            var x =
-                new ItanApplicationConfigurationViewModel
-                {
-                    UserRegistration = appConfiguration.RegistrationSupported.ToString(),
-                    UserLimit = appConfiguration.UsersLimit,
-                    CurrentUsers = numberOfRegisteredUsers,
-                    Subscriptions = numberOfRssSubscriptions,
-                    RssNews = numberOfRssNews,
-                };
-            return x;
+            viewmodel.CurrentUsers = numberOfRegisteredUsers;
+            viewmodel.Subscriptions = numberOfRssSubscriptions;
+            viewmodel.RssNews = numberOfRssNews;
+
+            return viewmodel;
         }
 
         public void ChangeRegistration(ChangeRegistrationDto dto)

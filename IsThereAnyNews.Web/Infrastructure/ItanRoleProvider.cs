@@ -1,4 +1,4 @@
-namespace IsThereAnyNews.Mvc.Infrastructure
+namespace IsThereAnyNews.Web.Infrastructure
 {
     using System.Linq;
     using System.Security.Claims;
@@ -34,11 +34,7 @@ namespace IsThereAnyNews.Mvc.Infrastructure
                 return new string[] { };
             }
 
-            var claimsIdentity = claimsPrincipal.Identities.SingleOrDefault(x => x.AuthenticationType == "ITAN");
-            if (claimsIdentity == null)
-            {
-                return new string[] { };
-            }
+            var claimsIdentity = claimsPrincipal.Identity as ClaimsIdentity;
 
             var rolesForUser = claimsIdentity.Claims
                 .Where(x => x.Type == ClaimTypes.Role)

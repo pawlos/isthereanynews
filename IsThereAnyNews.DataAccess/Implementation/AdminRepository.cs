@@ -2,22 +2,30 @@
 {
     using System.Linq;
 
+    using AutoMapper;
+
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.SharedData;
 
     public class AdminRepository : IAdminRepository
     {
         private readonly ItanDatabaseContext database;
 
-        public AdminRepository(ItanDatabaseContext database)
+        private readonly IMapper mapper;
+
+        public AdminRepository(ItanDatabaseContext database, IMapper mapper)
         {
             this.database = database;
+            this.mapper = mapper;
         }
 
-        public ApplicationConfiguration LoadApplicationConfiguration()
+        public ApplicationConfigurationDTO LoadApplicationConfiguration()
         {
-            return this.database.ApplicationConfiguration.Single();
+            var applicationConfiguration = this.database.ApplicationConfiguration.Single();
+            var dto = this.mapper.Map<ApplicationConfiguration, ApplicationConfigurationDTO>(applicationConfiguration);
+            return dto;
         }
 
         public long GetNumberOfRegisteredUsers()

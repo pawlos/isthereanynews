@@ -1,11 +1,11 @@
 ﻿namespace IsThereAnyNews.DataAccess
 {
-    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.SharedData;
 
     public interface IAdminRepository
     {
-        ApplicationConfiguration LoadApplicationConfiguration();
+        ApplicationConfigurationDTO LoadApplicationConfiguration();
 
         long GetNumberOfRegisteredUsers();
 

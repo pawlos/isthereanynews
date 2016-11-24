@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Web", "IsThe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.HtmlStrip", "IsThereAnyNews.HtmlStrip\IsThereAnyNews.HtmlStrip.csproj", "{25C15560-5C76-4AB2-9B0C-AABF93F6318A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.ProjectionModels", "IsThereAnyNews.ProjectionModels\IsThereAnyNews.ProjectionModels.csproj", "{F34CB611-4687-4B21-AEA9-3E62C1898E68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,10 @@ Global
 		{25C15560-5C76-4AB2-9B0C-AABF93F6318A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25C15560-5C76-4AB2-9B0C-AABF93F6318A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25C15560-5C76-4AB2-9B0C-AABF93F6318A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F34CB611-4687-4B21-AEA9-3E62C1898E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F34CB611-4687-4B21-AEA9-3E62C1898E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F34CB611-4687-4B21-AEA9-3E62C1898E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F34CB611-4687-4B21-AEA9-3E62C1898E68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
