@@ -8,7 +8,7 @@
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.ViewModels;
 
     public class UsersService : IUsersService
@@ -48,7 +48,8 @@
             var cui = this.authentication.GetCurrentUserId();
             var isUserAlreadySubscribed = this.usersSubscriptionRepository.IsUserSubscribedToUser(cui, id);
             var publicProfile = this.usersRepository.LoadUserPublicProfile(id);
-            var userDetailedPublicProfileViewModel = this.mapper.Map<User, UserDetailedPublicProfileViewModel>(publicProfile);
+            var userDetailedPublicProfileViewModel = 
+                this.mapper.Map<UserPublicProfileDto, UserDetailedPublicProfileViewModel>(publicProfile);
             userDetailedPublicProfileViewModel.IsUserAlreadySubscribed = isUserAlreadySubscribed;
 
             userDetailedPublicProfileViewModel.Events =
@@ -56,7 +57,10 @@
 
             var loadNameAndCountForUser = this.usersSubscriptionRepository.LoadNameAndCountForUser(cui);
 
-            var publicProfileUsersInformations = this.mapper.Map<List<NameAndCountUserSubscription>, List<PublicProfileChannelInformation>>(loadNameAndCountForUser);
+            var publicProfileUsersInformations =
+                this.mapper
+                    .Map<List<NameAndCountUserSubscription>, List<PublicProfileChannelInformation>>(loadNameAndCountForUser);
+
             userDetailedPublicProfileViewModel.Users = publicProfileUsersInformations;
             return userDetailedPublicProfileViewModel;
         }

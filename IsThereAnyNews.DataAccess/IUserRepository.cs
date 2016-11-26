@@ -6,6 +6,8 @@ namespace IsThereAnyNews.DataAccess
 
     using Implementation;
 
+    using IsThereAnyNews.ProjectionModels;
+
     public interface IUserRepository
     {
         long CreateNewUser(string name, string email);
@@ -13,7 +15,7 @@ namespace IsThereAnyNews.DataAccess
         List<User> GetAllUsers();
         void UpdateDisplayNames(List<User> emptyDisplay);
         List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount();
-        User LoadUserPublicProfile(long id);
+        UserPublicProfileDto LoadUserPublicProfile(long id);
         User GetUserPrivateDetails(long currentUserId);
         void ChangeEmail(long currentUserId, string email);
         void ChangeDisplayName(long currentUserId, string displayname);

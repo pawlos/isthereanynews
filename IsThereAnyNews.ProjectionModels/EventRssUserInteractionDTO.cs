@@ -1,8 +1,8 @@
-namespace IsThereAnyNews.ViewModels
+namespace IsThereAnyNews.ProjectionModels
 {
     using System;
 
-    public class EventRssViewedViewModel
+    public class EventRssUserInteractionDTO
     {
         public string Title { get; set; }
         public DateTime Viewed { get; set; }
