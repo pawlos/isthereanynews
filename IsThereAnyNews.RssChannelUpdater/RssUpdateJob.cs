@@ -15,14 +15,15 @@
 
         public RssUpdateJob()
         {
+            var configureMapper = IsThereAnyNewsAutomapper.ConfigureMapper();
+
             var itanDatabaseContext = new ItanDatabaseContext();
             var updateRepository = new UpdateRepository(itanDatabaseContext);
-            var rssEntriesRepository = new RssEntriesRepository(itanDatabaseContext);
+            var rssEntriesRepository = new RssEntriesRepository(itanDatabaseContext, configureMapper);
             var rssChannelsRepository = new RssChannelsRepository(itanDatabaseContext);
             var rssChannelUpdateRepository = new RssChannelUpdateRepository(itanDatabaseContext);
             var htmlStripper = new HtmlStripper();
 
-            var configureMapper = IsThereAnyNewsAutomapper.ConfigureMapper();
             ISyndicationFeedAdapter syndicationFeedAdapter = new SyndicationFeedAdapter(configureMapper);
 
             this.updateService = new UpdateService(

@@ -80,7 +80,7 @@ namespace IsThereAnyNews.Services.Implementation
                     .GetIdByChannelUrl(new List<string> { channelId.RssChannelLink })
                     .Single();
 
-                this.rssSubscriptionsRepository.Subscribe(idByChannelUrl, currentUserId, channelId.RssChannelName)
+                this.rssSubscriptionsRepository.Subscribe(idByChannelUrl, currentUserId, channelId.RssChannelName);
             }
         }
 

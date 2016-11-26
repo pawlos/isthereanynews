@@ -5,8 +5,11 @@ namespace IsThereAnyNews.DataAccess.Implementation
     using System.Data.Entity;
     using System.Linq;
 
+    using AutoMapper.QueryableExtensions;
+
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
 
     public class UserRepository : IUserRepository
     {
@@ -72,7 +75,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return userPublicProfiles.Distinct().ToList();
         }
 
-        public User LoadUserPublicProfile(long id)
+        public UserPublicProfileDto LoadUserPublicProfile(long id)
         {
             var user = this.database.Users
                 .Include(x => x.RssSubscriptionList)
@@ -81,6 +84,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 //.Include(x => x.UserSubscriptions.Select(u => u.Observed))
                 .Include(x => x.EventsRssViewed)
                 .Include(x => x.EventsRssViewed.Select(e => e.RssEntry))
+                .ProjectTo<UserPublicProfileDto>()
                 .Single(x => x.Id == id);
             return user;
         }

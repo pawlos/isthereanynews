@@ -1,11 +1,12 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.DataAccess.Implementation;
-    using IsThereAnyNews.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.DataAccess.Implementation;
+    using IsThereAnyNews.ViewModels;
 
     public class UserSubscriptionService : IUserSubscriptionService
     {

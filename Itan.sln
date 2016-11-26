@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.HtmlStrip", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.ProjectionModels", "IsThereAnyNews.ProjectionModels\IsThereAnyNews.ProjectionModels.csproj", "{F34CB611-4687-4B21-AEA9-3E62C1898E68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Services.TestSupport", "IsThereAnyNews.Services.TestSupport\IsThereAnyNews.Services.TestSupport.csproj", "{B18E2BFC-EB68-466B-809B-7A2485FAD261}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{F34CB611-4687-4B21-AEA9-3E62C1898E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F34CB611-4687-4B21-AEA9-3E62C1898E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F34CB611-4687-4B21-AEA9-3E62C1898E68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B18E2BFC-EB68-466B-809B-7A2485FAD261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B18E2BFC-EB68-466B-809B-7A2485FAD261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B18E2BFC-EB68-466B-809B-7A2485FAD261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B18E2BFC-EB68-466B-809B-7A2485FAD261}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

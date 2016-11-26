@@ -1,4 +1,4 @@
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.Services.TestSupport
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +6,7 @@ namespace IsThereAnyNews.Services.Implementation
     using System.Linq;
 
     using Faker;
+    using Faker.Extensions;
 
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework;
@@ -43,7 +44,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void GenerateUsers()
         {
-            FixUsersWithEmptyNames();
+            this.FixUsersWithEmptyNames();
             for (int i = 0; i < 1000; i++)
             {
                 this.usersRepository.CreateNewUser(Faker.Name.FullName(), Faker.Internet.Email());
@@ -104,7 +105,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             for (int i = 0; i < 100; i++)
             {
-                ReadRandomRssEvent();
+                this.ReadRandomRssEvent();
             }
         }
 
@@ -119,14 +120,14 @@ namespace IsThereAnyNews.Services.Implementation
                 return;
             }
             var subscription = channelSubscriptions.Random();
-            var entryToReads = rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscription.Id);
+            var entryToReads = this.rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscription.Id);
             if (!entryToReads.Any())
             {
                 return;
             }
             var entry = entryToReads.Random();
-            rssToReadRepository.MarkEntryViewedByUser(user.Id, entry.Id);
-            rssEventRepository.AddEventRssViewed(user.Id, entry.Id);
+            this.rssToReadRepository.MarkEntryViewedByUser(user.Id, entry.Id);
+            this.rssEventRepository.AddEventRssViewed(user.Id, entry.Id);
         }
 
         public void AssignUserRolesToAllUsers()

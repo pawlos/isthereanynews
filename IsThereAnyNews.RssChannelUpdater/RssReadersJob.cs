@@ -5,6 +5,7 @@
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.Services.TestSupport;
 
     public class RssReadersJob : IJob
     {

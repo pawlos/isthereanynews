@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F34CB611-4687-4B21-AEA9-3E62C1898E68}</ProjectGuid>
+    <ProjectGuid>{B18E2BFC-EB68-466B-809B-7A2485FAD261}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IsThereAnyNews.ProjectionModels</RootNamespace>
-    <AssemblyName>IsThereAnyNews.ProjectionModels</AssemblyName>
+    <RootNamespace>IsThereAnyNews.Services.TestSupport</RootNamespace>
+    <AssemblyName>IsThereAnyNews.Services.TestSupport</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,7 +30,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Faker.NET4">
+      <HintPath>..\packages\Faker.Net.1.0.3\lib\net40\Faker.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,26 +52,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationConfigurationDTO.cs" />
-    <Compile Include="EventRssUserInteractionDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RssChannelDTO.cs" />
-    <Compile Include="RssChannelSubscriptionDTO.cs" />
-    <Compile Include="RssEntryDTO.cs" />
-    <Compile Include="RssEntryToReadDTO.cs" />
-    <Compile Include="Mess\RssSourceWithUrlAndTitle.cs" />
-    <Compile Include="UserPublicProfileDto.cs" />
-    <Compile Include="UserSubscriptionEntryToReadDTO.cs" />
+    <Compile Include="TestService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
+      <Project>{112524E8-F4E5-4874-A870-79F2FEC8947C}</Project>
+      <Name>IsThereAnyNews.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
+      <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
+      <Name>IsThereAnyNews.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Extensions\IsThereAnyNews.Extensions.csproj">
+      <Project>{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}</Project>
+      <Name>IsThereAnyNews.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.ProjectionModels\IsThereAnyNews.ProjectionModels.csproj">
+      <Project>{F34CB611-4687-4B21-AEA9-3E62C1898E68}</Project>
+      <Name>IsThereAnyNews.ProjectionModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
+      <Project>{936C3CB3-6EA8-4A2F-861B-CE9F40E96EE3}</Project>
+      <Name>IsThereAnyNews.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
       <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
       <Name>IsThereAnyNews.SharedData</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.ViewModels\IsThereAnyNews.ViewModels.csproj">
-      <Project>{F3FF82BF-CDF6-4F3E-821C-63E0011BB9C6}</Project>
-      <Name>IsThereAnyNews.ViewModels</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
