@@ -7,8 +7,7 @@
 
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
-    using IsThereAnyNews.EntityFramework.Models.Events;
+    using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.ProjectionModels.Mess;
     using IsThereAnyNews.ViewModels;
 
@@ -58,7 +57,7 @@
             var currentUserId = this.authentication.GetCurrentUserId();
             var rssSubscriptions = this.channelsSubscriptionRepository.LoadAllSubscriptionsForUser(currentUserId);
             this.rssEntriesToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(currentUserId, rssSubscriptions);
-            var viewmodel = this.mapping.Map<List<RssChannelSubscription>, RssChannelsMyViewModel>(rssSubscriptions);
+            var viewmodel = this.mapping.Map<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>(rssSubscriptions);
             return viewmodel;
         }
 
@@ -66,7 +65,7 @@
         {
             var rssChannel = this.channelsRepository.LoadRssChannel(id);
             var rssChannelIndexViewModel =
-                this.mapping.Map<RssChannel, RssChannelIndexViewModel>(
+                this.mapping.Map<RssChannelDTO, RssChannelIndexViewModel>(
                 rssChannel,
                 o => o.AfterMap(
                     (s, d) =>
@@ -99,25 +98,25 @@
             var idByChannelUrl = this.channelsRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
             if (!idByChannelUrl.Any())
             {
-                CreateNewChannel(dto);
+                this.CreateNewChannel(dto);
             }
         }
 
         private void CreateNewChannel(AddChannelDto dto)
         {
-            var rssChannel = this.mapping.Map<RssChannel>(dto);
-            this.channelsRepository.SaveToDatabase(new List<RssSourceWithUrlAndTitle> { new RssSourceWithUrlAndTitle(dto.RssChannelLink, dto.RssChannelName) });
-            var listIds = this.channelsRepository.GetIdByChannelUrl(new List<string> { rssChannel.Url });
+            var rssSourceWithUrlAndTitles = new List<RssSourceWithUrlAndTitle>
+                                                {
+                                                    new RssSourceWithUrlAndTitle(
+                                                        dto.RssChannelLink,
+                                                        dto.RssChannelName)
+                                                };
+            this.channelsRepository.SaveToDatabase(rssSourceWithUrlAndTitles);
+
+            var urlsToChannels = new List<string> { dto.RssChannelLink };
+            var listIds = this.channelsRepository.GetIdByChannelUrl(urlsToChannels);
             var id = listIds.Single();
 
-            var eventRssChannelCreated = new EventRssChannelCreated
-            {
-                RssChannelId = id
-            };
-
-            this.eventRssChannelCreatedRepository.SaveToDatabase(eventRssChannelCreated);
-
-            this.updateService.UpdateChannel(rssChannel);
+            this.eventRssChannelCreatedRepository.SaveToDatabase(id);
         }
     }
 }

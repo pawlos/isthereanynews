@@ -6,6 +6,7 @@
 
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
 
     public class RssEntriesToReadRepository : IRssEntriesToReadRepository
     {
@@ -16,7 +17,7 @@
             this.database = database;
         }
 
-        public void CopyRssThatWerePublishedAfterLastReadTimeToUser(long currentUserId, List<RssChannelSubscription> subscriptions)
+        public void CopyRssThatWerePublishedAfterLastReadTimeToUser(long currentUserId, List<RssChannelSubscriptionDTO> subscriptions)
         {
             var rssChannelsIds = subscriptions.Select(x => x.RssChannelId).ToList();
 

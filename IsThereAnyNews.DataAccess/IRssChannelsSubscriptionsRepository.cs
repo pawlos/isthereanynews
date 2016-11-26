@@ -3,12 +3,14 @@ using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.DataAccess
 {
+    using IsThereAnyNews.ProjectionModels;
+
     public interface IRssChannelsSubscriptionsRepository
     {
         void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions);
         List<string> LoadUrlsForAllChannels();
         List<long> GetChannelIdSubscriptionsForUser(long currentUserId);
-        List<RssChannelSubscription> LoadAllSubscriptionsForUser(long currentUserId);
+        List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId);
         List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId);
         bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId);
         void DeleteSubscriptionFromUser(long subscriptionId, long userId);

@@ -6,6 +6,10 @@ using IsThereAnyNews.EntityFramework.Models.Entities;
 
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using AutoMapper.QueryableExtensions;
+
+    using IsThereAnyNews.ProjectionModels;
+
     public class RssChannelsSubscriptionsRepository : IRssChannelsSubscriptionsRepository
     {
         private readonly ItanDatabaseContext database;
@@ -42,13 +46,14 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return rssChannelSubscriptions;
         }
 
-        public List<RssChannelSubscription> LoadAllSubscriptionsForUser(long currentUserId)
+        public List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId)
         {
             var rssChannelSubscriptions =
                 this.database
                     .RssChannelsSubscriptions
                     .Include(x => x.RssEntriesToRead)
                     .Where(x => x.UserId == currentUserId)
+                    .ProjectTo<RssChannelSubscriptionDTO>()
                     .ToList();
             return rssChannelSubscriptions;
         }

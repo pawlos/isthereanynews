@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationConfiguration.cs" />
+    <Compile Include="ApplicationConfigurationDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssChannelDTO.cs" />
+    <Compile Include="RssChannelSubscriptionDTO.cs" />
     <Compile Include="RssEntryDTO.cs" />
     <Compile Include="RssEntryToReadDTO.cs" />
     <Compile Include="Mess\RssSourceWithUrlAndTitle.cs" />
@@ -51,6 +53,10 @@
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
       <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
       <Name>IsThereAnyNews.SharedData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.ViewModels\IsThereAnyNews.ViewModels.csproj">
+      <Project>{F3FF82BF-CDF6-4F3E-821C-63E0011BB9C6}</Project>
+      <Name>IsThereAnyNews.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

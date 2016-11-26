@@ -4,6 +4,7 @@
 
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.ProjectionModels.Mess;
 
     public interface IRssChannelsRepository
@@ -13,7 +14,7 @@
         List<RssChannel> LoadAllChannelsForUser(long userIdToLoad);
         void SaveToDatabase(List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace);
         List<long> GetIdByChannelUrl(List<string> urlstoChannels);
-        RssChannel LoadRssChannel(long id);
+        RssChannelDTO LoadRssChannel(long id);
         void UpdateRssLastUpdateTimeToDatabase(List<RssChannel> rssChannels);
         void Blah();
 

@@ -4,6 +4,8 @@
     using System.Data.Entity;
     using System.Linq;
 
+    using AutoMapper.QueryableExtensions;
+
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ProjectionModels;
@@ -83,12 +85,13 @@
             return longs;
         }
 
-        public RssChannel LoadRssChannel(long id)
+        public RssChannelDTO LoadRssChannel(long id)
         {
             return this.database
                 .RssChannels
                 .Include(channel => channel.RssEntries)
                 .Include(channel => channel.Updates)
+                .ProjectTo<RssChannelDTO>()
                 .Single(x => x.Id == id);
         }
 

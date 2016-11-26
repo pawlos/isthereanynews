@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using IsThereAnyNews.EntityFramework.Models.Interfaces;
-
-namespace IsThereAnyNews.EntityFramework.Models.Entities
+﻿namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
+    using System;
+    using System.Collections.Generic;
+
+    using IsThereAnyNews.EntityFramework.Models.Interfaces;
+
     public sealed class RssChannelSubscription : IEntity, ICreatable, IModifiable
     {
         public RssChannelSubscription() : this(0, 0, string.Empty)

@@ -1,8 +1,8 @@
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models.Events;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Events;
+
     public class EventRssChannelCreatedRepository : IEventRssChannelCreatedRepository
     {
         private readonly ItanDatabaseContext database;
@@ -12,9 +12,10 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public void SaveToDatabase(EventRssChannelCreated eventRssChannelCreated)
+        public void SaveToDatabase(long eventRssChannelCreated)
         {
-            this.database.EventRssChannelCreated.Add(eventRssChannelCreated);
+            var rssChannelCreated = new EventRssChannelCreated { RssChannelId = eventRssChannelCreated };
+            this.database.EventRssChannelCreated.Add(rssChannelCreated);
             this.database.SaveChanges();
         }
     }
