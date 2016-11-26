@@ -1,10 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using IsThereAnyNews.EntityFramework.Models.Interfaces;
-
-namespace IsThereAnyNews.EntityFramework.Models.Entities
+﻿namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using IsThereAnyNews.EntityFramework.Models.Interfaces;
+
     [Table("RssEntriesToRead")]
     public sealed class RssEntryToRead : IEntity, ICreatable, IModifiable
     {

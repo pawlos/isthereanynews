@@ -1,13 +1,15 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using AutoMapper;
-    using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
-    using IsThereAnyNews.SharedData;
-    using IsThereAnyNews.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    using AutoMapper;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels;
 
     public class PersonSubscriptionHandler : ISubscriptionHandler
     {
@@ -68,7 +70,7 @@ namespace IsThereAnyNews.Services.Implementation
                 return rssSubscriptionIndexViewModel;
             }
 
-            List<UserSubscriptionEntryToRead> loadAllUnreadEntriesFromSubscription;
+            List<UserSubscriptionEntryToReadDTO> loadAllUnreadEntriesFromSubscription;
             if (showReadEntries != ShowReadEntries.Show)
             {
                 loadAllUnreadEntriesFromSubscription = this.usersSubscriptionRepository

@@ -5,8 +5,11 @@
     using System.Data.Entity;
     using System.Linq;
 
+    using AutoMapper.QueryableExtensions;
+
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
 
     public class UsersSubscriptionRepository : IUsersSubscriptionRepository
     {
@@ -54,7 +57,7 @@
             return subscription != null;
         }
 
-        public List<UserSubscriptionEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId)
+        public List<UserSubscriptionEntryToReadDTO> LoadAllUnreadEntriesFromSubscription(long subscriptionId)
         {
             var userSubscriptions = this.database.UsersSubscriptions
                  .Where(s => s.Id == subscriptionId)
@@ -63,12 +66,13 @@
                  .Include(s => s.EventRssUserInteraction)
                  .Include(s => s.EventRssUserInteraction.RssEntry)
                  .Where(s => !s.IsRead)
+                 .ProjectTo<UserSubscriptionEntryToReadDTO>()
                  .ToList();
 
             return userSubscriptions.ToList();
         }
 
-        public List<UserSubscriptionEntryToRead> LoadAllEntriesFromSubscription(long subscriptionId)
+        public List<UserSubscriptionEntryToReadDTO> LoadAllEntriesFromSubscription(long subscriptionId)
         {
             var userSubscriptions = this.database.UsersSubscriptions
                            .Where(s => s.Id == subscriptionId)
@@ -76,6 +80,7 @@
                            .SelectMany(s => s.EntriesToRead)
                            .Include(s => s.EventRssUserInteraction)
                            .Include(s => s.EventRssUserInteraction.RssEntry)
+                           .ProjectTo<UserSubscriptionEntryToReadDTO>()
                            .ToList();
 
             return userSubscriptions.ToList();

@@ -8,6 +8,7 @@
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.ProjectionModels.Mess;
 
     public class OpmlImporterService : IOpmlImporterService
     {

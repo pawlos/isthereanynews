@@ -1,4 +1,4 @@
-﻿namespace IsThereAnyNews.ProjectionModels
+﻿namespace IsThereAnyNews.ProjectionModels.Mess
 {
     public class RssSourceWithUrlAndTitle
     {

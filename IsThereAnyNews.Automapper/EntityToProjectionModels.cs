@@ -10,6 +10,9 @@ namespace IsThereAnyNews.Automapper
         public EntityToProjectionModels()
         {
             this.CreateMap<ApplicationConfiguration, ApplicationConfigurationDTO>();
+            this.CreateMap<RssEntry, RssEntryDTO>();
+            this.CreateMap<RssEntryToRead, RssEntryToReadDTO>();
+            this.CreateMap<UserSubscriptionEntryToRead, UserSubscriptionEntryToReadDTO>();
         }
     }
 }

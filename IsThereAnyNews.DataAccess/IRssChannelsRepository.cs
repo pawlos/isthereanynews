@@ -4,7 +4,7 @@
 
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.EntityFramework.Models.Entities;
-    using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.ProjectionModels.Mess;
 
     public interface IRssChannelsRepository
     {

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.ProjectionModels.Mess;
 
     public class RssSourceWithUrlAndTitleComparer : IEqualityComparer<RssSourceWithUrlAndTitle>
     {

@@ -1,8 +1,9 @@
-﻿using System;
-using IsThereAnyNews.EntityFramework.Models.Interfaces;
-
-namespace IsThereAnyNews.EntityFramework.Models.Entities
+﻿namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
+    using System;
+
+    using IsThereAnyNews.EntityFramework.Models.Interfaces;
+
     public class RssEntry : IEntity, ICreatable, IModifiable
     {
         public RssEntry() : this(string.Empty, DateTimeOffset.MinValue, string.Empty, string.Empty, string.Empty, 0, string.Empty)

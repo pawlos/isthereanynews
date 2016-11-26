@@ -7,6 +7,7 @@
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.ProjectionModels.Mess;
 
     public class RssChannelsRepository : IRssChannelsRepository
     {

@@ -1,15 +1,16 @@
 ﻿namespace IsThereAnyNews.Services.Implementation
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using AutoMapper;
+
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.EntityFramework.Models.Events;
+    using IsThereAnyNews.ProjectionModels.Mess;
     using IsThereAnyNews.ViewModels;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using IsThereAnyNews.ProjectionModels;
 
     public class RssChannelsService : IRssChannelsService
     {

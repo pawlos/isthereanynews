@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.ProjectionModels.Mess;
 
     public interface IOpmlImporterService
     {
