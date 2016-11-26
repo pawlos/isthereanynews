@@ -10,15 +10,12 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class ApplicationLoginService : ILoginService
     {
-        private readonly IUserAuthentication authentication;
-        private readonly IUserRepository userRepository;
-        private readonly ISocialLoginRepository socialLoginRepository;
-
-        private readonly IUserRoleRepository repositoryUserRoles;
-        private readonly IMapper mapper;
-
         private readonly IApplicationSettingsRepository applicationSettingsRepository;
-
+        private readonly IUserAuthentication authentication;
+        private readonly IMapper mapper;
+        private readonly IUserRoleRepository repositoryUserRoles;
+        private readonly ISocialLoginRepository socialLoginRepository;
+        private readonly IUserRepository userRepository;
         public ApplicationLoginService(
             IUserAuthentication authentication,
             IUserRepository userRepository,
@@ -35,6 +32,38 @@ namespace IsThereAnyNews.Services.Implementation
             this.applicationSettingsRepository = applicationSettingsRepository;
         }
 
+        public void AssignToUserRole(ClaimsIdentity identity)
+        {
+            var cui = long.Parse(identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier).Value);
+            this.repositoryUserRoles.AssignUserRole(cui);
+        }
+
+        public bool CanRegisterIfWithinLimits()
+        {
+            return this.applicationSettingsRepository.CanRegisterWithinLimits();
+        }
+
+        public SocialLogin FindUserSocialLogin(ClaimsIdentity identity)
+        {
+            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider(identity);
+            var userId = this.authentication.GetUserSocialIdFromIdentity(identity);
+            var socialLogin = this.socialLoginRepository.FindSocialLogin(userId, authenticationTypeProvider);
+            return socialLogin;
+        }
+
+        public RegistrationSupported GetCurrentRegistrationStatus()
+        {
+            return this.applicationSettingsRepository.GetCurrentRegistrationStatus();
+        }
+
+        public bool IsUserRegistered(ClaimsIdentity identity)
+        {
+            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider(identity);
+            var userId = this.authentication.GetUserSocialIdFromIdentity(identity);
+            var userIsRegistered = this.socialLoginRepository.UserIsRegistered(authenticationTypeProvider, userId);
+            return userIsRegistered;
+        }
+
         public void RegisterIfNewUser(ClaimsIdentity identity)
         {
             var socialLogin = this.FindUserSocialLogin(identity);
@@ -46,36 +75,6 @@ namespace IsThereAnyNews.Services.Implementation
                 this.AssignToUserRole(identity);
             }
         }
-
-        public SocialLogin FindUserSocialLogin(ClaimsIdentity identity)
-        {
-            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider(identity);
-            var userId = this.authentication.GetUserSocialIdFromIdentity(identity);
-            var socialLogin = this.socialLoginRepository.FindSocialLogin(userId, authenticationTypeProvider);
-            return socialLogin;
-        }
-
-        public void AssignToUserRole(ClaimsIdentity identity)
-        {
-            var cui = long.Parse(identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier).Value);
-            this.repositoryUserRoles.AssignUserRole(cui);
-        }
-
-        public bool IsUserRegistered(ClaimsIdentity identity)
-        {
-            return this.FindUserSocialLogin(identity) != null;
-        }
-
-        public RegistrationSupported GetCurrentRegistrationStatus()
-        {
-            return this.applicationSettingsRepository.GetCurrentRegistrationStatus();
-        }
-
-        public bool CanRegisterIfWithinLimits()
-        {
-            return this.applicationSettingsRepository.CanRegisterWithinLimits();
-        }
-
         public void StoreCurrentUserIdInSession(ClaimsIdentity identity)
         {
             if (identity.Claims.Any(x => x.Type == ItanClaimTypes.ApplicationIdentifier))
@@ -98,17 +97,12 @@ namespace IsThereAnyNews.Services.Implementation
             identity.AddClaims(claims);
         }
 
-        private void RegisterCurrentSocialLogin(ClaimsIdentity identity)
+        private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier,
+                                                                     AuthenticationTypeProvider authenticationTypeProvider,
+                                                                     User newUser)
         {
-            var identifier = this.FindUserClaimNameIdentifier(identity);
-            var newUser = this.CreateNewApplicationUser(identity);
-            var authenticationTypeProvider = this.GetUserAuthenticationProviderFromAuthentication(identity);
-            this.CreateAndAssignNewSocialLoginForApplicationUser(identifier, authenticationTypeProvider, newUser);
-        }
-
-        private AuthenticationTypeProvider GetUserAuthenticationProviderFromAuthentication(ClaimsIdentity identity)
-        {
-            return this.authentication.GetCurrentUserLoginProvider(identity);
+            var socialLogin = new SocialLogin(identifier.Value, authenticationTypeProvider, newUser.Id);
+            this.socialLoginRepository.SaveToDatabase(socialLogin);
         }
 
         private User CreateNewApplicationUser(ClaimsIdentity identity)
@@ -118,17 +112,11 @@ namespace IsThereAnyNews.Services.Implementation
             return this.userRepository.CreateNewUser(name.Value, email.Value);
         }
 
-        private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier,
-                                                                     AuthenticationTypeProvider authenticationTypeProvider,
-                                                                     User newUser)
+        private Claim FindCurrentUserClaimEmail()
         {
-            var socialLogin = new SocialLogin(identifier.Value, authenticationTypeProvider, newUser.Id);
-            this.socialLoginRepository.SaveToDatabase(socialLogin);
-        }
-
-        private Claim FindUserClaimNameIdentifier(ClaimsIdentity identity)
-        {
-            var identifier = identity.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
+            var user = this.authentication.GetCurrentUser();
+            var claims = user.Claims.ToList();
+            var identifier = claims.First(x => x.Type == ClaimTypes.Email);
             return identifier;
         }
 
@@ -140,12 +128,23 @@ namespace IsThereAnyNews.Services.Implementation
             return identifier;
         }
 
-        private Claim FindCurrentUserClaimEmail()
+        private Claim FindUserClaimNameIdentifier(ClaimsIdentity identity)
         {
-            var user = this.authentication.GetCurrentUser();
-            var claims = user.Claims.ToList();
-            var identifier = claims.First(x => x.Type == ClaimTypes.Email);
+            var identifier = identity.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
             return identifier;
+        }
+
+        private AuthenticationTypeProvider GetUserAuthenticationProviderFromAuthentication(ClaimsIdentity identity)
+        {
+            return this.authentication.GetCurrentUserLoginProvider(identity);
+        }
+
+        private void RegisterCurrentSocialLogin(ClaimsIdentity identity)
+        {
+            var identifier = this.FindUserClaimNameIdentifier(identity);
+            var newUser = this.CreateNewApplicationUser(identity);
+            var authenticationTypeProvider = this.GetUserAuthenticationProviderFromAuthentication(identity);
+            this.CreateAndAssignNewSocialLoginForApplicationUser(identifier, authenticationTypeProvider, newUser);
         }
     }
 }

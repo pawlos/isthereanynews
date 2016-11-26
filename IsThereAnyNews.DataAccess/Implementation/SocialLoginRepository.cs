@@ -32,5 +32,15 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             return socialLogin;
         }
+
+        public bool UserIsRegistered(AuthenticationTypeProvider authenticationTypeProvider, string userId)
+        {
+            var exists = this.itanDatabaseContext
+                             .SocialLogins
+                             .Where(l => l.Provider == authenticationTypeProvider)
+                             .Where(l => l.SocialId == userId)
+                             .Any();
+            return exists;
+        }
     }
 }
