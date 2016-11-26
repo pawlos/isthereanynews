@@ -17,7 +17,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public User CreateNewUser(string name, string email)
+        public long CreateNewUser(string name, string email)
         {
             var user = new User
             {
@@ -27,7 +27,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             this.database.Users.Add(user);
             this.database.SaveChanges();
-            return user;
+            return user.Id;
         }
 
         public void UpdateUserLastReadTime(long userId, DateTime now)

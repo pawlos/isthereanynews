@@ -1,12 +1,13 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using AutoMapper;
-    using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
-    using IsThereAnyNews.SharedData;
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
+
+    using AutoMapper;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.SharedData;
 
     public class ApplicationLoginService : ILoginService
     {
@@ -91,13 +92,12 @@ namespace IsThereAnyNews.Services.Implementation
 
         private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier,
                                                                      AuthenticationTypeProvider authenticationTypeProvider,
-                                                                     User newUser)
+                                                                     long newUserId)
         {
-            var socialLogin = new SocialLogin(identifier.Value, authenticationTypeProvider, newUser.Id);
-            this.socialLoginRepository.SaveToDatabase(socialLogin);
+            this.socialLoginRepository.CreateNewSociaLogin(identifier.Value, authenticationTypeProvider, newUserId);
         }
 
-        private User CreateNewApplicationUser(ClaimsIdentity identity)
+        private long CreateNewApplicationUser(ClaimsIdentity identity)
         {
             var name = identity.Claims.Single(x => x.Type == ClaimTypes.Name);
             var email = identity.Claims.Single(x => x.Type == ClaimTypes.Email);
@@ -118,9 +118,9 @@ namespace IsThereAnyNews.Services.Implementation
         private void RegisterCurrentSocialLogin(ClaimsIdentity identity)
         {
             var identifier = this.FindUserClaimNameIdentifier(identity);
-            var newUser = this.CreateNewApplicationUser(identity);
+            var newUserId = this.CreateNewApplicationUser(identity);
             var authenticationTypeProvider = this.GetUserAuthenticationProviderFromAuthentication(identity);
-            this.CreateAndAssignNewSocialLoginForApplicationUser(identifier, authenticationTypeProvider, newUser);
+            this.CreateAndAssignNewSocialLoginForApplicationUser(identifier, authenticationTypeProvider, newUserId);
         }
     }
 }

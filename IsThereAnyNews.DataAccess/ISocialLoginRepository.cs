@@ -9,5 +9,7 @@ namespace IsThereAnyNews.DataAccess
         SocialLogin FindSocialLogin(string socialLoginId, AuthenticationTypeProvider provider);
 
         bool UserIsRegistered(AuthenticationTypeProvider authenticationTypeProvider, string userId);
+
+        void CreateNewSociaLogin(string identifierValue, AuthenticationTypeProvider authenticationTypeProvider, long newUserId);
     }
 }

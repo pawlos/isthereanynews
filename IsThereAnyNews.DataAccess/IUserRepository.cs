@@ -8,7 +8,7 @@ namespace IsThereAnyNews.DataAccess
 
     public interface IUserRepository
     {
-        User CreateNewUser(string name, string email);
+        long CreateNewUser(string name, string email);
 
         List<User> GetAllUsers();
         void UpdateDisplayNames(List<User> emptyDisplay);

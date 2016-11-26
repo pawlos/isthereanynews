@@ -42,5 +42,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
                              .Any();
             return exists;
         }
+
+        public void CreateNewSociaLogin(string identifierValue, AuthenticationTypeProvider authenticationTypeProvider, long newUserId)
+        {
+            var socialLogin = new SocialLogin(identifierValue, authenticationTypeProvider, newUserId);
+            this.itanDatabaseContext.SocialLogins.Add(socialLogin);
+            this.itanDatabaseContext.SaveChanges();
+        }
     }
 }
