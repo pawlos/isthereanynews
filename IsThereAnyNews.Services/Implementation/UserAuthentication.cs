@@ -1,32 +1,14 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using IsThereAnyNews.SharedData;
     using System;
     using System.Linq;
     using System.Security.Claims;
     using System.Web;
 
+    using IsThereAnyNews.SharedData;
+
     public class UserAuthentication : IUserAuthentication
     {
-        public string GetUserSocialIdFromIdentity(ClaimsIdentity identity)
-        {
-            var claim = identity.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
-            return claim.Value;
-        }
-
-        public ClaimsPrincipal GetCurrentUser()
-        {
-            return HttpContext.Current.GetOwinContext().Authentication.User;
-        }
-
-        public AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity)
-        {
-            var issuer = identity.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer)).Issuer;
-            AuthenticationTypeProvider enumResult;
-            Enum.TryParse(issuer, true, out enumResult);
-            return enumResult;
-        }
-
         public bool CurrentUserIsAuthenticated()
         {
             return HttpContext
@@ -38,6 +20,11 @@ namespace IsThereAnyNews.Services.Implementation
                 .IsAuthenticated;
         }
 
+        public ClaimsPrincipal GetCurrentUser()
+        {
+            return HttpContext.Current.GetOwinContext().Authentication.User;
+        }
+
         public long GetCurrentUserId()
         {
             long r = 0;
@@ -47,6 +34,20 @@ namespace IsThereAnyNews.Services.Implementation
                     .SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
                     ?.Value, out r);
             return r;
+        }
+
+        public AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity)
+        {
+            var issuer = identity.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer)).Issuer;
+            AuthenticationTypeProvider enumResult;
+            Enum.TryParse(issuer, true, out enumResult);
+            return enumResult;
+        }
+
+        public string GetUserSocialIdFromIdentity(ClaimsIdentity identity)
+        {
+            var claim = identity.Claims.First(x => x.Type == ClaimTypes.NameIdentifier);
+            return claim.Value;
         }
     }
 }
