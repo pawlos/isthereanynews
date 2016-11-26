@@ -6,7 +6,6 @@ namespace IsThereAnyNews.Services.Implementation
 
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
@@ -81,14 +80,7 @@ namespace IsThereAnyNews.Services.Implementation
                     .GetIdByChannelUrl(new List<string> { channelId.RssChannelLink })
                     .Single();
 
-                var rssChannelSubscription = new RssChannelSubscription
-                {
-                    RssChannelId = idByChannelUrl,
-                    UserId = currentUserId,
-                    Title = channelId.RssChannelName
-                };
-
-                this.rssSubscriptionsRepository.SaveToDatabase(new List<RssChannelSubscription> { rssChannelSubscription });
+                this.rssSubscriptionsRepository.Subscribe(idByChannelUrl, currentUserId, channelId.RssChannelName)
             }
         }
 

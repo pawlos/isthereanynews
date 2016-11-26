@@ -138,5 +138,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .Any();
             return any;
         }
+
+        public void Subscribe(long idByChannelUrl, long currentUserId, string channelIdRssChannelName)
+        {
+            var rssChannelSubscription = new RssChannelSubscription(idByChannelUrl, currentUserId, channelIdRssChannelName);
+            this.database.RssChannelsSubscriptions.Add(rssChannelSubscription);
+            this.database.SaveChanges();
+        }
     }
 }
