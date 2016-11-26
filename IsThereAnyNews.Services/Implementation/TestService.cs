@@ -11,7 +11,6 @@ namespace IsThereAnyNews.Services.Implementation
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.Extensions;
-    using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.ProjectionModels.Mess;
     using IsThereAnyNews.SharedData;
 
@@ -87,8 +86,7 @@ namespace IsThereAnyNews.Services.Implementation
                 var u = users[r.Next(users.Count)];
                 var c = channels[r.Next(channels.Count)];
 
-                var rssChannelSubscription = new RssChannelSubscription(c.Id, u.Id, c.Title);
-                this.rssSubscriptionRepository.SaveToDatabase(new List<RssChannelSubscription> { rssChannelSubscription });
+                this.rssSubscriptionRepository.Subscribe(c.Id, u.Id, c.Title);
             }
         }
 
