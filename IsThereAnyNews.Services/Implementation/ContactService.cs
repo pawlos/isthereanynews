@@ -1,25 +1,17 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using AutoMapper;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
-    using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.ViewModels;
 
     public class ContactService : IContactService
     {
-        private readonly IMapper mapper;
         private readonly IContactAdministrationRepository repositoryContactAdministration;
         private readonly IContactAdministrationEventRepository eventsContactAdministration;
 
-        public ContactService(
-            IMapper mapper,
-            IContactAdministrationRepository repositoryContactAdministration,
+        public ContactService(IContactAdministrationRepository repositoryContactAdministration,
             IContactAdministrationEventRepository eventsContactAdministration)
         {
-            this.mapper = mapper;
             this.repositoryContactAdministration = repositoryContactAdministration;
             this.eventsContactAdministration = eventsContactAdministration;
         }
@@ -31,10 +23,8 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void SaveAdministrationContact(ContactAdministrationDto dto)
         {
-            var entity = this.mapper.Map<ContactAdministration>(dto);
-            this.repositoryContactAdministration.SaveToDatabase(entity);
-            var contactEvent = this.mapper.Map<ContactAdministrationEvent>(entity);
-            this.eventsContactAdministration.SaveToDatabase(contactEvent);
+            var contactId = this.repositoryContactAdministration.SaveToDatabase(dto);
+            this.eventsContactAdministration.SaveToDatabase(contactId);
         }
     }
 }

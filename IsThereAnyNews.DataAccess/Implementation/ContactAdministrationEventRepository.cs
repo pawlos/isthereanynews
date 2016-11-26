@@ -12,9 +12,10 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public void SaveToDatabase(ContactAdministrationEvent contactEvent)
+        public void SaveToDatabase(long contactId)
         {
-            this.database.ContactsAdministrationEvents.Add(contactEvent);
+            var contactAdministrationEvent = new ContactAdministrationEvent { ContactAdministrationId = contactId };
+            this.database.ContactsAdministrationEvents.Add(contactAdministrationEvent);
             this.database.SaveChanges();
         }
     }

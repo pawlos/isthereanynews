@@ -1,10 +1,10 @@
 namespace IsThereAnyNews.DataAccess
 {
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
 
     public interface IContactAdministrationRepository
     {
-        void SaveToDatabase(ContactAdministration entity);
+        long SaveToDatabase(ContactAdministrationDto entity);
     }
 }

@@ -109,6 +109,10 @@
     <Compile Include="Implementation\UserSubscriptionEntryToReadRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IsThereAnyNews.Dtos\IsThereAnyNews.Dtos.csproj">
+      <Project>{756F51E8-7A9C-4645-8858-55C91561F131}</Project>
+      <Name>IsThereAnyNews.Dtos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
       <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
       <Name>IsThereAnyNews.EntityFramework</Name>

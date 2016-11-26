@@ -1,5 +1,6 @@
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
 
@@ -12,10 +13,18 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public void SaveToDatabase(ContactAdministration entity)
+        public long SaveToDatabase(ContactAdministrationDto entity)
         {
-            this.database.ContactsAdministration.Add(entity);
+            var contactAdministration = new ContactAdministration
+                                            {
+                                                Email = entity.Email,
+                                                Message = entity.Message,
+                                                Name = entity.Name,
+                                                Topic = entity.Topic
+                                            };
+            this.database.ContactsAdministration.Add(contactAdministration);
             this.database.SaveChanges();
+            return contactAdministration.Id;
         }
     }
 }
