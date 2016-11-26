@@ -66,9 +66,9 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void RegisterIfNewUser(ClaimsIdentity identity)
         {
-            var socialLogin = this.FindUserSocialLogin(identity);
+            var isUserRegistered = this.IsUserRegistered(identity);
 
-            if (socialLogin == null)
+            if (isUserRegistered)
             {
                 this.RegisterCurrentSocialLogin(identity);
                 this.StoreCurrentUserIdInSession(identity);
