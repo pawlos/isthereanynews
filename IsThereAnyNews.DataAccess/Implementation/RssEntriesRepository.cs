@@ -1,22 +1,28 @@
-using System.Collections.Generic;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Collections.Generic;
+
+    using AutoMapper;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+
     public class RssEntriesRepository : IRssEntriesRepository
     {
         private readonly ItanDatabaseContext database;
+        private readonly IMapper mapper;
 
-        public RssEntriesRepository(ItanDatabaseContext database)
+        public RssEntriesRepository(ItanDatabaseContext database, IMapper mapper)
         {
             this.database = database;
+            this.mapper = mapper;
         }
 
-        public void SaveToDatabase(List<RssEntry> rssEntriesList)
+        public void SaveToDatabase(List<NewRssEntryDTO> rssEntriesList)
         {
-            this.database.RssEntries.AddRange(rssEntriesList);
+            var rssEntries = this.mapper.Map<List<NewRssEntryDTO>, List<RssEntry>>(rssEntriesList);
+            this.database.RssEntries.AddRange(rssEntries);
             this.database.SaveChanges();
         }
     }

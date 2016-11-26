@@ -1,28 +1,22 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
-    using IsThereAnyNews.EntityFramework.Models.Events;
-    using IsThereAnyNews.HtmlStrip;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml;
 
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.HtmlStrip;
+
     public class UpdateService : IUpdateService
     {
-        private readonly IUpdateRepository updateRepository;
-
-        private readonly IRssEntriesRepository rssEntriesRepository;
-
-        private readonly IRssChannelsRepository rssChannelsRepository;
-
-        private readonly IRssChannelUpdateRepository rssChannelsUpdatedRepository;
-
-        private readonly ISyndicationFeedAdapter syndicationFeedAdapter;
-
         private readonly IHtmlStripper htmlStripper;
-
+        private readonly IRssChannelsRepository rssChannelsRepository;
+        private readonly IRssChannelUpdateRepository rssChannelsUpdatedRepository;
+        private readonly IRssEntriesRepository rssEntriesRepository;
+        private readonly ISyndicationFeedAdapter syndicationFeedAdapter;
+        private readonly IUpdateRepository updateRepository;
         public UpdateService(
             IUpdateRepository updateRepository,
             IRssEntriesRepository rssEntriesRepository,
@@ -65,14 +59,14 @@ namespace IsThereAnyNews.Services.Implementation
 
         private void UpdateChannel(UpdateableChannel rssChannel)
         {
-            var rssEntriesList = new List<RssEntry>();
+            var rssEntriesList = new List<NewRssEntryDTO>();
             try
             {
                 var syndicationEntries = this.syndicationFeedAdapter.Load(rssChannel.Url);
 
                 foreach (var item in syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime))
                 {
-                    var rssEntry = new RssEntry(
+                    var rssEntry = new NewRssEntryDTO(
                                        item.Id,
                                        item.PublishDate,
                                        item.Title,
@@ -82,6 +76,7 @@ namespace IsThereAnyNews.Services.Implementation
                                        item.Url);
                     rssEntriesList.Add(rssEntry);
                 }
+
                 this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
             }
             catch (XmlException e)
@@ -93,33 +88,7 @@ namespace IsThereAnyNews.Services.Implementation
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
 
-            var rssChannelUpdated = new EventRssChannelUpdated { RssChannelId = rssChannel.Id };
-
-            this.rssChannelsUpdatedRepository.SaveEvent(rssChannelUpdated);
-        }
-
-        public void UpdateChannel(RssChannel id)
-        {
-            var updateableChannel = new UpdateableChannel
-            {
-                Id = id.Id,
-                RssLastUpdatedTime = id.RssLastUpdatedTime,
-                Updated = DateTime.MinValue,
-                Url = id.Url
-            };
-
-            this.UpdateChannel(updateableChannel);
-        }
-
-        public class UpdateableChannel
-        {
-            public string Url { get; set; }
-
-            public DateTimeOffset RssLastUpdatedTime { get; set; }
-
-            public long Id { get; set; }
-
-            public DateTime Updated { get; set; }
+            this.rssChannelsUpdatedRepository.SaveEvent(rssChannel.Id);
         }
     }
 }

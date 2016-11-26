@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using IsThereAnyNews.EntityFramework.Models;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
 namespace IsThereAnyNews.DataAccess
 {
+    using System.Collections.Generic;
+
+    using IsThereAnyNews.Dtos;
+
     public interface IRssEntriesRepository
     {
-        void SaveToDatabase(List<RssEntry> rssEntriesList);
+        void SaveToDatabase(List<NewRssEntryDTO> rssEntriesList);
     }
 }
