@@ -43,14 +43,6 @@ namespace IsThereAnyNews.Services.Implementation
             return this.applicationSettingsRepository.CanRegisterWithinLimits();
         }
 
-        public SocialLogin FindUserSocialLogin(ClaimsIdentity identity)
-        {
-            var authenticationTypeProvider = this.authentication.GetCurrentUserLoginProvider(identity);
-            var userId = this.authentication.GetUserSocialIdFromIdentity(identity);
-            var socialLogin = this.socialLoginRepository.FindSocialLogin(userId, authenticationTypeProvider);
-            return socialLogin;
-        }
-
         public RegistrationSupported GetCurrentRegistrationStatus()
         {
             return this.applicationSettingsRepository.GetCurrentRegistrationStatus();
@@ -110,22 +102,6 @@ namespace IsThereAnyNews.Services.Implementation
             var name = identity.Claims.Single(x => x.Type == ClaimTypes.Name);
             var email = identity.Claims.Single(x => x.Type == ClaimTypes.Email);
             return this.userRepository.CreateNewUser(name.Value, email.Value);
-        }
-
-        private Claim FindCurrentUserClaimEmail()
-        {
-            var user = this.authentication.GetCurrentUser();
-            var claims = user.Claims.ToList();
-            var identifier = claims.First(x => x.Type == ClaimTypes.Email);
-            return identifier;
-        }
-
-        private Claim FindCurrentUserClaimName()
-        {
-            var user = this.authentication.GetCurrentUser();
-            var claims = user.Claims.ToList();
-            var identifier = claims.First(x => x.Type == ClaimTypes.Name);
-            return identifier;
         }
 
         private Claim FindUserClaimNameIdentifier(ClaimsIdentity identity)
