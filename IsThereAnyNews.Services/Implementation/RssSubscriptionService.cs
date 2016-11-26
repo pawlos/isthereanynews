@@ -1,13 +1,14 @@
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class RssSubscriptionService : IRssSubscriptionService
     {

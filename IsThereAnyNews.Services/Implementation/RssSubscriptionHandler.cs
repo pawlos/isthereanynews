@@ -1,12 +1,14 @@
 namespace IsThereAnyNews.Services.Implementation
 {
-    using AutoMapper;
-    using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.SharedData;
-    using IsThereAnyNews.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
+    using AutoMapper;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels;
 
     public class RssSubscriptionHandler : ISubscriptionHandler
     {
