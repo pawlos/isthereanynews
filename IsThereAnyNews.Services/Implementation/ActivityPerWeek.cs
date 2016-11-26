@@ -1,19 +1,20 @@
-using IsThereAnyNews.EntityFramework.Models.Events;
-using System.Collections.Generic;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System.Collections.Generic;
+
+    using IsThereAnyNews.EntityFramework.Models.Events;
+
     public class ActivityPerWeek
     {
-        public int WeekNumber { get; set; }
-        public int RssCount { get; set; }
-        public List<EventRssUserInteraction> RssVieweds { get; set; }
-
         public ActivityPerWeek(int weekNumber, int rssCount, List<EventRssUserInteraction> rssVieweds)
         {
-            WeekNumber = weekNumber;
-            RssCount = rssCount;
-            RssVieweds = rssVieweds;
+            this.WeekNumber = weekNumber;
+            this.RssCount = rssCount;
+            this.RssVieweds = rssVieweds;
         }
+
+        public int RssCount { get; set; }
+        public List<EventRssUserInteraction> RssVieweds { get; set; }
+        public int WeekNumber { get; set; }
     }
 }
