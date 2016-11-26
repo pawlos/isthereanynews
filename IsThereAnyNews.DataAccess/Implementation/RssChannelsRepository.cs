@@ -6,6 +6,7 @@
 
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
 
     public class RssChannelsRepository : IRssChannelsRepository
     {
@@ -64,9 +65,10 @@
             return rssChannels;
         }
 
-        public void SaveToDatabase(List<RssChannel> channelsNewToGlobalSpace)
+        public void SaveToDatabase(List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace)
         {
-            this.database.RssChannels.AddRange(channelsNewToGlobalSpace);
+            var rssChannels = channelsNewToGlobalSpace.Select(x => new RssChannel(x.Url, x.Title));
+            this.database.RssChannels.AddRange(rssChannels);
             this.database.SaveChanges();
         }
 

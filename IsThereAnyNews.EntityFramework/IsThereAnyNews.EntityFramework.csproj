@@ -55,7 +55,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comparers\RssChannelUrlComparer.cs" />
     <Compile Include="ItanDatabaseContext.cs" />
     <Compile Include="Migrations\201607052313561_m0001_initial.cs" />
     <Compile Include="Migrations\201607052313561_m0001_initial.Designer.cs">
@@ -191,6 +190,9 @@
     <EmbeddedResource Include="Migrations\201611112240306_stripped-text.resx">
       <DependentUpon>201611112240306_stripped-text.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Comparers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

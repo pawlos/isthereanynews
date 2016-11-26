@@ -1,16 +1,15 @@
 ﻿namespace IsThereAnyNews.Services
 {
-    using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.EntityFramework.Models.Entities;
     using System.Collections.Generic;
+
+    using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.ProjectionModels;
 
     public interface IOpmlImporterService
     {
-        void AddToCurrentUserChannelList(List<RssChannel> importFromUpload);
+        List<RssSourceWithUrlAndTitle> ParseToRssChannelList(OpmlImporterIndexDto dto);
 
-        List<RssChannel> ParseToRssChannelList(OpmlImporterIndexDto dto);
-
-        void AddNewChannelsToGlobalSpace(List<RssChannel> channelList);
+        void AddNewChannelsToGlobalSpace(List<RssSourceWithUrlAndTitle> channelList);
 
         void Import(OpmlImporterIndexDto dto);
     }

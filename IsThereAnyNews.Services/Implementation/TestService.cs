@@ -11,6 +11,8 @@ namespace IsThereAnyNews.Services.Implementation
     using System.Data.Entity;
     using System.Linq;
 
+    using IsThereAnyNews.ProjectionModels;
+
     public class TestService : ITestService
     {
         private readonly IUserRepository usersRepository;
@@ -61,13 +63,15 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var channels = this.rssChannelsRepository.LoadAllChannels();
             var r = new Random(DateTime.Now.Millisecond);
+            var rssSourceWithUrlAndTitles = new List<RssSourceWithUrlAndTitle>(1000);
             for (int i = 0; i < 1000; i++)
             {
                 var idx = r.Next(channels.Count);
                 var c = channels[idx];
-                var rssChannel = new RssChannel { Title = c.Title + DateTime.Now.Millisecond, Url = c.Url };
-                this.rssChannelsRepository.SaveToDatabase(new List<RssChannel> { rssChannel });
+                var rssChannel = new RssSourceWithUrlAndTitle(c.Url, c.Title + DateTime.Now.Millisecond);
+                rssSourceWithUrlAndTitles.Add(rssChannel);
             }
+            this.rssChannelsRepository.SaveToDatabase(rssSourceWithUrlAndTitles);
         }
 
         public void CreateSubscriptions()

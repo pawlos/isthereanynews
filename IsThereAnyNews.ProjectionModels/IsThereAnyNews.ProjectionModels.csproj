@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ApplicationConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RssSourceWithUrlAndTitle.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">

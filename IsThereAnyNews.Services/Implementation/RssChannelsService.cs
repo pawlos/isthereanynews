@@ -9,6 +9,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using IsThereAnyNews.ProjectionModels;
+
     public class RssChannelsService : IRssChannelsService
     {
         private readonly IRssChannelsRepository channelsRepository;
@@ -103,7 +105,7 @@
         private void CreateNewChannel(AddChannelDto dto)
         {
             var rssChannel = this.mapping.Map<RssChannel>(dto);
-            this.channelsRepository.SaveToDatabase(new List<RssChannel> { rssChannel });
+            this.channelsRepository.SaveToDatabase(new List<RssSourceWithUrlAndTitle> { new RssSourceWithUrlAndTitle(dto.RssChannelLink, dto.RssChannelName) });
             var listIds = this.channelsRepository.GetIdByChannelUrl(new List<string> { rssChannel.Url });
             var id = listIds.Single();
 
