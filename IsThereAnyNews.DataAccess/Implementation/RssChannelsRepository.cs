@@ -82,12 +82,29 @@
 
         public RssChannelDTO LoadRssChannel(long id)
         {
-            return this.database
-                .RssChannels
-                .Include(channel => channel.RssEntries)
-                .Include(channel => channel.Updates)
-                .ProjectTo<RssChannelDTO>()
-                .Single(x => x.Id == id);
+            var rssChannelDtoComparer = new RssChannelDTOComparer();
+            var rssChannel = from c in this.database.RssChannels
+                              join e in this.database.RssEntries on c.Id equals e.RssChannelId into e
+                              join u in this.database.RssChannelUpdates on c.Id equals u.RssChannelId into u
+                              where c.Id == id
+                              select
+                              new RssChannelDTO
+                                  {
+                                      Added = c.Created,
+                                      ChannelId = c.Id,
+                                      Title = c.Title,
+                                      Updated = u.OrderByDescending(o => o.Created).FirstOrDefault().Created,
+                                      Entries = e.Select(s => new RssEntryDTO
+                                                                  {
+                                                                      Id = s.Id,
+                                                                      Title = s.Title,
+                                                                      PreviewText = s.PreviewText,
+                                                                      PublicationDate = s.Created,
+                                                                      Url = s.Url
+                                                                  }).Distinct().ToList()
+                                  };
+
+            return rssChannel.Single();
         }
 
         public void UpdateRssLastUpdateTimeToDatabase(List<long> rssChannels)
@@ -502,6 +519,19 @@
                 .ProjectTo<ChannelUrlAndTitleDTO>()
                 .Single();
             return project;
+        }
+    }
+
+    public class RssChannelDTOComparer : IEqualityComparer<RssEntryDTO>
+    {
+        public bool Equals(RssEntryDTO x, RssEntryDTO y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(RssEntryDTO obj)
+        {
+            return obj.Id.GetHashCode();
         }
     }
 }
