@@ -7,6 +7,8 @@ namespace IsThereAnyNews.Services.Implementation
 
     using AutoMapper;
 
+    using IsThereAnyNews.ProjectionModels.Mess;
+
     public class SyndicationFeedAdapter : ISyndicationFeedAdapter
     {
         private readonly IMapper mapper;

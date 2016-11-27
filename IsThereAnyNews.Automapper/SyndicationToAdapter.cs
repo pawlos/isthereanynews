@@ -3,11 +3,10 @@ namespace IsThereAnyNews.Automapper
     using System;
     using System.Linq;
     using System.ServiceModel.Syndication;
-    using System.Threading;
 
     using AutoMapper;
 
-    using IsThereAnyNews.Services.Implementation;
+    using IsThereAnyNews.ProjectionModels.Mess;
 
     public class SyndicationToAdapter : Profile
     {

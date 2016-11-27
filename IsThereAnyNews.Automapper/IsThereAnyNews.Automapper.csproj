@@ -74,10 +74,6 @@
       <Project>{F34CB611-4687-4B21-AEA9-3E62C1898E68}</Project>
       <Name>IsThereAnyNews.ProjectionModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
-      <Project>{936C3CB3-6EA8-4A2F-861B-CE9F40E96EE3}</Project>
-      <Name>IsThereAnyNews.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
       <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
       <Name>IsThereAnyNews.SharedData</Name>

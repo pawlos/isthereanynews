@@ -1,4 +1,4 @@
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.ProjectionModels.Mess
 {
     using System;
 

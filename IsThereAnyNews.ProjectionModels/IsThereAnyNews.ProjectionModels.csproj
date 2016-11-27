@@ -45,6 +45,7 @@
     <Compile Include="ChannelUrlAndTitleDTO.cs" />
     <Compile Include="EventRssChannelUpdatedDTO.cs" />
     <Compile Include="EventRssUserInteractionDTO.cs" />
+    <Compile Include="Mess\SyndicationItemAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssChannelDTO.cs" />
     <Compile Include="RssChannelForUpdateDTO.cs" />
