@@ -49,7 +49,7 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.ChannelSubscriptionId, o => o.MapFrom(s => s))
                 .ForMember(d => d.IsSubscribed, o => o.Ignore());
 
-            this.CreateMap<UserRole, Claim>()
+            this.CreateMap<ItanRole, Claim>()
                 .ConstructUsing(this.CreateClaim);
 
             this.CreateMap<User, AccountDetailsViewModel>()
@@ -80,9 +80,9 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.RssId, o => o.MapFrom(s => s.Id));
         }
 
-        private Claim CreateClaim(UserRole role)
+        private Claim CreateClaim(ItanRole role)
         {
-            return new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), role.RoleType));
+            return new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), role));
         }
     }
 

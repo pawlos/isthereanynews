@@ -61,7 +61,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var isUserRegistered = this.IsUserRegistered(identity);
 
-            if (isUserRegistered)
+            if (!isUserRegistered)
             {
                 this.RegisterCurrentSocialLogin(identity);
                 this.StoreCurrentUserIdInSession(identity);
@@ -86,7 +86,7 @@ namespace IsThereAnyNews.Services.Implementation
         {
             var currentUserId = long.Parse(identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier).Value);
             var itanRoles = this.repositoryUserRoles.GetRolesTypesForUser(currentUserId);
-            var claims = this.mapper.Map<List<Claim>>(itanRoles);
+            var claims = this.mapper.Map<List<ItanRole>, List<Claim>>(itanRoles);
             identity.AddClaims(claims);
         }
 

@@ -20,6 +20,7 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<RssChannel, RssChannelDTO>();
             this.CreateMap<RssChannelDTO, RssChannelIndexViewModel>();
             this.CreateMap<User, UserPublicProfileDto>();
+            this.CreateMap<User, UserPrivateProfileDto>();
             this.CreateMap<UserPublicProfileDto, UserDetailedPublicProfileViewModel>();
         }
     }
