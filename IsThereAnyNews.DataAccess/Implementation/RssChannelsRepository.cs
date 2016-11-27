@@ -50,11 +50,6 @@
             return f.Distinct().ToList();
         }
 
-        public RssChannel Load(long id)
-        {
-            return this.database.RssChannels.Single(channel => channel.Id == id);
-        }
-
         public List<RssChannel> LoadAllChannelsForUser(long userIdToLoad)
         {
             var rssChannels = this.database
@@ -95,17 +90,17 @@
                 .Single(x => x.Id == id);
         }
 
-        public void UpdateRssLastUpdateTimeToDatabase(List<RssChannel> rssChannels)
+        public void UpdateRssLastUpdateTimeToDatabase(List<long> rssChannels)
         {
-            var ids = rssChannels.Select(x => x.Id).ToList();
+            var channels =
+                this.database
+                .RssChannels
+                .Include(x => x.Updates)
+                .Where(channel => rssChannels.Contains(channel.Id))
+                .ToList();
 
-            var channels = this.database.RssChannels.Where(channel => ids.Contains(channel.Id)).ToList();
-            channels.ForEach(channel =>
-            {
-                channel.RssLastUpdatedTime = rssChannels
-                    .Single(x => x.Id == channel.Id).RssLastUpdatedTime;
-            });
-
+            channels.ForEach(
+                c => { c.RssLastUpdatedTime = c.Updates.OrderByDescending(d => d.Created).First().Created; });
             this.database.SaveChanges();
         }
 
@@ -496,6 +491,17 @@
         public List<RssChannel> LoadAllChannels()
         {
             return this.database.RssChannels.ToList();
+        }
+
+        public ChannelUrlAndTitleDTO LoadUrlAndTitle(long channelId)
+        {
+            var project = this
+                .database
+                .RssChannels
+                .Where(x => x.Id == channelId)
+                .ProjectTo<ChannelUrlAndTitleDTO>()
+                .Single();
+            return project;
         }
     }
 }

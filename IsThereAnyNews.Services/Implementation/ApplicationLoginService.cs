@@ -78,14 +78,14 @@ namespace IsThereAnyNews.Services.Implementation
             var currentUserSocialLoginId = this.authentication.GetUserSocialIdFromIdentity(identity);
             var currentUserLoginProvider = this.authentication.GetCurrentUserLoginProvider(identity);
 
-            var findSocialLogin = this.socialLoginRepository.FindSocialLogin(currentUserSocialLoginId, currentUserLoginProvider);
-            identity.AddClaim(new Claim(ItanClaimTypes.ApplicationIdentifier, findSocialLogin.UserId.ToString(), ClaimValueTypes.Integer64, "ITAN"));
+            var userId = this.socialLoginRepository.GetUserId(currentUserSocialLoginId, currentUserLoginProvider);
+            identity.AddClaim(new Claim(ItanClaimTypes.ApplicationIdentifier, userId.ToString(), ClaimValueTypes.Integer64, "ITAN"));
         }
 
         public void StoreItanRolesToSession(ClaimsIdentity identity)
         {
             var currentUserId = long.Parse(identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier).Value);
-            var itanRoles = this.repositoryUserRoles.GetRolesForUser(currentUserId);
+            var itanRoles = this.repositoryUserRoles.GetRolesTypesForUser(currentUserId);
             var claims = this.mapper.Map<List<Claim>>(itanRoles);
             identity.AddClaims(claims);
         }

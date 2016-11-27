@@ -60,7 +60,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void SubscribeCurrentUserToChannel(long channelId)
         {
-            var rssChannel = this.rssChannelsRepository.Load(channelId);
+            var rssChannel = this.rssChannelsRepository.LoadUrlAndTitle(channelId);
             var addChannelDto = new AddChannelDto
             {
                 RssChannelLink = rssChannel.Url,

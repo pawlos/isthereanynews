@@ -16,7 +16,7 @@ namespace IsThereAnyNews.DataAccess
         void UpdateDisplayNames(List<User> emptyDisplay);
         List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount();
         UserPublicProfileDto LoadUserPublicProfile(long id);
-        User GetUserPrivateDetails(long currentUserId);
+        UserPrivateProfileDto GetUserPrivateDetails(long currentUserId);
         void ChangeEmail(long currentUserId, string email);
         void ChangeDisplayName(long currentUserId, string displayname);
     }

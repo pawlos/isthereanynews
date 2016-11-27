@@ -9,8 +9,8 @@
     {
         void CopyRssThatWerePublishedAfterLastReadTimeToUser(long currentUserId, List<RssChannelSubscriptionDTO> rssChannelsIds);
         void MarkAllReadForUserAndSubscription(long subscriptionId, List<long> rssId);
-        List<RssEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId);
+        List<RssEntryToReadDTO> LoadAllUnreadEntriesFromSubscription(long subscriptionId);
         void MarkEntryViewedByUser(long currentUserId, long rssToReadId);
-        List<RssEntryToRead> LoadAllEntriesFromSubscription(long subscriptionId);
+        List<RssEntryToReadDTO> LoadAllEntriesFromSubscription(long subscriptionId);
     }
 }

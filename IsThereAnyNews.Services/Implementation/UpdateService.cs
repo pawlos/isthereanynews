@@ -53,7 +53,7 @@ namespace IsThereAnyNews.Services.Implementation
                 this.UpdateChannel(rssChannel);
             }
 
-            this.rssChannelsRepository.UpdateRssLastUpdateTimeToDatabase(rssChannels);
+            this.rssChannelsRepository.UpdateRssLastUpdateTimeToDatabase(rssChannels.Select(x => x.Id).ToList());
             rssChannels.Clear();
         }
 

@@ -110,11 +110,13 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
         }
 
-        public RssChannelSubscription LoadChannelInformation(long subscriptionId)
+        public RssChannelInformationDTO LoadChannelInformation(long subscriptionId)
         {
             var rssChannelSubscription = this.database.RssChannelsSubscriptions
                 .Include(x => x.RssChannel)
-                .Single(x => x.Id == subscriptionId);
+                .Where(x => x.Id == subscriptionId)
+                .ProjectTo<RssChannelInformationDTO>()
+                .Single();
 
             return rssChannelSubscription;
         }

@@ -30,5 +30,14 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.UserRoles.Add(userRole);
             this.database.SaveChanges();
         }
+
+        public List<ItanRole> GetRolesTypesForUser(long currentUserId)
+        {
+            return this.database
+                            .UserRoles
+                            .Where(r => r.UserId == currentUserId)
+                            .Select(r => r.RoleType)
+                            .ToList();
+        }
     }
 }

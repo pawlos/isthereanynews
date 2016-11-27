@@ -1,10 +1,11 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.EntityFramework.Models.Interfaces;
-
 namespace IsThereAnyNews.EntityFramework.Models.Events
 {
+    using System;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.EntityFramework.Models.Interfaces;
+
     [Table("EventRssChannelUpdates")]
     public class EventRssChannelUpdated : IEntity, ICreatable
     {

@@ -108,21 +108,17 @@
             this.database.SaveChanges();
         }
 
-        public RssChannelSubscription LoadChannelInformation(long subscriptionId)
+        public RssChannelInformationDTO LoadChannelInformation(long subscriptionId)
         {
             var userSubscription =
                 this.database
                     .UsersSubscriptions
                     .Include(x => x.Observed)
-                    .Single(x => x.Id == subscriptionId);
+                    .Where(x => x.Id == subscriptionId)
+                    .ProjectTo<RssChannelInformationDTO>()
+                    .Single();
 
-            var rssChannelSubscription = new RssChannelSubscription
-            {
-                Title = userSubscription.Observed.DisplayName,
-                Created = userSubscription.Created
-            };
-
-            return rssChannelSubscription;
+            return userSubscription;
         }
 
         private NameAndCountUserSubscription ProjectToNameAndCountUserSubscription(UserSubscription arg)

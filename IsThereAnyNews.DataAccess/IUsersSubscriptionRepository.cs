@@ -15,7 +15,7 @@
         bool IsUserSubscribedToUser(long followerId, long observedId);
         List<UserSubscriptionEntryToReadDTO> LoadAllEntriesFromSubscription(long subscriptionId);
         List<UserSubscriptionEntryToReadDTO> LoadAllUnreadEntriesFromSubscription(long subscriptionId);
-        RssChannelSubscription LoadChannelInformation(long subscriptionId);
+        RssChannelInformationDTO LoadChannelInformation(long subscriptionId);
         List<NameAndCountUserSubscription> LoadNameAndCountForUser(long currentUserId);
         void UpdateUserLastReadTime(long currentUserId, DateTime now);
     }

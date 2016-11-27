@@ -4,6 +4,8 @@
     using System.Data.Entity;
     using System.Linq;
 
+    using AutoMapper.QueryableExtensions;
+
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ProjectionModels;
@@ -53,22 +55,24 @@
             this.database.SaveChanges();
         }
 
-        public List<RssEntryToRead> LoadAllUnreadEntriesFromSubscription(long subscriptionId)
+        public List<RssEntryToReadDTO> LoadAllUnreadEntriesFromSubscription(long subscriptionId)
         {
             var rssEntryToReads = this.database.RssEntriesToRead
                 .Where(r => r.RssChannelSubscriptionId == subscriptionId)
                 .Where(r => r.IsRead == false)
                 .Include(r => r.RssEntry)
+                .ProjectTo<RssEntryToReadDTO>()
                 .ToList();
 
             return rssEntryToReads;
         }
 
-        public List<RssEntryToRead> LoadAllEntriesFromSubscription(long subscriptionId)
+        public List<RssEntryToReadDTO> LoadAllEntriesFromSubscription(long subscriptionId)
         {
             var rssEntryToReads = this.database.RssEntriesToRead
                .Where(r => r.RssChannelSubscriptionId == subscriptionId)
                .Include(r => r.RssEntry)
+               .ProjectTo<RssEntryToReadDTO>()
                .ToList();
 
             return rssEntryToReads;

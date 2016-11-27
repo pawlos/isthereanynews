@@ -49,5 +49,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.itanDatabaseContext.SocialLogins.Add(socialLogin);
             this.itanDatabaseContext.SaveChanges();
         }
+
+        public long GetUserId(string currentUserSocialLoginId, AuthenticationTypeProvider currentUserLoginProvider)
+        {
+            var socialLogin =
+                this.itanDatabaseContext.SocialLogins
+                    .Where(login => login.SocialId == currentUserSocialLoginId)
+                    .Where(login => login.Provider == currentUserLoginProvider)
+                    .Select(login => login.UserId)
+                    .Single();
+            return socialLogin;
+        }
     }
 }

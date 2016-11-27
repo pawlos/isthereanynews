@@ -89,12 +89,14 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return user;
         }
 
-        public User GetUserPrivateDetails(long currentUserId)
+        public UserPrivateProfileDto GetUserPrivateDetails(long currentUserId)
         {
             var user = this.database
                 .Users
                 .Include(u => u.SocialLogins)
-                .Single(u => u.Id == currentUserId);
+                .Where(u => u.Id == currentUserId)
+                .ProjectTo<UserPrivateProfileDto>()
+                .Single();
             return user;
         }
 

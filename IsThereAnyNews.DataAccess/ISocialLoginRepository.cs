@@ -11,5 +11,7 @@ namespace IsThereAnyNews.DataAccess
         bool UserIsRegistered(AuthenticationTypeProvider authenticationTypeProvider, string userId);
 
         void CreateNewSociaLogin(string identifierValue, AuthenticationTypeProvider authenticationTypeProvider, long newUserId);
+
+        long GetUserId(string currentUserSocialLoginId, AuthenticationTypeProvider currentUserLoginProvider);
     }
 }

@@ -2,10 +2,10 @@
 {
     using System.Collections.Generic;
 
-    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.ProjectionModels;
 
     public interface IUpdateRepository
     {
-        List<RssChannel> LoadAllGlobalRssChannelsSortedByUpdate();
+        List<RssChannelForUpdateDTO> LoadAllGlobalRssChannelsSortedByUpdate();
     }
 }
