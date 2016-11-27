@@ -1,5 +1,7 @@
 ﻿namespace IsThereAnyNews.RssChannelUpdater
 {
+    using AutoMapper;
+
     using FluentScheduler;
 
     using IsThereAnyNews.Automapper;
