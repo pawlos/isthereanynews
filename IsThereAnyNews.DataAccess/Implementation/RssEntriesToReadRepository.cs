@@ -57,14 +57,28 @@
 
         public List<RssEntryToReadDTO> LoadAllUnreadEntriesFromSubscription(long subscriptionId)
         {
-            var rssEntryToReads = this.database.RssEntriesToRead
-                .Where(r => r.RssChannelSubscriptionId == subscriptionId)
-                .Where(r => r.IsRead == false)
-                .Include(r => r.RssEntry)
-                .ProjectTo<RssEntryToReadDTO>()
-                .ToList();
+            var rssEntryToReads = from rssToRead in this.database.RssEntriesToRead
+                                  join rss in this.database.RssEntries on rssToRead.RssEntryId equals rss.Id
+                                  where rssToRead.RssChannelSubscriptionId == subscriptionId && rssToRead.IsRead == false
+                                  select
+                                  new RssEntryToReadDTO
+                                  {
+                                      Id = rssToRead.Id,
+                                      IsRead = false,
+                                      RssEntryDto =
+                                              new RssEntryDTO
+                                              {
+                                                  Id = rss.Id,
+                                                  PreviewText = rss.PreviewText,
+                                                  Url = rss.Url,
+                                                  Title = rss.Title,
+                                                  PublicationDate = rss.PublicationDate
+                                              }
+                                  };
 
-            return rssEntryToReads;
+            var list = rssEntryToReads.ToList();
+
+            return list;
         }
 
         public List<RssEntryToReadDTO> LoadAllEntriesFromSubscription(long subscriptionId)

@@ -7,6 +7,7 @@ namespace IsThereAnyNews.Services.Implementation
     using AutoMapper;
 
     using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
@@ -84,7 +85,7 @@ namespace IsThereAnyNews.Services.Implementation
                 Created = channelInformation.Created
             };
 
-            var rssEntryToReadViewModels = this.mapper.Map<List<RssEntryToReadViewModel>>(loadAllRssEntriesForUserAndChannel);
+            var rssEntryToReadViewModels = this.mapper.Map<List<RssEntryToReadDTO>, List<RssEntryToReadViewModel>>(loadAllRssEntriesForUserAndChannel);
 
             var viewModel = new RssSubscriptionIndexViewModel(
                                 subscriptionId,
