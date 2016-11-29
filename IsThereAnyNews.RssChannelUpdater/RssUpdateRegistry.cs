@@ -6,11 +6,11 @@
     {
         public RssUpdateRegistry()
         {
-            this.Schedule<RssUpdateJob>()
-                .NonReentrant()
-                .ToRunNow()
-                .AndEvery(15)
-                .Minutes();
+            //this.Schedule<RssUpdateJob>()
+            //    .NonReentrant()
+            //    .ToRunNow()
+            //    .AndEvery(15)
+            //    .Minutes();
         }
     }
 }

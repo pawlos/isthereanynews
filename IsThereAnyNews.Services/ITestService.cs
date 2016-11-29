@@ -19,5 +19,7 @@ namespace IsThereAnyNews.Services
         void AssignUserRolesToAllUsers();
 
         void FixDuplicatedChannels();
+
+        void FixDuplicatedEntries();
     }
 }

@@ -6,7 +6,7 @@ namespace IsThereAnyNews.ViewModels
     {
         public string DisplayName { get; set; }
         public int ChannelsCount { get; set; }
-        public List<PublicProfileChannelInformation> Channels { get; set; }
+        public List<string> Channels { get; set; }
         public List<PublicProfileChannelInformation> Users { get; set; }
         public List<EventRssViewedViewModel> Events { get; set; }
         public int EventsCount { get; set; }

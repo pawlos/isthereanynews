@@ -48,14 +48,20 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId)
         {
-            var rssChannelSubscriptions =
-                this.database
-                    .RssChannelsSubscriptions
-                    .Include(x => x.RssEntriesToRead)
-                    .Where(x => x.UserId == currentUserId)
-                    .ProjectTo<RssChannelSubscriptionDTO>()
-                    .ToList();
-            return rssChannelSubscriptions;
+            var channelSubscriptions = from subs in this.database.RssChannelsSubscriptions
+                                       join rs in this.database.RssEntriesToRead on subs.Id equals rs.RssChannelSubscriptionId into rss
+                                       join channel in this.database.RssChannels on subs.RssChannelId equals channel.Id into channels
+                                       where subs.UserId == currentUserId
+                                       select new RssChannelSubscriptionDTO
+                                       {
+                                           Id = subs.Id,
+                                           Count = rss.Count(r => r.IsRead == false),
+                                           Title = channels.FirstOrDefault().Title,
+                                           RssChannelId = subs.RssChannelId,
+                                           ChannelUrl = channels.FirstOrDefault().Url
+                                       };
+
+            return channelSubscriptions.ToList();
         }
 
         public List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId)

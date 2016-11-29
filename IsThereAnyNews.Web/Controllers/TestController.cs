@@ -77,5 +77,11 @@
             this.testService.FixDuplicatedChannels();
             return this.RedirectToAction("Index");
         }
+
+        public ActionResult FixDuplicatedRssEntries()
+        {
+            this.testService.FixDuplicatedEntries();
+            return this.RedirectToAction("Index");
+        }
     }
 }

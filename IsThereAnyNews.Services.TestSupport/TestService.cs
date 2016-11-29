@@ -154,6 +154,20 @@ namespace IsThereAnyNews.Services.TestSupport
             this.database.SaveChanges();
         }
 
+        public void FixDuplicatedEntries()
+        {
+            var list = this.database.RssEntries.GroupBy(r => r.Title).Where(g => g.Count() > 1).ToList();
+            foreach (IGrouping<string, RssEntry> grouping in list)
+            {
+                var todelete = grouping.OrderBy(x => x.Created).Skip(1).ToList();
+                foreach (var rssEntry in todelete)
+                {
+                    this.database.RssEntries.Remove(rssEntry);
+                }
+                this.database.SaveChangesAsync();
+            }
+        }
+
         public void FixSubscriptions()
         {
             List<RssChannelSubscription> rssChannelSubscriptions = this.database.RssChannelsSubscriptions.ToList();

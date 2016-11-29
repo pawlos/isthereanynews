@@ -11,6 +11,19 @@
     using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.ProjectionModels.Mess;
 
+    public class RssChannelDTOComparer : IEqualityComparer<RssEntryDTO>
+    {
+        public bool Equals(RssEntryDTO x, RssEntryDTO y)
+        {
+            return x.Id == y.Id;
+        }
+
+        public int GetHashCode(RssEntryDTO obj)
+        {
+            return obj.Id.GetHashCode();
+        }
+    }
+
     public class RssChannelsRepository : IRssChannelsRepository
     {
         private readonly ItanDatabaseContext database;
@@ -26,99 +39,6 @@
             this.database.RssChannels.AddRange(rssChannels);
             this.database.SaveChanges();
             return rssChannels;
-        }
-
-        public List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics()
-        {
-            var f =
-                from channel in this.database.RssChannels
-                join subscription in this.database.RssChannelsSubscriptions
-                    on channel.Id equals subscription.RssChannelId into RCS
-                join entries in this.database.RssEntries
-                    on channel.Id equals entries.RssChannelId into RE
-                select
-                    new RssChannelSubscriptionWithStatisticsData
-                    {
-                        Id = channel.Id,
-                        Title = channel.Title,
-                        SubscriptionsCount = RCS.Count(),
-                        RssEntriesCount = RE.Count(),
-                        Created = channel.Created,
-                        Updated = channel.Updated
-                    };
-
-            return f.Distinct().ToList();
-        }
-
-        public List<RssChannel> LoadAllChannelsForUser(long userIdToLoad)
-        {
-            var rssChannels = this.database
-                .Users
-                .Where(user => user.Id == userIdToLoad)
-                .Include(user => user.RssSubscriptionList)
-                .Include(user => user.RssSubscriptionList.Select(rsl => rsl.RssChannel))
-                .Single()
-                .RssSubscriptionList.Select(rsl => rsl.RssChannel)
-                .ToList();
-            return rssChannels;
-        }
-
-        public void SaveToDatabase(List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace)
-        {
-            var rssChannels = channelsNewToGlobalSpace.Select(x => new RssChannel(x.Url, x.Title));
-            this.database.RssChannels.AddRange(rssChannels);
-            this.database.SaveChanges();
-        }
-
-        public List<long> GetIdByChannelUrl(List<string> urlstoChannels)
-        {
-            var longs = this.database.RssChannels
-                .Where(channel => urlstoChannels.Contains(channel.Url))
-                .Select(channel => channel.Id)
-                .ToList();
-
-            return longs;
-        }
-
-        public RssChannelDTO LoadRssChannel(long id)
-        {
-            var rssChannelDtoComparer = new RssChannelDTOComparer();
-            var rssChannel = from c in this.database.RssChannels
-                              join e in this.database.RssEntries on c.Id equals e.RssChannelId into e
-                              join u in this.database.RssChannelUpdates on c.Id equals u.RssChannelId into u
-                              where c.Id == id
-                              select
-                              new RssChannelDTO
-                                  {
-                                      Added = c.Created,
-                                      ChannelId = c.Id,
-                                      Title = c.Title,
-                                      Updated = u.OrderByDescending(o => o.Created).FirstOrDefault().Created,
-                                      Entries = e.Select(s => new RssEntryDTO
-                                                                  {
-                                                                      Id = s.Id,
-                                                                      Title = s.Title,
-                                                                      PreviewText = s.PreviewText,
-                                                                      PublicationDate = s.Created,
-                                                                      Url = s.Url
-                                                                  }).Distinct().ToList()
-                                  };
-
-            return rssChannel.Single();
-        }
-
-        public void UpdateRssLastUpdateTimeToDatabase(List<long> rssChannels)
-        {
-            var channels =
-                this.database
-                .RssChannels
-                .Include(x => x.Updates)
-                .Where(channel => rssChannels.Contains(channel.Id))
-                .ToList();
-
-            channels.ForEach(
-                c => { c.RssLastUpdatedTime = c.Updates.OrderByDescending(d => d.Created).First().Created; });
-            this.database.SaveChanges();
         }
 
         public void Blah()
@@ -505,9 +425,80 @@
             this.database.SaveChanges();
         }
 
+        public List<long> GetIdByChannelUrl(List<string> urlstoChannels)
+        {
+            var longs = this.database.RssChannels
+                .Where(channel => urlstoChannels.Contains(channel.Url))
+                .Select(channel => channel.Id)
+                .ToList();
+
+            return longs;
+        }
+
         public List<RssChannel> LoadAllChannels()
         {
             return this.database.RssChannels.ToList();
+        }
+
+        public List<RssChannel> LoadAllChannelsForUser(long userIdToLoad)
+        {
+            var rssChannels = this.database
+                .Users
+                .Where(user => user.Id == userIdToLoad)
+                .Include(user => user.RssSubscriptionList)
+                .Include(user => user.RssSubscriptionList.Select(rsl => rsl.RssChannel))
+                .Single()
+                .RssSubscriptionList.Select(rsl => rsl.RssChannel)
+                .ToList();
+            return rssChannels;
+        }
+
+        public List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics()
+        {
+            var f =
+                from channel in this.database.RssChannels
+                join subscription in this.database.RssChannelsSubscriptions
+                    on channel.Id equals subscription.RssChannelId into RCS
+                join entries in this.database.RssEntries
+                    on channel.Id equals entries.RssChannelId into RE
+                select
+                    new RssChannelSubscriptionWithStatisticsData
+                    {
+                        Id = channel.Id,
+                        Title = channel.Title,
+                        SubscriptionsCount = RCS.Count(),
+                        RssEntriesCount = RE.Count(),
+                        Created = channel.Created,
+                        Updated = channel.Updated
+                    };
+
+            return f.Distinct().ToList();
+        }
+
+        public RssChannelDTO LoadRssChannel(long id)
+        {
+            var rssChannel = from c in this.database.RssChannels
+                             join e in this.database.RssEntries on c.Id equals e.RssChannelId into e
+                             join u in this.database.RssChannelUpdates on c.Id equals u.RssChannelId into u
+                             where c.Id == id
+                             select
+                             new RssChannelDTO
+                             {
+                                 Added = c.Created,
+                                 ChannelId = c.Id,
+                                 Title = c.Title,
+                                 Updated = u.OrderByDescending(o => o.Created).FirstOrDefault().Created,
+                                 Entries = e.Select(s => new RssEntryDTO
+                                 {
+                                     Id = s.Id,
+                                     Title = s.Title,
+                                     PreviewText = s.PreviewText,
+                                     PublicationDate = s.Created,
+                                     Url = s.Url
+                                 }).Distinct().ToList()
+                             };
+
+            return rssChannel.Single();
         }
 
         public ChannelUrlAndTitleDTO LoadUrlAndTitle(long channelId)
@@ -520,18 +511,25 @@
                 .Single();
             return project;
         }
-    }
 
-    public class RssChannelDTOComparer : IEqualityComparer<RssEntryDTO>
-    {
-        public bool Equals(RssEntryDTO x, RssEntryDTO y)
+        public void SaveToDatabase(List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace)
         {
-            return x.Id == y.Id;
+            var rssChannels = channelsNewToGlobalSpace.Select(x => new RssChannel(x.Url, x.Title));
+            this.database.RssChannels.AddRange(rssChannels);
+            this.database.SaveChanges();
         }
-
-        public int GetHashCode(RssEntryDTO obj)
+        public void UpdateRssLastUpdateTimeToDatabase(List<long> rssChannels)
         {
-            return obj.Id.GetHashCode();
+            var channels =
+                this.database
+                .RssChannels
+                .Include(x => x.Updates)
+                .Where(channel => rssChannels.Contains(channel.Id))
+                .ToList();
+
+            channels.ForEach(
+                c => { c.RssLastUpdatedTime = c.Updates.OrderByDescending(d => d.Created).First().Created; });
+            this.database.SaveChanges();
         }
     }
 }

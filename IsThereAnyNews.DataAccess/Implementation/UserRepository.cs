@@ -4,6 +4,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
+    using System.Threading;
 
     using AutoMapper.QueryableExtensions;
 
@@ -77,6 +78,26 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public UserPublicProfileDto LoadUserPublicProfile(long id)
         {
+            var users =
+                from u in
+                this.database.Users.Include(x => x.RssSubscriptionList)
+                    .Include(x => x.RssSubscriptionList.Select(xx => xx.RssChannel))
+                    .Include(x => x.EventsRssViewed)
+                    .Include(x => x.EventsRssViewed.Select(xx => xx.RssEntry))
+                where u.Id == id
+                select
+                new UserPublicProfileDto
+                    {
+                        Id = u.Id,
+                        Channels = u.RssSubscriptionList.Select(x => x.Title).ToList(),
+                        DisplayName = u.DisplayName,
+                        ChannelsCount = u.RssSubscriptionList.Count,
+                    };
+
+
+            var d = users.Single();
+            return d;
+
             var user = this.database.Users
                 .Include(x => x.RssSubscriptionList)
                 .Include(x => x.RssSubscriptionList.Select(c => c.RssChannel))
@@ -113,5 +134,12 @@ namespace IsThereAnyNews.DataAccess.Implementation
             single.DisplayName = displayname;
             this.database.SaveChanges();
         }
+    }
+
+    public class X
+    {
+        public User User { get; set; }
+
+        public IEnumerable<RssChannelSubscription> Subs { get; set; }
     }
 }
