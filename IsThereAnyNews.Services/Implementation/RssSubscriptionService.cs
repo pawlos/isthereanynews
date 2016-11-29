@@ -60,13 +60,13 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void SubscribeCurrentUserToChannel(long channelId)
         {
-            var rssChannel = this.rssChannelsRepository.LoadUrlAndTitle(channelId);
-            var addChannelDto = new AddChannelDto
+            var currentUserId = this.authentication.GetCurrentUserId();
+            var isUserSubscribedToChannelUrl = this.rssSubscriptionsRepository.IsUserSubscribedToChannelId(currentUserId, channelId);
+
+            if (!isUserSubscribedToChannelUrl)
             {
-                RssChannelLink = rssChannel.Url,
-                RssChannelName = rssChannel.Title
-            };
-            this.SubscribeCurrentUserToChannel(addChannelDto);
+                this.rssSubscriptionsRepository.Subscribe(channelId, currentUserId);
+            }
         }
 
         public void SubscribeCurrentUserToChannel(AddChannelDto channelId)

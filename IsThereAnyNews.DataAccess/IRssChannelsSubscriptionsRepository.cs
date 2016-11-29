@@ -21,5 +21,9 @@ namespace IsThereAnyNews.DataAccess
         bool IsUserSubscribedToChannelUrl(long currentUserId, string rssChannelLink);
 
         void Subscribe(long idByChannelUrl, long currentUserId, string channelIdRssChannelName);
+
+        bool IsUserSubscribedToChannelId(long currentUserId, long channelId);
+
+        void Subscribe(long idByChannelUrl, long currentUserId);
     }
 }

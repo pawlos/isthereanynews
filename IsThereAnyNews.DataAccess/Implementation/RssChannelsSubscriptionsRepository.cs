@@ -147,6 +147,20 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return any;
         }
 
+        public bool IsUserSubscribedToChannelId(long currentUserId, long channelId)
+        {
+            var any = this.database.RssChannelsSubscriptions.Any(x => x.UserId == currentUserId && x.RssChannelId == channelId);
+            return any;
+        }
+
+        public void Subscribe(long idByChannelUrl, long currentUserId)
+        {
+            var title = this.database.RssChannels.Single(x => x.Id == idByChannelUrl).Title;
+            var rssChannelSubscription = new RssChannelSubscription(idByChannelUrl, currentUserId, title);
+            this.database.RssChannelsSubscriptions.Add(rssChannelSubscription);
+            this.database.SaveChanges();
+        }
+
         public void Subscribe(long idByChannelUrl, long currentUserId, string channelIdRssChannelName)
         {
             var rssChannelSubscription = new RssChannelSubscription(idByChannelUrl, currentUserId, channelIdRssChannelName);
