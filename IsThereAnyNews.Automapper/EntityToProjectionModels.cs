@@ -19,6 +19,7 @@ namespace IsThereAnyNews.Automapper
 
             this.CreateMap<ApplicationConfiguration, ApplicationConfigurationDTO>();
             this.CreateMap<RssEntry, RssEntryDTO>();
+            this.CreateMap<EventRssUserInteractionDTO, EventRssViewedViewModel>();
             this.CreateMap<RssEntryToRead, RssEntryToReadDTO>();
             this.CreateMap<RssEntryToReadDTO, RssEntryToReadViewModel>()
                 .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.RssEntryDto));
@@ -42,7 +43,7 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<RssChannelSubscription, RssChannelInformationDTO>();
             this.CreateMap<UserSubscriptionEntryToReadDTO, RssEntryToReadViewModel>();
             this.CreateMap<RssChannelSubscriptionDTO, RssChannelSubscriptionViewModel>();
-           
+
             this.CreateMap<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>()
                 .ForMember(d => d.ChannelsSubscriptions, o => o.MapFrom(s => s))
                 .ForMember(d => d.Users, o => o.UseValue(new List<ObservableUserEventsInformation>()));

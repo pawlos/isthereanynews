@@ -87,27 +87,22 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 where u.Id == id
                 select
                 new UserPublicProfileDto
+                {
+                    Id = u.Id,
+                    Channels = u.RssSubscriptionList.Select(x => x.Title).ToList(),
+                    DisplayName = u.DisplayName,
+                    ChannelsCount = u.RssSubscriptionList.Count,
+                    Events = u.EventsRssViewed.Select(e => new EventRssUserInteractionDTO
                     {
-                        Id = u.Id,
-                        Channels = u.RssSubscriptionList.Select(x => x.Title).ToList(),
-                        DisplayName = u.DisplayName,
-                        ChannelsCount = u.RssSubscriptionList.Count,
-                    };
+                        Title = e.RssEntry.Title,
+                        RssId = e.RssEntryId,
+                        Viewed = e.Created
+                    }).ToList(),
+                };
 
 
             var d = users.Single();
             return d;
-
-            var user = this.database.Users
-                .Include(x => x.RssSubscriptionList)
-                .Include(x => x.RssSubscriptionList.Select(c => c.RssChannel))
-                //.Include(x => x.UserSubscriptions)
-                //.Include(x => x.UserSubscriptions.Select(u => u.Observed))
-                .Include(x => x.EventsRssViewed)
-                .Include(x => x.EventsRssViewed.Select(e => e.RssEntry))
-                .ProjectTo<UserPublicProfileDto>()
-                .Single(x => x.Id == id);
-            return user;
         }
 
         public UserPrivateProfileDto GetUserPrivateDetails(long currentUserId)
