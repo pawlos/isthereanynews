@@ -1,29 +1,38 @@
-using System.Collections.Generic;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
 namespace IsThereAnyNews.DataAccess
 {
+    using System.Collections.Generic;
+
+    using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ProjectionModels;
 
     public interface IRssChannelsSubscriptionsRepository
     {
-        void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions);
-        List<string> LoadUrlsForAllChannels();
-        List<long> GetChannelIdSubscriptionsForUser(long currentUserId);
-        List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId);
-        List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId);
-        bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId);
-        void DeleteSubscriptionFromUser(long subscriptionId, long userId);
-        long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId);
         void CreateNewSubscriptionForUserAndChannel(long userId, long channelId);
-        RssChannelInformationDTO LoadChannelInformation(long subscriptionId);
-        void MarkRead(List<long> ids);
-        bool IsUserSubscribedToChannelUrl(long currentUserId, string rssChannelLink);
 
-        void Subscribe(long idByChannelUrl, long currentUserId, string channelIdRssChannelName);
+        void DeleteSubscriptionFromUser(long subscriptionId, long userId);
+
+        bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId);
+
+        long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId);
+
+        List<long> GetChannelIdSubscriptionsForUser(long currentUserId);
 
         bool IsUserSubscribedToChannelId(long currentUserId, long channelId);
 
+        bool IsUserSubscribedToChannelUrl(long currentUserId, string rssChannelLink);
+
+        List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId);
+
+        List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId);
+
+        RssChannelInformationDTO LoadChannelInformation(long subscriptionId);
+
+        List<string> LoadUrlsForAllChannels();
+
+        void MarkRead(List<long> ids);
+
+        void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions);
+        void Subscribe(long idByChannelUrl, long currentUserId, string channelIdRssChannelName);
         void Subscribe(long idByChannelUrl, long currentUserId);
     }
 }

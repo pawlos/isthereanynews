@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using IsThereAnyNews.EntityFramework;
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+
     using AutoMapper.QueryableExtensions;
 
+    using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ProjectionModels;
 
     public class RssChannelsSubscriptionsRepository : IRssChannelsSubscriptionsRepository
@@ -19,20 +19,44 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions)
+        public void CreateNewSubscriptionForUserAndChannel(long userId, long channelId)
         {
-            this.database.RssChannelsSubscriptions.AddRange(rssChannelSubscriptions);
+            var channelTitle = this.database.RssChannels
+                .Where(channel => channel.Id == channelId)
+                .Select(channel => channel.Title)
+                .Single();
+
+            var rssChannelSubscription = new RssChannelSubscription(channelId, userId, channelTitle);
+            this.database.RssChannelsSubscriptions.Add(rssChannelSubscription);
             this.database.SaveChanges();
         }
 
-        public List<string> LoadUrlsForAllChannels()
+        public void DeleteSubscriptionFromUser(long channelId, long userId)
         {
-            return this.database
-                .RssChannels
-                .Select(channel => channel.Url)
-                .ToList()
-                .Select(x => x.ToLowerInvariant())
-                .ToList();
+            var channelSubscription = this.database
+                                          .RssChannelsSubscriptions
+                                          .Where(subscription => subscription.RssChannelId == channelId)
+                                          .Where(subscription => subscription.UserId == userId)
+                                          .Single();
+            this.database.RssChannelsSubscriptions.Remove(channelSubscription);
+            this.database.SaveChanges();
+        }
+
+        public bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId)
+        {
+            return this.database.RssChannelsSubscriptions.Any(
+               x => x.UserId == currentUserId && x.Id == subscriptionId);
+        }
+
+        public long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId)
+        {
+            var channelSubscription = this.database
+                .RssChannelsSubscriptions
+                .Where(subscription => subscription.RssChannelId == channelId)
+                .Where(subscription => subscription.UserId == userId)
+                .Select(subscription => subscription.Id)
+                .SingleOrDefault();
+            return channelSubscription;
         }
 
         public List<long> GetChannelIdSubscriptionsForUser(long currentUserId)
@@ -44,6 +68,22 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .Select(x => x.RssChannelId)
                 .ToList();
             return rssChannelSubscriptions;
+        }
+
+        public bool IsUserSubscribedToChannelId(long currentUserId, long channelId)
+        {
+            var any = this.database.RssChannelsSubscriptions.Any(x => x.UserId == currentUserId && x.RssChannelId == channelId);
+            return any;
+        }
+
+        public bool IsUserSubscribedToChannelUrl(long currentUserId, string rssChannelLink)
+        {
+            var any = this.database.RssChannelsSubscriptions
+                .Where(x => x.UserId == currentUserId)
+                .Include(x => x.RssChannel)
+                .Where(x => x.RssChannel.Url == rssChannelLink)
+                .Any();
+            return any;
         }
 
         public List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId)
@@ -76,46 +116,6 @@ namespace IsThereAnyNews.DataAccess.Implementation
             return rssChannelSubscriptions;
         }
 
-        public bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId)
-        {
-            return this.database.RssChannelsSubscriptions.Any(
-               x => x.UserId == currentUserId && x.Id == subscriptionId);
-        }
-
-        public void DeleteSubscriptionFromUser(long channelId, long userId)
-        {
-            var channelSubscription = this.database
-                                          .RssChannelsSubscriptions
-                                          .Where(subscription => subscription.RssChannelId == channelId)
-                                          .Where(subscription => subscription.UserId == userId)
-                                          .Single();
-            this.database.RssChannelsSubscriptions.Remove(channelSubscription);
-            this.database.SaveChanges();
-        }
-
-        public long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId)
-        {
-            var channelSubscription = this.database
-                .RssChannelsSubscriptions
-                .Where(subscription => subscription.RssChannelId == channelId)
-                .Where(subscription => subscription.UserId == userId)
-                .Select(subscription => subscription.Id)
-                .SingleOrDefault();
-            return channelSubscription;
-        }
-
-        public void CreateNewSubscriptionForUserAndChannel(long userId, long channelId)
-        {
-            var channelTitle = this.database.RssChannels
-                .Where(channel => channel.Id == channelId)
-                .Select(channel => channel.Title)
-                .Single();
-
-            var rssChannelSubscription = new RssChannelSubscription(channelId, userId, channelTitle);
-            this.database.RssChannelsSubscriptions.Add(rssChannelSubscription);
-            this.database.SaveChanges();
-        }
-
         public RssChannelInformationDTO LoadChannelInformation(long subscriptionId)
         {
             var rssChannelSubscription = this.database.RssChannelsSubscriptions
@@ -125,6 +125,16 @@ namespace IsThereAnyNews.DataAccess.Implementation
                 .Single();
 
             return rssChannelSubscription;
+        }
+
+        public List<string> LoadUrlsForAllChannels()
+        {
+            return this.database
+                .RssChannels
+                .Select(channel => channel.Url)
+                .ToList()
+                .Select(x => x.ToLowerInvariant())
+                .ToList();
         }
 
         public void MarkRead(List<long> ids)
@@ -137,22 +147,11 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.SaveChanges();
         }
 
-        public bool IsUserSubscribedToChannelUrl(long currentUserId, string rssChannelLink)
+        public void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions)
         {
-            var any = this.database.RssChannelsSubscriptions
-                .Where(x => x.UserId == currentUserId)
-                .Include(x => x.RssChannel)
-                .Where(x => x.RssChannel.Url == rssChannelLink)
-                .Any();
-            return any;
+            this.database.RssChannelsSubscriptions.AddRange(rssChannelSubscriptions);
+            this.database.SaveChanges();
         }
-
-        public bool IsUserSubscribedToChannelId(long currentUserId, long channelId)
-        {
-            var any = this.database.RssChannelsSubscriptions.Any(x => x.UserId == currentUserId && x.RssChannelId == channelId);
-            return any;
-        }
-
         public void Subscribe(long idByChannelUrl, long currentUserId)
         {
             var title = this.database.RssChannels.Single(x => x.Id == idByChannelUrl).Title;
