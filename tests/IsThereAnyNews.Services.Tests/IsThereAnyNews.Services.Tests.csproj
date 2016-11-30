@@ -77,27 +77,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationLoginServiceTests\RegisterIfNewUser.cs" />
-    <Compile Include="ApplicationLoginServiceTests\StoreCurrentUserIdInSession.cs" />
-    <Compile Include="ApplicationLoginServiceTests\StoreItanRolesToSession.cs" />
-    <Compile Include="OpmlImporterServiceTests\AddNewChannelsToGlobalSpace.cs" />
     <Compile Include="OpmlImporterServiceTests\Import.cs" />
     <Compile Include="OpmlImporterServiceTests\ParseToRssChannelList.cs" />
-    <Compile Include="OpmlImporterServiceTests\AddToCurrentUserChannelList.cs" />
-    <Compile Include="RssChannelServiceTests\CreateNewChannelIfNotExists.cs" />
-    <Compile Include="RssChannelServiceTests\CreateUserSubscriptionInfo.cs" />
-    <Compile Include="RssChannelServiceTests\GetViewModelFormChannelId.cs" />
-    <Compile Include="RssChannelServiceTests\LoadAllChannelsOfCurrentUser.cs" />
     <Compile Include="RssChannelServiceTests\LoadAllChannels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssSubscriptionServiceTests\LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription.cs" />
     <Compile Include="RssSubscriptionServiceTests\MarkAllRssReadForSubscription.cs" />
-    <Compile Include="RssSubscriptionServiceTests\MarkEntryClicked.cs" />
     <Compile Include="RssSubscriptionServiceTests\MarkEntryViewed.cs" />
     <Compile Include="RssSubscriptionServiceTests\MarkRead.cs" />
-    <Compile Include="RssSubscriptionServiceTests\SubscribeCurrentUserToChannel.cs" />
-    <Compile Include="RssSubscriptionServiceTests\UnsubscribeCurrentUserFromChannelId.cs" />
-    <Compile Include="UpdateServiceTests\UpdateGlobalRss.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -129,7 +116,10 @@
       <Name>IsThereAnyNews.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ApplicationLoginServiceTests\" />
+    <Folder Include="UpdateServiceTests\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
