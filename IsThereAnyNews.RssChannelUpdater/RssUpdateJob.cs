@@ -39,7 +39,7 @@
 
         public void Execute()
         {
-            //this.updateService.UpdateGlobalRss();
+            this.updateService.UpdateGlobalRss();
         }
     }
 }
