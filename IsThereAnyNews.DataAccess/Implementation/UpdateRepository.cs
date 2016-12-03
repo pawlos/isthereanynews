@@ -1,5 +1,6 @@
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
@@ -21,13 +22,21 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssChannelForUpdateDTO> LoadAllGlobalRssChannelsSortedByUpdate()
         {
-            var rssChannels = 
-                this
-                .database
-                .RssChannels
-                .Include(x => x.Updates)
-                .ProjectTo<RssChannelForUpdateDTO>()
-                .ToList();
+            var rssChannels =
+                this.database.RssChannels.Include(x => x.Updates)
+                    .Select(
+                        x =>
+                            new RssChannelForUpdateDTO
+                            {
+                                Id = x.Id,
+                                RssLastUpdatedTime = x.Updates
+                                                      .Select(s => s.Created)
+                                                      .OrderByDescending(o => o)
+                                                      .FirstOrDefault(),
+                                Url = x.Url
+                            })
+                    .ToList();
+
             return rssChannels;
         }
     }

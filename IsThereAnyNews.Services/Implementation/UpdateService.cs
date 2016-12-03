@@ -8,6 +8,7 @@ namespace IsThereAnyNews.Services.Implementation
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.HtmlStrip;
+    using IsThereAnyNews.ProjectionModels;
 
     public class UpdateService : IUpdateService
     {
@@ -36,18 +37,7 @@ namespace IsThereAnyNews.Services.Implementation
         public void UpdateGlobalRss()
         {
             var rssChannels = this.updateRepository.LoadAllGlobalRssChannelsSortedByUpdate();
-            var list =
-                rssChannels.Select(
-                    x =>
-                        new UpdateableChannel
-                        {
-                            Url = x.Url,
-                            RssLastUpdatedTime = x.RssLastUpdatedTime,
-                            Id = x.Id,
-                            Updated = x.Updates.OrderBy(xx => xx.Created).FirstOrDefault()?.Created ?? DateTime.MinValue
-                        }).ToList();
-
-            var orderedEnumerable = list.OrderBy(o => o.Updated).ToList();
+            var orderedEnumerable = rssChannels.OrderBy(o => o.RssLastUpdatedTime).ToList();
             foreach (var rssChannel in orderedEnumerable)
             {
                 this.UpdateChannel(rssChannel);
@@ -57,7 +47,7 @@ namespace IsThereAnyNews.Services.Implementation
             rssChannels.Clear();
         }
 
-        private void UpdateChannel(UpdateableChannel rssChannel)
+        private void UpdateChannel(RssChannelForUpdateDTO rssChannel)
         {
             var rssEntriesList = new List<NewRssEntryDTO>();
             try
