@@ -11,13 +11,11 @@ namespace IsThereAnyNews.Services.Implementation
 
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.ProjectionModels.Mess;
 
     public class UpdateService : IUpdateService
     {
-        private readonly IHtmlStripper htmlStripper;
         private readonly IRssChannelsRepository rssChannelsRepository;
         private readonly IRssChannelUpdateRepository rssChannelsUpdatedRepository;
         private readonly IRssEntriesRepository rssEntriesRepository;
@@ -32,7 +30,6 @@ namespace IsThereAnyNews.Services.Implementation
             IRssChannelsRepository rssChannelsRepository,
             IRssChannelUpdateRepository rssChannelsUpdatedRepository,
             ISyndicationFeedAdapter syndicationFeedAdapter,
-            IHtmlStripper htmlStripper,
             IMapper mapper)
         {
             this.updateRepository = updateRepository;
@@ -40,7 +37,6 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssChannelsRepository = rssChannelsRepository;
             this.rssChannelsUpdatedRepository = rssChannelsUpdatedRepository;
             this.syndicationFeedAdapter = syndicationFeedAdapter;
-            this.htmlStripper = htmlStripper;
             this.mapper = mapper;
         }
 

@@ -34,7 +34,6 @@
                 rssChannelsRepository,
                 rssChannelUpdateRepository,
                 syndicationFeedAdapter,
-                htmlStripper,
                 configureMapper);
         }
 
