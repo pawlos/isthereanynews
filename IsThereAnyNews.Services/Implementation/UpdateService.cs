@@ -7,6 +7,8 @@ namespace IsThereAnyNews.Services.Implementation
 
     using AutoMapper;
 
+    using Exceptionless;
+
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.HtmlStrip;
@@ -57,24 +59,24 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void UpdateChannel(RssChannelForUpdateDTO rssChannel)
         {
-            var rssEntriesList = new List<NewRssEntryDTO>();
             try
             {
                 var syndicationEntries = this.syndicationFeedAdapter.Load(rssChannel.Url);
                 var syndicationItemAdapters = syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime);
-                rssEntriesList = this.mapper.Map<IEnumerable<SyndicationItemAdapter>, List<NewRssEntryDTO>>(syndicationItemAdapters);
+                var rssEntriesList = this.mapper.Map<IEnumerable<SyndicationItemAdapter>, List<NewRssEntryDTO>>(syndicationItemAdapters);
                 this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
+                this.rssChannelsUpdatedRepository.SaveEvent(rssChannel.Id);
             }
             catch (XmlException e)
             {
+                e.ToExceptionless().Submit();
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
             catch (Exception e)
             {
+                e.ToExceptionless().Submit();
                 System.Diagnostics.Debug.WriteLine(e.Message);
             }
-
-            this.rssChannelsUpdatedRepository.SaveEvent(rssChannel.Id);
         }
     }
 }
