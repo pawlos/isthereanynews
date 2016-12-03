@@ -192,3 +192,4 @@ ModelManifest.xml
 *.scgdat
 .vs/config/applicationhost.config
 *.tss
+coverage/
