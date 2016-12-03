@@ -85,6 +85,8 @@
     <Compile Include="RssSubscriptionServiceTests\MarkAllRssReadForSubscription.cs" />
     <Compile Include="RssSubscriptionServiceTests\MarkEntryViewed.cs" />
     <Compile Include="RssSubscriptionServiceTests\MarkRead.cs" />
+    <Compile Include="UpdateServiceTests\UpdateChannel.cs" />
+    <Compile Include="UpdateServiceTests\UpdateGlobalRss.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -103,6 +105,10 @@
       <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
       <Name>IsThereAnyNews.EntityFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\IsThereAnyNews.ProjectionModels\IsThereAnyNews.ProjectionModels.csproj">
+      <Project>{F34CB611-4687-4B21-AEA9-3E62C1898E68}</Project>
+      <Name>IsThereAnyNews.ProjectionModels</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
       <Project>{936C3CB3-6EA8-4A2F-861B-CE9F40E96EE3}</Project>
       <Name>IsThereAnyNews.Services</Name>
@@ -118,7 +124,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApplicationLoginServiceTests\" />
-    <Folder Include="UpdateServiceTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

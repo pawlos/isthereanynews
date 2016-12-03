@@ -36,25 +36,25 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void UpdateGlobalRss()
         {
-            var rssChannels = this.updateRepository.LoadAllGlobalRssChannelsSortedByUpdate();
-            var orderedEnumerable = rssChannels.OrderBy(o => o.RssLastUpdatedTime).ToList();
+            var rssChannels = this.updateRepository.LoadAllGlobalRssChannels();
+            var orderedEnumerable = rssChannels.OrderBy(o => o.RssLastUpdatedTime);
             foreach (var rssChannel in orderedEnumerable)
             {
                 this.UpdateChannel(rssChannel);
             }
 
-            this.rssChannelsRepository.UpdateRssLastUpdateTimeToDatabase(rssChannels.Select(x => x.Id).ToList());
-            rssChannels.Clear();
+            this.rssChannelsRepository
+                .UpdateRssLastUpdateTimeToDatabase(rssChannels.Select(x => x.Id).ToList());
         }
 
-        private void UpdateChannel(RssChannelForUpdateDTO rssChannel)
+        public void UpdateChannel(RssChannelForUpdateDTO rssChannel)
         {
             var rssEntriesList = new List<NewRssEntryDTO>();
             try
             {
                 var syndicationEntries = this.syndicationFeedAdapter.Load(rssChannel.Url);
-
-                foreach (var item in syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime))
+                var syndicationItemAdapters = syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime);
+                foreach (var item in syndicationItemAdapters)
                 {
                     var rssEntry = new NewRssEntryDTO(
                                        item.Id,

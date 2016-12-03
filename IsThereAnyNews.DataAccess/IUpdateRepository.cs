@@ -6,6 +6,6 @@
 
     public interface IUpdateRepository
     {
-        List<RssChannelForUpdateDTO> LoadAllGlobalRssChannelsSortedByUpdate();
+        List<RssChannelForUpdateDTO> LoadAllGlobalRssChannels();
     }
 }

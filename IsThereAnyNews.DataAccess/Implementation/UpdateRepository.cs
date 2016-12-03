@@ -20,7 +20,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database = database;
         }
 
-        public List<RssChannelForUpdateDTO> LoadAllGlobalRssChannelsSortedByUpdate()
+        public List<RssChannelForUpdateDTO> LoadAllGlobalRssChannels()
         {
             var rssChannels =
                 this.database.RssChannels.Include(x => x.Updates)
