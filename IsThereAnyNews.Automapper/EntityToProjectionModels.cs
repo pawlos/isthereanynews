@@ -5,10 +5,12 @@ namespace IsThereAnyNews.Automapper
     using AutoMapper;
 
     using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.ProjectionModels.Mess;
     using IsThereAnyNews.ViewModels;
 
     public class EntityToProjectionModels : Profile
@@ -43,6 +45,15 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<RssChannelSubscription, RssChannelInformationDTO>();
             this.CreateMap<UserSubscriptionEntryToReadDTO, RssEntryToReadViewModel>();
             this.CreateMap<RssChannelSubscriptionDTO, RssChannelSubscriptionViewModel>();
+
+            this.CreateMap<SyndicationItemAdapter, NewRssEntryDTO>()
+                .ForMember(d => d.ItemId, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.ItemTitle, o => o.MapFrom(s => s.Title))
+                .ForMember(d => d.ItemUrl, o => o.MapFrom(s => s.Url))
+                .ForMember(d => d.ItemSummary, o => o.MapFrom(s => s.Summary))
+                .ForMember(d => d.GetContentOnly, o => o.MapFrom(s => htmlstrip.GetContentOnly(s.Summary)))
+                .ForMember(d => d.ItemPublishDate, o => o.MapFrom(s => s.PublishDate));
+
 
             this.CreateMap<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>()
                 .ForMember(d => d.ChannelsSubscriptions, o => o.MapFrom(s => s))

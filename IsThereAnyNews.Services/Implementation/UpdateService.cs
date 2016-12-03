@@ -5,10 +5,13 @@ namespace IsThereAnyNews.Services.Implementation
     using System.Linq;
     using System.Xml;
 
+    using AutoMapper;
+
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.ProjectionModels.Mess;
 
     public class UpdateService : IUpdateService
     {
@@ -18,13 +21,17 @@ namespace IsThereAnyNews.Services.Implementation
         private readonly IRssEntriesRepository rssEntriesRepository;
         private readonly ISyndicationFeedAdapter syndicationFeedAdapter;
         private readonly IUpdateRepository updateRepository;
+
+        private readonly IMapper mapper;
+
         public UpdateService(
             IUpdateRepository updateRepository,
             IRssEntriesRepository rssEntriesRepository,
             IRssChannelsRepository rssChannelsRepository,
             IRssChannelUpdateRepository rssChannelsUpdatedRepository,
             ISyndicationFeedAdapter syndicationFeedAdapter,
-            IHtmlStripper htmlStripper)
+            IHtmlStripper htmlStripper,
+            IMapper mapper)
         {
             this.updateRepository = updateRepository;
             this.rssEntriesRepository = rssEntriesRepository;
@@ -32,6 +39,7 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssChannelsUpdatedRepository = rssChannelsUpdatedRepository;
             this.syndicationFeedAdapter = syndicationFeedAdapter;
             this.htmlStripper = htmlStripper;
+            this.mapper = mapper;
         }
 
         public void UpdateGlobalRss()
@@ -54,19 +62,7 @@ namespace IsThereAnyNews.Services.Implementation
             {
                 var syndicationEntries = this.syndicationFeedAdapter.Load(rssChannel.Url);
                 var syndicationItemAdapters = syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime);
-                foreach (var item in syndicationItemAdapters)
-                {
-                    var rssEntry = new NewRssEntryDTO(
-                                       item.Id,
-                                       item.PublishDate,
-                                       item.Title,
-                                       item.Summary,
-                                       this.htmlStripper.GetContentOnly(item.Summary),
-                                       rssChannel.Id,
-                                       item.Url);
-                    rssEntriesList.Add(rssEntry);
-                }
-
+                rssEntriesList = this.mapper.Map<IEnumerable<SyndicationItemAdapter>, List<NewRssEntryDTO>>(syndicationItemAdapters);
                 this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
             }
             catch (XmlException e)

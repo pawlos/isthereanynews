@@ -34,7 +34,8 @@
                 rssChannelsRepository,
                 rssChannelUpdateRepository,
                 syndicationFeedAdapter,
-                htmlStripper);
+                htmlStripper,
+                configureMapper);
         }
 
         public void Execute()
