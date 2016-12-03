@@ -14,7 +14,7 @@ namespace IsThereAnyNews.Automapper
         {
             this.CreateMap<SyndicationItem, SyndicationItemAdapter>()
                 .ForMember(s => s.Id, o => o.MapFrom(s => s.Id))
-                .ForMember(s => s.PublishDate, o => o.MapFrom(s => s.PublishDate))
+                .ForMember(s => s.PublishDate, o => o.MapFrom(s => s.PublishDate.UtcDateTime))
                 .ForMember(s => s.Summary, o => o.ResolveUsing<SyndicationSummaryResolver>())
                 .ForMember(s => s.Title, o => o.MapFrom(s => s.Title.Text))
                 .ForMember(s => s.Url, o => o.ResolveUsing<SyndicationUrlResolver>());

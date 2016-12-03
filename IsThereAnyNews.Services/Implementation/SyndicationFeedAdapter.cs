@@ -23,7 +23,8 @@ namespace IsThereAnyNews.Services.Implementation
             XmlReader reader = XmlReader.Create(url);
             SyndicationFeed feed = SyndicationFeed.Load(reader);
             List<SyndicationItem> syndicationItems = feed.Items.ToList();
-            var items = this.mapper.Map<List<SyndicationItem>, List<SyndicationItemAdapter>>(syndicationItems);
+            var items = this.mapper
+                .Map<List<SyndicationItem>, List<SyndicationItemAdapter>>(syndicationItems);
             return items;
         }
     }
