@@ -35,6 +35,7 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<RssChannel, RssChannelDTO>();
             this.CreateMap<RssChannelDTO, RssChannelIndexViewModel>();
             this.CreateMap<User, UserPublicProfileDto>();
+
             this.CreateMap<User, UserPrivateProfileDto>();
             this.CreateMap<UserPublicProfileDto, UserDetailedPublicProfileViewModel>();
             this.CreateMap<SocialLogin, SocialLoginDTO>();
@@ -53,6 +54,16 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.ItemSummary, o => o.MapFrom(s => s.Summary))
                 .ForMember(d => d.GetContentOnly, o => o.MapFrom(s => htmlstrip.GetContentOnly(s.Summary)))
                 .ForMember(d => d.ItemPublishDate, o => o.MapFrom(s => s.PublishDate));
+
+            this.CreateMap<NewRssEntryDTO, RssEntry>()
+                .ForMember(d => d.PublicationDate, o => o.MapFrom(s => s.ItemPublishDate))
+                .ForMember(d => d.PreviewText, o => o.MapFrom(s => s.ItemSummary))
+                .ForMember(d => d.Title, o => o.MapFrom(s => s.ItemTitle))
+                .ForMember(d => d.RssChannelId, o => o.MapFrom(s => s.RssChannelId))
+                .ForMember(d => d.RssId, o => o.MapFrom(s => s.ItemId))
+                .ForMember(d => d.StrippedText, o => o.MapFrom(s => htmlstrip.GetContentOnly(s.ItemSummary)))
+                .ForMember(d => d.Url, o => o.MapFrom(s => s.ItemUrl));
+
 
 
             this.CreateMap<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>()
