@@ -24,7 +24,6 @@
             var rssEntriesRepository = new RssEntriesRepository(itanDatabaseContext, configureMapper);
             var rssChannelsRepository = new RssChannelsRepository(itanDatabaseContext);
             var rssChannelUpdateRepository = new RssChannelUpdateRepository(itanDatabaseContext);
-            var htmlStripper = new HtmlStripper();
 
             ISyndicationFeedAdapter syndicationFeedAdapter = new SyndicationFeedAdapter(configureMapper);
 

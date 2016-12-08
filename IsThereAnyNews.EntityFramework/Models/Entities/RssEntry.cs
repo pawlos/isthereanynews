@@ -22,7 +22,6 @@
             this.Url = url;
         }
 
-        public string StrippedText { get; set; }
 
         public long Id { get; set; }
         public DateTime Created { get; set; }
@@ -33,6 +32,7 @@
         public DateTime PublicationDate { get; set; }
         public string Title { get; set; }
         public string PreviewText { get; set; }
+        public string StrippedText { get; set; }
         public string RssId { get; set; }
 
         public RssEntryToRead RssEntryToRead { get; set; }

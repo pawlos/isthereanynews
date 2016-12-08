@@ -6,7 +6,6 @@ namespace IsThereAnyNews.Services.TestSupport
     using System.Linq;
 
     using Faker;
-    using Faker.Extensions;
 
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework;
