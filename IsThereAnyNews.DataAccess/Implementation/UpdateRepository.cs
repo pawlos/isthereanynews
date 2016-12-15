@@ -39,5 +39,27 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
             return rssChannels;
         }
+
+        public RssChannelForUpdateDTO LoadChannelToUpdate()
+        {
+            var rssChannels =
+                            this.database.RssChannels.Include(x => x.Updates)
+                                .Select(
+                                    x =>
+                                        new RssChannelForUpdateDTO
+                                        {
+                                            Id = x.Id,
+                                            RssLastUpdatedTime = x.Updates
+                                                                  .Select(s => s.Created)
+                                                                  .OrderByDescending(o => o)
+                                                                  .FirstOrDefault(),
+                                            Url = x.Url
+                                        })
+                                .OrderBy(o => o.RssLastUpdatedTime)
+                                .ThenByDescending(o => o.Id)
+                                .Take(1)
+                                .Single();
+            return rssChannels;
+        }
     }
 }

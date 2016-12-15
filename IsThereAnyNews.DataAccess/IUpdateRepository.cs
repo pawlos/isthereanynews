@@ -7,5 +7,7 @@
     public interface IUpdateRepository
     {
         List<RssChannelForUpdateDTO> LoadAllGlobalRssChannels();
+
+        RssChannelForUpdateDTO LoadChannelToUpdate();
     }
 }

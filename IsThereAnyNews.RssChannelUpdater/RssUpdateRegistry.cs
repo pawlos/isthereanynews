@@ -10,7 +10,7 @@
                 .NonReentrant()
                 .ToRunNow()
                 .AndEvery(1)
-                .Hours();
+                .Minutes();
         }
     }
 }

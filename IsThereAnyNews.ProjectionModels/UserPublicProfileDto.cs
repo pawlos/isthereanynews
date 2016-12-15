@@ -14,6 +14,7 @@ namespace IsThereAnyNews.ProjectionModels
         public List<string> Channels { get; set; }
         public List<EventRssUserInteractionDTO> Events { get; set; }
 
+        public long ViewingUserId { get; set; }
         public int EventsCount => this.Events.Count;
         public long Id { get; set; }
     }

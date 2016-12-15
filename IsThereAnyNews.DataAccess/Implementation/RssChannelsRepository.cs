@@ -518,6 +518,7 @@
             this.database.RssChannels.AddRange(rssChannels);
             this.database.SaveChanges();
         }
+
         public void UpdateRssLastUpdateTimeToDatabase(List<long> rssChannels)
         {
             var channels =

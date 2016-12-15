@@ -42,6 +42,18 @@ angular.module("itan")
             });
     };
 
+    $scope.onSpinUpdateJob = function () {
+        var httpOptions = {
+            method: 'POST',
+            url: "/Admin/SpinUpdateJob",
+            data: {
+            }
+        };
 
+        $http(httpOptions)
+            .success(function () {
+                window.alert("update started");
+            });
+    };
 });
 
