@@ -80,7 +80,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
         {
             var users =
                 from u in
-                this.database.Users.Include(x => x.RssSubscriptionList)
+                this.database.Users
+                    .Include(x => x.RssSubscriptionList)
                     .Include(x => x.RssSubscriptionList.Select(xx => xx.RssChannel))
                     .Include(x => x.EventsRssViewed)
                     .Include(x => x.EventsRssViewed.Select(xx => xx.RssEntry))
