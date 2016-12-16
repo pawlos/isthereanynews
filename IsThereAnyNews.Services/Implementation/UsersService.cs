@@ -48,14 +48,11 @@
             var cui = this.authentication.GetCurrentUserId();
             var isUserAlreadySubscribed = this.usersSubscriptionRepository.IsUserSubscribedToUser(cui, id);
             var publicProfile = this.usersRepository.LoadUserPublicProfile(id);
-            var userDetailedPublicProfileViewModel = 
-                this.mapper.Map<UserPublicProfileDto, UserDetailedPublicProfileViewModel>(publicProfile);
+            var userDetailedPublicProfileViewModel = this.mapper.Map<UserPublicProfileDto, UserDetailedPublicProfileViewModel>(publicProfile);
             userDetailedPublicProfileViewModel.IsUserAlreadySubscribed = isUserAlreadySubscribed;
+            userDetailedPublicProfileViewModel.Events = userDetailedPublicProfileViewModel.Events.OrderByDescending(e => e.Viewed).ToList();
 
-            userDetailedPublicProfileViewModel.Events =
-                userDetailedPublicProfileViewModel.Events.OrderByDescending(e => e.Viewed).ToList();
-
-            var loadNameAndCountForUser = this.usersSubscriptionRepository.LoadNameAndCountForUser(cui);
+            var loadNameAndCountForUser = this.usersSubscriptionRepository.LoadNameAndCountForUser(id);
 
             var publicProfileUsersInformations =
                 this.mapper
