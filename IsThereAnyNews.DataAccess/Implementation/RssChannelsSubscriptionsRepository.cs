@@ -1,3 +1,5 @@
+using System.Data.Entity.Migrations;
+
 namespace IsThereAnyNews.DataAccess.Implementation
 {
     using System.Collections.Generic;
@@ -139,12 +141,17 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public void MarkRead(List<long> ids)
         {
-            this.database.RssEntriesToRead
-                .Where(x => ids.Contains(x.Id))
-                .Include(x => x.RssEntry)
-                .ToList()
-                .ForEach(x => x.IsRead = true);
+            ids.Select(i => new RssEntryToRead { Id = i, IsRead = true }).ToList().ForEach(
+                r =>
+                    {
+                        database.RssEntriesToRead.Attach(r);
+                        var entry = database.Entry(r);
+                        entry.Property(p => p.IsRead).IsModified = true;
+                    });
+
+            this.database.Configuration.ValidateOnSaveEnabled = false;
             this.database.SaveChanges();
+            this.database.Configuration.ValidateOnSaveEnabled = true;
         }
 
         public void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions)
