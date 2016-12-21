@@ -141,7 +141,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public void MarkRead(List<long> ids)
         {
-            ids.Select(i => new RssEntryToRead { Id = i, IsRead = true }).ToList().ForEach(
+            var rssEntryToReads = ids.Select(i => new RssEntryToRead { Id = i, IsRead = true }).ToList();
+            rssEntryToReads.ForEach(
                 r =>
                     {
                         database.RssEntriesToRead.Attach(r);
@@ -152,6 +153,7 @@ namespace IsThereAnyNews.DataAccess.Implementation
             this.database.Configuration.ValidateOnSaveEnabled = false;
             this.database.SaveChanges();
             this.database.Configuration.ValidateOnSaveEnabled = true;
+            rssEntryToReads.ForEach(x => this.database.Entry(x).State = EntityState.Detached);
         }
 
         public void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions)
