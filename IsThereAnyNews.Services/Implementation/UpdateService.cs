@@ -3,7 +3,6 @@ namespace IsThereAnyNews.Services.Implementation
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Xml;
 
     using AutoMapper;
 
@@ -57,14 +56,12 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void UpdateChannel(RssChannelForUpdateDTO rssChannel)
         {
-
             var syndicationEntries = this.syndicationFeedAdapter.Load(rssChannel.Url);
             var syndicationItemAdapters = syndicationEntries.Where(item => item.PublishDate > rssChannel.RssLastUpdatedTime);
             var rssEntriesList = this.mapper.Map<IEnumerable<SyndicationItemAdapter>, List<NewRssEntryDTO>>(syndicationItemAdapters);
             rssEntriesList.ForEach(r => r.RssChannelId = rssChannel.Id);
             this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
             this.rssChannelsUpdatedRepository.SaveEvent(rssChannel.Id);
-
         }
     }
 }

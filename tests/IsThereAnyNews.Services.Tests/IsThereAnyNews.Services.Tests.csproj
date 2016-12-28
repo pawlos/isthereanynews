@@ -85,8 +85,6 @@
     <Compile Include="RssSubscriptionServiceTests\MarkAllRssReadForSubscription.cs" />
     <Compile Include="RssSubscriptionServiceTests\MarkEntryViewed.cs" />
     <Compile Include="RssSubscriptionServiceTests\MarkRead.cs" />
-    <Compile Include="UpdateServiceTests\UpdateChannel.cs" />
-    <Compile Include="UpdateServiceTests\UpdateGlobalRss.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -124,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ApplicationLoginServiceTests\" />
+    <Folder Include="UpdateServiceTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
