@@ -5,6 +5,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Hosting;
 
     using AutoMapper.QueryableExtensions;
 
@@ -141,19 +143,8 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public void MarkRead(List<long> ids)
         {
-            var rssEntryToReads = ids.Select(i => new RssEntryToRead { Id = i, IsRead = true }).ToList();
-            rssEntryToReads.ForEach(
-                r =>
-                    {
-                        database.RssEntriesToRead.Attach(r);
-                        var entry = database.Entry(r);
-                        entry.Property(p => p.IsRead).IsModified = true;
-                    });
-
-            this.database.Configuration.ValidateOnSaveEnabled = false;
-            this.database.SaveChanges();
-            this.database.Configuration.ValidateOnSaveEnabled = true;
-            rssEntryToReads.ForEach(x => this.database.Entry(x).State = EntityState.Detached);
+            var formattableString = $"UPDATE RssEntriesToRead SET IsRead=1 WHERE Id in ({string.Join(",", ids)})";
+            this.database.Database.ExecuteSqlCommand(formattableString);
         }
 
         public void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions)
