@@ -1083,13 +1083,6 @@
     <Content Include="Views\RssChannel\Add.cshtml" />
     <Content Include="Views\RssChannel\Index.cshtml" />
     <Content Include="Views\RssChannel\My.cshtml" />
-    <Content Include="Views\Statistics\ActivityPerWeek.cshtml" />
-    <Content Include="Views\Statistics\Channels.cshtml" />
-    <Content Include="Views\Statistics\Index.cshtml" />
-    <Content Include="Views\Statistics\News.cshtml" />
-    <Content Include="Views\Statistics\Users.cshtml" />
-    <Content Include="Views\Stream\_Entry.cshtml" />
-    <Content Include="Views\Stream\_ReadAjax.cshtml" />
     <Content Include="Views\Syndication\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\UpdateGlobal\Index.cshtml" />

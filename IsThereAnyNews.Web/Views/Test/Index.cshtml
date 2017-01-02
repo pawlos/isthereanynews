@@ -4,7 +4,7 @@
 }
 <div class="container">
     <div class="row">
-        @Html.ActionLink("Create users (1000)", "GenerateUsers", "Test",null, new {@class="btn btn-default"})
+        @Html.ActionLink("Create users (1000)", "GenerateUsers", "Test", null, new { @class = "btn btn-default" })
         @Html.ActionLink("Duplicate channels (1000)", "DuplicateChannels", "Test", null, new { @class = "btn btn-default" })
         @Html.ActionLink("Create subscription (1000)", "CreateSubscriptions", "Test", null, new { @class = "btn btn-default" })
         @Html.ActionLink("Create rss to read (1000)", "CreateRssToRead", "Test", null, new { @class = "btn btn-default" })
@@ -12,7 +12,7 @@
         @Html.ActionLink("Fix duplicated subscriptions", "FixSubscriptions", "Test", null, new { @class = "btn btn-default" })
         @Html.ActionLink("Assign user roles", "AssignUserRoles", "Test", null, new { @class = "btn btn-default" })
         @Html.ActionLink("div by zero", "DivByZero", "Test", null, new { @class = "btn btn-default" })
-        @Html.ActionLink("redirect to wrong url", "NotExisting", "Test", null, new { @class = "btn btn-default" })
+        <a href="/Test/NotExisting" class="btn btn-default">redirect to not existing</a>
         @Html.ActionLink("fix duplicated channels", "FixDuplicatedChannels", "Test", null, new { @class = "btn btn-default" })
     </div>
 </div>
