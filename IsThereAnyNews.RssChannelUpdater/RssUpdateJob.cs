@@ -30,7 +30,6 @@
             this.updateService = new UpdateService(
                 updateRepository,
                 rssEntriesRepository,
-                rssChannelsRepository,
                 rssChannelUpdateRepository,
                 syndicationFeedAdapter,
                 configureMapper);

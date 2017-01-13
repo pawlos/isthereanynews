@@ -1,5 +1,8 @@
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System;
+    using System.Linq;
+
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Events;
 
@@ -17,6 +20,14 @@ namespace IsThereAnyNews.DataAccess.Implementation
             var rssChannelUpdated = new EventRssChannelUpdated { RssChannelId = eventRssChannelUpdated };
             this.database.RssChannelUpdates.Add(rssChannelUpdated);
             this.database.SaveChanges();
+        }
+
+        public DateTime GetLatestUpdateDate(long rssChannelId)
+        {
+            var eventRssChannelUpdated = this.database.RssChannelUpdates.Where(c => c.RssChannelId == rssChannelId)
+                .OrderByDescending(c => c.Created)
+                .FirstOrDefault();
+            return eventRssChannelUpdated?.Created ?? DateTime.MinValue;
         }
     }
 }
