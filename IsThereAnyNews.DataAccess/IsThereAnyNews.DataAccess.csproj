@@ -93,7 +93,6 @@
     <Compile Include="IRssEntriesToReadRepository.cs" />
     <Compile Include="IRssEventRepository.cs" />
     <Compile Include="ISocialLoginRepository.cs" />
-    <Compile Include="IStatisticsRepository.cs" />
     <Compile Include="IUpdateRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IRssChannelsRepository.cs" />
@@ -103,7 +102,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementation\RssChannelsRepository.cs" />
     <Compile Include="Implementation\RssEntriesRepository.cs" />
-    <Compile Include="Implementation\StatisticsRepository.cs" />
     <Compile Include="Implementation\RssActionRepository.cs" />
     <Compile Include="Implementation\RssEventRepository.cs" />
     <Compile Include="Implementation\RssChannelUpdateRepository.cs" />
