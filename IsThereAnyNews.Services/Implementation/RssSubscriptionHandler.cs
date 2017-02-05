@@ -9,6 +9,7 @@ namespace IsThereAnyNews.Services.Implementation
     using AutoMapper;
 
     using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
@@ -16,26 +17,29 @@ namespace IsThereAnyNews.Services.Implementation
     public class RssSubscriptionHandler : ISubscriptionHandler
     {
         private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
-
         private readonly IRssEntriesToReadRepository rssToReadRepository;
         private readonly IMapper mapper;
-
         private readonly IRssEventRepository rssEventsRepository;
-
         private readonly IUserAuthentication authentication;
+        private readonly IHtmlStripper htmlStripper;
+        private readonly IRssChannelsSubscriptionsRepository channelsSubscriptionsRepository;
 
         public RssSubscriptionHandler(
             IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
             IRssEntriesToReadRepository rssToReadRepository,
             IMapper mapper,
             IRssEventRepository rssEventsRepository,
-            IUserAuthentication authentication)
+            IUserAuthentication authentication,
+            IHtmlStripper htmlStripper,
+            IRssChannelsSubscriptionsRepository channelsSubscriptionsRepository)
         {
             this.rssSubscriptionsRepository = rssSubscriptionsRepository;
             this.rssToReadRepository = rssToReadRepository;
             this.mapper = mapper;
             this.rssEventsRepository = rssEventsRepository;
             this.authentication = authentication;
+            this.htmlStripper = htmlStripper;
+            this.channelsSubscriptionsRepository = channelsSubscriptionsRepository;
         }
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries)
@@ -48,27 +52,33 @@ namespace IsThereAnyNews.Services.Implementation
             ShowReadEntries showReadEntries)
         {
             var rssEntryToReadDtos = this.rssToReadRepository.LoadRss(subscriptionId, showReadEntries);
-            var rssEntryToReadViewModels = rssEntryToReadDtos.Select(
+            var rssEntryToReadViewModels = rssEntryToReadDtos.OrderByDescending(o => o.PublicationDate).Select(
                 x =>
                     new RssEntryToReadViewModel
-                        {
-                            Id = 0,
-                            IsRead = false,
-                            RssEntryViewModel =
+                    {
+                        Id = 0,
+                        IsRead = false,
+                        RssEntryViewModel =
                                 new RssEntryViewModel
-                                    {
-                                        Id = x.Id,
-                                        Title = x.Title,
-                                        PreviewText = x.PreviewText,
-                                        PublicationDate = x.PublicationDate,
-                                        Url = x.Url,
-                                        SubscriptionId = subscriptionId
-                                    }
-                        }).ToList();
+                                {
+                                    Id = x.Id,
+                                    Title = x.Title,
+                                    PreviewText = this.htmlStripper.GetContentOnly(x.PreviewText),
+                                    PublicationDate = x.PublicationDate,
+                                    Url = x.Url,
+                                    SubscriptionId = subscriptionId
+                                }
+                    }).ToList();
+
+            var rssChannelInformationDto = this.channelsSubscriptionsRepository.LoadChannelInformation(subscriptionId);
 
             var viewModel = new RssSubscriptionIndexViewModel(
                                 subscriptionId,
-                                new ChannelInformationViewModel { Created = DateTime.MinValue, Title = "FIX ME ASAP" },
+                                new ChannelInformationViewModel
+                                {
+                                    Created = rssChannelInformationDto.Created,
+                                    Title = rssChannelInformationDto.Title
+                                },
                                 rssEntryToReadViewModels,
                                 StreamType.Rss);
             viewModel.SubscriptionId = subscriptionId;
