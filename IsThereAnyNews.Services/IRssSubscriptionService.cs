@@ -21,5 +21,7 @@ namespace IsThereAnyNews.Services
         void MarkClicked(MarkClickedDto dto);
 
         void MarkEntriesRead(MarkReadDto dto);
+
+        void MarkEntriesSkipped(MarkSkippedDto model);
     }
 }

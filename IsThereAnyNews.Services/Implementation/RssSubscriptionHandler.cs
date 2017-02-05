@@ -1,3 +1,5 @@
+using System.Data.Entity.Infrastructure;
+
 namespace IsThereAnyNews.Services.Implementation
 {
     using System;
@@ -41,11 +43,41 @@ namespace IsThereAnyNews.Services.Implementation
             return this.GetRssSubscriptionIndexViewModel(subscriptionId, showReadEntries);
         }
 
-        public void MarkRead(string displayedItems)
+        private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModel(
+            long subscriptionId,
+            ShowReadEntries showReadEntries)
         {
-            var ids = displayedItems.Split(new[] { ";", "," }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(i => long.Parse(i))
-                .ToList();
+            var rssEntryToReadDtos = this.rssToReadRepository.LoadRss(subscriptionId, showReadEntries);
+            var rssEntryToReadViewModels = rssEntryToReadDtos.Select(
+                x =>
+                    new RssEntryToReadViewModel
+                        {
+                            Id = 0,
+                            IsRead = false,
+                            RssEntryViewModel =
+                                new RssEntryViewModel
+                                    {
+                                        Id = x.Id,
+                                        Title = x.Title,
+                                        PreviewText = x.PreviewText,
+                                        PublicationDate = x.PublicationDate,
+                                        Url = x.Url,
+                                        SubscriptionId = subscriptionId
+                                    }
+                        }).ToList();
+
+            var viewModel = new RssSubscriptionIndexViewModel(
+                                subscriptionId,
+                                new ChannelInformationViewModel { Created = DateTime.MinValue, Title = "FIX ME ASAP" },
+                                rssEntryToReadViewModels,
+                                StreamType.Rss);
+            viewModel.SubscriptionId = subscriptionId;
+            return viewModel;
+
+        }
+
+        public void MarkRead(List<long> ids)
+        {
             this.rssSubscriptionsRepository.MarkRead(ids);
         }
 
@@ -55,7 +87,17 @@ namespace IsThereAnyNews.Services.Implementation
             this.rssEventsRepository.AddEventRssViewed(cui, dtoId);
         }
 
-        private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModel(long subscriptionId, ShowReadEntries showReadEntries)
+        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
+        {
+            this.rssToReadRepository.MarkEntriesSkipped(modelSubscriptionId, ids);
+        }
+
+        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
+        {
+            this.rssToReadRepository.InsertReadRssToRead(userId, rssId, dtoSubscriptionId);
+        }
+
+        private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModelOld(long subscriptionId, ShowReadEntries showReadEntries)
         {
             var currentUserId = this.authentication.GetCurrentUserId();
 

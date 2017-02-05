@@ -36,13 +36,9 @@ namespace IsThereAnyNews.Services.Implementation
             return this.GetPersonSubscriptionIndexViewModel(subscriptionId, showReadEntries);
         }
 
-        public void MarkRead(string displayedItems)
+        public void MarkRead(List<long> displayedItems)
         {
-            var ids =
-                displayedItems.Split(new[] { ";", "," }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(i => long.Parse(i))
-                    .ToList();
-            this.rssEventsRepository.MarkRead(ids);
+            this.rssEventsRepository.MarkRead(displayedItems);
         }
 
         public void AddEventViewed(long dtoId)
@@ -101,6 +97,16 @@ namespace IsThereAnyNews.Services.Implementation
                 StreamType.Person);
 
             return viewModel;
+        }
+
+        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
+        {
+            this.usersSubscriptionRepository.MarkEntriesSkipped(modelSubscriptionId, ids);
+        }
+
+        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using IsThereAnyNews.EntityFramework.Models.Interfaces;
@@ -10,7 +9,8 @@
     public sealed class RssEntryToRead : IEntity, ICreatable, IModifiable
     {
         public RssEntryToRead()
-        { }
+        {
+        }
 
         public RssEntryToRead(RssEntry rssEntry, long rssChannelSubscriptionId)
         {
@@ -25,12 +25,13 @@
 
         public bool IsRead { get; set; }
         public bool IsViewed { get; set; }
+        public bool IsSkipped { get; set; }
 
         public long RssChannelSubscriptionId { get; set; }
-        public long RssEntryId { get; set; }
-
+        
         public RssChannelSubscription RssChannelSubscription { get; set; }
-        [Required]
+        
         public RssEntry RssEntry { get; set; }
+        public long RssEntryId { get; set; }
     }
 }

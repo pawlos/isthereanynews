@@ -112,6 +112,14 @@
     <Compile Include="Migrations\201611112240306_stripped-text.Designer.cs">
       <DependentUpon>201611112240306_stripped-text.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701221419539_isskipped.cs" />
+    <Compile Include="Migrations\201701221419539_isskipped.Designer.cs">
+      <DependentUpon>201701221419539_isskipped.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702051207204_nlnl.cs" />
+    <Compile Include="Migrations\201702051207204_nlnl.Designer.cs">
+      <DependentUpon>201702051207204_nlnl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationConfiguration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
@@ -189,6 +197,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611112240306_stripped-text.resx">
       <DependentUpon>201611112240306_stripped-text.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701221419539_isskipped.resx">
+      <DependentUpon>201701221419539_isskipped.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702051207204_nlnl.resx">
+      <DependentUpon>201702051207204_nlnl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

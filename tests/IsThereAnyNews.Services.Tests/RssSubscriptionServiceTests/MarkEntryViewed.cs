@@ -1,5 +1,7 @@
 namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
+    using System.Collections.Generic;
+
     using AutoMoq;
 
     using IsThereAnyNews.Dtos;
@@ -36,13 +38,13 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 .Setup(s => s.GetProvider(It.IsAny<StreamType>()))
                 .Returns(mockSubscriptionHandler.Object);
 
-            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 0, DisplayedItems = "0" };
+            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 0 };
 
             // act
             this.sut.MarkRead(markReadDto);
 
             // assert
-            mockSubscriptionHandler.Verify(v => v.MarkRead(It.IsAny<string>()), Times.Once);
+            mockSubscriptionHandler.Verify(v => v.MarkRead(It.IsAny<List<long>>()), Times.Once);
         }
 
         [Test]
@@ -55,7 +57,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 .Setup(s => s.GetProvider(It.IsAny<StreamType>()))
                 .Returns(mockSubscriptionHandler.Object);
 
-            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 0, DisplayedItems = "0" };
+            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 0};
 
             // act
             this.sut.MarkRead(markReadDto);
@@ -76,7 +78,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
                 .Setup(s => s.GetProvider(It.IsAny<StreamType>()))
                 .Returns(mockSubscriptionHandler.Object);
 
-            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 3345, DisplayedItems = "0" };
+            var markReadDto = new MarkReadDto { StreamType = StreamType.Rss, Id = 3345};
 
             // act
             this.sut.MarkRead(markReadDto);

@@ -87,8 +87,9 @@ namespace IsThereAnyNews.Services.Implementation
         public void MarkRead(MarkReadDto dto)
         {
             var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
-            subscriptionHandler.MarkRead(dto.DisplayedItems);
-            subscriptionHandler.AddEventViewed(dto.Id);
+            var cui = this.authentication.GetCurrentUserId();
+            subscriptionHandler.MarkRead(cui, dto.Id, dto.SubscriptionId);
+            //subscriptionHandler.AddEventViewed(cui, dto.Id);
         }
 
         public void MarkClicked(MarkClickedDto dto)
@@ -100,7 +101,24 @@ namespace IsThereAnyNews.Services.Implementation
         public void MarkEntriesRead(MarkReadDto dto)
         {
             var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
-            subscriptionHandler.MarkRead(dto.DisplayedItems);
+            //var toberead = RssToMarkRead(dto.DisplayedItems);
+            //subscriptionHandler.MarkRead(toberead);
+        }
+
+        public void MarkEntriesSkipped(MarkSkippedDto model)
+        {
+            var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(model.StreamType);
+            var cui = this.authentication.GetCurrentUserId();
+            var ids = RssToMarkRead(model.Entries);
+            subscriptionHandler.MarkSkipped(model.SubscriptionId, ids);
+
+        }
+
+        private static List<long> RssToMarkRead(string model)
+        {
+            var separator = new[] { ";", "," };
+            var rssToMarkRead = model.Split(separator, StringSplitOptions.None).Select(long.Parse).ToList();
+            return rssToMarkRead;
         }
     }
 }

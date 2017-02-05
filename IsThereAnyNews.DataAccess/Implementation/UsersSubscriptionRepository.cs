@@ -49,6 +49,18 @@
             this.database.SaveChanges();
         }
 
+        public void MarkEntriesSkipped(long modelSubscriptionId, List<long> ids)
+        {
+            var userSubscriptionEntryToReads = ids.Select(x => new UserSubscriptionEntryToRead
+            {
+                IsSkipped = true,
+                EventRssUserInteractionId = x,
+                UserSubscriptionId = modelSubscriptionId
+            });
+            this.database.UsersSubscriptionsToRead.AddRange(userSubscriptionEntryToReads);
+            this.database.SaveChanges();
+        }
+
         public bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId)
         {
             var subscription = this.database.UsersSubscriptions

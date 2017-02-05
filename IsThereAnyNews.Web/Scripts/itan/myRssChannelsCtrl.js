@@ -72,16 +72,14 @@ angular.module("itan")
     };
 
     $scope.markEntriesRead = function (entries) {
-        var ids = entries.RssEntryToReadViewModels.map(function (e) {
-            return e.Id;
-        });
+        var ids = entries.DisplayedRss;
         var httpOptions = {
             method: 'POST',
-            url: "/Stream/MarkEntriesRead",
+            url: "/Stream/MarkEntriesSkipped",
             data: {
                 StreamType: entries.StreamType,
-                DisplayedItems: ids.join(),
-                Id: entries.SubscriptionId
+                Entries: ids,
+                SubscriptionId: entries.SubscriptionId
             }
 
         };
@@ -98,8 +96,8 @@ angular.module("itan")
             url: "/Stream/MarkReadWithEvent",
             data: {
                 StreamType: streamType,
-                Id: item.Id,
-                DisplayedItems: item.Id
+                Id: item.RssEntryViewModel.Id,
+                SubscriptionId: item.RssEntryViewModel.SubscriptionId
             }
         };
         $http(httpOptions)

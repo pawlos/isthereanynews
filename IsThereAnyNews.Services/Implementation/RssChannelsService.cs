@@ -56,7 +56,7 @@
         {
             var currentUserId = this.authentication.GetCurrentUserId();
             var rssSubscriptions = this.channelsSubscriptionRepository.LoadAllSubscriptionsForUser(currentUserId);
-            this.rssEntriesToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(currentUserId, rssSubscriptions);
+//            this.rssEntriesToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(currentUserId, rssSubscriptions);
             var viewmodel = this.mapping.Map<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>(rssSubscriptions);
             return viewmodel;
         }

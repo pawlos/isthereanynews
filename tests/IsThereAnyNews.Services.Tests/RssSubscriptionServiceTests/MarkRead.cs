@@ -9,6 +9,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
     using Moq;
 
     using NUnit.Framework;
+    using System.Collections.Generic;
 
     [TestFixture]
     public class MarkRead
@@ -31,7 +32,6 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             // arrange
             var stub = new MarkReadDto
             {
-                DisplayedItems = string.Empty,
                 Id = 0,
                 StreamType = StreamType.Person
             };
@@ -57,7 +57,6 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             // arrange
             var stub = new MarkReadDto
             {
-                DisplayedItems = string.Empty,
                 Id = 0,
                 StreamType = StreamType.Person
             };
@@ -73,7 +72,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 
             // assert
             mockHandler
-                .Verify(v => v.MarkRead(It.IsAny<string>()),
+                .Verify(v => v.MarkRead(It.IsAny<List<long>>()),
                 Times.Once);
         }
     }

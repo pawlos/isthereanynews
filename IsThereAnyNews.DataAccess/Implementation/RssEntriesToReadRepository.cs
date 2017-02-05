@@ -9,6 +9,7 @@
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.SharedData;
 
     public class RssEntriesToReadRepository : IRssEntriesToReadRepository
     {
@@ -21,27 +22,27 @@
 
         public void CopyRssThatWerePublishedAfterLastReadTimeToUser(long currentUserId, List<RssChannelSubscriptionDTO> subscriptions)
         {
-            var rssChannelsIds = subscriptions.Select(x => x.RssChannelId).ToList();
+            //var rssChannelsIds = subscriptions.Select(x => x.RssChannelId).ToList();
 
-            var rssEntries = this.database.RssEntries
-                .Where(e => rssChannelsIds.Contains(e.RssChannelId))
-                .Include(e => e.RssEntryToRead)
-                .Where(e => e.RssEntryToRead == null)
-                .ToList();
+            //var rssEntries = this.database.RssEntries
+            //    .Where(e => rssChannelsIds.Contains(e.RssChannelId))
+            //    .Include(e => e.RssEntryToRead)
+            //    .Where(e => e.RssEntryToRead == null)
+            //    .ToList();
 
 
-            var toread = new List<RssEntryToRead>(rssEntries.Count);
+            //var toread = new List<RssEntryToRead>(rssEntries.Count);
 
-            rssEntries.ForEach(entry =>
-            {
-                var rssEntryToRead = new RssEntryToRead(
-                    entry,
-                    subscriptions.Single(x => x.RssChannelId == entry.RssChannelId).Id);
-                toread.Add(rssEntryToRead);
-            });
+            //rssEntries.ForEach(entry =>
+            //{
+            //    var rssEntryToRead = new RssEntryToRead(
+            //        entry,
+            //        subscriptions.Single(x => x.RssChannelId == entry.RssChannelId).Id);
+            //    toread.Add(rssEntryToRead);
+            //});
 
-            this.database.RssEntriesToRead.AddRange(toread);
-            this.database.SaveChanges();
+            //this.database.RssEntriesToRead.AddRange(toread);
+            //this.database.SaveChanges();
         }
 
         public void MarkAllReadForUserAndSubscription(long subscriptionId, List<long> id)
@@ -90,6 +91,54 @@
                .ToList();
 
             return rssEntryToReads;
+        }
+
+        public void MarkEntriesSkipped(long modelSubscriptionId, List<long> ids)
+        {
+            var rssEntryToReads = ids.Select(x => new RssEntryToRead
+            {
+                IsSkipped = true,
+                RssChannelSubscriptionId = modelSubscriptionId,
+                RssEntryId = x,
+            });
+
+            this.database.Configuration.ValidateOnSaveEnabled = false;
+            foreach (var rssEntryToRead in rssEntryToReads)
+            {
+                this.database.RssEntriesToRead.Add(rssEntryToRead);
+                this.database.SaveChanges();
+
+            }
+            this.database.Configuration.ValidateOnSaveEnabled = true;
+        }
+
+        public List<RssEntryDTO> LoadRss(long subscriptionId, ShowReadEntries showReadEntries)
+        {
+            var joinType = showReadEntries == ShowReadEntries.Hide ? "left join" : "join";
+            var emptyQuery = showReadEntries == ShowReadEntries.Hide ? "and r2.id is null" : string.Empty;
+
+            var sqlQuery = string.Format(@"select r1.Title,r1.PublicationDate,r1.PreviewText,r1.Id,r1.Url from RssEntries r1
+                                             {0} RssEntriesToRead r2
+                                            on r1.Id=r2.RssEntryId
+                                            join RssChannelSubscriptions s
+                                            on s.RssChannelId = r1.RssChannelId
+                                            where s.Id={1} {2}", joinType, subscriptionId, emptyQuery);
+
+            var rssEntryToReadDtos = this.database.Database.SqlQuery<RssEntryDTO>(sqlQuery).ToList();
+            return rssEntryToReadDtos;
+        }
+
+        public void InsertReadRssToRead(long userId, long rssId, long dtoSubscriptionId)
+        {
+            var rssEntryToRead = new RssEntryToRead
+            {
+                IsRead = true,
+                RssEntryId = rssId,
+                RssChannelSubscriptionId = dtoSubscriptionId
+            };
+
+            this.database.RssEntriesToRead.Add(rssEntryToRead);
+            this.database.SaveChanges();
         }
 
         public void MarkEntryViewedByUser(long currentUserId, long rssToReadId)

@@ -6,6 +6,7 @@
     {
         public StreamType StreamType { get; set; }
         public long Id { get; set; }
-        public string DisplayedItems { get; set; }
+
+        public long SubscriptionId { get; set; }
     }
 }

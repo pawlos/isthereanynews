@@ -18,5 +18,6 @@
         RssChannelInformationDTO LoadChannelInformation(long subscriptionId);
         List<NameAndCountUserSubscription> LoadNameAndCountForUser(long currentUserId);
         void UpdateUserLastReadTime(long currentUserId, DateTime now);
+        void MarkEntriesSkipped(long modelSubscriptionId, List<long> ids);
     }
 }

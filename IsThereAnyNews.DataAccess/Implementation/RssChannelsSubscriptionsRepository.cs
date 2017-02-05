@@ -92,6 +92,21 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId)
         {
+            var sqlQuery = string.Format(@"SELECT s.Title, s.Id, count(*) as Count FROM RssEntries r1
+              LEFT JOIN RssEntriesToRead r2
+              on r1.Id=r2.RssEntryId
+              join RssChannelSubscriptions s
+              on r1.RssChannelId = s.RssChannelId
+              where s.UserId = {0}
+              and r2.Id is null
+              group by r1.RssChannelId,s.Id,s.Title
+             ", currentUserId);
+            var rssChannelSubscriptionDtos = this.database.Database.SqlQuery<RssChannelSubscriptionDTO>(sqlQuery).ToList();
+            return rssChannelSubscriptionDtos;
+        }
+
+        public List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser_Old(long currentUserId)
+        {
             var channelSubscriptions = from subs in this.database.RssChannelsSubscriptions
                                        join rs in this.database.RssEntriesToRead on subs.Id equals rs.RssChannelSubscriptionId into rss
                                        join channel in this.database.RssChannels on subs.RssChannelId equals channel.Id into channels

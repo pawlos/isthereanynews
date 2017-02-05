@@ -21,6 +21,10 @@
             this.rssSubscriptionService = rssSubscriptionService;
         }
 
+        public StreamController(IUserAuthentication authentication, ILoginService loginService) : base(authentication, loginService)
+        {
+        }
+
         [HttpGet]
         public ActionResult ReadAjax(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
         {
@@ -34,6 +38,13 @@
         public ActionResult MarkEntriesRead(MarkReadDto dto)
         {
             this.rssSubscriptionService.MarkEntriesRead(dto);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [HttpPost]
+        public ActionResult MarkEntriesSkipped(MarkSkippedDto model)
+        {
+            this.rssSubscriptionService.MarkEntriesSkipped(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
