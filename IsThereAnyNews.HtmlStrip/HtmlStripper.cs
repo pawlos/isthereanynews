@@ -1,5 +1,6 @@
 namespace IsThereAnyNews.HtmlStrip
 {
+    using System;
     using System.Text;
 
     using HtmlAgilityPack;
@@ -12,15 +13,21 @@ namespace IsThereAnyNews.HtmlStrip
             htmlDocument.LoadHtml(itemSummary);
             StringBuilder content = new StringBuilder();
 
-            foreach (var node in htmlDocument.DocumentNode.SelectNodes("//text()"))
+            try
             {
-                if (!string.IsNullOrWhiteSpace(node.InnerText))
+                foreach (var node in htmlDocument.DocumentNode.SelectNodes("//text()"))
                 {
-                    content.AppendLine(node.InnerText);
+                    if (!string.IsNullOrWhiteSpace(node.InnerText))
+                    {
+                        content.AppendLine(node.InnerText);
+                    }
                 }
+                return content.ToString().Replace("\n", "<br/>");
             }
-
-            return content.ToString().Replace("\n", "<br/>");
+            catch (Exception e)
+            {
+                return string.Empty;
+            }
         }
     }
 }

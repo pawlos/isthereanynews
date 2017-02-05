@@ -69,7 +69,7 @@
                                 <div class="panel-heading" role="tab">
                                     <h4 class="panel-title">
                                         <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                           href="#rss-{{item.Id}}"
+                                           href="#rss-{{item.RssEntryViewModel.Id}}"
                                            ng-click="markReadWithEvent(channel.entries.StreamType, item)">
                                             <span class="">{{item.RssEntryViewModel.Title}}</span>
                                             <span class="text small right">
@@ -78,7 +78,7 @@
                                         </a>
                                     </h4>
                                 </div>
-                                <div id="rss-{{item.Id}}"
+                                <div id="rss-{{item.RssEntryViewModel.Id}}"
                                      class="panel-collapse collapse"
                                      role="tabpanel">
                                     <div class="panel-body">
