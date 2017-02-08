@@ -8,9 +8,10 @@ namespace IsThereAnyNews.Services
     public interface ISubscriptionHandler
     {
         RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries);
-        void MarkRead(System.Collections.Generic.List<long> displayedItems);
+        void MarkRead(List<long> displayedItems);
         void AddEventViewed(long dtoId);
         void MarkSkipped(long modelSubscriptionId, List<long> ids);
         void MarkRead(long userId, long rssId, long dtoSubscriptionId);
+        void AddEventViewed(long cui, long id);
     }
 }

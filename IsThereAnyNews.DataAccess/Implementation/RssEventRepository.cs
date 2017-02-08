@@ -17,11 +17,9 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public void AddEventRssViewed(long currentUserId, long rssToReadId)
         {
-            var rssEntryToRead = this.database.RssEntriesToRead.Single(r => r.Id == rssToReadId);
-            var rssEntryId = rssEntryToRead.RssEntryId;
             var eventRssViewed = new EventRssUserInteraction
             {
-                RssEntryId = rssEntryId,
+                RssEntryId = rssToReadId,
                 UserId = currentUserId,
                 InteractionType = InteractionType.Viewed
             };

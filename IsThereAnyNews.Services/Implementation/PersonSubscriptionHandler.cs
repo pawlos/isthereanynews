@@ -108,5 +108,10 @@ namespace IsThereAnyNews.Services.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public void AddEventViewed(long cui, long id)
+        {
+            // dont know what to do here
+        }
     }
 }

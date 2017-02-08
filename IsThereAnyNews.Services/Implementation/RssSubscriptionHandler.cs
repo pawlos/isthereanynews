@@ -147,5 +147,10 @@ namespace IsThereAnyNews.Services.Implementation
             viewModel.SubscriptionId = subscriptionId;
             return viewModel;
         }
+
+        public void AddEventViewed(long cui, long id)
+        {
+            this.rssEventsRepository.AddEventRssViewed(cui, id);
+        }
     }
 }

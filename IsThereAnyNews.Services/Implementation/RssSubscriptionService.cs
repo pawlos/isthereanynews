@@ -89,7 +89,7 @@ namespace IsThereAnyNews.Services.Implementation
             var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
             var cui = this.authentication.GetCurrentUserId();
             subscriptionHandler.MarkRead(cui, dto.Id, dto.SubscriptionId);
-            //subscriptionHandler.AddEventViewed(cui, dto.Id);
+            subscriptionHandler.AddEventViewed(cui, dto.Id);
         }
 
         public void MarkClicked(MarkClickedDto dto)
