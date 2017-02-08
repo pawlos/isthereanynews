@@ -1,5 +1,6 @@
 namespace IsThereAnyNews.DataAccess.Implementation
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -39,16 +40,28 @@ namespace IsThereAnyNews.DataAccess.Implementation
 
         public void MarkClicked(long id, long currentUserId)
         {
-            var rssEntryToRead = this.database.RssEntriesToRead.Single(x => x.Id == id);
-
             var eventRssClicked = new EventRssUserInteraction()
             {
                 UserId = currentUserId,
-                RssEntryId = rssEntryToRead.RssEntryId,
+                RssEntryId = id,
                 InteractionType = InteractionType.Clicked
             };
 
             this.database.EventsRssUserInteraction.Add(eventRssClicked);
+            this.database.SaveChanges();
+        }
+
+        public void AddEventRssSkipped(long cui, List<long> ids)
+        {
+            var eventsToSave = ids.Select(id =>
+                new EventRssUserInteraction
+                {
+                    UserId = cui,
+                    RssEntryId = id,
+                    InteractionType = InteractionType.Skipped
+                });
+
+            this.database.EventsRssUserInteraction.AddRange(eventsToSave);
             this.database.SaveChanges();
         }
     }

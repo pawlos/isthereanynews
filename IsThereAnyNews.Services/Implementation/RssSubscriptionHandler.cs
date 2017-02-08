@@ -152,5 +152,12 @@ namespace IsThereAnyNews.Services.Implementation
         {
             this.rssEventsRepository.AddEventRssViewed(cui, id);
         }
+
+        public void AddEventSkipped(long cui, string entries)
+        {
+            var x = entries.Split(new[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
+            var ids = x.Select(l => long.Parse(l)).ToList();
+            this.rssEventsRepository.AddEventRssSkipped(cui, ids);
+        }
     }
 }

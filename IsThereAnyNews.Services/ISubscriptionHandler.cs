@@ -13,5 +13,6 @@ namespace IsThereAnyNews.Services
         void MarkSkipped(long modelSubscriptionId, List<long> ids);
         void MarkRead(long userId, long rssId, long dtoSubscriptionId);
         void AddEventViewed(long cui, long id);
+        void AddEventSkipped(long cui, string entries);
     }
 }

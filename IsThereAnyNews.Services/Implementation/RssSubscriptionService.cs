@@ -111,7 +111,7 @@ namespace IsThereAnyNews.Services.Implementation
             var cui = this.authentication.GetCurrentUserId();
             var ids = RssToMarkRead(model.Entries);
             subscriptionHandler.MarkSkipped(model.SubscriptionId, ids);
-
+            subscriptionHandler.AddEventSkipped(cui, model.Entries);
         }
 
         private static List<long> RssToMarkRead(string model)

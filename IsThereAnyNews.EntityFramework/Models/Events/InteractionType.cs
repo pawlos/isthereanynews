@@ -4,6 +4,7 @@ namespace IsThereAnyNews.EntityFramework.Models.Events
     {
         Unknown = 0,
         Viewed = 1,
-        Clicked = 2
+        Clicked = 2,
+        Skipped = 3
     }
 }

@@ -113,5 +113,10 @@ namespace IsThereAnyNews.Services.Implementation
         {
             // dont know what to do here
         }
+
+        public void AddEventSkipped(long cui, string entries)
+        {
+            // dont know what to do here
+        }
     }
 }
