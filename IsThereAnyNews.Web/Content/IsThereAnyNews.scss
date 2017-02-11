@@ -22,10 +22,16 @@
 .navbar-nav {
     & > li {
         & > a {
-            &.avatar{
-                padding-top:0;
-                padding-bottom:0;
+            &.avatar {
+                padding-top: 0;
+                padding-bottom: 0;
             }
         }
+    }
+}
+
+.btn {
+    &.fa-icon-btn {
+        padding: 1px 4px !important;
     }
 }
