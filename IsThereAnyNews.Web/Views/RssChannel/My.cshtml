@@ -84,25 +84,25 @@
                                     <div class="panel-body">
                                         <div ng-bind-html="item.RssEntryViewModel.PreviewText | rawHtml"></div>
                                         <div>
-                                            <i ng-click="onThumbsUpClicked(channel.entries.StreamType, item.Id)"
+                                            <i ng-click="onThumbsUpClicked(channel.entries.StreamType, item.RssEntryViewModel.Id)"
                                                style="color: lightgray"
                                                class="btn fa-icon-btn fa fa-thumbs-up"></i>
-                                            <i ng-click="onThumbsDownClick(channel.entries.StreamType, item.Id)"
+                                            <i ng-click="onThumbsDownClick(channel.entries.StreamType, item.RssEntryViewModel.Id)"
                                                style="color: lightgray"
                                                class="btn fa-icon-btn fa fa-thumbs-down"></i>
-                                            <i ng-click="onMarkUnreadClicked(channel.entries.StreamType, item.Id)"
+                                            <i ng-click="onMarkUnreadClicked(channel.entries.StreamType, item.RssEntryViewModel.Id)"
                                                style="color: lightgray"
                                                class="btn fa-icon-btn fa fa-undo"></i>
-                                            <i ng-click="onShareClicked(channel.entries.StreamType, item.Id)"
+                                            <i ng-click="onShareClicked(channel.entries.StreamType, item.RssEntryViewModel.Id)"
                                                style="color: lightgray"
                                                class="btn fa-icon-btn fa fa-share-alt"></i>
-                                            <i ng-click="onCommentsClicked(channel.entries.StreamType, item.Id)"
+                                            <i ng-click="onCommentsClicked(channel.entries.StreamType, item.RssEntryViewModel.Id)"
                                                style="color: lightgray"
                                                class="btn fa-icon-btn fa fa-commenting-o"></i>
-                                            <i ng-click="onArticleBodyClicked(channel.entries.StreamType, item.Id, item.RssEntryViewModel.Url)"
+                                            <i ng-click="onArticleBodyClicked(channel.entries.StreamType, item.RssEntryViewModel.Id, item.RssEntryViewModel.Url)"
                                                style="color: black"
                                                class="btn fa-icon-btn fa fa-external-link"></i>
-                                            <i ng-click="onReadLaterClicked(channel.entries.StreamType, item.Id)"
+                                            <i ng-click="onReadLaterClicked(channel.entries.StreamType, item.RssEntryViewModel.Id)"
                                                style="color: lightgray"
                                                class="btn fa-icon-btn fa fa-clock-o"></i>
                                         </div>
