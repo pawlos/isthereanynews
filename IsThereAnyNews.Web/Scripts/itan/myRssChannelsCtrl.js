@@ -19,19 +19,33 @@ angular.module("itan")
         return h;
     };
 
+    $scope.maxHeight2 = function () {
+        var h = document.documentElement.clientHeight -
+            $(".navbar-fixed-top").height() -
+            $(".navbar-fixed-bottom").height() -
+            $(".title").height() -
+            $(".utils").height() -
+            20; // missing px somewhere :)
+        return h;
+    };
+
     $(window).on("resize.doResize", function () {
         $scope.$apply(function () {
             $scope.setHeights();
         });
     });
 
+
     $scope.setHeights = function () {
         var h = $(".height");
         h.height($scope.maxHeight());
         h[0].style.overflowY = "auto";
-        h[1].style.overflowY = "auto";
         h[0].style.overflowX = "hidden";
-        h[1].style.overflowX = "hidden";
+
+        var h2 = $(".height2");
+        h2.height($scope.maxHeight2());
+        h2[0].style.overflowY = "auto";
+        h2[0].style.overflowX = "hidden";
     }
 
     $scope.loadChannels = function () {
@@ -54,7 +68,6 @@ angular.module("itan")
         .success(function (data) {
             $scope.channels.list = data;
             $scope.channels.loaded = true;
-            $scope.setHeights();
         });
 
     $scope.onChannelClick = function (channel) {
@@ -63,7 +76,6 @@ angular.module("itan")
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
-                $scope.setHeights();
                 $(".nocss-rss-item-list")
                .collapse({
                    toggle: false
@@ -86,8 +98,8 @@ angular.module("itan")
         $http(httpOptions)
         .success(function () {
             $scope.channels.current.Count = 0;
-                $scope.channel.entries.RssEntryToReadViewModels = [];
-            });
+            $scope.channel.entries.RssEntryToReadViewModels = [];
+        });
     }
 
     $scope.markReadWithEvent = function (streamType, item) {
@@ -207,6 +219,8 @@ angular.module("itan")
                 $scope.loadChannels();
             });
     };
+
+    $scope.setHeights();
 
 });
 

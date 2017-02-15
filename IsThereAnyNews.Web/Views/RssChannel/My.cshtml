@@ -10,7 +10,7 @@
     <script src="~/Scripts/itan/filterMoment.js"></script>
 }
 
-<div class="container" ng-controller="itan.MyRssChannelsCtrl">
+<div class="container" ng-controller="itan.MyRssChannelsCtrl" >
 
     <div class="row">
         <div class="col-sm-3 nocss-mychannel-list text-ellipse-too-long height">
@@ -42,12 +42,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-9 nocss-rsschannel-container height">
+        <div class="col-sm-9 nocss-rsschannel-container">
             <h2 ng-hide="channel.loaded">Select channel to see news</h2>
             <div ng-show="channel.loaded">
-                <div class="row">
-                </div>
-                <div class="row">
+                <div class="row title">
                     <div class="col-sm-12">
                         <span>
                             <h2>{{channel.entries.ChannelInformation.Title}}</h2>
@@ -55,14 +53,14 @@
                         </span>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row utils">
                     <div class="btn btn-xs btn-warning"
                          ng-show="channels.current.Count>0"
                          ng-click="markEntriesRead(channel.entries)">
                         mark all ({{channel.entries.RssEntryToReadViewModels.length}}) read
                     </div>
                 </div>
-                <div class="row nocss-rss-item-list">
+                <div class="row nocss-rss-item-list height2">
                     <div class="col-sm-12">
                         <div class="panel-group" id="accordion" role="tablist">
                             <div class="panel panel-default" ng-repeat="item in channel.entries.RssEntryToReadViewModels">

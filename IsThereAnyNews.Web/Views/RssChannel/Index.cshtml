@@ -25,43 +25,48 @@
                 </a>
             </div>
         </div>
-        <div class="col-sm-8 height">
-            <div ng-hide="channel.loaded">
-                <h3>Please select channel to see news</h3>
-            </div>
-            <div ng-show="channel.loaded">
-                <div class="row">
-                    <h2>{{channel.entries.Title}}</h2>
-                    <h3>{{channel.entries.Added|moment:'YYYY-MM-DD'}}</h3>
-                    <h3>{{channel.entries.Updated|moment:'YYYY-MM-DD HH:mm'}}</h3>
-                    @if (User.Identity.IsAuthenticated)
-                    {
+        <div class="col-sm-8">
+            <div class="row title">
+                <div class="col-sm-12">
+                    <div ng-hide="channel.loaded">
+                        <h3>Please select channel to see news</h3>
+                    </div>
+                    <div ng-show="channel.loaded">
+                        <h2>{{channel.entries.Title}}</h2>
+                        <h3>{{channel.entries.Added|moment:'YYYY-MM-DD'}}</h3>
+                        <h3>{{channel.entries.Updated|moment:'YYYY-MM-DD HH:mm'}}</h3>
+                        @if (User.Identity.IsAuthenticated)
+                        {
                         <button class="btn"
-                                ng-class="buttonSubscriptionClass(channel)"                                
+                                ng-class="buttonSubscriptionClass(channel)"
                                 ng-click="onSubscribeClick(channel.entries.ChannelId,channel.entries.SubscriptionInfo.IsSubscribed)">
                             {{channel.entries.SubscriptionInfo.IsSubscribed?"unsubscribe":"subscribe"}}
                         </button>
-                    }
+                        }
+                    </div>
                 </div>
-
-                <div class="panel-group" id="accordion" role="tablist">
-                    <div class="panel panel-default" ng-repeat="item in channel.entries.Entries">
-                        <div class="panel-heading" role="tab">
-                            <h4 class="panel-title">
-                                <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                   href="#rss-{{item.Id}}">
-                                    <span>{{item.Title}}</span>
-                                    <span class="small right">
-                                        {{item.PublicationDate|moment:'DD/MMMM/YYYY'}}
-                                    </span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="rss-{{item.Id}}"
-                             class="panel-collapse collapse"
-                             role="tabpanel">
-                            <div class="panel-body"
-                                 ng-bind-html="item.PreviewText | rawHtml">
+            </div>
+            <div class="row height2">
+                <div class="col-sm-12">
+                    <div class="panel-group" id="accordion" role="tablist">
+                        <div class="panel panel-default" ng-repeat="item in channel.entries.Entries">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                       href="#rss-{{item.Id}}">
+                                        <span>{{item.Title}}</span>
+                                        <span class="small right">
+                                            {{item.PublicationDate|moment:'DD/MMMM/YYYY'}}
+                                        </span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="rss-{{item.Id}}"
+                                 class="panel-collapse collapse"
+                                 role="tabpanel">
+                                <div class="panel-body"
+                                     ng-bind-html="item.PreviewText | rawHtml">
+                                </div>
                             </div>
                         </div>
                     </div>
