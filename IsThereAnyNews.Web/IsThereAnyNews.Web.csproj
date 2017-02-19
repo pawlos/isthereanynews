@@ -255,9 +255,6 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Content\IsThereAnyNews.scss" />
-    <Content Include="..\..\itan.secrets.config">
-      <Link>itan.secrets.config</Link>
-    </Content>
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -1183,7 +1180,7 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   -->
   <Target Name="BeforeBuild">
-      <TransformXml Source="Web.config" Transform="Web.$(Configuration).config" Destination="Web.config" />
+    <TransformXml Source="Web.config" Transform="Web.$(Configuration).config" Destination="Web.config" />
   </Target>
   <Target Name="AfterBuild">
   </Target>
