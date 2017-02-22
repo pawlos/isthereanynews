@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IsThereAnyNews.ViewModels
+namespace IsThereAnyNews.ViewModels.RssChannel
 {
     public class RssChannelWithStatisticsViewModel
     {

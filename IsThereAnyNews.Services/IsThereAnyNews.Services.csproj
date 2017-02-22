@@ -85,6 +85,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChannelSubscriptionHandle.cs" />
+    <Compile Include="ExceptionSubscriptionHandle.cs" />
     <Compile Include="IAdminService.cs" />
     <Compile Include="Implementation\AdminService.cs" />
     <Compile Include="Implementation\ContactService.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="IRssItemActionService.cs" />
     <Compile Include="IRssSubscriptionService.cs" />
     <Compile Include="ISyndicationFeedAdapter.cs" />
+    <Compile Include="ISystemSubscriptionService.cs" />
     <Compile Include="ITestService.cs" />
     <Compile Include="IUpdateService.cs" />
     <Compile Include="IUsersService.cs" />
@@ -121,6 +124,7 @@
     <Compile Include="Implementation\UsersService.cs" />
     <Compile Include="Implementation\UserSubscriptionService.cs" />
     <Compile Include="RssSourceWithUrlAndTitleComparer.cs" />
+    <Compile Include="SystemSubscriptionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">

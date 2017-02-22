@@ -1,8 +1,8 @@
-﻿namespace IsThereAnyNews.ViewModels
-{
-    using System;
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
+namespace IsThereAnyNews.ViewModels.RssChannel
+{
     public class RssChannelIndexViewModel
     {
         public string Title { get; set; }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace IsThereAnyNews.Services.Implementation
 {
     using System;
@@ -34,6 +36,16 @@ namespace IsThereAnyNews.Services.Implementation
                     .SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
                     ?.Value, out r);
             return r;
+        }
+
+        public List<ItanRole> GetCurrentUserRoles()
+        {
+            var roles = this.GetCurrentUser()
+                .Claims
+                .Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => (ItanRole) Enum.Parse(typeof(ItanRole), c.Value))
+                .ToList();
+            return roles;
         }
 
         public AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity)

@@ -106,6 +106,7 @@
     <Compile Include="Implementation\RssEventRepository.cs" />
     <Compile Include="Implementation\RssChannelUpdateRepository.cs" />
     <Compile Include="Implementation\UserSubscriptionEntryToReadRepository.cs" />
+    <Compile Include="RssChannelCreations.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.Dtos\IsThereAnyNews.Dtos.csproj">

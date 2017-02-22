@@ -1,3 +1,5 @@
+using IsThereAnyNews.ViewModels.RssChannel;
+
 namespace IsThereAnyNews.Automapper
 {
     using System.Collections.Generic;

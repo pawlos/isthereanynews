@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.Services
+﻿using IsThereAnyNews.ViewModels.RssChannel;
+
+namespace IsThereAnyNews.Services
 {
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.ViewModels;

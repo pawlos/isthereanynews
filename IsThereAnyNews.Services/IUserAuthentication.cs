@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.Services
+﻿using System.Collections.Generic;
+
+namespace IsThereAnyNews.Services
 {
     using IsThereAnyNews.SharedData;
     using System.Security.Claims;
@@ -14,5 +16,6 @@
         bool CurrentUserIsAuthenticated();
 
         long GetCurrentUserId();
+        List<ItanRole> GetCurrentUserRoles();
     }
 }

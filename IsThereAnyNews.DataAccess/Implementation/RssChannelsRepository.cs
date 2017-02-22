@@ -512,6 +512,32 @@
             return project;
         }
 
+        public RssChannelUpdateds LoadUpdateEvents()
+        {
+            var count = this.database
+                .RssChannelUpdates
+                .Count();
+
+            return new RssChannelUpdateds
+            {
+                UpdateCout = count
+            };
+        }
+
+        RssChannelCreations IRssChannelsRepository.LoadCreateEvents()
+        {
+            var count = this.database
+                            .EventRssChannelCreated
+                            .Count();
+
+            var rssChannelCreations = new RssChannelCreations
+            {
+                Count = count
+            };
+
+            return rssChannelCreations;
+        }
+
         public void SaveToDatabase(List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace)
         {
             var rssChannels = channelsNewToGlobalSpace.Select(x => new RssChannel(x.Url, x.Title));
@@ -532,5 +558,10 @@
                 c => { c.RssLastUpdatedTime = c.Updates.OrderByDescending(d => d.Created).First().Created; });
             this.database.SaveChanges();
         }
+    }
+
+    public class RssChannelUpdateds
+    {
+        public int UpdateCout { get; set; }
     }
 }

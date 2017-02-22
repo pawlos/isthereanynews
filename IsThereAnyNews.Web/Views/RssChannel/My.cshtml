@@ -39,6 +39,15 @@
                         <i class="fa fa-user left"></i>
                         {{channel.Name}} ({{channel.Count}})
                     </a>
+                    <a ng-repeat="channel in channels.list.ChannelEvents"
+                       class="btn btn-xs btn-default full-width border-less text-left"
+                       ng-if="showAllChannels || channel.Count!=0"
+                       ng-class="isCurrent(channel)"
+                       ng-click="onChannelClick(channel)">
+                        <i class="fa fa-heartbeat left"></i>
+                        {{channel.Name}} ({{channel.Count}})
+                    </a>
+
                 </div>
             </div>
         </div>

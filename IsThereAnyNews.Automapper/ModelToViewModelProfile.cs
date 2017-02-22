@@ -1,3 +1,6 @@
+using IsThereAnyNews.DataAccess;
+using IsThereAnyNews.ViewModels.RssChannel;
+
 namespace IsThereAnyNews.Automapper
 {
     using System;
@@ -78,6 +81,9 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.RssEntry.Title))
                 .ForMember(d => d.Viewed, o => o.MapFrom(s => s.Created))
                 .ForMember(d => d.RssId, o => o.MapFrom(s => s.Id));
+
+            this.CreateMap<List<RssChannelUpdatedEvent>, List<ChannelEventViewModel>>();
+
         }
 
         private Claim CreateClaim(ItanRole role)

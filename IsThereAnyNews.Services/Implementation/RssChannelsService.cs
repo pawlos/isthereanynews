@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.Services.Implementation
+﻿using IsThereAnyNews.ViewModels.RssChannel;
+
+namespace IsThereAnyNews.Services.Implementation
 {
     using System.Collections.Generic;
     using System.Linq;

@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
+﻿using IsThereAnyNews.ViewModels.RssChannel;
+
+namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 {
     using System.Collections.Generic;
 

@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.DataAccess
+﻿using System;
+
+namespace IsThereAnyNews.DataAccess
 {
     using System.Collections.Generic;
 
@@ -20,5 +22,23 @@
         List<RssChannel> LoadAllChannels();
 
         ChannelUrlAndTitleDTO LoadUrlAndTitle(long channelId);
+        RssChannelUpdateds LoadUpdateEvents();
+        RssChannelCreations LoadCreateEvents();
+    }
+
+    public class RssChannelCreatedEvent
+    {
+        public long Id { get; set; }
+        public DateTime Updated { get; set; }
+        public long ChannelId { get; set; }
+        public string ChannelTitle { get; set; }
+    }
+
+    public class RssChannelUpdatedEvent
+    {
+        public long Id { get; set; }
+        public DateTime Updated { get; set; }
+        public long ChannelId { get; set; }
+        public string ChannelTitle { get; set; }
     }
 }

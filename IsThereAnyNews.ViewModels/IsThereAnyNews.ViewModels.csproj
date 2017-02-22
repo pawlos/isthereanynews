@@ -62,16 +62,17 @@
     <Compile Include="OpmlImporterIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicProfileChannelInformation.cs" />
-    <Compile Include="RssChannelIndexViewModel.cs" />
-    <Compile Include="RssChannelsIndexViewModel.cs" />
-    <Compile Include="RssChannelsMyViewModel.cs" />
-    <Compile Include="RssChannelSubscriptionViewModel.cs" />
-    <Compile Include="RssChannelWithStatisticsViewModel.cs" />
+    <Compile Include="RssChannel\RssChannelIndexViewModel.cs" />
+    <Compile Include="RssChannel\RssChannelsIndexViewModel.cs" />
+    <Compile Include="RssChannel\RssChannelsMyViewModel.cs" />
+    <Compile Include="RssChannel\RssChannelSubscriptionViewModel.cs" />
+    <Compile Include="RssChannel\RssChannelWithStatisticsViewModel.cs" />
     <Compile Include="RssEntryToReadViewModel.cs" />
     <Compile Include="RssEntryViewModel.cs" />
     <Compile Include="RssStatisticsViewModel.cs" />
     <Compile Include="RssSubscriptionIndexViewModel.cs" />
     <Compile Include="SocialLoginViewModel.cs" />
+    <Compile Include="ChannelEventViewModel.cs" />
     <Compile Include="TopReadChannelsViewModel.cs" />
     <Compile Include="UserDetailedPublicProfileViewModel.cs" />
     <Compile Include="UserPublicProfileViewModel.cs" />
@@ -88,6 +89,7 @@
       <Name>IsThereAnyNews.SharedData</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

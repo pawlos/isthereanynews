@@ -13,18 +13,21 @@
         private readonly IRssChannelsService rssChannelsService;
         private readonly IRssSubscriptionService rssSubscriptionService;
         private readonly IUserSubscriptionService userSubscriptionServiceService;
+        private readonly ISystemSubscriptionService systemSubscriptionService;
 
         public RssChannelController(
             IUserAuthentication authentication,
             ILoginService loginService,
             IRssChannelsService rssChannelsService,
             IRssSubscriptionService rssSubscriptionService,
-            IUserSubscriptionService userSubscriptionServiceService)
+            IUserSubscriptionService userSubscriptionServiceService,
+            ISystemSubscriptionService systemSubscriptionService)
             : base(authentication, loginService)
         {
             this.rssChannelsService = rssChannelsService;
             this.rssSubscriptionService = rssSubscriptionService;
             this.userSubscriptionServiceService = userSubscriptionServiceService;
+            this.systemSubscriptionService = systemSubscriptionService;
         }
 
         [HttpGet]
@@ -60,7 +63,9 @@
         {
             var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
             var listOfUsers = this.userSubscriptionServiceService.LoadAllObservableSubscription();
+            var events = this.systemSubscriptionService.LoadEvents();
             viewmodel.Users = listOfUsers;
+            viewmodel.ChannelEvents = events;
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 

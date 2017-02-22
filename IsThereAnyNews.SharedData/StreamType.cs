@@ -5,6 +5,9 @@ namespace IsThereAnyNews.SharedData
         Unknown = 0,
         All,
         Rss,
-        Person
+        Person,
+        System,
+        Channel,
+        Exception
     }
 }
