@@ -22,18 +22,15 @@ namespace IsThereAnyNews.Services
             this.mapper = mapper;
         }
 
-        public List<ChannelEventViewModel> LoadEvents()
+        public AdminEventsViewModel LoadEvents()
         {
             var roles = this.authentication.GetCurrentUserRoles();
             if (roles.Contains(ItanRole.SuperAdmin))
             {
                 return this.LoadSuperAdminEvents();
             }
-            if (roles.Contains(ItanRole.Admin))
-            {
-                return this.LoadAdminEvents();
-            }
-            return new List<ChannelEventViewModel>();
+
+            return new AdminEventsViewModel();
         }
 
         public List<ChannelEventViewModel> LoadAdminEvents()
@@ -41,27 +38,57 @@ namespace IsThereAnyNews.Services
             return new List<ChannelEventViewModel>();
         }
 
-        public List<ChannelEventViewModel> LoadSuperAdminEvents()
+        public AdminEventsViewModel LoadSuperAdminEvents()
         {
-            List<ChannelEventViewModel> events = new List<ChannelEventViewModel>();
             var updates = this.rssChannelRepository.LoadUpdateEvents();
             var creations = this.rssChannelRepository.LoadCreateEvents();
-            ChannelEventViewModel u = new ChannelEventViewModel
+            var exceptions = this.rssChannelRepository.LoadExceptionEvents();
+
+            ChannelEventViewModel u = new ChannelEventUpdatesViewModel
             {
                 Count = updates.UpdateCout.ToString(),
-                Name = "Updates"
+                Name = "Updates",
+                Id = -1
             };
 
-            var c = new ChannelEventViewModel
+            var c = new ChannelEventCreationViewModel
             {
                 Count = creations.Count.ToString(),
-                Name = "Creations"
+                Name = "Creations",
+                Id = -2
             };
 
-            events.Add(u);
-            events.Add(c);
+            var e = new ChannelEventExceptionViewModel
+            {
+                Count = exceptions.Count.ToString(),
+                Name = "Exceptions",
+                Id = -3
+            };
+
+            var events = new AdminEventsViewModel
+            {
+                Updates = u,
+                Creations = c,
+                Exceptions = e
+            };
+
 
             return events;
         }
+    }
+
+    public class ChannelEventExceptionViewModel : ChannelEventViewModel
+    {
+        public override StreamType StreamType => StreamType.Exception;
+    }
+
+    public class ChannelEventCreationViewModel : ChannelEventViewModel
+    {
+        public override StreamType StreamType => StreamType.Channel;
+    }
+
+    public class ChannelEventUpdatesViewModel : ChannelEventViewModel
+    {
+        public override StreamType StreamType => StreamType.Channel;
     }
 }

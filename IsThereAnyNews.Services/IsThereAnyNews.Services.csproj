@@ -85,14 +85,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChannelSubscriptionHandle.cs" />
-    <Compile Include="ExceptionSubscriptionHandle.cs" />
+    <Compile Include="Implementation\ChannelUpdateEventDto.cs" />
+    <Compile Include="Implementation\ChannelUpdatesSubscriptionHandler.cs" />
+    <Compile Include="Implementation\ExceptionEventDto.cs" />
+    <Compile Include="Implementation\ExceptionEventsRepository.cs" />
+    <Compile Include="Implementation\ExceptionSubscriptionHandler.cs" />
     <Compile Include="IAdminService.cs" />
     <Compile Include="Implementation\AdminService.cs" />
     <Compile Include="Implementation\ContactService.cs" />
     <Compile Include="IContactService.cs" />
     <Compile Include="Implementation\AccountService.cs" />
     <Compile Include="IAccountService.cs" />
+    <Compile Include="Implementation\IChannelEventsRepository.cs" />
+    <Compile Include="Implementation\ChannelEventsRepository.cs" />
+    <Compile Include="Implementation\IExceptionEventsRepository.cs" />
     <Compile Include="Implementation\SyndicationFeedAdapter.cs" />
     <Compile Include="ISubscriptionHandler.cs" />
     <Compile Include="ISubscriptionHandlerFactory.cs" />
@@ -134,6 +140,10 @@
     <ProjectReference Include="..\IsThereAnyNews.Dtos\IsThereAnyNews.Dtos.csproj">
       <Project>{756F51E8-7A9C-4645-8858-55C91561F131}</Project>
       <Name>IsThereAnyNews.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
+      <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
+      <Name>IsThereAnyNews.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Extensions\IsThereAnyNews.Extensions.csproj">
       <Project>{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}</Project>

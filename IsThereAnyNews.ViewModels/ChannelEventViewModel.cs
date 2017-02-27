@@ -7,6 +7,6 @@ namespace IsThereAnyNews.ViewModels
         public string Count { get; set; }
         public long Id { get; set; }
         public string Name { get; set; }
-        public StreamType StreamType => StreamType.Channel;
+        public virtual StreamType StreamType => StreamType.Channel;
     }
 }

@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountDetailsViewModel.cs" />
+    <Compile Include="AdminEvents.cs" />
     <Compile Include="AllUsersPublicProfilesViewModel.cs" />
     <Compile Include="ChannelInformationViewModel.cs" />
     <Compile Include="ChannelWithSubscriptionCountViewModel.cs" />

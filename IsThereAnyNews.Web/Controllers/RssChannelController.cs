@@ -65,7 +65,7 @@
             var listOfUsers = this.userSubscriptionServiceService.LoadAllObservableSubscription();
             var events = this.systemSubscriptionService.LoadEvents();
             viewmodel.Users = listOfUsers;
-            viewmodel.ChannelEvents = events;
+            viewmodel.Events = events;
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 

@@ -458,19 +458,19 @@
             var f =
                 from channel in this.database.RssChannels
                 join subscription in this.database.RssChannelsSubscriptions
-                    on channel.Id equals subscription.RssChannelId into RCS
+                on channel.Id equals subscription.RssChannelId into RCS
                 join entries in this.database.RssEntries
-                    on channel.Id equals entries.RssChannelId into RE
+                on channel.Id equals entries.RssChannelId into RE
                 select
-                    new RssChannelSubscriptionWithStatisticsData
-                    {
-                        Id = channel.Id,
-                        Title = channel.Title,
-                        SubscriptionsCount = RCS.Count(),
-                        RssEntriesCount = RE.Count(),
-                        Created = channel.Created,
-                        Updated = channel.Updated
-                    };
+                new RssChannelSubscriptionWithStatisticsData
+                {
+                    Id = channel.Id,
+                    Title = channel.Title,
+                    SubscriptionsCount = RCS.Count(),
+                    RssEntriesCount = RE.Count(),
+                    Created = channel.Created,
+                    Updated = channel.Updated
+                };
 
             return f.Distinct().ToList();
         }
@@ -527,8 +527,8 @@
         RssChannelCreations IRssChannelsRepository.LoadCreateEvents()
         {
             var count = this.database
-                            .EventRssChannelCreated
-                            .Count();
+                .EventRssChannelCreated
+                .Count();
 
             var rssChannelCreations = new RssChannelCreations
             {
@@ -536,6 +536,15 @@
             };
 
             return rssChannelCreations;
+        }
+
+        public RssChannelExceptions LoadExceptionEvents()
+        {
+            var count = this.database.EventException.Count();
+            return new RssChannelExceptions
+            {
+                Count = count
+            };
         }
 
         public void SaveToDatabase(List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace)

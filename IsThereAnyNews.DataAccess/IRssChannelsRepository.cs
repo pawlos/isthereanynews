@@ -24,6 +24,12 @@ namespace IsThereAnyNews.DataAccess
         ChannelUrlAndTitleDTO LoadUrlAndTitle(long channelId);
         RssChannelUpdateds LoadUpdateEvents();
         RssChannelCreations LoadCreateEvents();
+        RssChannelExceptions LoadExceptionEvents();
+    }
+
+    public class RssChannelExceptions
+    {
+        public int Count { get; set; }
     }
 
     public class RssChannelCreatedEvent
