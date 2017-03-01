@@ -9,9 +9,10 @@
     {
         private readonly IUsersService usersService;
 
-        public UsersController(IUsersService usersService,
-                               IUserAuthentication authentication,
-                               ILoginService loginService)
+        public UsersController(
+            IUsersService usersService,
+            IUserAuthentication authentication,
+            ILoginService loginService)
             : base(authentication, loginService)
         {
             this.usersService = usersService;

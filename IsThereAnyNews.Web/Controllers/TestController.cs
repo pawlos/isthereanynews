@@ -69,7 +69,7 @@
             var one = 1;
             var zero = 0;
             var x = one / zero;
-            return this.RedirectToAction("Index");
+            return this.RedirectToAction("Index", x);
         }
 
         public ActionResult FixDuplicatedChannels()

@@ -26,14 +26,7 @@
             this.loginService = loginService;
         }
 
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return this.HttpContext.GetOwinContext().Authentication;
-            }
-        }
+        private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -94,6 +87,7 @@
                     {
                         return this.RedirectToAction("RegistrationClosed");
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -123,9 +117,8 @@
         public ActionResult RegistrationClosed()
         {
             this.Session.Clear();
-            Request.GetOwinContext()
-                .Authentication.SignOut(
-                    HttpContext.GetOwinContext()
+            this.Request.GetOwinContext()
+                .Authentication.SignOut(this.HttpContext.GetOwinContext()
                         .Authentication.GetAuthenticationTypes()
                         .Select(o => o.AuthenticationType)
                         .ToArray());

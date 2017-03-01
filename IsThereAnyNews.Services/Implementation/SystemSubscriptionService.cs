@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.SharedData;
-using IsThereAnyNews.ViewModels;
-
-namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Services.Implementation
 {
+    using System.Collections.Generic;
+
+    using AutoMapper;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels;
+
     public class SystemSubscriptionService : ISystemSubscriptionService
     {
         private readonly IUserAuthentication authentication;
@@ -75,20 +77,5 @@ namespace IsThereAnyNews.Services
 
             return events;
         }
-    }
-
-    public class ChannelEventExceptionViewModel : ChannelEventViewModel
-    {
-        public override StreamType StreamType => StreamType.Exception;
-    }
-
-    public class ChannelEventCreationViewModel : ChannelEventViewModel
-    {
-        public override StreamType StreamType => StreamType.Channel;
-    }
-
-    public class ChannelEventUpdatesViewModel : ChannelEventViewModel
-    {
-        public override StreamType StreamType => StreamType.Channel;
     }
 }
