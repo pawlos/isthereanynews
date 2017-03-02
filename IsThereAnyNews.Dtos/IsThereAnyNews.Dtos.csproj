@@ -48,7 +48,9 @@
     <Compile Include="ChangeEmailModel.cs" />
     <Compile Include="ChangeRegistrationDto.cs" />
     <Compile Include="ChangeUsersLimitDto.cs" />
+    <Compile Include="ChannelUpdateEventDto.cs" />
     <Compile Include="ContactAdministrationModel.cs" />
+    <Compile Include="ExceptionEventDto.cs" />
     <Compile Include="MarkClickedDto.cs" />
     <Compile Include="MarkReadDto.cs" />
     <Compile Include="MarkReadForSubscriptionDto.cs" />

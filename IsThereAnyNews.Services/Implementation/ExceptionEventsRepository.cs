@@ -5,7 +5,7 @@ using IsThereAnyNews.EntityFramework;
 
 namespace IsThereAnyNews.Services.Implementation
 {
-    public class ExceptionEventsRepository : IExceptionEventsRepository
+    public class ExceptionEventsRepository : DataAccess.IExceptionEventsRepository
     {
         private readonly ItanDatabaseContext database;
 
@@ -14,14 +14,14 @@ namespace IsThereAnyNews.Services.Implementation
             this.database = database;
         }
 
-        public List<ExceptionEventDto> LoadLatest(int eventCount)
+        public List<Dtos.ExceptionEventDto> LoadLatest(int eventCount)
         {
             var exceptionEventDtos = this.database
                 .EventException
                 .Include(i => i.ItanException)
                 .OrderByDescending(o => o.Id)
                 .Take(eventCount)
-                .Select(s => new ExceptionEventDto
+                .Select(s => new Dtos.ExceptionEventDto
                 {
                     Id = s.Id,
                     Occured = s.Created,

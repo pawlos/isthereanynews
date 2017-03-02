@@ -10,3 +10,4 @@ namespace IsThereAnyNews.Services
         void SaveAdministrationContact(ContactAdministrationDto dto);
     }
 }
+

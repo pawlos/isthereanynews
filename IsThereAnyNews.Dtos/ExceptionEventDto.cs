@@ -1,7 +1,7 @@
-using System;
-
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.Dtos
 {
+    using System;
+
     public class ExceptionEventDto
     {
         public long Id { get; set; }

@@ -8,9 +8,9 @@ namespace IsThereAnyNews.Services.Implementation
 {
     public class ChannelUpdatesSubscriptionHandler : ISubscriptionHandler
     {
-        private readonly IChannelEventsRepository channelEventsRepository;
+        private readonly DataAccess.IChannelEventsRepository channelEventsRepository;
 
-        public ChannelUpdatesSubscriptionHandler(IChannelEventsRepository channelEventsRepository)
+        public ChannelUpdatesSubscriptionHandler(DataAccess.IChannelEventsRepository channelEventsRepository)
         {
             this.channelEventsRepository = channelEventsRepository;
         }

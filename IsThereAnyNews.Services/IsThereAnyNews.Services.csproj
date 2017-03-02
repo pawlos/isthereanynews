@@ -88,9 +88,7 @@
     <Compile Include="Implementation\ChannelEventCreationViewModel.cs" />
     <Compile Include="Implementation\ChannelEventExceptionViewModel.cs" />
     <Compile Include="Implementation\ChannelEventUpdatesViewModel.cs" />
-    <Compile Include="Implementation\ChannelUpdateEventDto.cs" />
     <Compile Include="Implementation\ChannelUpdatesSubscriptionHandler.cs" />
-    <Compile Include="Implementation\ExceptionEventDto.cs" />
     <Compile Include="Implementation\ExceptionEventsRepository.cs" />
     <Compile Include="Implementation\ExceptionSubscriptionHandler.cs" />
     <Compile Include="IAdminService.cs" />
@@ -99,9 +97,7 @@
     <Compile Include="IContactService.cs" />
     <Compile Include="Implementation\AccountService.cs" />
     <Compile Include="IAccountService.cs" />
-    <Compile Include="Implementation\IChannelEventsRepository.cs" />
     <Compile Include="Implementation\ChannelEventsRepository.cs" />
-    <Compile Include="Implementation\IExceptionEventsRepository.cs" />
     <Compile Include="Implementation\SyndicationFeedAdapter.cs" />
     <Compile Include="ISubscriptionHandler.cs" />
     <Compile Include="ISubscriptionHandlerFactory.cs" />

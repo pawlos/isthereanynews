@@ -8,9 +8,9 @@ namespace IsThereAnyNews.Services.Implementation
 {
     public class ExceptionSubscriptionHandler : ISubscriptionHandler
     {
-        private readonly IExceptionEventsRepository exceptionEventsRepository;
+        private readonly DataAccess.IExceptionEventsRepository exceptionEventsRepository;
 
-        public ExceptionSubscriptionHandler(IExceptionEventsRepository exceptionEventsRepository)
+        public ExceptionSubscriptionHandler(DataAccess.IExceptionEventsRepository exceptionEventsRepository)
         {
             this.exceptionEventsRepository = exceptionEventsRepository;
         }
@@ -55,7 +55,7 @@ namespace IsThereAnyNews.Services.Implementation
             return rssEntryToReadViewModels.ToList();
         }
 
-        private List<ExceptionEventDto> LoadLatestExceptions(int eventCount)
+        private List<Dtos.ExceptionEventDto> LoadLatestExceptions(int eventCount)
         {
             var loadLatest = this.exceptionEventsRepository.LoadLatest(eventCount);
             return loadLatest;

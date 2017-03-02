@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IChannelEventsRepository.cs" />
+    <Compile Include="IExceptionEventsRepository.cs" />
     <Compile Include="Implementation\ApplicationSettingsRepository.cs" />
     <Compile Include="Implementation\AdminRepository.cs" />
     <Compile Include="IAdminRepository.cs" />
