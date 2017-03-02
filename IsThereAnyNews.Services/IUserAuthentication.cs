@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-
-namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Services
 {
-    using IsThereAnyNews.SharedData;
+    using System.Collections.Generic;
     using System.Security.Claims;
+
+    using IsThereAnyNews.SharedData;
 
     public interface IUserAuthentication
     {

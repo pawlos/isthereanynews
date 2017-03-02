@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace IsThereAnyNews.Services
 {
+    using System.Collections.Generic;
+
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 

@@ -85,6 +85,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\ChannelEventCreationViewModel.cs" />
+    <Compile Include="Implementation\ChannelEventExceptionViewModel.cs" />
+    <Compile Include="Implementation\ChannelEventUpdatesViewModel.cs" />
     <Compile Include="Implementation\ChannelUpdateEventDto.cs" />
     <Compile Include="Implementation\ChannelUpdatesSubscriptionHandler.cs" />
     <Compile Include="Implementation\ExceptionEventDto.cs" />
@@ -130,7 +133,7 @@
     <Compile Include="Implementation\UsersService.cs" />
     <Compile Include="Implementation\UserSubscriptionService.cs" />
     <Compile Include="RssSourceWithUrlAndTitleComparer.cs" />
-    <Compile Include="SystemSubscriptionService.cs" />
+    <Compile Include="Implementation\SystemSubscriptionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">

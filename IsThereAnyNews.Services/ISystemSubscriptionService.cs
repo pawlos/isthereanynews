@@ -1,7 +1,7 @@
-﻿using IsThereAnyNews.ViewModels;
-
-namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Services
 {
+    using IsThereAnyNews.ViewModels;
+
     public interface ISystemSubscriptionService
     {
         AdminEventsViewModel LoadEvents();

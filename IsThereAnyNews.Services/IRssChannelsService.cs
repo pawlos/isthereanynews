@@ -1,9 +1,7 @@
-﻿using IsThereAnyNews.ViewModels.RssChannel;
-
-namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Services
 {
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.ViewModels;
+    using IsThereAnyNews.ViewModels.RssChannel;
 
     public interface IRssChannelsService
     {

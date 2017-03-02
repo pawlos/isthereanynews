@@ -1,8 +1,9 @@
-﻿using IsThereAnyNews.ViewModels;
-using System.Collections.Generic;
-
-namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Services
 {
+    using System.Collections.Generic;
+
+    using IsThereAnyNews.ViewModels;
+
     public interface IUserSubscriptionService
     {
         List<ObservableUserEventsInformation> LoadAllObservableSubscription();

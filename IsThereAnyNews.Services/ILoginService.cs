@@ -1,7 +1,8 @@
 namespace IsThereAnyNews.Services
 {
-    using IsThereAnyNews.SharedData;
     using System.Security.Claims;
+
+    using IsThereAnyNews.SharedData;
 
     public interface ILoginService
     {
