@@ -6,13 +6,11 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class ContactService : IContactService
     {
-        private readonly IContactAdministrationEventRepository eventsContactAdministration;
-        private readonly IContactAdministrationRepository repositoryContactAdministration;
-        public ContactService(IContactAdministrationRepository repositoryContactAdministration,
-            IContactAdministrationEventRepository eventsContactAdministration)
+        private readonly IEntityRepository entityRepository;
+
+        public ContactService(IEntityRepository entityRepository)
         {
-            this.repositoryContactAdministration = repositoryContactAdministration;
-            this.eventsContactAdministration = eventsContactAdministration;
+            this.entityRepository = entityRepository;
         }
 
         public ContactViewModel GetViewModel()
@@ -22,8 +20,8 @@ namespace IsThereAnyNews.Services.Implementation
 
         public void SaveAdministrationContact(ContactAdministrationDto dto)
         {
-            var contactId = this.repositoryContactAdministration.SaveToDatabase(dto);
-            this.eventsContactAdministration.SaveContactAdministrationEventEventToDatabase(contactId);
+            var contactId = this.entityRepository.SaveToDatabase(dto);
+            this.entityRepository.SaveContactAdministrationEventEventToDatabase(contactId);
         }
     }
 }

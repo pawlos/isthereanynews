@@ -58,32 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IChannelEventsRepository.cs" />
-    <Compile Include="IExceptionEventsRepository.cs" />
     <Compile Include="Implementation\EntityRepository.cs" />
-    <Compile Include="IAdminRepository.cs" />
-    <Compile Include="IExceptionEventRepository.cs" />
-    <Compile Include="IExceptionRepository.cs" />
-    <Compile Include="IContactAdministrationEventRepository.cs" />
-    <Compile Include="IContactAdministrationRepository.cs" />
-    <Compile Include="IEventRssChannelCreatedRepository.cs" />
     <Compile Include="IEntityRepository.cs" />
     <Compile Include="Implementation\RssChannelDTOComparer.cs" />
-    <Compile Include="IPersonSubscriptionRepository.cs" />
-    <Compile Include="IApplicationSettingsRepository.cs" />
-    <Compile Include="IRssActionRepository.cs" />
-    <Compile Include="IRssChannelsSubscriptionsRepository.cs" />
-    <Compile Include="IRssChannelUpdateRepository.cs" />
-    <Compile Include="IRssEntriesRepository.cs" />
-    <Compile Include="IRssEntriesToReadRepository.cs" />
-    <Compile Include="IRssEventRepository.cs" />
-    <Compile Include="ISocialLoginRepository.cs" />
-    <Compile Include="IUpdateRepository.cs" />
-    <Compile Include="IUserRepository.cs" />
-    <Compile Include="IRssChannelsRepository.cs" />
-    <Compile Include="IUserRoleRepository.cs" />
-    <Compile Include="IUsersSubscriptionRepository.cs" />
-    <Compile Include="IUserSubscriptionEntryToReadRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

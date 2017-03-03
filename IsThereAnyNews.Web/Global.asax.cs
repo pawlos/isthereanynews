@@ -84,7 +84,7 @@
         private void SaveExceptionToDatabase(Exception httpException)
         {
             var exceptionGuid = Guid.NewGuid();
-            IExceptionEventRepository exceptionEventRepository = DependencyResolver.Current.GetService(typeof(IExceptionEventRepository)) as IExceptionEventRepository;
+            var repository = DependencyResolver.Current.GetService(typeof(IEntityRepository)) as IEntityRepository;
 
             var claimsPrincipal = this.User as ClaimsPrincipal;
             var userId = long.Parse(claimsPrincipal?.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier).Value ?? "0");
@@ -93,19 +93,19 @@
                 .ToList()
                 .Select(
                     exception => new ItanException
-                                     {
-                                         Message = exception.Message,
-                                         Source = exception.Source,
-                                         Stacktrace = exception.StackTrace,
-                                         Typeof = exception.GetType().ToString(),
-                                         ErrorId = exceptionGuid,
-                                         UserId = userId
-                                     });
+                    {
+                        Message = exception.Message,
+                        Source = exception.Source,
+                        Stacktrace = exception.StackTrace,
+                        Typeof = exception.GetType().ToString(),
+                        ErrorId = exceptionGuid,
+                        UserId = userId
+                    });
 
             var eventItanExceptions = exceptions.Select(e => new EventItanException() { ErrorId = exceptionGuid, ItanException = e });
 
-            //exceptionRepository.SaveToDatabase(exceptions);
-            exceptionEventRepository.SaveToDatabase(eventItanExceptions);
+            //exceptionRepository.SaveExceptionToDatabase(exceptions);
+            repository.SaveExceptionToDatabase(eventItanExceptions);
         }
 
         private IEnumerable<Exception> GetAllExceptions(Exception ex)

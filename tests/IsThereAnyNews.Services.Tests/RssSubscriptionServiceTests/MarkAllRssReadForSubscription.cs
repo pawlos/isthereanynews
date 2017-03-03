@@ -17,14 +17,14 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
     {
         private AutoMoqer moqer;
         private RssSubscriptionService sut;
-        private Mock<IRssEntriesToReadRepository> mockRssToReadRepository;
+        private Mock<IEntityRepository> mockEntityRepository;
 
         [SetUp]
         public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<RssSubscriptionService>();
-            this.mockRssToReadRepository = this.moqer.GetMock<IRssEntriesToReadRepository>();
+            this.mockEntityRepository = this.moqer.GetMock<IEntityRepository>();
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             this.sut.MarkAllRssReadForSubscription(dto);
 
             // assert
-            this.mockRssToReadRepository
+            this.mockEntityRepository
                 .Verify(v => v.MarkAllReadForUserAndSubscription(
                     It.Is<long>(p => p == 0),
                     It.Is<List<long>>(p => p.Count == 3 &&
@@ -65,7 +65,7 @@ namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
             this.sut.MarkAllRssReadForSubscription(dto);
 
             // assert
-            this.mockRssToReadRepository
+            this.mockEntityRepository
                 .Verify(v => v.MarkAllReadForUserAndSubscription(
                     It.IsAny<long>(),
                     It.IsAny<List<long>>()),

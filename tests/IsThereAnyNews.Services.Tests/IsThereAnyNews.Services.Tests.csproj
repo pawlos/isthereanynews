@@ -77,7 +77,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OpmlImporterServiceTests\Import.cs" />
     <Compile Include="OpmlImporterServiceTests\ParseToRssChannelList.cs" />
     <Compile Include="RssChannelServiceTests\LoadAllChannels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

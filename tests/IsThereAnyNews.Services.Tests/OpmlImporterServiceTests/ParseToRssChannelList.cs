@@ -14,16 +14,14 @@
     {
         private AutoMoqer moqer;
         private OpmlImporterService sut;
-        private Mock<IRssChannelsRepository> mockRssChannelsRepository;
-        private Mock<IRssChannelsSubscriptionsRepository> mockRssSubscriptionsRepository;
+        private Mock<IEntityRepository> mockEntityRepository;
 
         [SetUp]
         public void Setup()
         {
             this.moqer = new AutoMoq.AutoMoqer();
             this.sut = this.moqer.Resolve<OpmlImporterService>();
-            this.mockRssChannelsRepository = this.moqer.GetMock<IRssChannelsRepository>();
-            this.mockRssSubscriptionsRepository = this.moqer.GetMock<IRssChannelsSubscriptionsRepository>();
+            this.mockEntityRepository = this.moqer.GetMock<IEntityRepository>();
         }
 
         [Test]
