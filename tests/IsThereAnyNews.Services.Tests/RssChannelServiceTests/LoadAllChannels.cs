@@ -40,11 +40,11 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
             // arrange 
 
             this.mockRssChannelsRepository.Setup(x => x.LoadAllChannelsWithStatistics())
-                .Returns(new List<RssChannelSubscriptionWithStatisticsData>
+                .Returns(new List<Dtos.RssChannelSubscriptionWithStatisticsData>
                 {
-                    new RssChannelSubscriptionWithStatisticsData(),
-                    new RssChannelSubscriptionWithStatisticsData(),
-                    new RssChannelSubscriptionWithStatisticsData()
+                    new Dtos.RssChannelSubscriptionWithStatisticsData(),
+                    new Dtos.RssChannelSubscriptionWithStatisticsData(),
+                    new Dtos.RssChannelSubscriptionWithStatisticsData()
                 });
 
             // act
@@ -59,11 +59,11 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
         {
             // arrange 
             this.mockRssChannelsRepository.Setup(x => x.LoadAllChannelsWithStatistics())
-                .Returns(new List<RssChannelSubscriptionWithStatisticsData>
+                .Returns(new List<Dtos.RssChannelSubscriptionWithStatisticsData>
                 {
-                    new RssChannelSubscriptionWithStatisticsData(),
-                    new RssChannelSubscriptionWithStatisticsData(),
-                    new RssChannelSubscriptionWithStatisticsData()
+                    new Dtos.RssChannelSubscriptionWithStatisticsData(),
+                    new Dtos.RssChannelSubscriptionWithStatisticsData(),
+                    new Dtos.RssChannelSubscriptionWithStatisticsData()
                 });
 
             // act
@@ -71,7 +71,7 @@ namespace IsThereAnyNews.Services.Tests.RssChannelServiceTests
 
             // assert
             this.mockMapper.Verify(
-                x => x.Map<RssChannelsIndexViewModel>(It.IsAny<List<RssChannelSubscriptionWithStatisticsData>>()),
+                x => x.Map<RssChannelsIndexViewModel>(It.IsAny<List<Dtos.RssChannelSubscriptionWithStatisticsData>>()),
                 Times.Once());
         }
     }

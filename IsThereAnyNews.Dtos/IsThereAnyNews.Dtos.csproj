@@ -44,22 +44,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddChannelDto.cs" />
-    <Compile Include="ChangeDisplayNameModel.cs" />
-    <Compile Include="ChangeEmailModel.cs" />
+    <Compile Include="ChangeDisplayNameModelDto.cs" />
+    <Compile Include="ChangeEmailModelDto.cs" />
     <Compile Include="ChangeRegistrationDto.cs" />
     <Compile Include="ChangeUsersLimitDto.cs" />
     <Compile Include="ChannelUpdateEventDto.cs" />
-    <Compile Include="ContactAdministrationModel.cs" />
+    <Compile Include="ContactAdministrationDto.cs" />
     <Compile Include="ExceptionEventDto.cs" />
     <Compile Include="MarkClickedDto.cs" />
     <Compile Include="MarkReadDto.cs" />
     <Compile Include="MarkReadForSubscriptionDto.cs" />
     <Compile Include="MarkSkippedDto.cs" />
+    <Compile Include="NameAndCountUserSubscription.cs" />
     <Compile Include="NewRssEntryDTO.cs" />
     <Compile Include="OpmlImporterIndexDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssActionModel.cs" />
+    <Compile Include="RssChannelCreatedEvent.cs" />
+    <Compile Include="RssChannelCreations.cs" />
+    <Compile Include="RssChannelExceptions.cs" />
+    <Compile Include="RssChannelSubscriptionWithStatisticsData.cs" />
+    <Compile Include="RssChannelUpdatedEvent.cs" />
+    <Compile Include="RssChannelUpdateds.cs" />
+    <Compile Include="RssStatistics.cs" />
     <Compile Include="SubscribeToUserActivityDto.cs" />
+    <Compile Include="UserPublicProfile.cs" />
+    <Compile Include="UserWithStatistics.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">

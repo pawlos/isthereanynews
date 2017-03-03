@@ -1,17 +1,15 @@
-﻿using System;
-
-namespace IsThereAnyNews.DataAccess
+﻿namespace IsThereAnyNews.DataAccess
 {
     using System.Collections.Generic;
 
-    using IsThereAnyNews.DataAccess.Implementation;
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.ProjectionModels.Mess;
 
     public interface IRssChannelsRepository
     {
-        List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics();
+        List<Dtos.RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics();
         List<RssChannel> LoadAllChannelsForUser(long userIdToLoad);
         void SaveToDatabase(List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace);
         List<long> GetIdByChannelUrl(List<string> urlstoChannels);
@@ -22,29 +20,8 @@ namespace IsThereAnyNews.DataAccess
         List<RssChannel> LoadAllChannels();
 
         ChannelUrlAndTitleDTO LoadUrlAndTitle(long channelId);
-        RssChannelUpdateds LoadUpdateEvents();
+        Dtos.RssChannelUpdateds LoadUpdateEvents();
         RssChannelCreations LoadCreateEvents();
         RssChannelExceptions LoadExceptionEvents();
-    }
-
-    public class RssChannelExceptions
-    {
-        public int Count { get; set; }
-    }
-
-    public class RssChannelCreatedEvent
-    {
-        public long Id { get; set; }
-        public DateTime Updated { get; set; }
-        public long ChannelId { get; set; }
-        public string ChannelTitle { get; set; }
-    }
-
-    public class RssChannelUpdatedEvent
-    {
-        public long Id { get; set; }
-        public DateTime Updated { get; set; }
-        public long ChannelId { get; set; }
-        public string ChannelTitle { get; set; }
     }
 }

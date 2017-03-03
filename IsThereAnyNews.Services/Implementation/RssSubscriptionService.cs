@@ -11,28 +11,17 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class RssSubscriptionService : IRssSubscriptionService
     {
-        private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
-        private readonly IRssEntriesToReadRepository rssToReadRepository;
-        private readonly IRssEventRepository rssEventsRepository;
-        private readonly IRssChannelsRepository rssChannelsRepository;
         private readonly ISubscriptionHandlerFactory subscriptionHandlerFactory;
-
         private readonly IUserAuthentication authentication;
+        private readonly IEntityRepository entityRepository;
 
         public RssSubscriptionService(
-            IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
-            IRssEntriesToReadRepository rssToReadRepository,
-            IRssEventRepository rssEventsRepository,
-            IRssChannelsRepository rssChannelsRepository,
             ISubscriptionHandlerFactory subscriptionHandlerFactory,
-            IUserAuthentication authentication)
+            IUserAuthentication authentication, IEntityRepository entityRepository)
         {
-            this.rssSubscriptionsRepository = rssSubscriptionsRepository;
-            this.rssToReadRepository = rssToReadRepository;
-            this.rssEventsRepository = rssEventsRepository;
-            this.rssChannelsRepository = rssChannelsRepository;
             this.subscriptionHandlerFactory = subscriptionHandlerFactory;
             this.authentication = authentication;
+            this.entityRepository = entityRepository;
         }
 
         public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
@@ -49,38 +38,38 @@ namespace IsThereAnyNews.Services.Implementation
                 dto.RssEntries.Split(separator, StringSplitOptions.None)
                 .Select(long.Parse)
                 .ToList();
-            this.rssToReadRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
+            this.entityRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
         }
 
         public void UnsubscribeCurrentUserFromChannelId(long id)
         {
             var userId = this.authentication.GetCurrentUserId();
-            this.rssSubscriptionsRepository.DeleteSubscriptionFromUser(id, userId);
+            this.entityRepository.DeleteSubscriptionFromUser(id, userId);
         }
 
         public void SubscribeCurrentUserToChannel(long channelId)
         {
             var currentUserId = this.authentication.GetCurrentUserId();
-            var isUserSubscribedToChannelUrl = this.rssSubscriptionsRepository.IsUserSubscribedToChannelId(currentUserId, channelId);
+            var isUserSubscribedToChannelUrl = this.entityRepository.IsUserSubscribedToChannelId(currentUserId, channelId);
 
             if (!isUserSubscribedToChannelUrl)
             {
-                this.rssSubscriptionsRepository.Subscribe(channelId, currentUserId);
+                this.entityRepository.Subscribe(channelId, currentUserId);
             }
         }
 
         public void SubscribeCurrentUserToChannel(AddChannelDto channelId)
         {
             var currentUserId = this.authentication.GetCurrentUserId();
-            var isUserSubscribedToChannelUrl = this.rssSubscriptionsRepository.IsUserSubscribedToChannelUrl(currentUserId, channelId.RssChannelLink);
+            var isUserSubscribedToChannelUrl = this.entityRepository.IsUserSubscribedToChannelUrl(currentUserId, channelId.RssChannelLink);
 
             if (!isUserSubscribedToChannelUrl)
             {
-                var idByChannelUrl = this.rssChannelsRepository
+                var idByChannelUrl = this.entityRepository
                     .GetIdByChannelUrl(new List<string> { channelId.RssChannelLink })
                     .Single();
 
-                this.rssSubscriptionsRepository.Subscribe(idByChannelUrl, currentUserId, channelId.RssChannelName);
+                this.entityRepository.Subscribe(idByChannelUrl, currentUserId, channelId.RssChannelName);
             }
         }
 
@@ -95,7 +84,7 @@ namespace IsThereAnyNews.Services.Implementation
         public void MarkClicked(MarkClickedDto dto)
         {
             var currentUserId = this.authentication.GetCurrentUserId();
-            this.rssEventsRepository.MarkClicked(dto.Id, currentUserId);
+            this.entityRepository.MarkClicked(dto.Id, currentUserId);
         }
 
         public void MarkEntriesRead(MarkReadDto dto)

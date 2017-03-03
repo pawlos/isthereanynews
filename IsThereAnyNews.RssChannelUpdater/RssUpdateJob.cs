@@ -1,13 +1,10 @@
 ﻿namespace IsThereAnyNews.RssChannelUpdater
 {
-    using AutoMapper;
-
     using FluentScheduler;
 
     using IsThereAnyNews.Automapper;
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.EntityFramework;
-    using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.Services;
     using IsThereAnyNews.Services.Implementation;
 
@@ -20,19 +17,14 @@
             var configureMapper = IsThereAnyNewsAutomapper.ConfigureMapper();
 
             var itanDatabaseContext = new ItanDatabaseContext();
-            var updateRepository = new UpdateRepository(itanDatabaseContext);
-            var rssEntriesRepository = new RssEntriesRepository(itanDatabaseContext, configureMapper);
-            var rssChannelsRepository = new RssChannelsRepository(itanDatabaseContext);
-            var rssChannelUpdateRepository = new RssChannelUpdateRepository(itanDatabaseContext);
+            var updateRepository = new EntityRepository(itanDatabaseContext, null);
 
             ISyndicationFeedAdapter syndicationFeedAdapter = new SyndicationFeedAdapter(configureMapper);
 
             this.updateService = new UpdateService(
-                updateRepository,
-                rssEntriesRepository,
-                rssChannelUpdateRepository,
                 syndicationFeedAdapter,
-                configureMapper);
+                configureMapper,
+                updateRepository);
         }
 
         public void Execute()

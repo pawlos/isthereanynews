@@ -1,18 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using IsThereAnyNews.SharedData;
-using IsThereAnyNews.ViewModels;
-
 namespace IsThereAnyNews.Services.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels;
+
     public class ExceptionSubscriptionHandler : ISubscriptionHandler
     {
-        private readonly DataAccess.IExceptionEventsRepository exceptionEventsRepository;
+        private readonly IEntityRepository entityRepository;
 
-        public ExceptionSubscriptionHandler(DataAccess.IExceptionEventsRepository exceptionEventsRepository)
+        public ExceptionSubscriptionHandler(IEntityRepository entityRepository)
         {
-            this.exceptionEventsRepository = exceptionEventsRepository;
+            this.entityRepository = entityRepository;
+        }
+
+        public void AddEventSkipped(long cui, string entries)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddEventViewed(long dtoId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void AddEventViewed(long cui, long id)
+        {
+            throw new System.NotImplementedException();
         }
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries)
@@ -32,6 +49,21 @@ namespace IsThereAnyNews.Services.Implementation
             var rssSubscriptionIndexViewModel = subscriptionIndexViewModel;
 
             return rssSubscriptionIndexViewModel;
+        }
+
+        public void MarkRead(List<long> displayedItems)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
+        {
+            throw new System.NotImplementedException();
         }
 
         private List<RssEntryToReadViewModel> LoadExceptionEvents(ShowReadEntries showReadEntries)
@@ -57,38 +89,8 @@ namespace IsThereAnyNews.Services.Implementation
 
         private List<Dtos.ExceptionEventDto> LoadLatestExceptions(int eventCount)
         {
-            var loadLatest = this.exceptionEventsRepository.LoadLatest(eventCount);
+            var loadLatest = this.entityRepository.LoadLatest(eventCount);
             return loadLatest;
-        }
-
-        public void MarkRead(List<long> displayedItems)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void AddEventViewed(long dtoId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void AddEventViewed(long cui, long id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void AddEventSkipped(long cui, string entries)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

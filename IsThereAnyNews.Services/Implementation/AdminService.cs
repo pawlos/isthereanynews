@@ -10,22 +10,22 @@
 
     public class AdminService : IAdminService
     {
-        private readonly IAdminRepository adminRepository;
-
         private readonly IMapper mapper;
 
-        public AdminService(IAdminRepository adminRepository, IMapper mapper)
+        private readonly IEntityRepository entityRepository;
+
+        public AdminService(IMapper mapper, IEntityRepository entityRepository)
         {
-            this.adminRepository = adminRepository;
             this.mapper = mapper;
+            this.entityRepository = entityRepository;
         }
 
         public ItanApplicationConfigurationViewModel ReadConfiguration()
         {
-            var appConfiguration = this.adminRepository.LoadApplicationConfiguration();
-            var numberOfRegisteredUsers = this.adminRepository.GetNumberOfRegisteredUsers();
-            var numberOfRssSubscriptions = this.adminRepository.GetNumberOfRssSubscriptions();
-            var numberOfRssNews = this.adminRepository.GetNumberOfRssNews();
+            var appConfiguration = this.entityRepository.LoadApplicationConfiguration();
+            var numberOfRegisteredUsers = this.entityRepository.GetNumberOfRegisteredUsers();
+            var numberOfRssSubscriptions = this.entityRepository.GetNumberOfRssSubscriptions();
+            var numberOfRssNews = this.entityRepository.GetNumberOfRssNews();
             var viewmodel = this.mapper.Map<ApplicationConfigurationDTO, ItanApplicationConfigurationViewModel>(appConfiguration);
 
             viewmodel.CurrentUsers = numberOfRegisteredUsers;
@@ -37,12 +37,12 @@
 
         public void ChangeRegistration(ChangeRegistrationDto dto)
         {
-            this.adminRepository.ChangeApplicationRegistration(dto.Status);
+            this.entityRepository.ChangeApplicationRegistration(dto.Status);
         }
 
         public void ChangeUsersLimit(ChangeUsersLimitDto dto)
         {
-            this.adminRepository.ChangeUserLimit(dto.Limit);
+            this.entityRepository.ChangeUserLimit(dto.Limit);
         }
     }
 }

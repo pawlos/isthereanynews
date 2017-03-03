@@ -5,57 +5,56 @@
 
     public class RssItemActionService : IRssItemActionService
     {
-        private readonly IRssActionRepository rssItemActionRepository;
-
         private readonly IUserAuthentication authentication;
+        private readonly IEntityRepository entityRepository;
 
-        public RssItemActionService(IRssActionRepository rssItemActionRepository,
-            IUserAuthentication authentication)
+        public RssItemActionService(
+            IUserAuthentication authentication, IEntityRepository entityRepository)
         {
-            this.rssItemActionRepository = rssItemActionRepository;
             this.authentication = authentication;
+            this.entityRepository = entityRepository;
         }
 
         public void CurrentVoteupForArticleByCurrentUser(RssActionModel model)
         {
             var userId = this.authentication.GetCurrentUserId();
-            this.rssItemActionRepository.AddVoteUpRequestByUserForArticle(userId, model.StreamType, model.Id);
+            this.entityRepository.AddVoteUpRequestByUserForArticle(userId, model.StreamType, model.Id);
         }
 
         public void MarkRssItemAsNotReadByCurrentUser(RssActionModel model)
         {
             var userId = this.authentication.GetCurrentUserId();
-            this.rssItemActionRepository.AddNotReadRequestByUserForArticle(userId, model.StreamType, model.Id);
+            this.entityRepository.AddNotReadRequestByUserForArticle(userId, model.StreamType, model.Id);
         }
 
         public void ShareRssItem(RssActionModel model)
         {
             var userId = this.authentication.GetCurrentUserId();
-            this.rssItemActionRepository.AddShareRequestByUserForArticle(userId, model.StreamType, model.Id);
+            this.entityRepository.AddShareRequestByUserForArticle(userId, model.StreamType, model.Id);
         }
 
         public void AddCommentToRssItemByCurrentUser(RssActionModel model)
         {
             var userId = this.authentication.GetCurrentUserId();
-            this.rssItemActionRepository.AddCommentRequestByUserForArticle(userId, model.StreamType, model.Id);
+            this.entityRepository.AddCommentRequestByUserForArticle(userId, model.StreamType, model.Id);
         }
 
         public void OpenFullArticle(RssActionModel model)
         {
             var userId = this.authentication.GetCurrentUserId();
-            this.rssItemActionRepository.AddFullArticleRequestByUserForArticle(userId, model.StreamType, model.Id);
+            this.entityRepository.AddFullArticleRequestByUserForArticle(userId, model.StreamType, model.Id);
         }
 
         public void AddToReadLaterQueueForCurrentUser(RssActionModel model)
         {
             var userId = this.authentication.GetCurrentUserId();
-            this.rssItemActionRepository.AddReadLaterRequestByUserForArticle(userId, model.StreamType, model.Id);
+            this.entityRepository.AddReadLaterRequestByUserForArticle(userId, model.StreamType, model.Id);
         }
 
         public void CurrentVotedownForArticleByCurrentUser(RssActionModel model)
         {
             var userId = this.authentication.GetCurrentUserId();
-            this.rssItemActionRepository.AddVoteDownRequestByUserForArticle(userId, model.StreamType, model.Id);
+            this.entityRepository.AddVoteDownRequestByUserForArticle(userId, model.StreamType, model.Id);
         }
     }
 }

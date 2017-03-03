@@ -8,23 +8,21 @@
 
     public class AccountService : IAccountService
     {
-        private readonly IUserRepository userRepository;
-
         private readonly IMapper mapper;
-
         private readonly IUserAuthentication authentication;
+        private readonly IEntityRepository entityRepository;
 
-        public AccountService(IUserRepository userRepository, IMapper mapper, IUserAuthentication authentication)
+        public AccountService(IMapper mapper, IUserAuthentication authentication, IEntityRepository entityRepository)
         {
-            this.userRepository = userRepository;
             this.mapper = mapper;
             this.authentication = authentication;
+            this.entityRepository = entityRepository;
         }
 
         public AccountDetailsViewModel GetAccountDetailsViewModel()
         {
             var currentUserId = this.authentication.GetCurrentUserId();
-            var userPrivateDetails = this.userRepository.GetUserPrivateDetails(currentUserId);
+            var userPrivateDetails = this.entityRepository.GetUserPrivateDetails(currentUserId);
             var accountDetailsViewModel = this.mapper.Map<AccountDetailsViewModel>(userPrivateDetails);
             return accountDetailsViewModel;
         }
@@ -32,13 +30,13 @@
         public void ChangeEmail(ChangeEmailModelDto model)
         {
             var currentUserId = this.authentication.GetCurrentUserId();
-            this.userRepository.ChangeEmail(currentUserId, model.Email);
+            this.entityRepository.ChangeEmail(currentUserId, model.Email);
         }
 
         public void ChangeDisplayName(ChangeDisplayNameModelDto model)
         {
             var currentUserId = this.authentication.GetCurrentUserId();
-            this.userRepository.ChangeDisplayName(currentUserId, model.Displayname);
+            this.entityRepository.ChangeDisplayName(currentUserId, model.Displayname);
         }
     }
 }

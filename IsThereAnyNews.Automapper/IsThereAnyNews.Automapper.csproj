@@ -51,7 +51,9 @@
     <Compile Include="ModelToViewModelProfile.cs" />
     <Compile Include="ProjectionToViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyndicationSummaryResolver.cs" />
     <Compile Include="SyndicationToAdapter.cs" />
+    <Compile Include="UpdateResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">

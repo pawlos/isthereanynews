@@ -1,25 +1,25 @@
-namespace IsThereAnyNews.Services
-{
-    public interface ITestService
-    {
-        void GenerateUsers();
+//namespace IsThereAnyNews.Services
+//{
+//    public interface ITestService
+//    {
+//        void GenerateUsers();
 
-        void DuplicateChannels();
+//        void DuplicateChannels();
 
-        void CreateSubscriptions();
+//        void CreateSubscriptions();
 
-        void CreateRssToRead();
+//        void CreateRssToRead();
 
-        void CreateRssViewedEvent();
+//        void CreateRssViewedEvent();
 
-        void FixSubscriptions();
+//        void FixSubscriptions();
 
-        void ReadRandomRssEvent();
+//        void ReadRandomRssEvent();
 
-        void AssignUserRolesToAllUsers();
+//        void AssignUserRolesToAllUsers();
 
-        void FixDuplicatedChannels();
+//        void FixDuplicatedChannels();
 
-        void FixDuplicatedEntries();
-    }
-}
+//        void FixDuplicatedEntries();
+//    }
+//}

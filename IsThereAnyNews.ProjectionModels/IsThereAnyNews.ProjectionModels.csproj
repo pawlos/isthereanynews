@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationConfigurationDTO.cs" />
-    <Compile Include="ChannelInformationDTO.cs" />
+    <Compile Include="RssChannelInformationDTO.cs" />
     <Compile Include="ChannelUrlAndTitleDTO.cs" />
     <Compile Include="EventRssChannelUpdatedDTO.cs" />
     <Compile Include="EventRssUserInteractionDTO.cs" />

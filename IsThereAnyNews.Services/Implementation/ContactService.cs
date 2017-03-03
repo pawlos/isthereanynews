@@ -6,9 +6,8 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class ContactService : IContactService
     {
-        private readonly IContactAdministrationRepository repositoryContactAdministration;
         private readonly IContactAdministrationEventRepository eventsContactAdministration;
-
+        private readonly IContactAdministrationRepository repositoryContactAdministration;
         public ContactService(IContactAdministrationRepository repositoryContactAdministration,
             IContactAdministrationEventRepository eventsContactAdministration)
         {
@@ -24,7 +23,7 @@ namespace IsThereAnyNews.Services.Implementation
         public void SaveAdministrationContact(ContactAdministrationDto dto)
         {
             var contactId = this.repositoryContactAdministration.SaveToDatabase(dto);
-            this.eventsContactAdministration.SaveToDatabase(contactId);
+            this.eventsContactAdministration.SaveContactAdministrationEventEventToDatabase(contactId);
         }
     }
 }

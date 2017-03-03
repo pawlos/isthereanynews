@@ -13,28 +13,25 @@
     public class OpmlImporterService : IOpmlImporterService
     {
         private readonly IUserAuthentication authentication;
+        private readonly IEntityRepository entityRepository;
         private readonly IOpmlReader opmlHandler;
-        private readonly IRssChannelsRepository rssChannelsRepository;
-        private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
         public OpmlImporterService(
-            IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
-            IRssChannelsRepository rssChannelsRepository,
             IOpmlReader opmlHandler,
-            IUserAuthentication authentication)
+            IUserAuthentication authentication, 
+            IEntityRepository entityRepository)
         {
-            this.rssSubscriptionsRepository = rssSubscriptionsRepository;
-            this.rssChannelsRepository = rssChannelsRepository;
             this.opmlHandler = opmlHandler;
             this.authentication = authentication;
+            this.entityRepository = entityRepository;
         }
 
         public void AddNewChannelsToGlobalSpace(List<RssSourceWithUrlAndTitle> channelList)
         {
-            var loadUrlsForAllChannels = this.rssSubscriptionsRepository
+            var loadUrlsForAllChannels = this.entityRepository
                                              .LoadUrlsForAllChannels();
             var channelsNewToGlobalSpace =
                 channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant())).ToList();
-            this.rssChannelsRepository.SaveToDatabase(channelsNewToGlobalSpace);
+            this.entityRepository.SaveToDatabase(channelsNewToGlobalSpace);
         }
 
         public List<XmlNode> FilterOutInvalidOutlines(IEnumerable<XmlNode> outlines)
@@ -53,17 +50,17 @@
             var toRssChannelList = this.ParseToRssChannelList(dto);
             this.AddNewChannelsToGlobalSpace(toRssChannelList);
 
-            var idByChannelUrl = this.rssChannelsRepository
+            var idByChannelUrl = this.entityRepository
                 .GetIdByChannelUrl(toRssChannelList.Select(c => c.Url)
                     .ToList());
 
             var currentUserId = this.authentication.GetCurrentUserId();
 
-            var channelsSubscribedByUser = this.rssSubscriptionsRepository.GetChannelIdSubscriptionsForUser(currentUserId);
+            var channelsSubscribedByUser = this.entityRepository.GetChannelIdSubscriptionsForUser(currentUserId);
             channelsSubscribedByUser.ForEach(id => idByChannelUrl.Remove(id));
 
             idByChannelUrl.ForEach(
-                c => this.rssSubscriptionsRepository
+                c => this.entityRepository
                          .CreateNewSubscriptionForUserAndChannel(currentUserId, c));
         }
 

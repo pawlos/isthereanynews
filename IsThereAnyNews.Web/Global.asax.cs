@@ -34,10 +34,10 @@
             IsThereAnyNewsScheduler.ScheduleRssUpdater();
         }
 
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            this.ShowCustomErrorPage(this.Server.GetLastError());
-        }
+        //protected void Application_Error(object sender, EventArgs e)
+        //{
+        //    this.ShowCustomErrorPage(this.Server.GetLastError());
+        //}
 
         private void ShowCustomErrorPage(Exception exception)
         {

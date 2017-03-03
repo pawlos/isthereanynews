@@ -15,34 +15,26 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class UpdateService : IUpdateService
     {
-        private readonly IRssChannelUpdateRepository rssChannelsUpdatedRepository;
-        private readonly IRssEntriesRepository rssEntriesRepository;
         private readonly ISyndicationFeedAdapter syndicationFeedAdapter;
-        private readonly IUpdateRepository updateRepository;
-
         private readonly IMapper mapper;
+        private readonly IEntityRepository entityRepository;
 
         public UpdateService(
-            IUpdateRepository updateRepository,
-            IRssEntriesRepository rssEntriesRepository,
-            IRssChannelUpdateRepository rssChannelsUpdatedRepository,
             ISyndicationFeedAdapter syndicationFeedAdapter,
-            IMapper mapper)
+            IMapper mapper, IEntityRepository entityRepository)
         {
-            this.updateRepository = updateRepository;
-            this.rssEntriesRepository = rssEntriesRepository;
-            this.rssChannelsUpdatedRepository = rssChannelsUpdatedRepository;
             this.syndicationFeedAdapter = syndicationFeedAdapter;
             this.mapper = mapper;
+            this.entityRepository = entityRepository;
         }
 
         public void UpdateGlobalRss()
         {
             try
             {
-                var rssChannel = this.updateRepository.LoadChannelToUpdate();
-                var lastUpdate = this.rssChannelsUpdatedRepository.GetLatestUpdateDate(rssChannel.Id);
-                this.rssChannelsUpdatedRepository.SaveEvent(rssChannel.Id);
+                var rssChannel = this.entityRepository.LoadChannelToUpdate();
+                var lastUpdate = this.entityRepository.GetLatestUpdateDate(rssChannel.Id);
+                this.entityRepository.SaveEvent(rssChannel.Id);
                 this.UpdateChannel(rssChannel, lastUpdate);
             }
             catch (Exception e)
@@ -58,8 +50,8 @@ namespace IsThereAnyNews.Services.Implementation
             var syndicationItemAdapters = syndicationEntries.Where(item => item.PublishDate > lastUpdate);
             var rssEntriesList = this.mapper.Map<IEnumerable<SyndicationItemAdapter>, List<NewRssEntryDTO>>(syndicationItemAdapters);
             rssEntriesList.ForEach(r => r.RssChannelId = rssChannel.Id);
-            this.rssEntriesRepository.SaveToDatabase(rssEntriesList);
-            this.rssChannelsUpdatedRepository.SaveEvent(rssChannel.Id);
+            this.entityRepository.SaveToDatabase(rssEntriesList);
+            this.entityRepository.SaveEvent(rssChannel.Id);
         }
     }
 }

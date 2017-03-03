@@ -44,7 +44,7 @@
 
             builder.RegisterType<ItanDatabaseContext>().InstancePerLifetimeScope();
             builder.RegisterType<RssUpdateJob>().InstancePerLifetimeScope();
-            builder.RegisterType<RssReadersJob>().InstancePerLifetimeScope();
+            //builder.RegisterType<RssReadersJob>().InstancePerLifetimeScope();
 
             builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
             builder.RegisterType<OpmlReader>().As<IOpmlReader>();

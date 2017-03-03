@@ -1,6 +1,3 @@
-using IsThereAnyNews.DataAccess;
-using IsThereAnyNews.ViewModels.RssChannel;
-
 namespace IsThereAnyNews.Automapper
 {
     using System;
@@ -10,12 +7,15 @@ namespace IsThereAnyNews.Automapper
 
     using AutoMapper;
 
+    using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.DataAccess.Implementation;
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
+    using IsThereAnyNews.ViewModels.RssChannel;
 
     public class ModelToViewModelProfile : Profile
     {
@@ -38,9 +38,9 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<UserSubscriptionEntryToRead, RssEntryToReadViewModel>()
                 .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.EventRssUserInteraction.RssEntry));
 
-            this.CreateMap<RssChannelSubscriptionWithStatisticsData, RssChannelWithStatisticsViewModel>();
+            this.CreateMap<Dtos.RssChannelSubscriptionWithStatisticsData, RssChannelWithStatisticsViewModel>();
 
-            this.CreateMap<List<RssChannelSubscriptionWithStatisticsData>, RssChannelsIndexViewModel>()
+            this.CreateMap<List<Dtos.RssChannelSubscriptionWithStatisticsData>, RssChannelsIndexViewModel>()
                 .ForMember(d => d.AllChannels, o => o.MapFrom(s => s));
 
             this.CreateMap<RssChannel, RssChannelIndexViewModel>()
@@ -70,7 +70,7 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.Channels, o => o.MapFrom(s => s.RssSubscriptionList))
                 .ForMember(d => d.ViewingUserId, o => o.MapFrom(s => s.Id));
 
-            this.CreateMap<NameAndCountUserSubscription, PublicProfileChannelInformation>()
+            this.CreateMap<Dtos.NameAndCountUserSubscription, PublicProfileChannelInformation>()
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
 
@@ -89,18 +89,6 @@ namespace IsThereAnyNews.Automapper
         private Claim CreateClaim(ItanRole role)
         {
             return new Claim(ClaimTypes.Role, Enum.GetName(typeof(ItanRole), role));
-        }
-    }
-
-    public class UpdateResolver : IValueResolver<RssChannel, RssChannelIndexViewModel, DateTime>
-    {
-        public DateTime Resolve(
-            RssChannel source,
-            RssChannelIndexViewModel destination,
-            DateTime destMember,
-            ResolutionContext context)
-        {
-            return source.Updates.OrderByDescending(o => o.Created).FirstOrDefault()?.Created ?? DateTime.MinValue;
         }
     }
 }

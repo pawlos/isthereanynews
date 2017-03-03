@@ -14,7 +14,7 @@ namespace IsThereAnyNews.DataAccess
 
         List<User> GetAllUsers();
         void UpdateDisplayNames(List<User> emptyDisplay);
-        List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount();
+        List<Dtos.UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount();
         UserPublicProfileDto LoadUserPublicProfile(long id);
         UserPrivateProfileDto GetUserPrivateDetails(long currentUserId);
         void ChangeEmail(long currentUserId, string email);

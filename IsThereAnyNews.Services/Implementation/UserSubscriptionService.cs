@@ -5,37 +5,32 @@ namespace IsThereAnyNews.Services.Implementation
     using System.Linq;
 
     using IsThereAnyNews.DataAccess;
-    using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.ViewModels;
 
     public class UserSubscriptionService : IUserSubscriptionService
     {
-        private readonly IUsersSubscriptionRepository userSubscriptionsRepository;
-        private readonly IUserSubscriptionEntryToReadRepository userSubscriptionsEntryToReadRepository;
-
         private readonly IUserAuthentication authentication;
+        private readonly IEntityRepository entityRepository;
 
-        public UserSubscriptionService(IUsersSubscriptionRepository userSubscriptionsRepository,
-            IUserSubscriptionEntryToReadRepository userSubscriptionsEntryToReadRepository,
-            IUserAuthentication authentication)
+        public UserSubscriptionService(
+            IUserAuthentication authentication, IEntityRepository entityRepository)
         {
-            this.userSubscriptionsRepository = userSubscriptionsRepository;
-            this.userSubscriptionsEntryToReadRepository = userSubscriptionsEntryToReadRepository;
             this.authentication = authentication;
+            this.entityRepository = entityRepository;
         }
 
         public List<ObservableUserEventsInformation> LoadAllObservableSubscription()
         {
             DateTime now = DateTime.Now;
             var currentUserId = this.authentication.GetCurrentUserId();
-            this.userSubscriptionsEntryToReadRepository.CopyAllUnreadElementsToUser(currentUserId);
-            var loadNameAndCountForUser = this.userSubscriptionsRepository.LoadNameAndCountForUser(currentUserId);
-            this.userSubscriptionsRepository.UpdateUserLastReadTime(currentUserId, now);
+            this.entityRepository.CopyAllUnreadElementsToUser(currentUserId);
+            var loadNameAndCountForUser = this.entityRepository.LoadNameAndCountForUser(currentUserId);
+            this.entityRepository.UpdateUserLastReadTime(currentUserId, now);
             var list = loadNameAndCountForUser.Select(this.ProjectToObservableUserEventsInformation).ToList();
             return list;
         }
 
-        private ObservableUserEventsInformation ProjectToObservableUserEventsInformation(NameAndCountUserSubscription arg)
+        private ObservableUserEventsInformation ProjectToObservableUserEventsInformation(Dtos.NameAndCountUserSubscription arg)
         {
             return new ObservableUserEventsInformation
             {

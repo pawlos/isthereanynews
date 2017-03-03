@@ -15,41 +15,26 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class RssChannelsService : IRssChannelsService
     {
-        private readonly IRssChannelsRepository channelsRepository;
-
-        private readonly IRssChannelsSubscriptionsRepository channelsSubscriptionRepository;
-        private readonly IRssEntriesToReadRepository rssEntriesToReadRepository;
         private readonly IUserAuthentication authentication;
-        private readonly IRssChannelsSubscriptionsRepository rssSubscriptionRepository;
-
         private readonly IMapper mapping;
-        private readonly IEventRssChannelCreatedRepository eventRssChannelCreatedRepository;
-
         private readonly IUpdateService updateService;
+        private IEntityRepository entityRepository;
 
         public RssChannelsService(
-            IRssChannelsRepository channelsRepository,
-            IRssChannelsSubscriptionsRepository channelsSubscriptionRepository,
-            IRssEntriesToReadRepository rssEntriesToReadRepository,
             IUserAuthentication authentication,
-            IRssChannelsSubscriptionsRepository rssSubscriptionRepository,
             IMapper mapping,
-            IEventRssChannelCreatedRepository eventRssChannelCreatedRepository,
-            IUpdateService updateService)
+            IUpdateService updateService, 
+            IEntityRepository entityRepository)
         {
-            this.channelsRepository = channelsRepository;
-            this.channelsSubscriptionRepository = channelsSubscriptionRepository;
-            this.rssEntriesToReadRepository = rssEntriesToReadRepository;
             this.authentication = authentication;
-            this.rssSubscriptionRepository = rssSubscriptionRepository;
             this.mapping = mapping;
-            this.eventRssChannelCreatedRepository = eventRssChannelCreatedRepository;
             this.updateService = updateService;
+            this.entityRepository = entityRepository;
         }
 
         public RssChannelsIndexViewModel LoadAllChannels()
         {
-            var allChannels = this.channelsRepository.LoadAllChannelsWithStatistics();
+            var allChannels = this.entityRepository.LoadAllChannelsWithStatistics();
             var viewmodel = this.mapping.Map<RssChannelsIndexViewModel>(allChannels);
             return viewmodel;
         }
@@ -57,7 +42,7 @@ namespace IsThereAnyNews.Services.Implementation
         public RssChannelsMyViewModel LoadAllChannelsOfCurrentUser()
         {
             var currentUserId = this.authentication.GetCurrentUserId();
-            var rssSubscriptions = this.channelsSubscriptionRepository.LoadAllSubscriptionsForUser(currentUserId);
+            var rssSubscriptions = this.entityRepository.LoadAllSubscriptionsForUser(currentUserId);
 //            this.rssEntriesToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(currentUserId, rssSubscriptions);
             var viewmodel = this.mapping.Map<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>(rssSubscriptions);
             return viewmodel;
@@ -65,7 +50,7 @@ namespace IsThereAnyNews.Services.Implementation
 
         public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
         {
-            var rssChannel = this.channelsRepository.LoadRssChannel(id);
+            var rssChannel = this.entityRepository.LoadRssChannel(id);
             var rssChannelIndexViewModel =
                 this.mapping.Map<RssChannelDTO, RssChannelIndexViewModel>(
                 rssChannel,
@@ -90,14 +75,14 @@ namespace IsThereAnyNews.Services.Implementation
         public UserRssSubscriptionInfoViewModel CreateUserSubscriptionInfo(long id)
         {
             var userId = this.authentication.GetCurrentUserId();
-            var subscriptionInfo = this.rssSubscriptionRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
+            var subscriptionInfo = this.entityRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
             var userRssSubscriptionInfoViewModel = this.mapping.Map<UserRssSubscriptionInfoViewModel>(subscriptionInfo);
             return userRssSubscriptionInfoViewModel;
         }
 
         public void CreateNewChannelIfNotExists(AddChannelDto dto)
         {
-            var idByChannelUrl = this.channelsRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
+            var idByChannelUrl = this.entityRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
             if (!idByChannelUrl.Any())
             {
                 this.CreateNewChannel(dto);
@@ -112,13 +97,13 @@ namespace IsThereAnyNews.Services.Implementation
                                                         dto.RssChannelLink,
                                                         dto.RssChannelName)
                                                 };
-            this.channelsRepository.SaveToDatabase(rssSourceWithUrlAndTitles);
+            this.entityRepository.SaveToDatabase(rssSourceWithUrlAndTitles);
 
             var urlsToChannels = new List<string> { dto.RssChannelLink };
-            var listIds = this.channelsRepository.GetIdByChannelUrl(urlsToChannels);
+            var listIds = this.entityRepository.GetIdByChannelUrl(urlsToChannels);
             var id = listIds.Single();
 
-            this.eventRssChannelCreatedRepository.SaveToDatabase(id);
+            this.entityRepository.SaveChannelCreatedEventToDatabase(id);
         }
     }
 }

@@ -16,30 +16,37 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class RssSubscriptionHandler : ISubscriptionHandler
     {
-        private readonly IRssChannelsSubscriptionsRepository rssSubscriptionsRepository;
-        private readonly IRssEntriesToReadRepository rssToReadRepository;
-        private readonly IMapper mapper;
-        private readonly IRssEventRepository rssEventsRepository;
         private readonly IUserAuthentication authentication;
+        private readonly IEntityRepository entityRepository;
         private readonly IHtmlStripper htmlStripper;
-        private readonly IRssChannelsSubscriptionsRepository channelsSubscriptionsRepository;
-
+        private readonly IMapper mapper;
         public RssSubscriptionHandler(
-            IRssChannelsSubscriptionsRepository rssSubscriptionsRepository,
-            IRssEntriesToReadRepository rssToReadRepository,
             IMapper mapper,
-            IRssEventRepository rssEventsRepository,
             IUserAuthentication authentication,
-            IHtmlStripper htmlStripper,
-            IRssChannelsSubscriptionsRepository channelsSubscriptionsRepository)
+            IHtmlStripper htmlStripper, IEntityRepository entityRepository)
         {
-            this.rssSubscriptionsRepository = rssSubscriptionsRepository;
-            this.rssToReadRepository = rssToReadRepository;
             this.mapper = mapper;
-            this.rssEventsRepository = rssEventsRepository;
             this.authentication = authentication;
             this.htmlStripper = htmlStripper;
-            this.channelsSubscriptionsRepository = channelsSubscriptionsRepository;
+            this.entityRepository = entityRepository;
+        }
+
+        public void AddEventSkipped(long cui, string entries)
+        {
+            var x = entries.Split(new[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
+            var ids = x.Select(l => long.Parse(l)).ToList();
+            this.entityRepository.AddEventRssSkipped(cui, ids);
+        }
+
+        public void AddEventViewed(long dtoId)
+        {
+            var cui = this.authentication.GetCurrentUserId();
+            this.entityRepository.AddEventRssViewed(cui, dtoId);
+        }
+
+        public void AddEventViewed(long cui, long id)
+        {
+            this.entityRepository.AddEventRssViewed(cui, id);
         }
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries)
@@ -47,11 +54,26 @@ namespace IsThereAnyNews.Services.Implementation
             return this.GetRssSubscriptionIndexViewModel(subscriptionId, showReadEntries);
         }
 
+        public void MarkRead(List<long> ids)
+        {
+            this.entityRepository.MarkChannelRead(ids);
+        }
+
+        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
+        {
+            this.entityRepository.InsertReadRssToRead(userId, rssId, dtoSubscriptionId);
+        }
+
+        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
+        {
+            this.entityRepository.MarkRssEntriesSkipped(modelSubscriptionId, ids);
+        }
+
         private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModel(
-            long subscriptionId,
+                                    long subscriptionId,
             ShowReadEntries showReadEntries)
         {
-            var rssEntryToReadDtos = this.rssToReadRepository.LoadRss(subscriptionId, showReadEntries);
+            var rssEntryToReadDtos = this.entityRepository.LoadRss(subscriptionId, showReadEntries);
             var rssEntryToReadViewModels = rssEntryToReadDtos.OrderByDescending(o => o.PublicationDate).Select(
                 x =>
                     new RssEntryToReadViewModel
@@ -70,7 +92,7 @@ namespace IsThereAnyNews.Services.Implementation
                                 }
                     }).ToList();
 
-            var rssChannelInformationDto = this.channelsSubscriptionsRepository.LoadChannelInformation(subscriptionId);
+            var rssChannelInformationDto = this.entityRepository.LoadChannelChannelInformation(subscriptionId);
 
             var viewModel = new RssSubscriptionIndexViewModel(
                                 subscriptionId,
@@ -85,33 +107,11 @@ namespace IsThereAnyNews.Services.Implementation
             return viewModel;
 
         }
-
-        public void MarkRead(List<long> ids)
-        {
-            this.rssSubscriptionsRepository.MarkRead(ids);
-        }
-
-        public void AddEventViewed(long dtoId)
-        {
-            var cui = this.authentication.GetCurrentUserId();
-            this.rssEventsRepository.AddEventRssViewed(cui, dtoId);
-        }
-
-        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
-        {
-            this.rssToReadRepository.MarkEntriesSkipped(modelSubscriptionId, ids);
-        }
-
-        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
-        {
-            this.rssToReadRepository.InsertReadRssToRead(userId, rssId, dtoSubscriptionId);
-        }
-
         private RssSubscriptionIndexViewModel GetRssSubscriptionIndexViewModelOld(long subscriptionId, ShowReadEntries showReadEntries)
         {
             var currentUserId = this.authentication.GetCurrentUserId();
 
-            if (!this.rssSubscriptionsRepository.DoesUserOwnsSubscription(subscriptionId, currentUserId))
+            if (!this.entityRepository.DoesUserOwnsUserSubscription(subscriptionId, currentUserId))
             {
                 var ci = new ChannelInformationViewModel
                 {
@@ -127,10 +127,10 @@ namespace IsThereAnyNews.Services.Implementation
             }
 
             var loadAllRssEntriesForUserAndChannel = showReadEntries != ShowReadEntries.Show
-                                                          ? this.rssToReadRepository.LoadAllUnreadEntriesFromSubscription(subscriptionId)
-                                                          : this.rssToReadRepository.LoadAllEntriesFromSubscription(subscriptionId);
+                                                          ? this.entityRepository.LoadAllUnreadEntriesFromSubscription(subscriptionId)
+                                                          : this.entityRepository.LoadAllEntriesFromSubscription(subscriptionId);
 
-            var channelInformation = this.rssSubscriptionsRepository.LoadChannelInformation(subscriptionId);
+            var channelInformation = this.entityRepository.LoadChannelChannelInformation(subscriptionId);
             var channelInformationViewModel = new ChannelInformationViewModel
             {
                 Title = channelInformation.Title,
@@ -146,18 +146,6 @@ namespace IsThereAnyNews.Services.Implementation
                                 StreamType.Rss);
             viewModel.SubscriptionId = subscriptionId;
             return viewModel;
-        }
-
-        public void AddEventViewed(long cui, long id)
-        {
-            this.rssEventsRepository.AddEventRssViewed(cui, id);
-        }
-
-        public void AddEventSkipped(long cui, string entries)
-        {
-            var x = entries.Split(new[] { ",", ";" }, StringSplitOptions.RemoveEmptyEntries);
-            var ids = x.Select(l => long.Parse(l)).ToList();
-            this.rssEventsRepository.AddEventRssSkipped(cui, ids);
         }
     }
 }

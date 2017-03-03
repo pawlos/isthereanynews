@@ -2,7 +2,6 @@ namespace IsThereAnyNews.Services.Implementation
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     using AutoMapper;
 
@@ -13,32 +12,25 @@ namespace IsThereAnyNews.Services.Implementation
 
     public class PersonSubscriptionHandler : ISubscriptionHandler
     {
-        private readonly IRssEventRepository rssEventsRepository;
-        private readonly IUsersSubscriptionRepository usersSubscriptionRepository;
-        private readonly IMapper mapper;
-
         private readonly IUserAuthentication authentication;
 
+        private readonly IEntityRepository entityRepository;
+
+        private readonly IMapper mapper;
+
         public PersonSubscriptionHandler(
-            IRssEventRepository rssEventsRepository,
-            IUsersSubscriptionRepository usersSubscriptionRepository,
             IMapper mapper,
-            IUserAuthentication authentication)
+            IUserAuthentication authentication,
+            IEntityRepository entityRepository)
         {
-            this.rssEventsRepository = rssEventsRepository;
-            this.usersSubscriptionRepository = usersSubscriptionRepository;
             this.mapper = mapper;
             this.authentication = authentication;
+            this.entityRepository = entityRepository;
         }
 
-        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long subscriptionId, ShowReadEntries showReadEntries)
+        public void AddEventSkipped(long cui, string entries)
         {
-            return this.GetPersonSubscriptionIndexViewModel(subscriptionId, showReadEntries);
-        }
-
-        public void MarkRead(List<long> displayedItems)
-        {
-            this.rssEventsRepository.MarkRead(displayedItems);
+            // dont know what to do here
         }
 
         public void AddEventViewed(long dtoId)
@@ -46,49 +38,77 @@ namespace IsThereAnyNews.Services.Implementation
             // do nothing for now
         }
 
-        private RssSubscriptionIndexViewModel GetPersonSubscriptionIndexViewModel(long subscriptionId, ShowReadEntries showReadEntries)
+        public void AddEventViewed(long cui, long id)
+        {
+            // dont know what to do here
+        }
+
+        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(
+            long subscriptionId,
+            ShowReadEntries showReadEntries)
+        {
+            return this.GetPersonSubscriptionIndexViewModel(subscriptionId, showReadEntries);
+        }
+
+        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MarkRead(List<long> displayedItems)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
+        {
+            this.entityRepository.MarkPersonEntriesSkipped(modelSubscriptionId, ids);
+        }
+
+        private RssSubscriptionIndexViewModel GetPersonSubscriptionIndexViewModel(
+            long subscriptionId,
+            ShowReadEntries showReadEntries)
         {
             var currentUserId = this.authentication.GetCurrentUserId();
 
-            if (!this.usersSubscriptionRepository.DoesUserOwnsSubscription(subscriptionId, currentUserId))
+            if (!this.entityRepository.DoesUserOwnsSubscription(subscriptionId, currentUserId))
             {
                 var ci = new ChannelInformationViewModel
-                {
-                    Title = "You are not subscribed to this user",
-                    Created = DateTime.MaxValue
-                };
+                             {
+                                 Title = "You are not subscribed to this user",
+                                 Created = DateTime.MaxValue
+                             };
 
-                var rssSubscriptionIndexViewModel =
-                    new RssSubscriptionIndexViewModel(subscriptionId,
-                        ci,
-                        new List<RssEntryToReadViewModel>(),
-                        StreamType.Person);
+                var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(
+                    subscriptionId,
+                    ci,
+                    new List<RssEntryToReadViewModel>(),
+                    StreamType.Person);
                 return rssSubscriptionIndexViewModel;
             }
 
             List<UserSubscriptionEntryToReadDTO> loadAllUnreadEntriesFromSubscription;
             if (showReadEntries != ShowReadEntries.Show)
             {
-                loadAllUnreadEntriesFromSubscription = this.usersSubscriptionRepository
-                    .LoadAllUnreadEntriesFromSubscription(subscriptionId);
+                loadAllUnreadEntriesFromSubscription =
+                    this.entityRepository.LoadAllUserUnreadEntriesFromSubscription(subscriptionId);
             }
             else
             {
-                loadAllUnreadEntriesFromSubscription = this.usersSubscriptionRepository
-                    .LoadAllEntriesFromSubscription(subscriptionId);
+                loadAllUnreadEntriesFromSubscription =
+                    this.entityRepository.LoadAllUserEntriesFromSubscription(subscriptionId);
             }
 
-            var channelInformation =
-                this.usersSubscriptionRepository
-                    .LoadChannelInformation(subscriptionId);
+            var channelInformation = this.entityRepository.LoadChannelInformation(subscriptionId);
 
             var channelInformationViewModel = new ChannelInformationViewModel
-            {
-                Title = channelInformation.Title,
-                Created = channelInformation.Created
-            };
+                                                  {
+                                                      Title = channelInformation.Title,
+                                                      Created = channelInformation.Created
+                                                  };
 
-            var rssEntryToReadViewModels = this.mapper.Map<List<RssEntryToReadViewModel>>(loadAllUnreadEntriesFromSubscription);
+            var rssEntryToReadViewModels =
+                this.mapper.Map<List<RssEntryToReadViewModel>>(loadAllUnreadEntriesFromSubscription);
 
             var viewModel = new RssSubscriptionIndexViewModel(
                 subscriptionId,
@@ -97,26 +117,6 @@ namespace IsThereAnyNews.Services.Implementation
                 StreamType.Person);
 
             return viewModel;
-        }
-
-        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
-        {
-            this.usersSubscriptionRepository.MarkEntriesSkipped(modelSubscriptionId, ids);
-        }
-
-        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddEventViewed(long cui, long id)
-        {
-            // dont know what to do here
-        }
-
-        public void AddEventSkipped(long cui, string entries)
-        {
-            // dont know what to do here
         }
     }
 }

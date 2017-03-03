@@ -11,7 +11,7 @@ namespace IsThereAnyNews.DataAccess
 
         void DeleteSubscriptionFromUser(long subscriptionId, long userId);
 
-        bool DoesUserOwnsSubscription(long subscriptionId, long currentUserId);
+        bool DoesUserOwnsUserSubscription(long subscriptionId, long currentUserId);
 
         long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId);
 
@@ -25,14 +25,16 @@ namespace IsThereAnyNews.DataAccess
 
         List<RssChannelSubscription> LoadAllSubscriptionsWithRssEntriesToReadForUser(long currentUserId);
 
-        RssChannelInformationDTO LoadChannelInformation(long subscriptionId);
+        RssChannelInformationDTO LoadUserChannelInformation(long subscriptionId);
 
         List<string> LoadUrlsForAllChannels();
 
-        void MarkRead(List<long> ids);
+        void MarkChannelRead(List<long> ids);
 
         void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions);
         void Subscribe(long idByChannelUrl, long currentUserId, string channelIdRssChannelName);
         void Subscribe(long idByChannelUrl, long currentUserId);
+
+        RssChannelInformationDTO LoadChannelChannelInformation(long subscriptionId);
     }
 }

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
-
 namespace IsThereAnyNews.DataAccess
 {
+    using System.Collections.Generic;
+
     public interface IRssEventRepository
     {
         void AddEventRssViewed(long currentUserId, long rssToReadId);

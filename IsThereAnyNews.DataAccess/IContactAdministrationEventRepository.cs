@@ -2,6 +2,6 @@ namespace IsThereAnyNews.DataAccess
 {
     public interface IContactAdministrationEventRepository
     {
-        void SaveToDatabase(long contactId);
+        void SaveContactAdministrationEventEventToDatabase(long contactId);
     }
 }

@@ -11,17 +11,18 @@
     public class SystemSubscriptionService : ISystemSubscriptionService
     {
         private readonly IUserAuthentication authentication;
-        private readonly IRssChannelsRepository rssChannelRepository;
         private readonly IMapper mapper;
+
+        private readonly IEntityRepository entityRepository;
 
         public SystemSubscriptionService(
             IUserAuthentication authentication,
-            IRssChannelsRepository rssChannelRepository,
-            IMapper mapper)
+            IMapper mapper, 
+            IEntityRepository entityRepository)
         {
             this.authentication = authentication;
-            this.rssChannelRepository = rssChannelRepository;
             this.mapper = mapper;
+            this.entityRepository = entityRepository;
         }
 
         public AdminEventsViewModel LoadEvents()
@@ -42,9 +43,9 @@
 
         public AdminEventsViewModel LoadSuperAdminEvents()
         {
-            var updates = this.rssChannelRepository.LoadUpdateEvents();
-            var creations = this.rssChannelRepository.LoadCreateEvents();
-            var exceptions = this.rssChannelRepository.LoadExceptionEvents();
+            var updates = this.entityRepository.LoadUpdateEvents();
+            var creations = this.entityRepository.LoadCreateEvents();
+            var exceptions = this.entityRepository.LoadExceptionEvents();
 
             ChannelEventViewModel u = new ChannelEventUpdatesViewModel
             {
