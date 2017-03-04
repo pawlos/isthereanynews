@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Security.Claims;
@@ -45,10 +46,9 @@
 
         public void AddNewChannelsToGlobalSpace(List<RssSourceWithUrlAndTitle> channelList)
         {
-            var loadUrlsForAllChannels = this.entityRepository
-                                             .LoadUrlsForAllChannels();
-            var channelsNewToGlobalSpace =
-                channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant())).ToList();
+            var loadUrlsForAllChannels = this.entityRepository.LoadUrlsForAllChannels();
+            var channelsNewToGlobalSpace = channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant()))
+                .ToList();
             this.entityRepository.SaveToDatabase(channelsNewToGlobalSpace);
         }
 
@@ -60,7 +60,9 @@
 
         public void AssignToUserRole(ClaimsIdentity identity)
         {
-            var cui = long.Parse(identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier).Value);
+            var cui = long.Parse(
+                identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier)
+                    .Value);
             this.entityRepository.AssignUserRole(cui);
         }
 
@@ -110,13 +112,8 @@
 
         public bool CurrentUserIsAuthenticated()
         {
-            return HttpContext
-                .Current
-                .GetOwinContext()
-                .Authentication
-                .User
-                .Identity
-                .IsAuthenticated;
+            return HttpContext.Current.GetOwinContext()
+                .Authentication.User.Identity.IsAuthenticated;
         }
 
         public void CurrentVotedownForArticleByCurrentUser(RssActionModel model)
@@ -133,12 +130,12 @@
 
         public List<XmlNode> FilterOutInvalidOutlines(IEnumerable<XmlNode> outlines)
         {
-            var validoutlines = outlines.Where(o =>
-                     o.Attributes.GetNamedItem("xmlUrl") != null
-                  && o.Attributes.GetNamedItem("title") != null
-                  && !string.IsNullOrWhiteSpace(o.Attributes.GetNamedItem("xmlUrl").Value)
-                  && !string.IsNullOrWhiteSpace(o.Attributes.GetNamedItem("title").Value));
-
+            var validoutlines = outlines.Where(
+                o => o.Attributes.GetNamedItem("xmlUrl") != null && o.Attributes.GetNamedItem("title") != null && !string.IsNullOrWhiteSpace(
+                         o.Attributes.GetNamedItem("xmlUrl")
+                             .Value) && !string.IsNullOrWhiteSpace(
+                         o.Attributes.GetNamedItem("title")
+                             .Value));
             return validoutlines.ToList();
         }
 
@@ -149,6 +146,7 @@
             var accountDetailsViewModel = this.mapper.Map<AccountDetailsViewModel>(userPrivateDetails);
             return accountDetailsViewModel;
         }
+
         public RegistrationSupported GetCurrentRegistrationStatus()
         {
             return this.entityRepository.GetCurrentRegistrationStatus();
@@ -156,23 +154,25 @@
 
         public ClaimsPrincipal GetCurrentUser()
         {
-            return HttpContext.Current.GetOwinContext().Authentication.User;
+            return HttpContext.Current.GetOwinContext()
+                .Authentication.User;
         }
 
         public long GetCurrentUserId()
         {
-            long r = 0;
+            long r;
             long.TryParse(
                 this.GetCurrentUser()
-                    .Claims
-                    .SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
-                    ?.Value, out r);
+                    .Claims.SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
+                    ?.Value,
+                out r);
             return r;
         }
 
         public AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity)
         {
-            var issuer = identity.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer)).Issuer;
+            var issuer = identity.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer))
+                .Issuer;
             AuthenticationTypeProvider enumResult;
             Enum.TryParse(issuer, true, out enumResult);
             return enumResult;
@@ -181,8 +181,7 @@
         public List<ItanRole> GetCurrentUserRoles()
         {
             var roles = this.GetCurrentUser()
-                .Claims
-                .Where(c => c.Type == ClaimTypes.Role)
+                .Claims.Where(c => c.Type == ClaimTypes.Role)
                 .Select(c => (ItanRole)Enum.Parse(typeof(ItanRole), c.Value))
                 .ToList();
             return roles;
@@ -210,15 +209,14 @@
         public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
         {
             var rssChannel = this.entityRepository.LoadRssChannel(id);
-            var rssChannelIndexViewModel =
-                this.mapper.Map<RssChannelDTO, RssChannelIndexViewModel>(
+            var rssChannelIndexViewModel = this.mapper.Map<RssChannelDTO, RssChannelIndexViewModel>(
                 rssChannel,
                 o => o.AfterMap(
                     (s, d) =>
-                    {
-                        d.Entries = d.Entries.OrderByDescending(item => item.PublicationDate).ToList();
-                    }));
-
+                        {
+                            d.Entries = d.Entries.OrderByDescending(item => item.PublicationDate)
+                                .ToList();
+                        }));
             if (!this.CurrentUserIsAuthenticated())
             {
                 return rssChannelIndexViewModel;
@@ -227,7 +225,6 @@
             rssChannelIndexViewModel.IsAuthenticatedUser = true;
             var userRssSubscriptionInfoViewModel = this.CreateUserSubscriptionInfo(id);
             rssChannelIndexViewModel.SubscriptionInfo = userRssSubscriptionInfoViewModel;
-
             return rssChannelIndexViewModel;
         }
 
@@ -235,19 +232,13 @@
         {
             var toRssChannelList = this.ParseToRssChannelList(dto);
             this.AddNewChannelsToGlobalSpace(toRssChannelList);
-
-            var idByChannelUrl = this.entityRepository
-                .GetIdByChannelUrl(toRssChannelList.Select(c => c.Url)
+            var idByChannelUrl = this.entityRepository.GetIdByChannelUrl(
+                toRssChannelList.Select(c => c.Url)
                     .ToList());
-
             var currentUserId = this.GetCurrentUserId();
-
             var channelsSubscribedByUser = this.entityRepository.GetChannelIdSubscriptionsForUser(currentUserId);
             channelsSubscribedByUser.ForEach(id => idByChannelUrl.Remove(id));
-
-            idByChannelUrl.ForEach(
-                c => this.entityRepository
-                         .CreateNewSubscriptionForUserAndChannel(currentUserId, c));
+            idByChannelUrl.ForEach(c => this.entityRepository.CreateNewSubscriptionForUserAndChannel(currentUserId, c));
         }
 
         public bool IsUserRegistered(ClaimsIdentity identity)
@@ -260,11 +251,10 @@
 
         public List<SyndicationItemAdapter> Load(string url)
         {
-            XmlReader reader = XmlReader.Create(url);
-            SyndicationFeed feed = SyndicationFeed.Load(reader);
-            List<SyndicationItem> syndicationItems = feed.Items.ToList();
-            var items = this.mapper
-                .Map<List<SyndicationItem>, List<SyndicationItemAdapter>>(syndicationItems);
+            var reader = XmlReader.Create(url);
+            var feed = SyndicationFeed.Load(reader);
+            var syndicationItems = feed.Items.ToList();
+            var items = this.mapper.Map<List<SyndicationItem>, List<SyndicationItemAdapter>>(syndicationItems);
             return items;
         }
 
@@ -292,12 +282,13 @@
 
         public List<ObservableUserEventsInformation> LoadAllObservableSubscription()
         {
-            DateTime now = DateTime.Now;
+            var now = DateTime.Now;
             var currentUserId = this.GetCurrentUserId();
             this.entityRepository.CopyAllUnreadElementsToUser(currentUserId);
             var loadNameAndCountForUser = this.entityRepository.LoadNameAndCountForUser(currentUserId);
             this.entityRepository.UpdateUserLastReadTime(currentUserId, now);
-            var list = loadNameAndCountForUser.Select(this.ProjectToObservableUserEventsInformation).ToList();
+            var list = loadNameAndCountForUser.Select(this.ProjectToObservableUserEventsInformation)
+                .ToList();
             return list;
         }
 
@@ -311,11 +302,9 @@
         public AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile()
         {
             var publicProfiles = this.entityRepository.LoadAllUsersPublicProfileWithChannelsCount();
-            var list = publicProfiles.Select(this.ProjectToViewModel).ToList();
-            var viewmodel = new AllUsersPublicProfilesViewModel
-            {
-                Profiles = list
-            };
+            var list = publicProfiles.Select(this.ProjectToViewModel)
+                .ToList();
+            var viewmodel = new AllUsersPublicProfilesViewModel { Profiles = list };
             return viewmodel;
         }
 
@@ -335,36 +324,10 @@
             var updates = this.entityRepository.LoadUpdateEvents();
             var creations = this.entityRepository.LoadCreateEvents();
             var exceptions = this.entityRepository.LoadExceptionEvents();
-
-            ChannelEventViewModel u = new ChannelEventUpdatesViewModel
-            {
-                Count = updates.UpdateCout.ToString(),
-                Name = "Updates",
-                Id = -1
-            };
-
-            var c = new ChannelEventCreationViewModel
-            {
-                Count = creations.Count.ToString(),
-                Name = "Creations",
-                Id = -2
-            };
-
-            var e = new ChannelEventExceptionViewModel
-            {
-                Count = exceptions.Count.ToString(),
-                Name = "Exceptions",
-                Id = -3
-            };
-
-            var events = new AdminEventsViewModel
-            {
-                Updates = u,
-                Creations = c,
-                Exceptions = e
-            };
-
-
+            ChannelEventViewModel u = new ChannelEventUpdatesViewModel { Count = updates.UpdateCout.ToString(), Name = "Updates", Id = -1 };
+            var c = new ChannelEventCreationViewModel { Count = creations.Count.ToString(), Name = "Creations", Id = -2 };
+            var e = new ChannelEventExceptionViewModel { Count = exceptions.Count.ToString(), Name = "Exceptions", Id = -3 };
+            var events = new AdminEventsViewModel { Updates = u, Creations = c, Exceptions = e };
             return events;
         }
 
@@ -375,23 +338,21 @@
             var publicProfile = this.entityRepository.LoadUserPublicProfile(id);
             var userDetailedPublicProfileViewModel = this.mapper.Map<UserPublicProfileDto, UserDetailedPublicProfileViewModel>(publicProfile);
             userDetailedPublicProfileViewModel.IsUserAlreadySubscribed = isUserAlreadySubscribed;
-            userDetailedPublicProfileViewModel.Events = userDetailedPublicProfileViewModel.Events.OrderByDescending(e => e.Viewed).ToList();
-
+            userDetailedPublicProfileViewModel.Events = userDetailedPublicProfileViewModel.Events.OrderByDescending(e => e.Viewed)
+                .ToList();
             var loadNameAndCountForUser = this.entityRepository.LoadNameAndCountForUser(id);
-
-            var publicProfileUsersInformations =
-                this.mapper
-                    .Map<List<NameAndCountUserSubscription>, List<PublicProfileChannelInformation>>(loadNameAndCountForUser);
-
+            var publicProfileUsersInformations = this.mapper.Map<List<NameAndCountUserSubscription>, List<PublicProfileChannelInformation>>(loadNameAndCountForUser);
             userDetailedPublicProfileViewModel.Users = publicProfileUsersInformations;
             return userDetailedPublicProfileViewModel;
         }
 
         public void MarkAllRssReadForSubscription(MarkReadForSubscriptionDto dto)
         {
-            var separator = new[] { ";" };
-            var rssToMarkRead =
-                dto.RssEntries.Split(separator, StringSplitOptions.None)
+            var separator = new[]
+                                {
+                                    ";"
+                                };
+            var rssToMarkRead = dto.RssEntries.Split(separator, StringSplitOptions.None)
                 .Select(long.Parse)
                 .ToList();
             this.entityRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
@@ -444,10 +405,12 @@
         {
             var outlines = this.GetOutlines(dto.ImportFile.InputStream);
             var ot = this.FilterOutInvalidOutlines(outlines);
-            var urls = ot.Select(o =>
-                      new RssSourceWithUrlAndTitle(
-                          o.Attributes.GetNamedItem("xmlUrl").Value,
-                          o.Attributes.GetNamedItem("title").Value))
+            var urls = ot.Select(
+                    o => new RssSourceWithUrlAndTitle(
+                        o.Attributes.GetNamedItem("xmlUrl")
+                            .Value,
+                        o.Attributes.GetNamedItem("title")
+                            .Value))
                 .Distinct(new RssSourceWithUrlAndTitleComparer())
                 .ToList();
             return urls;
@@ -460,17 +423,15 @@
             var numberOfRssSubscriptions = this.entityRepository.GetNumberOfRssSubscriptions();
             var numberOfRssNews = this.entityRepository.GetNumberOfRssNews();
             var viewmodel = this.mapper.Map<ApplicationConfigurationDTO, ItanApplicationConfigurationViewModel>(appConfiguration);
-
             viewmodel.CurrentUsers = numberOfRegisteredUsers;
             viewmodel.Subscriptions = numberOfRssSubscriptions;
             viewmodel.RssNews = numberOfRssNews;
-
             return viewmodel;
         }
+
         public void RegisterIfNewUser(ClaimsIdentity identity)
         {
             var isUserRegistered = this.IsUserRegistered(identity);
-
             if (!isUserRegistered)
             {
                 this.RegisterCurrentSocialLogin(identity);
@@ -500,14 +461,15 @@
 
             var currentUserSocialLoginId = this.GetUserSocialIdFromIdentity(identity);
             var currentUserLoginProvider = this.GetCurrentUserLoginProvider(identity);
-
             var userId = this.entityRepository.GetUserId(currentUserSocialLoginId, currentUserLoginProvider);
             identity.AddClaim(new Claim(ItanClaimTypes.ApplicationIdentifier, userId.ToString(), ClaimValueTypes.Integer64, "ITAN"));
         }
 
         public void StoreItanRolesToSession(ClaimsIdentity identity)
         {
-            var currentUserId = long.Parse(identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier).Value);
+            var currentUserId = long.Parse(
+                identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier)
+                    .Value);
             var itanRoles = this.entityRepository.GetRolesTypesForUser(currentUserId);
             var claims = this.mapper.Map<List<ItanRole>, List<Claim>>(itanRoles);
             identity.AddClaims(claims);
@@ -517,7 +479,6 @@
         {
             var currentUserId = this.GetCurrentUserId();
             var isUserSubscribedToChannelUrl = this.entityRepository.IsUserSubscribedToChannelId(currentUserId, channelId);
-
             if (!isUserSubscribedToChannelUrl)
             {
                 this.entityRepository.Subscribe(channelId, currentUserId);
@@ -528,13 +489,10 @@
         {
             var currentUserId = this.GetCurrentUserId();
             var isUserSubscribedToChannelUrl = this.entityRepository.IsUserSubscribedToChannelUrl(currentUserId, channelId.RssChannelLink);
-
             if (!isUserSubscribedToChannelUrl)
             {
-                var idByChannelUrl = this.entityRepository
-                    .GetIdByChannelUrl(new List<string> { channelId.RssChannelLink })
+                var idByChannelUrl = this.entityRepository.GetIdByChannelUrl(new List<string> { channelId.RssChannelLink })
                     .Single();
-
                 this.entityRepository.Subscribe(idByChannelUrl, currentUserId, channelId.RssChannelName);
             }
         }
@@ -578,21 +536,26 @@
             }
             catch (Exception e)
             {
-                e.ToExceptionless().Submit();
-                System.Diagnostics.Debug.WriteLine(e.Message);
+                e.ToExceptionless()
+                    .Submit();
+                Debug.WriteLine(e.Message);
             }
         }
 
         private static List<long> RssToMarkRead(string model)
         {
-            var separator = new[] { ";", "," };
-            var rssToMarkRead = model.Split(separator, StringSplitOptions.None).Select(long.Parse).ToList();
+            var separator = new[]
+                                {
+                                    ";",
+                                    ","
+                                };
+            var rssToMarkRead = model.Split(separator, StringSplitOptions.None)
+                .Select(long.Parse)
+                .ToList();
             return rssToMarkRead;
         }
 
-        private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier,
-                                                                                                                                     AuthenticationTypeProvider authenticationTypeProvider,
-                                                                     long newUserId)
+        private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier, AuthenticationTypeProvider authenticationTypeProvider, long newUserId)
         {
             this.entityRepository.CreateNewSociaLogin(identifier.Value, authenticationTypeProvider, newUserId);
         }
@@ -606,18 +569,11 @@
 
         private void CreateNewChannel(AddChannelDto dto)
         {
-            var rssSourceWithUrlAndTitles = new List<RssSourceWithUrlAndTitle>
-                                                {
-                                                    new RssSourceWithUrlAndTitle(
-                                                        dto.RssChannelLink,
-                                                        dto.RssChannelName)
-                                                };
+            var rssSourceWithUrlAndTitles = new List<RssSourceWithUrlAndTitle> { new RssSourceWithUrlAndTitle(dto.RssChannelLink, dto.RssChannelName) };
             this.entityRepository.SaveToDatabase(rssSourceWithUrlAndTitles);
-
             var urlsToChannels = new List<string> { dto.RssChannelLink };
             var listIds = this.entityRepository.GetIdByChannelUrl(urlsToChannels);
             var id = listIds.Single();
-
             this.entityRepository.SaveChannelCreatedEventToDatabase(id);
         }
 
@@ -634,22 +590,12 @@
 
         private ObservableUserEventsInformation ProjectToObservableUserEventsInformation(NameAndCountUserSubscription arg)
         {
-            return new ObservableUserEventsInformation
-            {
-                Id = arg.Id,
-                Name = arg.Name,
-                Count = arg.Count.ToString()
-            };
+            return new ObservableUserEventsInformation { Id = arg.Id, Name = arg.Name, Count = arg.Count.ToString() };
         }
 
         private UserPublicProfileViewModel ProjectToViewModel(UserPublicProfile model)
         {
-            var viewModel = new UserPublicProfileViewModel
-            {
-                Id = model.Id,
-                DisplayName = model.DisplayName,
-                ChannelsCount = model.ChannelsCount
-            };
+            var viewModel = new UserPublicProfileViewModel { Id = model.Id, DisplayName = model.DisplayName, ChannelsCount = model.ChannelsCount };
             return viewModel;
         }
 

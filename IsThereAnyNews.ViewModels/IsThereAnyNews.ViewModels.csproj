@@ -73,10 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountDetailsViewModel.cs" />
-    <Compile Include="AddPhoneNumberViewModel.cs" />
     <Compile Include="AdminEventsViewModel.cs" />
     <Compile Include="AllUsersPublicProfilesViewModel.cs" />
-    <Compile Include="ChangePasswordViewModel.cs" />
     <Compile Include="ChannelEventCreationViewModel.cs" />
     <Compile Include="ChannelEventExceptionViewModel.cs" />
     <Compile Include="ChannelEventUpdatesViewModel.cs" />
@@ -85,9 +83,7 @@
     <Compile Include="ConfigureTwoFactorViewModel.cs" />
     <Compile Include="ContactViewModel.cs" />
     <Compile Include="EventRssViewedViewModel.cs" />
-    <Compile Include="ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ExternalLoginListViewModel.cs" />
-    <Compile Include="ForgotPasswordViewModel.cs" />
     <Compile Include="ItanApplicationConfigurationViewModel.cs" />
     <Compile Include="LoginSuccessViewModel.cs" />
     <Compile Include="Login\AuthorizationIndexViewModel.cs" />
@@ -97,8 +93,6 @@
     <Compile Include="OpmlImporterIndexViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PublicProfileChannelInformation.cs" />
-    <Compile Include="RegisterViewModel.cs" />
-    <Compile Include="ResetPasswordViewModel.cs" />
     <Compile Include="RssChannel\RssChannelIndexViewModel.cs" />
     <Compile Include="RssChannel\RssChannelsIndexViewModel.cs" />
     <Compile Include="RssChannel\RssChannelsMyViewModel.cs" />
@@ -109,7 +103,6 @@
     <Compile Include="RssStatisticsViewModel.cs" />
     <Compile Include="RssSubscriptionIndexViewModel.cs" />
     <Compile Include="SendCodeViewModel.cs" />
-    <Compile Include="SetPasswordViewModel.cs" />
     <Compile Include="SocialLoginViewModel.cs" />
     <Compile Include="ChannelEventViewModel.cs" />
     <Compile Include="TopReadChannelsViewModel.cs" />
@@ -118,8 +111,6 @@
     <Compile Include="UserRssSubscriptionInfoViewModel.cs" />
     <Compile Include="UserStatisticsViewModel.cs" />
     <Compile Include="UserWithStatisticsViewModel.cs" />
-    <Compile Include="VerifyCodeViewModel.cs" />
-    <Compile Include="VerifyPhoneNumberViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
