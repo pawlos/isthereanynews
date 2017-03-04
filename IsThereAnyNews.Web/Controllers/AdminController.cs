@@ -11,20 +11,13 @@
     using IsThereAnyNews.Web.Infrastructure;
 
     [RoleAuthorize(Roles = new[] { ItanRole.SuperAdmin })]
-    public class AdminController : BaseController
+    public class AdminController : Controller
     {
-        private readonly IAdminService adminService;
-        private readonly IUpdateService updateService;
+        private IService service;
 
-        public AdminController(
-            IUserAuthentication authentication,
-            ILoginService loginService,
-            IAdminService adminService,
-            IUpdateService updateService)
-            : base(authentication, loginService)
+        public AdminController(IService service)
         {
-            this.adminService = adminService;
-            this.updateService = updateService;
+            this.service = service;
         }
 
         [HttpGet]
@@ -36,28 +29,28 @@
         [HttpGet]
         public JsonResult ConfigurationStatus()
         {
-            var configurationStatus = this.adminService.ReadConfiguration();
+            var configurationStatus = this.service.ReadConfiguration();
             return this.Json(configurationStatus, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public HttpStatusCodeResult ChangeRegistration(ChangeRegistrationDto dto)
         {
-            this.adminService.ChangeRegistration(dto);
+            this.service.ChangeRegistration(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
         public HttpStatusCodeResult ChangeUsersLimit(ChangeUsersLimitDto dto)
         {
-            this.adminService.ChangeUsersLimit(dto);
+            this.service.ChangeUsersLimit(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
         public HttpStatusCodeResult SpinUpdateJob()
         {
-            Task.Run(() => this.updateService.UpdateGlobalRss());
+            Task.Run(() => this.service.UpdateGlobalRss());
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }

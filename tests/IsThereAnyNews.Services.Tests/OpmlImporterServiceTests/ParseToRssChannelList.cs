@@ -13,7 +13,6 @@
     public class ParseToRssChannelList
     {
         private AutoMoqer moqer;
-        private OpmlImporterService sut;
         private Mock<IEntityRepository> mockEntityRepository;
 
         [SetUp]

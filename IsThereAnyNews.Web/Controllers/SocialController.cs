@@ -17,14 +17,14 @@
     [Authorize]
     public class SocialController : Controller
     {
-        private const string XsrfKey = "XsrfId";
+        private readonly IService service;
 
-        private readonly ILoginService loginService;
-
-        public SocialController(ILoginService loginService)
+        public SocialController(IService service)
         {
-            this.loginService = loginService;
+            this.service = service;
         }
+
+        private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
 
@@ -37,7 +37,7 @@
                                        .GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption))
                                        .ToList();
 
-            var currentRegistrationStatus = this.loginService.GetCurrentRegistrationStatus();
+            var currentRegistrationStatus = this.service.GetCurrentRegistrationStatus();
 
             viewmodel.Providers = providers;
             viewmodel.CurrentRegistrationStatus = currentRegistrationStatus.ToString();
@@ -65,11 +65,11 @@
 
             var identity = new ClaimsIdentity(loginInfo.ExternalIdentity.Claims, DefaultAuthenticationTypes.ApplicationCookie);
 
-            var currentRegistrationStatus = this.loginService.GetCurrentRegistrationStatus();
+            var currentRegistrationStatus = this.service.GetCurrentRegistrationStatus();
             switch (currentRegistrationStatus)
             {
                 case RegistrationSupported.Closed:
-                    if (this.loginService.IsUserRegistered(identity) == false)
+                    if (this.service.IsUserRegistered(identity) == false)
                     {
                         return this.RedirectToAction("RegistrationClosed");
                     }
@@ -82,8 +82,8 @@
                     // not supported yet
                     break;
                 case RegistrationSupported.Limited:
-                    if (this.loginService.IsUserRegistered(identity) == false &&
-                        this.loginService.CanRegisterIfWithinLimits() == false)
+                    if (this.service.IsUserRegistered(identity) == false &&
+                        this.service.CanRegisterIfWithinLimits() == false)
                     {
                         return this.RedirectToAction("RegistrationClosed");
                     }
@@ -93,9 +93,9 @@
                     throw new ArgumentOutOfRangeException();
             }
 
-            this.loginService.RegisterIfNewUser(identity);
-            this.loginService.StoreCurrentUserIdInSession(identity);
-            this.loginService.StoreItanRolesToSession(identity);
+            this.service.RegisterIfNewUser(identity);
+            this.service.StoreCurrentUserIdInSession(identity);
+            this.service.StoreItanRolesToSession(identity);
             this.AuthenticationManager.SignIn(identity);
 
             return this.RedirectToAction("Index", "Home");

@@ -7,16 +7,14 @@
     using IsThereAnyNews.ViewModels;
 
     [Authorize]
-    public class OpmlImporterController : BaseController
+    public class OpmlImporterController : Controller
     {
-        private readonly IOpmlImporterService opmlImporterService;
+        private readonly IService service;
 
         public OpmlImporterController(
-            IUserAuthentication authentication,
-            ILoginService loginService,
-            IOpmlImporterService opmlImporterService) : base(authentication, loginService)
+            IService service)
         {
-            this.opmlImporterService = opmlImporterService;
+            this.service = service;
         }
 
         [HttpGet]
@@ -34,7 +32,7 @@
                 return this.View("Index", null);
             }
 
-            this.opmlImporterService.Import(dto);
+            this.service.Import(dto);
             return this.RedirectToAction("My", "RssChannel");
         }
     }

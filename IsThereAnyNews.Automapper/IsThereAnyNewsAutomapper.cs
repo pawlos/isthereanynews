@@ -9,11 +9,7 @@ namespace IsThereAnyNews.Automapper
             Mapper.Initialize(
                 cfg =>
                     {
-                        cfg.AddProfile<ModelToViewModelProfile>();
-                        cfg.AddProfile<DtoToEntityModelProfile>();
-                        cfg.AddProfile<SyndicationToAdapter>();
-                        cfg.AddProfile<EntityToProjectionModels>();
-                        cfg.AddProfile<ProjectionToViewModel>();
+                        cfg.AddProfile<AutomapperProfiles>();
                     });
 
             return Mapper.Instance;

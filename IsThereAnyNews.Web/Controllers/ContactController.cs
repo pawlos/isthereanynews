@@ -7,16 +7,16 @@ namespace IsThereAnyNews.Web.Controllers
 
     public class ContactController : Controller
     {
-        private readonly IContactService contactService;
+        private readonly IService service;
 
-        public ContactController(IContactService contactService)
+        public ContactController(IService service)
         {
-            this.contactService = contactService;
+            this.service = service;
         }
 
         public ActionResult Index()
         {
-            var viewModel = this.contactService.GetViewModel();
+            var viewModel = this.service.GetViewModel();
             return this.View("Index", viewModel);
         }
 
@@ -25,11 +25,11 @@ namespace IsThereAnyNews.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                this.contactService.SaveAdministrationContact(dto);
+                this.service.SaveAdministrationContact(dto);
                 return this.RedirectToAction("Success");
             }
 
-            var contactViewModel = this.contactService.GetViewModel();
+            var contactViewModel = this.service.GetViewModel();
             return this.View("Index", contactViewModel);
         }
 

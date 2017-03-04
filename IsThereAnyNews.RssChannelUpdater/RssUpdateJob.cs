@@ -10,7 +10,7 @@
 
     public class RssUpdateJob : IJob
     {
-        private readonly IUpdateService updateService;
+        private IService service;
 
         public RssUpdateJob()
         {
@@ -19,17 +19,13 @@
             var itanDatabaseContext = new ItanDatabaseContext();
             var updateRepository = new EntityRepository(itanDatabaseContext, null);
 
-            ISyndicationFeedAdapter syndicationFeedAdapter = new SyndicationFeedAdapter(configureMapper);
+            this.service = new Service(updateRepository, configureMapper, null);
 
-            this.updateService = new UpdateService(
-                syndicationFeedAdapter,
-                configureMapper,
-                updateRepository);
         }
 
         public void Execute()
         {
-            this.updateService.UpdateGlobalRss();
+            this.service.UpdateGlobalRss();
         }
     }
 }

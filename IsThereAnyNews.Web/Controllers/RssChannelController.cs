@@ -8,26 +8,13 @@
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.Web.Infrastructure;
 
-    public class RssChannelController : BaseController
+    public class RssChannelController : Controller
     {
-        private readonly IRssChannelsService rssChannelsService;
-        private readonly IRssSubscriptionService rssSubscriptionService;
-        private readonly IUserSubscriptionService userSubscriptionServiceService;
-        private readonly ISystemSubscriptionService systemSubscriptionService;
+        private readonly IService service;
 
-        public RssChannelController(
-            IUserAuthentication authentication,
-            ILoginService loginService,
-            IRssChannelsService rssChannelsService,
-            IRssSubscriptionService rssSubscriptionService,
-            IUserSubscriptionService userSubscriptionServiceService,
-            ISystemSubscriptionService systemSubscriptionService)
-            : base(authentication, loginService)
+        public RssChannelController(IService service)
         {
-            this.rssChannelsService = rssChannelsService;
-            this.rssSubscriptionService = rssSubscriptionService;
-            this.userSubscriptionServiceService = userSubscriptionServiceService;
-            this.systemSubscriptionService = systemSubscriptionService;
+            this.service = service;
         }
 
         [HttpGet]
@@ -39,14 +26,14 @@
         [HttpGet]
         public ActionResult PublicChannels()
         {
-            var viewmodel = this.rssChannelsService.LoadAllChannels();
+            var viewmodel = this.service.LoadAllChannels();
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public ActionResult Public(long id)
         {
-            var viewmodel = this.rssChannelsService.GetViewModelFormChannelId(id);
+            var viewmodel = this.service.GetViewModelFormChannelId(id);
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
@@ -61,9 +48,9 @@
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public JsonResult MyChannelList()
         {
-            var viewmodel = this.rssChannelsService.LoadAllChannelsOfCurrentUser();
-            var listOfUsers = this.userSubscriptionServiceService.LoadAllObservableSubscription();
-            var events = this.systemSubscriptionService.LoadEvents();
+            var viewmodel = this.service.LoadAllChannelsOfCurrentUser();
+            var listOfUsers = this.service.LoadAllObservableSubscription();
+            var events = this.service.LoadEvents();
             viewmodel.Users = listOfUsers;
             viewmodel.Events = events;
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
@@ -73,7 +60,7 @@
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Unsubscribe(long channelId)
         {
-            this.rssSubscriptionService.UnsubscribeCurrentUserFromChannelId(channelId);
+            this.service.UnsubscribeCurrentUserFromChannelId(channelId);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
@@ -81,7 +68,7 @@
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Subscribe(long channelId)
         {
-            this.rssSubscriptionService.SubscribeCurrentUserToChannel(channelId);
+            this.service.SubscribeCurrentUserToChannel(channelId);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
@@ -96,7 +83,7 @@
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public HttpStatusCodeResult MarkAllReadForSubscription(MarkReadForSubscriptionDto model)
         {
-            this.rssSubscriptionService.MarkAllRssReadForSubscription(model);
+            this.service.MarkAllRssReadForSubscription(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
@@ -116,8 +103,8 @@
                 return this.View("Add", dto);
             }
 
-            this.rssChannelsService.CreateNewChannelIfNotExists(dto);
-            this.rssSubscriptionService.SubscribeCurrentUserToChannel(dto);
+            this.service.CreateNewChannelIfNotExists(dto);
+            this.service.SubscribeCurrentUserToChannel(dto);
             return this.RedirectToAction("My");
         }
     }

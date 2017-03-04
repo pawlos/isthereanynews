@@ -8,27 +8,19 @@
     using IsThereAnyNews.SharedData;
 
     [Authorize]
-    public class StreamController : BaseController
+    public class StreamController : Controller
     {
-        private readonly IRssSubscriptionService rssSubscriptionService;
+        private readonly IService service;
 
-        public StreamController(
-           IUserAuthentication authentication,
-           ILoginService loginService,
-           IRssSubscriptionService rssSubscriptionService)
-           : base(authentication, loginService)
+        public StreamController(IService service)
         {
-            this.rssSubscriptionService = rssSubscriptionService;
-        }
-
-        public StreamController(IUserAuthentication authentication, ILoginService loginService) : base(authentication, loginService)
-        {
+            this.service = service;
         }
 
         [HttpGet]
         public ActionResult ReadAjax(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
         {
-            var entries = this.rssSubscriptionService
+            var entries = this.service
                 .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
             var result = this.Json(entries, JsonRequestBehavior.AllowGet);
             return result;
@@ -37,28 +29,28 @@
         [HttpPost]
         public ActionResult MarkEntriesRead(MarkReadDto dto)
         {
-            this.rssSubscriptionService.MarkEntriesRead(dto);
+            this.service.MarkEntriesRead(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
         public ActionResult MarkEntriesSkipped(MarkSkippedDto model)
         {
-            this.rssSubscriptionService.MarkEntriesSkipped(model);
+            this.service.MarkEntriesSkipped(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
         public ActionResult MarkReadWithEvent(MarkReadDto dto)
         {
-            this.rssSubscriptionService.MarkRead(dto);
+            this.service.MarkRead(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
         public ActionResult MarkClickedWithEvent(MarkClickedDto dto)
         {
-            this.rssSubscriptionService.MarkClicked(dto);
+            this.service.MarkClicked(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }

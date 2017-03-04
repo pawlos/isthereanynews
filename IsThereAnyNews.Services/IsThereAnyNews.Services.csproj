@@ -85,46 +85,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementation\ChannelUpdatesSubscriptionHandler.cs" />
-    <Compile Include="Implementation\ExceptionSubscriptionHandler.cs" />
-    <Compile Include="IAdminService.cs" />
-    <Compile Include="Implementation\AdminService.cs" />
-    <Compile Include="Implementation\ContactService.cs" />
-    <Compile Include="IContactService.cs" />
-    <Compile Include="Implementation\AccountService.cs" />
-    <Compile Include="IAccountService.cs" />
-    <Compile Include="Implementation\SyndicationFeedAdapter.cs" />
-    <Compile Include="ISubscriptionHandler.cs" />
-    <Compile Include="ISubscriptionHandlerFactory.cs" />
-    <Compile Include="Implementation\PersonSubscriptionHandler.cs" />
-    <Compile Include="Implementation\RssSubscriptionHandler.cs" />
-    <Compile Include="Implementation\SubscriptionHandlerFactory.cs" />
-    <Compile Include="IOpmlReader.cs" />
-    <Compile Include="Implementation\OpmlReader.cs" />
-    <Compile Include="Implementation\RssSubscriptionService.cs" />
-    <Compile Include="Implementation\UpdateService.cs" />
-    <Compile Include="IRssItemActionService.cs" />
-    <Compile Include="IRssSubscriptionService.cs" />
-    <Compile Include="ISyndicationFeedAdapter.cs" />
-    <Compile Include="ISystemSubscriptionService.cs" />
-    <Compile Include="ITestService.cs" />
-    <Compile Include="IUpdateService.cs" />
-    <Compile Include="IUsersService.cs" />
-    <Compile Include="IUserSubscriptionService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ILoginService.cs" />
-    <Compile Include="Implementation\ApplicationLoginService.cs" />
-    <Compile Include="Implementation\OpmlImporterService.cs" />
-    <Compile Include="Implementation\RssChannelsService.cs" />
+    <Compile Include="Handlers\Implementation\ChannelUpdatesSubscriptionHandler.cs" />
+    <Compile Include="Handlers\Implementation\ExceptionSubscriptionHandler.cs" />
     <Compile Include="Implementation\UserAuthentication.cs" />
-    <Compile Include="IOpmlImporterService.cs" />
-    <Compile Include="IRssChannelsService.cs" />
+    <Compile Include="IService.cs" />
+    <Compile Include="Handlers\ISubscriptionHandler.cs" />
+    <Compile Include="Handlers\ISubscriptionHandlerFactory.cs" />
+    <Compile Include="Handlers\Implementation\PersonSubscriptionHandler.cs" />
+    <Compile Include="Handlers\Implementation\RssSubscriptionHandler.cs" />
+    <Compile Include="Handlers\Implementation\SubscriptionHandlerFactory.cs" />
     <Compile Include="IUserAuthentication.cs" />
-    <Compile Include="Implementation\RssItemActionService.cs" />
-    <Compile Include="Implementation\UsersService.cs" />
-    <Compile Include="Implementation\UserSubscriptionService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssSourceWithUrlAndTitleComparer.cs" />
-    <Compile Include="Implementation\SystemSubscriptionService.cs" />
+    <Compile Include="Implementation\Service.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">

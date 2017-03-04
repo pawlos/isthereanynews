@@ -50,7 +50,6 @@ namespace IsThereAnyNews.Autofac
             //builder.RegisterType<RssReadersJob>().InstancePerLifetimeScope();
 
             builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
-            builder.RegisterType<OpmlReader>().As<IOpmlReader>();
             builder.RegisterType<HtmlStripper>().As<IHtmlStripper>();
 
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();
@@ -61,7 +60,6 @@ namespace IsThereAnyNews.Autofac
             builder.RegisterType<ExceptionSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Exception);
 
             builder.RegisterType<SubscriptionHandlerFactory>().As<ISubscriptionHandlerFactory>();
-            builder.RegisterType<SyndicationFeedAdapter>().As<ISyndicationFeedAdapter>();
 
             builder.Register(c => IsThereAnyNewsAutomapper.ConfigureMapper()).As<IMapper>()
                 .InstancePerLifetimeScope();

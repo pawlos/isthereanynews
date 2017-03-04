@@ -6,15 +6,11 @@
     using IsThereAnyNews.Services;
 
     [Authorize]
-    public class AccountController : BaseController
+    public class AccountController : Controller
     {
-        private readonly IAccountService accountService;
+        private IService accountService;
 
-        public AccountController(
-            IUserAuthentication authentication,
-            ILoginService loginService,
-            IAccountService accountService)
-            : base(authentication, loginService)
+        public AccountController(IService accountService)
         {
             this.accountService = accountService;
         }

@@ -5,24 +5,20 @@
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Services;
 
-    public class UsersController : BaseController
+    public class UsersController : Controller
     {
-        private readonly IUsersService usersService;
+        private readonly IService service;
 
-        public UsersController(
-            IUsersService usersService,
-            IUserAuthentication authentication,
-            ILoginService loginService)
-            : base(authentication, loginService)
+        public UsersController(IService service)
         {
-            this.usersService = usersService;
+            this.service = service;
         }
 
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Index()
         {
-            var usersPublicProfileViewModel = this.usersService.LoadAllUsersPublicProfile();
+            var usersPublicProfileViewModel = this.service.LoadAllUsersPublicProfile();
             return this.View("Index", usersPublicProfileViewModel);
         }
 
@@ -30,7 +26,7 @@
         [HttpGet]
         public ActionResult Profile(long id)
         {
-            var userPublicProfile = this.usersService.LoadUserPublicProfile(id);
+            var userPublicProfile = this.service.LoadUserPublicProfile(id);
             return this.View("Profile", userPublicProfile);
         }
 
@@ -38,7 +34,7 @@
         [Authorize]
         public ActionResult Subscribe(SubscribeToUserActivityDto model)
         {
-            this.usersService.SubscribeToUser(model);
+            this.service.SubscribeToUser(model);
             return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
         }
 
@@ -46,7 +42,7 @@
         [HttpPost]
         public ActionResult Unsubscribe(SubscribeToUserActivityDto model)
         {
-            this.usersService.UnsubscribeToUser(model);
+            this.service.UnsubscribeToUser(model);
             return this.RedirectToAction("Profile", new { id = model.ViewingUserId });
         }
     }
