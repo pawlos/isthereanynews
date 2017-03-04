@@ -1,4 +1,7 @@
-﻿namespace IsThereAnyNews.Autofac
+﻿using IsThereAnyNews.Services.Handlers;
+using IsThereAnyNews.Services.Handlers.Implementation;
+
+namespace IsThereAnyNews.Autofac
 {
     using System;
     using System.Linq;

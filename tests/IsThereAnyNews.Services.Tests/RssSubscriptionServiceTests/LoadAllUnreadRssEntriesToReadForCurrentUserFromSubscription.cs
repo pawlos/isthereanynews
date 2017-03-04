@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
+﻿using IsThereAnyNews.Services.Handlers;
+
+namespace IsThereAnyNews.Services.Tests.RssSubscriptionServiceTests
 {
     using AutoMoq;
 
