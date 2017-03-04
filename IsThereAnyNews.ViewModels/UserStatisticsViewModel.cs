@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-
 namespace IsThereAnyNews.ViewModels
 {
+    using System.Collections.Generic;
+
     public class UserStatisticsViewModel
     {
-        public List<UserWithStatisticsViewModel> List { get; set; }
-
         public UserStatisticsViewModel(List<UserWithStatisticsViewModel> list)
         {
-            List = list;
+            this.List = list;
         }
+
+        public List<UserWithStatisticsViewModel> List { get; set; }
     }
 }

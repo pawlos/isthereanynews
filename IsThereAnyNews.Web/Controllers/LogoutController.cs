@@ -12,7 +12,10 @@
         {
             this.Session.Abandon();
             this.Session.Clear();
-            this.HttpContext.GetOwinContext().Authentication.SignOut(ConstantStrings.AuthorizationCookieName);
+            this.HttpContext
+                .GetOwinContext()
+                .Authentication
+                .SignOut(ConstantStrings.AuthorizationCookieName);
             return this.RedirectToAction("Index", "Home");
         }
     }

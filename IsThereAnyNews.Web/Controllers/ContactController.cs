@@ -14,12 +14,6 @@ namespace IsThereAnyNews.Web.Controllers
             this.service = service;
         }
 
-        public ActionResult Index()
-        {
-            var viewModel = this.service.GetViewModel();
-            return this.View("Index", viewModel);
-        }
-
         [HttpPost]
         public ActionResult ContactAdministration(ContactAdministrationDto dto)
         {
@@ -31,6 +25,12 @@ namespace IsThereAnyNews.Web.Controllers
 
             var contactViewModel = this.service.GetViewModel();
             return this.View("Index", contactViewModel);
+        }
+
+        public ActionResult Index()
+        {
+            var viewModel = this.service.GetViewModel();
+            return this.View("Index", viewModel);
         }
 
         [HttpGet]

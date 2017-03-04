@@ -11,8 +11,7 @@
     {
         private readonly IService service;
 
-        public OpmlImporterController(
-            IService service)
+        public OpmlImporterController(IService service)
         {
             this.service = service;
         }

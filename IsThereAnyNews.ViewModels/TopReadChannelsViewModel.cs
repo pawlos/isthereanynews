@@ -1,14 +1,14 @@
-using System.Collections.Generic;
-
 namespace IsThereAnyNews.ViewModels
 {
+    using System.Collections.Generic;
+
     public class TopReadChannelsViewModel
     {
-        public List<ChannelWithSubscriptionCountViewModel> ViewModels { get; set; }
-
         public TopReadChannelsViewModel(List<ChannelWithSubscriptionCountViewModel> viewModels)
         {
-            ViewModels = viewModels;
+            this.ViewModels = viewModels;
         }
+
+        public List<ChannelWithSubscriptionCountViewModel> ViewModels { get; set; }
     }
 }

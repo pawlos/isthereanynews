@@ -1,17 +1,18 @@
-﻿using Microsoft.Owin;
-using Owin;
+﻿using IsThereAnyNews.Web;
 
-[assembly: OwinStartupAttribute(typeof(IsThereAnyNews.Web.Startup))]
+using Microsoft.Owin;
+
+[assembly: OwinStartup(typeof(Startup))]
+
 namespace IsThereAnyNews.Web
 {
-    using IsThereAnyNews.Infrastructure.ConfigurationReader.Implementation;
+    using Owin;
 
     public partial class Startup
     {
-
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            this.ConfigureAuth(app);
         }
     }
 }

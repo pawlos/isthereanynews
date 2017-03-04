@@ -120,7 +120,6 @@
     <Compile Include="Migrations\201702051207204_nlnl.Designer.cs">
       <DependentUpon>201702051207204_nlnl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationConfiguration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\ItanException.cs" />
@@ -154,6 +153,9 @@
       <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
       <Name>IsThereAnyNews.SharedData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Comparers\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607052313561_m0001_initial.resx">
@@ -204,9 +206,6 @@
     <EmbeddedResource Include="Migrations\201702051207204_nlnl.resx">
       <DependentUpon>201702051207204_nlnl.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Comparers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

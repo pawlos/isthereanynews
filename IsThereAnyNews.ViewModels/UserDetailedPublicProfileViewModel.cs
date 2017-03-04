@@ -4,14 +4,20 @@ namespace IsThereAnyNews.ViewModels
 
     public class UserDetailedPublicProfileViewModel
     {
-        public string DisplayName { get; set; }
-        public int ChannelsCount { get; set; }
         public List<string> Channels { get; set; }
-        public List<PublicProfileChannelInformation> Users { get; set; }
+
+        public int ChannelsCount { get; set; }
+
+        public string DisplayName { get; set; }
+
         public List<EventRssViewedViewModel> Events { get; set; }
+
         public int EventsCount { get; set; }
-        public long ViewingUserId { get; set; }
 
         public bool IsUserAlreadySubscribed { get; set; }
+
+        public List<PublicProfileChannelInformation> Users { get; set; }
+
+        public long ViewingUserId { get; set; }
     }
 }

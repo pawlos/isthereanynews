@@ -5,7 +5,6 @@
     using System.Web.Mvc;
 
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.RssChannelUpdater;
     using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.Web.Infrastructure;
@@ -13,24 +12,11 @@
     [RoleAuthorize(Roles = new[] { ItanRole.SuperAdmin })]
     public class AdminController : Controller
     {
-        private IService service;
+        private readonly IService service;
 
         public AdminController(IService service)
         {
             this.service = service;
-        }
-
-        [HttpGet]
-        public ViewResult Index()
-        {
-            return this.View("Index");
-        }
-
-        [HttpGet]
-        public JsonResult ConfigurationStatus()
-        {
-            var configurationStatus = this.service.ReadConfiguration();
-            return this.Json(configurationStatus, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -45,6 +31,19 @@
         {
             this.service.ChangeUsersLimit(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [HttpGet]
+        public JsonResult ConfigurationStatus()
+        {
+            var configurationStatus = this.service.ReadConfiguration();
+            return this.Json(configurationStatus, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ViewResult Index()
+        {
+            return this.View("Index");
         }
 
         [HttpPost]

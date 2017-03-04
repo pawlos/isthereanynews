@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-
 namespace IsThereAnyNews.Services.Implementation
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
     using System.Web;
@@ -13,13 +12,7 @@ namespace IsThereAnyNews.Services.Implementation
     {
         public bool CurrentUserIsAuthenticated()
         {
-            return HttpContext
-                .Current
-                .GetOwinContext()
-                .Authentication
-                .User
-                .Identity
-                .IsAuthenticated;
+            return HttpContext.Current.GetOwinContext().Authentication.User.Identity.IsAuthenticated;
         }
 
         public ClaimsPrincipal GetCurrentUser()
@@ -32,20 +25,9 @@ namespace IsThereAnyNews.Services.Implementation
             long r = 0;
             long.TryParse(
                 this.GetCurrentUser()
-                    .Claims
-                    .SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
-                    ?.Value, out r);
+                    .Claims.SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)?.Value,
+                out r);
             return r;
-        }
-
-        public List<ItanRole> GetCurrentUserRoles()
-        {
-            var roles = this.GetCurrentUser()
-                .Claims
-                .Where(c => c.Type == ClaimTypes.Role)
-                .Select(c => (ItanRole) Enum.Parse(typeof(ItanRole), c.Value))
-                .ToList();
-            return roles;
         }
 
         public AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity)
@@ -54,6 +36,16 @@ namespace IsThereAnyNews.Services.Implementation
             AuthenticationTypeProvider enumResult;
             Enum.TryParse(issuer, true, out enumResult);
             return enumResult;
+        }
+
+        public List<ItanRole> GetCurrentUserRoles()
+        {
+            var roles =
+                this.GetCurrentUser()
+                    .Claims.Where(c => c.Type == ClaimTypes.Role)
+                    .Select(c => (ItanRole)Enum.Parse(typeof(ItanRole), c.Value))
+                    .ToList();
+            return roles;
         }
 
         public string GetUserSocialIdFromIdentity(ClaimsIdentity identity)

@@ -7,15 +7,16 @@
 
     public interface IUserAuthentication
     {
-        string GetUserSocialIdFromIdentity(ClaimsIdentity identity);
+        bool CurrentUserIsAuthenticated();
 
         ClaimsPrincipal GetCurrentUser();
 
+        long GetCurrentUserId();
+
         AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity);
 
-        bool CurrentUserIsAuthenticated();
-
-        long GetCurrentUserId();
         List<ItanRole> GetCurrentUserRoles();
+
+        string GetUserSocialIdFromIdentity(ClaimsIdentity identity);
     }
 }

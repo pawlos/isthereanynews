@@ -17,13 +17,11 @@
             this.service = service;
         }
 
-        [HttpGet]
-        public ActionResult ReadAjax(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
+        [HttpPost]
+        public ActionResult MarkClickedWithEvent(MarkClickedDto dto)
         {
-            var entries = this.service
-                .LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
-            var result = this.Json(entries, JsonRequestBehavior.AllowGet);
-            return result;
+            this.service.MarkClicked(dto);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
@@ -47,11 +45,12 @@
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [HttpPost]
-        public ActionResult MarkClickedWithEvent(MarkClickedDto dto)
+        [HttpGet]
+        public ActionResult ReadAjax(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
         {
-            this.service.MarkClicked(dto);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            var entries = this.service.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
+            var result = this.Json(entries, JsonRequestBehavior.AllowGet);
+            return result;
         }
     }
 }

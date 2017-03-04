@@ -5,12 +5,6 @@ namespace IsThereAnyNews.Web.Controllers
     public class ErrorController : Controller
     {
         [PreventDirectAccess]
-        public ActionResult ServerError()
-        {
-            return this.View("Execute");
-        }
-
-        [PreventDirectAccess]
         public ActionResult AccessDenied()
         {
             return this.View("Execute");
@@ -27,11 +21,18 @@ namespace IsThereAnyNews.Web.Controllers
             return this.View("Execute", httpStatusCode);
         }
 
-        private class PreventDirectAccessAttribute : FilterAttribute, IAuthorizationFilter
+        [PreventDirectAccess]
+        public ActionResult ServerError()
+        {
+            return this.View("Execute");
+        }
+
+        private class PreventDirectAccessAttribute : FilterAttribute,
+                                                     IAuthorizationFilter
         {
             public void OnAuthorization(AuthorizationContext filterContext)
             {
-                object value = filterContext.RouteData.Values["fromAppErrorEvent"];
+                var value = filterContext.RouteData.Values["fromAppErrorEvent"];
                 if (!(value is bool && (bool)value))
                 {
                     filterContext.Result = new ViewResult { ViewName = "Error404" };

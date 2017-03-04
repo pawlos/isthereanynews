@@ -8,18 +8,11 @@
     [Authorize]
     public class AccountController : Controller
     {
-        private IService accountService;
+        private readonly IService accountService;
 
         public AccountController(IService accountService)
         {
             this.accountService = accountService;
-        }
-
-        [HttpGet]
-        public ActionResult Index()
-        {
-            var viewmodel = this.accountService.GetAccountDetailsViewModel();
-            return this.View("Index", viewmodel);
         }
 
         [HttpGet]
@@ -60,6 +53,13 @@
 
             var viewmodel = this.accountService.GetAccountDetailsViewModel();
             return this.View("ChangeEmail", viewmodel);
+        }
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            var viewmodel = this.accountService.GetAccountDetailsViewModel();
+            return this.View("Index", viewmodel);
         }
     }
 }

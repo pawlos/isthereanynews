@@ -17,16 +17,16 @@
         }
 
         [HttpPost]
-        public ActionResult Voteup(RssActionModel model)
+        public ActionResult AddComment(RssActionModel model)
         {
-            this.service.CurrentVoteupForArticleByCurrentUser(model);
+            this.service.AddCommentToRssItemByCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public ActionResult VoteDown(RssActionModel model)
+        public ActionResult AddToReadLater(RssActionModel model)
         {
-            this.service.CurrentVotedownForArticleByCurrentUser(model);
+            this.service.AddToReadLaterQueueForCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
@@ -45,16 +45,16 @@
         }
 
         [HttpPost]
-        public ActionResult AddComment(RssActionModel model)
+        public ActionResult VoteDown(RssActionModel model)
         {
-            this.service.AddCommentToRssItemByCurrentUser(model);
+            this.service.CurrentVotedownForArticleByCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public ActionResult AddToReadLater(RssActionModel model)
+        public ActionResult Voteup(RssActionModel model)
         {
-            this.service.AddToReadLaterQueueForCurrentUser(model);
+            this.service.CurrentVoteupForArticleByCurrentUser(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
     }

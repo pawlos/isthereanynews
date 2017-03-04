@@ -18,23 +18,45 @@
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
+        public ActionResult Add()
+        {
+            return this.View("Add");
+        }
+
+        [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
+        public ActionResult Add(AddChannelDto dto)
+        {
+            if (this.ModelState.IsValid == false)
+            {
+                return this.View("Add", dto);
+            }
+
+            this.service.CreateNewChannelIfNotExists(dto);
+            this.service.SubscribeCurrentUserToChannel(dto);
+            return this.RedirectToAction("My");
+        }
+
+        [HttpGet]
         public ActionResult Index()
         {
             return this.View("Index");
         }
 
-        [HttpGet]
-        public ActionResult PublicChannels()
+        [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
+        public HttpStatusCodeResult MarkAllReadForSubscription(MarkReadForSubscriptionDto model)
         {
-            var viewmodel = this.service.LoadAllChannels();
-            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
+            this.service.MarkAllRssReadForSubscription(model);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [HttpGet]
-        public ActionResult Public(long id)
+        [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
+        public HttpStatusCodeResult MarkRssEntryViewed(long channelId)
         {
-            var viewmodel = this.service.GetViewModelFormChannelId(id);
-            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpGet]
@@ -56,12 +78,18 @@
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public ActionResult Unsubscribe(long channelId)
+        [HttpGet]
+        public ActionResult Public(long id)
         {
-            this.service.UnsubscribeCurrentUserFromChannelId(channelId);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            var viewmodel = this.service.GetViewModelFormChannelId(id);
+            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult PublicChannels()
+        {
+            var viewmodel = this.service.LoadAllChannels();
+            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -74,38 +102,10 @@
 
         [HttpPost]
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public HttpStatusCodeResult MarkRssEntryViewed(long channelId)
+        public ActionResult Unsubscribe(long channelId)
         {
+            this.service.UnsubscribeCurrentUserFromChannelId(channelId);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-        [HttpPost]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public HttpStatusCodeResult MarkAllReadForSubscription(MarkReadForSubscriptionDto model)
-        {
-            this.service.MarkAllRssReadForSubscription(model);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-        [HttpGet]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public ActionResult Add()
-        {
-            return this.View("Add");
-        }
-
-        [HttpPost]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public ActionResult Add(AddChannelDto dto)
-        {
-            if (this.ModelState.IsValid == false)
-            {
-                return this.View("Add", dto);
-            }
-
-            this.service.CreateNewChannelIfNotExists(dto);
-            this.service.SubscribeCurrentUserToChannel(dto);
-            return this.RedirectToAction("My");
         }
     }
 }

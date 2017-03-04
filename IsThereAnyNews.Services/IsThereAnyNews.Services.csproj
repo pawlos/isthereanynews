@@ -87,13 +87,13 @@
   <ItemGroup>
     <Compile Include="Handlers\Implementation\ChannelUpdatesSubscriptionHandler.cs" />
     <Compile Include="Handlers\Implementation\ExceptionSubscriptionHandler.cs" />
-    <Compile Include="Implementation\UserAuthentication.cs" />
-    <Compile Include="IService.cs" />
-    <Compile Include="Handlers\ISubscriptionHandler.cs" />
-    <Compile Include="Handlers\ISubscriptionHandlerFactory.cs" />
     <Compile Include="Handlers\Implementation\PersonSubscriptionHandler.cs" />
     <Compile Include="Handlers\Implementation\RssSubscriptionHandler.cs" />
     <Compile Include="Handlers\Implementation\SubscriptionHandlerFactory.cs" />
+    <Compile Include="Handlers\ISubscriptionHandler.cs" />
+    <Compile Include="Handlers\ISubscriptionHandlerFactory.cs" />
+    <Compile Include="Implementation\UserAuthentication.cs" />
+    <Compile Include="IService.cs" />
     <Compile Include="IUserAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssSourceWithUrlAndTitleComparer.cs" />

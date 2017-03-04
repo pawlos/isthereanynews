@@ -17,6 +17,8 @@
     [Authorize]
     public class SocialController : Controller
     {
+        private const string XsrfKey = "XsrfId";
+
         private readonly IService service;
 
         public SocialController(IService service)
@@ -24,34 +26,15 @@
             this.service = service;
         }
 
-        private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext().Authentication;
-
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
-        {
-            var viewmodel = new AuthorizationIndexViewModel();
-            var providers = this.HttpContext.GetOwinContext()
-                                       .Authentication
-                                       .GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption))
-                                       .ToList();
-
-            var currentRegistrationStatus = this.service.GetCurrentRegistrationStatus();
-
-            viewmodel.Providers = providers;
-            viewmodel.CurrentRegistrationStatus = currentRegistrationStatus.ToString();
-            return this.View("Login", viewmodel);
-        }
+        private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext()
+            .Authentication;
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
-            return new ChallengeResult(
-                       provider,
-                       this.Url.Action("ExternalLoginCallback", "Social", new { ReturnUrl = returnUrl }));
+            return new ChallengeResult(provider, this.Url.Action("ExternalLoginCallback", "Social", new { ReturnUrl = returnUrl }));
         }
 
         [AllowAnonymous]
@@ -64,7 +47,6 @@
             }
 
             var identity = new ClaimsIdentity(loginInfo.ExternalIdentity.Claims, DefaultAuthenticationTypes.ApplicationCookie);
-
             var currentRegistrationStatus = this.service.GetCurrentRegistrationStatus();
             switch (currentRegistrationStatus)
             {
@@ -82,8 +64,8 @@
                     // not supported yet
                     break;
                 case RegistrationSupported.Limited:
-                    if (this.service.IsUserRegistered(identity) == false &&
-                        this.service.CanRegisterIfWithinLimits() == false)
+                    if (this.service.IsUserRegistered(identity) == false
+                        && this.service.CanRegisterIfWithinLimits() == false)
                     {
                         return this.RedirectToAction("RegistrationClosed");
                     }
@@ -97,13 +79,6 @@
             this.service.StoreCurrentUserIdInSession(identity);
             this.service.StoreItanRolesToSession(identity);
             this.AuthenticationManager.SignIn(identity);
-
-            return this.RedirectToAction("Index", "Home");
-        }
-
-        public ActionResult LogOff()
-        {
-            this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return this.RedirectToAction("Index", "Home");
         }
 
@@ -113,12 +88,32 @@
             return this.View();
         }
 
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            var viewmodel = new AuthorizationIndexViewModel();
+            var providers = this.HttpContext.GetOwinContext()
+                .Authentication.GetAuthenticationTypes(x => !string.IsNullOrWhiteSpace(x.Caption))
+                .ToList();
+            var currentRegistrationStatus = this.service.GetCurrentRegistrationStatus();
+            viewmodel.Providers = providers;
+            viewmodel.CurrentRegistrationStatus = currentRegistrationStatus.ToString();
+            return this.View("Login", viewmodel);
+        }
+
+        public ActionResult LogOff()
+        {
+            this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return this.RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
         public ActionResult RegistrationClosed()
         {
             this.Session.Clear();
             this.Request.GetOwinContext()
-                .Authentication.SignOut(this.HttpContext.GetOwinContext()
+                .Authentication.SignOut(
+                    this.HttpContext.GetOwinContext()
                         .Authentication.GetAuthenticationTypes()
                         .Select(o => o.AuthenticationType)
                         .ToArray());
@@ -128,9 +123,7 @@
         internal class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
+                : this(provider, redirectUri, null) {}
 
             public ChallengeResult(string provider, string redirectUri, string userId)
             {
@@ -153,7 +146,8 @@
                     properties.Dictionary[XsrfKey] = this.UserId;
                 }
 
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, this.LoginProvider);
+                context.HttpContext.GetOwinContext()
+                    .Authentication.Challenge(properties, this.LoginProvider);
             }
         }
     }
