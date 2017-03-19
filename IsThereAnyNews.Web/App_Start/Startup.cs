@@ -3,9 +3,10 @@
     using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using System.Web.Mvc;
 
-    using IsThereAnyNews.Infrastructure.ConfigurationReader.Implementation;
     using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.Web.Interfaces.Infrastructure;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.Owin;
@@ -18,12 +19,12 @@
 
     public partial class Startup
     {
-        private readonly WebConfigReader configurationReader;
-
         public Startup()
         {
-            this.configurationReader = new WebConfigReader();
+            this.configurationReader = DependencyResolver.Current.GetService(typeof(IConfigurationReaderWrapper)) as IConfigurationReaderWrapper;
         }
+
+        private readonly IConfigurationReaderWrapper configurationReader;
 
         public void ConfigureAuth(IAppBuilder app)
         {

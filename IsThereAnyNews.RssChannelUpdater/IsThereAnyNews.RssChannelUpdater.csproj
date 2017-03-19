@@ -120,10 +120,6 @@
       <Project>{25C15560-5C76-4AB2-9B0C-AABF93F6318A}</Project>
       <Name>IsThereAnyNews.HtmlStrip</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Services.TestSupport\IsThereAnyNews.Services.TestSupport.csproj">
-      <Project>{B18E2BFC-EB68-466B-809B-7A2485FAD261}</Project>
-      <Name>IsThereAnyNews.Services.TestSupport</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
       <Project>{936C3CB3-6EA8-4A2F-861B-CE9F40E96EE3}</Project>
       <Name>IsThereAnyNews.Services</Name>

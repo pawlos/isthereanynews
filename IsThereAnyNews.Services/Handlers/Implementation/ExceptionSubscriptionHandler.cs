@@ -1,6 +1,6 @@
 namespace IsThereAnyNews.Services.Handlers.Implementation
 {
-    using System;              
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -23,36 +23,17 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             throw new NotImplementedException();
         }
 
-        public void AddEventViewed(long dtoId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddEventViewed(long cui, long id)
         {
             throw new NotImplementedException();
         }
 
-        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(
-            long subscriptionId,
-            ShowReadEntries showReadEntries)
+        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var channelInformationViewModel = new ChannelInformationViewModel
-                                                  {
-                                                      Created = DateTime.MinValue,
-                                                      Title = "Application exceptions"
-                                                  };
-
+            var channelInformationViewModel = new ChannelInformationViewModel { Created = DateTime.MinValue, Title = "Application exceptions" };
             var loadAllRssEntriesForUserAndChannel = this.LoadExceptionEvents(showReadEntries);
-
-            var subscriptionIndexViewModel = new RssSubscriptionIndexViewModel(
-                0,
-                channelInformationViewModel,
-                loadAllRssEntriesForUserAndChannel,
-                StreamType.Channel);
-
+            var subscriptionIndexViewModel = new RssSubscriptionIndexViewModel(0, channelInformationViewModel, loadAllRssEntriesForUserAndChannel, StreamType.Channel);
             var rssSubscriptionIndexViewModel = subscriptionIndexViewModel;
-
             return rssSubscriptionIndexViewModel;
         }
 
@@ -88,8 +69,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
                                             PublicationDate = s.Occured,
                                             Url = string.Empty,
                                             Title = s.Typeof,
-                                            PreviewText =
-                                                $"Message: <br/>{s.Message}<br/> StackTrace:<br/>{s.StackTrace}<br/> Source:<br/>{s.Source}<br/>",
+                                            PreviewText = $"Message: <br/>{s.Message}<br/> StackTrace:<br/>{s.StackTrace}<br/> Source:<br/>{s.Source}<br/>",
                                             SubscriptionId = 0
                                         }
                             });

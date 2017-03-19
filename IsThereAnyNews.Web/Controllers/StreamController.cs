@@ -4,8 +4,8 @@
     using System.Web.Mvc;
 
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.Web.Interfaces.Services;
 
     [Authorize]
     public class StreamController : Controller

@@ -6,11 +6,10 @@
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.Services;
-    using IsThereAnyNews.Services.Implementation;
 
     public class RssUpdateJob : IJob
     {
-        private IService service;
+        private Service service;
 
         public RssUpdateJob()
         {

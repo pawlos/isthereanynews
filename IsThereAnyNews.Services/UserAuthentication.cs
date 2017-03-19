@@ -1,4 +1,4 @@
-namespace IsThereAnyNews.Services.Implementation
+namespace IsThereAnyNews.Services
 {
     using System;
     using System.Collections.Generic;
@@ -7,17 +7,20 @@ namespace IsThereAnyNews.Services.Implementation
     using System.Web;
 
     using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.Web.Interfaces.Services;
 
     public class UserAuthentication : IUserAuthentication
     {
         public bool CurrentUserIsAuthenticated()
         {
-            return HttpContext.Current.GetOwinContext().Authentication.User.Identity.IsAuthenticated;
+            return HttpContext.Current.GetOwinContext()
+                .Authentication.User.Identity.IsAuthenticated;
         }
 
         public ClaimsPrincipal GetCurrentUser()
         {
-            return HttpContext.Current.GetOwinContext().Authentication.User;
+            return HttpContext.Current.GetOwinContext()
+                .Authentication.User;
         }
 
         public long GetCurrentUserId()
@@ -25,14 +28,16 @@ namespace IsThereAnyNews.Services.Implementation
             long r = 0;
             long.TryParse(
                 this.GetCurrentUser()
-                    .Claims.SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)?.Value,
+                    .Claims.SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
+                    ?.Value,
                 out r);
             return r;
         }
 
         public AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity)
         {
-            var issuer = identity.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer)).Issuer;
+            var issuer = identity.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer))
+                .Issuer;
             AuthenticationTypeProvider enumResult;
             Enum.TryParse(issuer, true, out enumResult);
             return enumResult;
@@ -40,11 +45,10 @@ namespace IsThereAnyNews.Services.Implementation
 
         public List<ItanRole> GetCurrentUserRoles()
         {
-            var roles =
-                this.GetCurrentUser()
-                    .Claims.Where(c => c.Type == ClaimTypes.Role)
-                    .Select(c => (ItanRole)Enum.Parse(typeof(ItanRole), c.Value))
-                    .ToList();
+            var roles = this.GetCurrentUser()
+                .Claims.Where(c => c.Type == ClaimTypes.Role)
+                .Select(c => (ItanRole)Enum.Parse(typeof(ItanRole), c.Value))
+                .ToList();
             return roles;
         }
 

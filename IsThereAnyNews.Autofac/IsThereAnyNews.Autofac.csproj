@@ -106,10 +106,6 @@
       <Project>{B24157E9-5C64-46D3-A7EF-A603969BCC76}</Project>
       <Name>IsThereAnyNews.Automapper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
-      <Project>{112524E8-F4E5-4874-A870-79F2FEC8947C}</Project>
-      <Name>IsThereAnyNews.DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
       <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
       <Name>IsThereAnyNews.EntityFramework</Name>
@@ -118,9 +114,9 @@
       <Project>{25C15560-5C76-4AB2-9B0C-AABF93F6318A}</Project>
       <Name>IsThereAnyNews.HtmlStrip</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Infrastructure.ConfigurationReader\IsThereAnyNews.Infrastructure.ConfigurationReader.csproj">
-      <Project>{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}</Project>
-      <Name>IsThereAnyNews.Infrastructure.ConfigurationReader</Name>
+    <ProjectReference Include="..\IsThereAnyNews.Infrastructure\IsThereAnyNews.Infrastructure.csproj">
+      <Project>{93a4ae8c-dfb5-4a54-9d8a-904d761a3b1d}</Project>
+      <Name>IsThereAnyNews.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.RssChannelUpdater\IsThereAnyNews.RssChannelUpdater.csproj">
       <Project>{450E3A72-F217-44CE-8505-592B9B47D88B}</Project>
@@ -133,6 +129,10 @@
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
       <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
       <Name>IsThereAnyNews.SharedData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Web.Interfaces\IsThereAnyNews.Web.Interfaces.csproj">
+      <Project>{53c5b3d8-7d45-45a8-a5c6-23923f8c35cc}</Project>
+      <Name>IsThereAnyNews.Web.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

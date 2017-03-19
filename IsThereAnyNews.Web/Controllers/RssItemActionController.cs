@@ -4,7 +4,7 @@
     using System.Web.Mvc;
 
     using IsThereAnyNews.Dtos;
-    using IsThereAnyNews.Services;
+    using IsThereAnyNews.Web.Interfaces.Services;
 
     [Authorize]
     public class RssItemActionController : Controller

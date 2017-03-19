@@ -12,19 +12,15 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
     public class PersonSubscriptionHandler : ISubscriptionHandler
     {
-        private readonly IUserAuthentication authentication;
-
         private readonly IEntityRepository entityRepository;
 
         private readonly IMapper mapper;
 
         public PersonSubscriptionHandler(
             IMapper mapper,
-            IUserAuthentication authentication,
             IEntityRepository entityRepository)
         {
             this.mapper = mapper;
-            this.authentication = authentication;
             this.entityRepository = entityRepository;
         }
 
@@ -33,21 +29,17 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             // dont know what to do here
         }
 
-        public void AddEventViewed(long dtoId)
-        {
-            // do nothing for now
-        }
-
         public void AddEventViewed(long cui, long id)
         {
             // dont know what to do here
         }
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(
+            long userId,
             long subscriptionId,
             ShowReadEntries showReadEntries)
         {
-            return this.GetPersonSubscriptionIndexViewModel(subscriptionId, showReadEntries);
+            return this.GetPersonSubscriptionIndexViewModel(userId, subscriptionId, showReadEntries);
         }
 
         public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
@@ -66,12 +58,11 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
         }
 
         private RssSubscriptionIndexViewModel GetPersonSubscriptionIndexViewModel(
+            long userId,
             long subscriptionId,
             ShowReadEntries showReadEntries)
         {
-            var currentUserId = this.authentication.GetCurrentUserId();
-
-            if (!this.entityRepository.DoesUserOwnsUserSubscription(subscriptionId, currentUserId))
+            if (!this.entityRepository.DoesUserOwnsUserSubscription(subscriptionId, userId))
             {
                 var ci = new ChannelInformationViewModel
                              {

@@ -22,17 +22,13 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             throw new NotImplementedException();
         }
 
-        public void AddEventViewed(long dtoId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddEventViewed(long cui, long id)
         {
             throw new NotImplementedException();
         }
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(
+        long userId,
             long subscriptionId,
             ShowReadEntries showReadEntries)
         {

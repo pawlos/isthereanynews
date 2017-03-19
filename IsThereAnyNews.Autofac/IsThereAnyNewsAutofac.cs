@@ -1,9 +1,5 @@
-﻿using IsThereAnyNews.Services.Handlers;
-using IsThereAnyNews.Services.Handlers.Implementation;
-
-namespace IsThereAnyNews.Autofac
+﻿namespace IsThereAnyNews.Autofac
 {
-    using System;
     using System.Linq;
     using System.Reflection;
     using System.Web.Compilation;
@@ -11,21 +7,20 @@ namespace IsThereAnyNews.Autofac
 
     using AutoMapper;
 
-    using EntityFramework;
-
     using global::Autofac;
     using global::Autofac.Integration.Mvc;
 
-    using Infrastructure.ConfigurationReader;
-    using Infrastructure.ConfigurationReader.Implementation;
-
     using IsThereAnyNews.Automapper;
+    using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.HtmlStrip;
+    using IsThereAnyNews.Infrastructure.Implementation;
     using IsThereAnyNews.RssChannelUpdater;
+    using IsThereAnyNews.Services;
+    using IsThereAnyNews.Services.Handlers;
+    using IsThereAnyNews.Services.Handlers.Implementation;
     using IsThereAnyNews.SharedData;
-
-    using Services;
-    using Services.Implementation;
+    using IsThereAnyNews.Web.Interfaces.Infrastructure;
+    using IsThereAnyNews.Web.Interfaces.Services;
 
     public static class IsThereAnyNewsAutofac
     {
@@ -45,12 +40,15 @@ namespace IsThereAnyNews.Autofac
                 .Where(t => t.Name.EndsWith("Service"))
                 .AsImplementedInterfaces();
 
+            builder.RegisterAssemblyTypes(assemblies)
+            .Where(t => t.Name.EndsWith("Wrapper"))
+            .AsImplementedInterfaces();
+
             builder.RegisterType<ItanDatabaseContext>().InstancePerLifetimeScope();
             builder.RegisterType<RssUpdateJob>().InstancePerLifetimeScope();
-            //builder.RegisterType<RssReadersJob>().InstancePerLifetimeScope();
 
-            builder.RegisterType<WebConfigReader>().As<IConfigurationReader>();
             builder.RegisterType<HtmlStripper>().As<IHtmlStripper>();
+            builder.RegisterType<WebConfigReaderWrapper>().As<IConfigurationReaderWrapper>();
 
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();
 

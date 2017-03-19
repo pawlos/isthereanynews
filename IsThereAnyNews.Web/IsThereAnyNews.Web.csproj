@@ -193,8 +193,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\ItanRoleProvider.cs" />
-    <Compile Include="Infrastructure\RoleAuthorizeAttribute.cs" />
+    <Compile Include="ItanRoleProvider.cs" />
+    <Compile Include="RoleAuthorizeAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -1047,7 +1047,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1097,45 +1099,29 @@
       <Project>{c06edaa6-ee09-4ed1-85c4-a11db07e5d4d}</Project>
       <Name>IsThereAnyNews.Autofac</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Automapper\IsThereAnyNews.Automapper.csproj">
-      <Project>{b24157e9-5c64-46d3-a7ef-a603969bcc76}</Project>
-      <Name>IsThereAnyNews.Automapper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
-      <Project>{112524e8-f4e5-4874-a870-79f2fec8947c}</Project>
-      <Name>IsThereAnyNews.DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Dtos\IsThereAnyNews.Dtos.csproj">
-      <Project>{756f51e8-7a9c-4645-8858-55c91561f131}</Project>
+      <Project>{756F51E8-7A9C-4645-8858-55C91561F131}</Project>
       <Name>IsThereAnyNews.Dtos</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
-      <Project>{8a68b5b9-f09c-4769-9219-38cc6084dec3}</Project>
-      <Name>IsThereAnyNews.EntityFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Extensions\IsThereAnyNews.Extensions.csproj">
-      <Project>{0651ce64-06f8-466c-8b8f-a5c09d2e4eb3}</Project>
-      <Name>IsThereAnyNews.Extensions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Infrastructure.ConfigurationReader\IsThereAnyNews.Infrastructure.ConfigurationReader.csproj">
-      <Project>{ec54e210-ae93-46bb-878e-e5ebe5b08a0a}</Project>
-      <Name>IsThereAnyNews.Infrastructure.ConfigurationReader</Name>
+    <ProjectReference Include="..\IsThereAnyNews.ProjectionModels\IsThereAnyNews.ProjectionModels.csproj">
+      <Project>{F34CB611-4687-4B21-AEA9-3E62C1898E68}</Project>
+      <Name>IsThereAnyNews.ProjectionModels</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.RssChannelUpdater\IsThereAnyNews.RssChannelUpdater.csproj">
       <Project>{450e3a72-f217-44ce-8505-592b9b47d88b}</Project>
       <Name>IsThereAnyNews.RssChannelUpdater</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IsThereAnyNews.Services\IsThereAnyNews.Services.csproj">
-      <Project>{936c3cb3-6ea8-4a2f-861b-ce9f40e96ee3}</Project>
-      <Name>IsThereAnyNews.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
       <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
       <Name>IsThereAnyNews.SharedData</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.ViewModels\IsThereAnyNews.ViewModels.csproj">
-      <Project>{f3ff82bf-cdf6-4f3e-821c-63e0011bb9c6}</Project>
+      <Project>{F3FF82BF-CDF6-4F3E-821C-63E0011BB9C6}</Project>
       <Name>IsThereAnyNews.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Web.Interfaces\IsThereAnyNews.Web.Interfaces.csproj">
+      <Project>{53C5B3D8-7D45-45A8-A5C6-23923F8C35CC}</Project>
+      <Name>IsThereAnyNews.Web.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

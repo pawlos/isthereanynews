@@ -1,4 +1,4 @@
-﻿namespace IsThereAnyNews.Services.Implementation
+﻿namespace IsThereAnyNews.Services
 {
     using System;
     using System.Collections.Generic;
@@ -22,6 +22,7 @@
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
     using IsThereAnyNews.ViewModels.RssChannel;
+    using IsThereAnyNews.Web.Interfaces.Services;
 
     public class Service : IService
     {
@@ -131,11 +132,10 @@
         public List<XmlNode> FilterOutInvalidOutlines(IEnumerable<XmlNode> outlines)
         {
             var validoutlines = outlines.Where(
-                o => o.Attributes.GetNamedItem("xmlUrl") != null && o.Attributes.GetNamedItem("title") != null && !string.IsNullOrWhiteSpace(
-                         o.Attributes.GetNamedItem("xmlUrl")
-                             .Value) && !string.IsNullOrWhiteSpace(
-                         o.Attributes.GetNamedItem("title")
-                             .Value));
+                o => o.Attributes.GetNamedItem("xmlUrl") != null
+                  && o.Attributes.GetNamedItem("title") != null
+                  && !string.IsNullOrWhiteSpace(o.Attributes.GetNamedItem("xmlUrl").Value)
+                  && !string.IsNullOrWhiteSpace(o.Attributes.GetNamedItem("title").Value));
             return validoutlines.ToList();
         }
 
@@ -295,7 +295,7 @@
         public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
         {
             var provider = this.subscriptionHandlerFactory.GetProvider(streamType);
-            var viewmodel = provider.GetSubscriptionViewModel(subscriptionId, showReadEntries);
+            var viewmodel = provider.GetSubscriptionViewModel(666666, subscriptionId, showReadEntries);
             return viewmodel;
         }
 

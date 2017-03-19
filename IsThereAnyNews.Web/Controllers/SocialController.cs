@@ -7,9 +7,9 @@
     using System.Web;
     using System.Web.Mvc;
 
-    using IsThereAnyNews.Services;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels.Login;
+    using IsThereAnyNews.Web.Interfaces.Services;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.Owin.Security;

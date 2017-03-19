@@ -92,12 +92,10 @@
     <Compile Include="Handlers\Implementation\SubscriptionHandlerFactory.cs" />
     <Compile Include="Handlers\ISubscriptionHandler.cs" />
     <Compile Include="Handlers\ISubscriptionHandlerFactory.cs" />
-    <Compile Include="Implementation\UserAuthentication.cs" />
-    <Compile Include="IService.cs" />
-    <Compile Include="IUserAuthentication.cs" />
+    <Compile Include="UserAuthentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssSourceWithUrlAndTitleComparer.cs" />
-    <Compile Include="Implementation\Service.cs" />
+    <Compile Include="Service.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
@@ -132,11 +130,16 @@
       <Project>{F3FF82BF-CDF6-4F3E-821C-63E0011BB9C6}</Project>
       <Name>IsThereAnyNews.ViewModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Web.Interfaces\IsThereAnyNews.Web.Interfaces.csproj">
+      <Project>{53c5b3d8-7d45-45a8-a5c6-23923f8c35cc}</Project>
+      <Name>IsThereAnyNews.Web.Interfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

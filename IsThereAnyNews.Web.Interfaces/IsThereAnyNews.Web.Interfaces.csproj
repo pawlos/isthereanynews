@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}</ProjectGuid>
+    <ProjectGuid>{53C5B3D8-7D45-45A8-A5C6-23923F8C35CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IsThereAnyNews.Infrastructure.ConfigurationReader</RootNamespace>
-    <AssemblyName>IsThereAnyNews.Infrastructure.ConfigurationReader</AssemblyName>
+    <RootNamespace>IsThereAnyNews.Web.Interfaces</RootNamespace>
+    <AssemblyName>IsThereAnyNews.Web.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,14 +41,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\IConfigurationReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IService.cs" />
+    <Compile Include="Services\IUserAuthentication.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IsThereAnyNews.Dtos\IsThereAnyNews.Dtos.csproj">
+      <Project>{756F51E8-7A9C-4645-8858-55C91561F131}</Project>
+      <Name>IsThereAnyNews.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.ProjectionModels\IsThereAnyNews.ProjectionModels.csproj">
+      <Project>{F34CB611-4687-4B21-AEA9-3E62C1898E68}</Project>
+      <Name>IsThereAnyNews.ProjectionModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj">
+      <Project>{653E44AB-1674-44B2-B4D1-B3D6CD36A441}</Project>
+      <Name>IsThereAnyNews.SharedData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.ViewModels\IsThereAnyNews.ViewModels.csproj">
+      <Project>{F3FF82BF-CDF6-4F3E-821C-63E0011BB9C6}</Project>
+      <Name>IsThereAnyNews.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

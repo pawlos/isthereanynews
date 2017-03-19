@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.26206.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.SharedData", "IsThereAnyNews.SharedData\IsThereAnyNews.SharedData.csproj", "{653E44AB-1674-44B2-B4D1-B3D6CD36A441}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Infrastructure.ConfigurationReader", "IsThereAnyNews.Infrastructure.ConfigurationReader\IsThereAnyNews.Infrastructure.ConfigurationReader.csproj", "{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.EntityFramework", "IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj", "{8A68B5B9-F09C-4769-9219-38CC6084DEC3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.DataAccess", "IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj", "{112524E8-F4E5-4874-A870-79F2FEC8947C}"
@@ -37,6 +35,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.ProjectionMo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Services.TestSupport", "IsThereAnyNews.Services.TestSupport\IsThereAnyNews.Services.TestSupport.csproj", "{B18E2BFC-EB68-466B-809B-7A2485FAD261}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Infrastructure", "IsThereAnyNews.Infrastructure\IsThereAnyNews.Infrastructure.csproj", "{93A4AE8C-DFB5-4A54-9D8A-904D761A3B1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{8C117836-767B-4571-A4F6-55C1ACC477DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Web.Interfaces", "IsThereAnyNews.Web.Interfaces\IsThereAnyNews.Web.Interfaces.csproj", "{53C5B3D8-7D45-45A8-A5C6-23923F8C35CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,10 +51,6 @@ Global
 		{653E44AB-1674-44B2-B4D1-B3D6CD36A441}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{653E44AB-1674-44B2-B4D1-B3D6CD36A441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{653E44AB-1674-44B2-B4D1-B3D6CD36A441}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC54E210-AE93-46BB-878E-E5EBE5B08A0A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A68B5B9-F09C-4769-9219-38CC6084DEC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A68B5B9-F09C-4769-9219-38CC6084DEC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A68B5B9-F09C-4769-9219-38CC6084DEC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,11 +107,23 @@ Global
 		{B18E2BFC-EB68-466B-809B-7A2485FAD261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B18E2BFC-EB68-466B-809B-7A2485FAD261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B18E2BFC-EB68-466B-809B-7A2485FAD261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93A4AE8C-DFB5-4A54-9D8A-904D761A3B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A4AE8C-DFB5-4A54-9D8A-904D761A3B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A4AE8C-DFB5-4A54-9D8A-904D761A3B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A4AE8C-DFB5-4A54-9D8A-904D761A3B1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53C5B3D8-7D45-45A8-A5C6-23923F8C35CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53C5B3D8-7D45-45A8-A5C6-23923F8C35CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53C5B3D8-7D45-45A8-A5C6-23923F8C35CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53C5B3D8-7D45-45A8-A5C6-23923F8C35CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{C06EDAA6-EE09-4ED1-85C4-A11DB07E5D4D} = {8C117836-767B-4571-A4F6-55C1ACC477DB}
+		{450E3A72-F217-44CE-8505-592B9B47D88B} = {8C117836-767B-4571-A4F6-55C1ACC477DB}
 		{85BA6BC3-23D8-4A94-AA90-2E417B1A3DE0} = {555341E8-1C68-4E5F-A646-0D90E0CC2F76}
+		{251B3684-BCAF-49B0-AF76-E2C62A68B2AA} = {8C117836-767B-4571-A4F6-55C1ACC477DB}
+		{53C5B3D8-7D45-45A8-A5C6-23923F8C35CC} = {8C117836-767B-4571-A4F6-55C1ACC477DB}
 	EndGlobalSection
 EndGlobal

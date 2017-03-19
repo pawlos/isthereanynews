@@ -1,4 +1,4 @@
-﻿namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Web.Interfaces.Services
 {
     using System.Collections.Generic;
     using System.Security.Claims;

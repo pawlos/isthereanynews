@@ -1,4 +1,4 @@
-﻿namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Web.Interfaces.Services
 {
     using System.Collections.Generic;
     using System.IO;
@@ -19,6 +19,8 @@
 
         void AddToReadLaterQueueForCurrentUser(RssActionModel id);
 
+        bool CanRegisterIfWithinLimits();
+
         void ChangeDisplayName(ChangeDisplayNameModelDto model);
 
         void ChangeEmail(ChangeEmailModelDto model);
@@ -36,6 +38,8 @@
         void CurrentVoteupForArticleByCurrentUser(RssActionModel id);
 
         AccountDetailsViewModel GetAccountDetailsViewModel();
+
+        RegistrationSupported GetCurrentRegistrationStatus();
 
         ClaimsPrincipal GetCurrentUser();
 
@@ -55,6 +59,8 @@
 
         void Import(OpmlImporterIndexDto dto);
 
+        bool IsUserRegistered(ClaimsIdentity identity);
+
         List<SyndicationItemAdapter> Load(string url);
 
         RssChannelsIndexViewModel LoadAllChannels();
@@ -63,10 +69,7 @@
 
         List<ObservableUserEventsInformation> LoadAllObservableSubscription();
 
-        RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(
-            StreamType streamType,
-            long id,
-            ShowReadEntries showReadEntries);
+        RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long id, ShowReadEntries showReadEntries);
 
         AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile();
 
@@ -90,9 +93,15 @@
 
         ItanApplicationConfigurationViewModel ReadConfiguration();
 
+        void RegisterIfNewUser(ClaimsIdentity identity);
+
         void SaveAdministrationContact(ContactAdministrationDto dto);
 
         void ShareRssItem(RssActionModel id);
+
+        void StoreCurrentUserIdInSession(ClaimsIdentity identity);
+
+        void StoreItanRolesToSession(ClaimsIdentity identity);
 
         void SubscribeCurrentUserToChannel(long channelId);
 
@@ -105,17 +114,5 @@
         void UnsubscribeToUser(SubscribeToUserActivityDto model);
 
         void UpdateGlobalRss();
-
-        RegistrationSupported GetCurrentRegistrationStatus();
-
-        bool IsUserRegistered(ClaimsIdentity identity);
-
-        bool CanRegisterIfWithinLimits();
-
-        void RegisterIfNewUser(ClaimsIdentity identity);
-
-        void StoreCurrentUserIdInSession(ClaimsIdentity identity);
-
-        void StoreItanRolesToSession(ClaimsIdentity identity);
     }
 }
