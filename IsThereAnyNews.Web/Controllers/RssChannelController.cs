@@ -18,20 +18,14 @@
         }
 
         [HttpGet]
-        [RoleAuthorize(Roles = new[]
-                                   {
-                                       ItanRole.User
-                                   })]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Add()
         {
             return this.View("Add");
         }
 
         [HttpPost]
-        [RoleAuthorize(Roles = new[]
-                                   {
-                                       ItanRole.User
-                                   })]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Add(AddChannelDto dto)
         {
             if (this.ModelState.IsValid == false)
@@ -51,10 +45,7 @@
         }
 
         [HttpPost]
-        [RoleAuthorize(Roles = new[]
-                                   {
-                                       ItanRole.User
-                                   })]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public HttpStatusCodeResult MarkAllReadForSubscription(MarkReadForSubscriptionDto model)
         {
             this.service.MarkAllRssReadForSubscription(model);
@@ -62,30 +53,21 @@
         }
 
         [HttpPost]
-        [RoleAuthorize(Roles = new[]
-                                   {
-                                       ItanRole.User
-                                   })]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public HttpStatusCodeResult MarkRssEntryViewed(long channelId)
         {
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpGet]
-        [RoleAuthorize(Roles = new[]
-                                   {
-                                       ItanRole.User
-                                   })]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult My()
         {
             return this.View("My");
         }
 
         [HttpGet]
-        [RoleAuthorize(Roles = new[]
-                                   {
-                                       ItanRole.User
-                                   })]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public JsonResult MyChannelList()
         {
             var viewmodel = this.service.LoadAllChannelsOfCurrentUser();
@@ -111,10 +93,7 @@
         }
 
         [HttpPost]
-        [RoleAuthorize(Roles = new[]
-                                   {
-                                       ItanRole.User
-                                   })]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Subscribe(long channelId)
         {
             this.service.SubscribeCurrentUserToChannel(channelId);
@@ -122,10 +101,7 @@
         }
 
         [HttpPost]
-        [RoleAuthorize(Roles = new[]
-                                   {
-                                       ItanRole.User
-                                   })]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public ActionResult Unsubscribe(long channelId)
         {
             this.service.UnsubscribeCurrentUserFromChannelId(channelId);

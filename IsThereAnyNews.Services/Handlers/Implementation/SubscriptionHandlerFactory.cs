@@ -1,7 +1,6 @@
 namespace IsThereAnyNews.Services.Handlers.Implementation
 {
     using Autofac.Features.Indexed;
-
     using IsThereAnyNews.SharedData;
 
     public class SubscriptionHandlerFactory : ISubscriptionHandlerFactory

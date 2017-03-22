@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace IsThereAnyNews.ViewModels.RssChannel
+﻿namespace IsThereAnyNews.ViewModels.RssChannel
 {
+    using System.Collections.Generic;
+
     public class RssChannelsMyViewModel
     {
         public List<RssChannelSubscriptionViewModel> ChannelsSubscriptions { get; set; }

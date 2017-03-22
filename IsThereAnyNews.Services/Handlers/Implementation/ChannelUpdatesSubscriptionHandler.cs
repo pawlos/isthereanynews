@@ -3,7 +3,6 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
@@ -27,33 +26,24 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             throw new NotImplementedException();
         }
 
-        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(
-        long userId,
-            long subscriptionId,
-            ShowReadEntries showReadEntries)
+        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
             var channelInformationViewModel = new ChannelInformationViewModel
-                                                  {
-                                                      Created = DateTime.MinValue,
-                                                      Title = "Channel update events"
-                                                  };
+                                              {
+                                                  Created = DateTime.MinValue,
+                                                  Title = "Channel update events"
+                                              };
 
             var loadAllRssEntriesForUserAndChannel = this.LoadUpdateEvents(showReadEntries);
 
-            var subscriptionIndexViewModel = new RssSubscriptionIndexViewModel(
-                0,
-                channelInformationViewModel,
-                loadAllRssEntriesForUserAndChannel,
-                StreamType.Channel);
+            var subscriptionIndexViewModel = new RssSubscriptionIndexViewModel(0,
+                                                                               channelInformationViewModel,
+                                                                               loadAllRssEntriesForUserAndChannel,
+                                                                               StreamType.Channel);
 
             var rssSubscriptionIndexViewModel = subscriptionIndexViewModel;
 
             return rssSubscriptionIndexViewModel;
-        }
-
-        public void MarkRead(List<long> displayedItems)
-        {
-            throw new NotImplementedException();
         }
 
         public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
@@ -70,21 +60,20 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
         {
             var dtos = this.entityRepository.LoadUpdateEvents(100);
             var rssEntryToReadViewModels =
-                dtos.Select(
-                    d =>
-                        new RssEntryToReadViewModel
-                            {
-                                Id = d.Id,
-                                IsRead = false,
-                                RssEntryViewModel =
-                                    new RssEntryViewModel
-                                        {
-                                            Id = d.Id,
-                                            Title = d.ChannelTitle,
-                                            PublicationDate = d.Updated,
-                                            Url = string.Empty
-                                        }
-                            });
+                    dtos.Select(d =>
+                                    new RssEntryToReadViewModel
+                                    {
+                                        Id = d.Id,
+                                        IsRead = false,
+                                        RssEntryViewModel =
+                                                new RssEntryViewModel
+                                                {
+                                                    Id = d.Id,
+                                                    Title = d.ChannelTitle,
+                                                    PublicationDate = d.Updated,
+                                                    Url = string.Empty
+                                                }
+                                    });
             return rssEntryToReadViewModels.ToList();
         }
     }

@@ -2,9 +2,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 {
     using System;
     using System.Collections.Generic;
-
     using AutoMapper;
-
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.SharedData;
@@ -47,11 +45,6 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             throw new NotImplementedException();
         }
 
-        public void MarkRead(List<long> displayedItems)
-        {
-            throw new NotImplementedException();
-        }
-
         public void MarkSkipped(long modelSubscriptionId, List<long> ids)
         {
             this.entityRepository.MarkPersonEntriesSkipped(modelSubscriptionId, ids);
@@ -65,47 +58,43 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             if (!this.entityRepository.DoesUserOwnsUserSubscription(subscriptionId, userId))
             {
                 var ci = new ChannelInformationViewModel
-                             {
-                                 Title = "You are not subscribed to this user",
-                                 Created = DateTime.MaxValue
-                             };
+                         {
+                             Title = "You are not subscribed to this user",
+                             Created = DateTime.MaxValue
+                         };
 
                 var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(
-                    subscriptionId,
-                    ci,
-                    new List<RssEntryToReadViewModel>(),
-                    StreamType.Person);
+                                                                                      subscriptionId,
+                                                                                      ci,
+                                                                                      new List<RssEntryToReadViewModel>(),
+                                                                                      StreamType.Person);
                 return rssSubscriptionIndexViewModel;
             }
 
             List<UserSubscriptionEntryToReadDTO> loadAllUnreadEntriesFromSubscription;
             if (showReadEntries != ShowReadEntries.Show)
-            {
                 loadAllUnreadEntriesFromSubscription =
-                    this.entityRepository.LoadAllUserUnreadEntriesFromSubscription(subscriptionId);
-            }
+                        this.entityRepository.LoadAllUserUnreadEntriesFromSubscription(subscriptionId);
             else
-            {
                 loadAllUnreadEntriesFromSubscription =
-                    this.entityRepository.LoadAllUserEntriesFromSubscription(subscriptionId);
-            }
+                        this.entityRepository.LoadAllUserEntriesFromSubscription(subscriptionId);
 
             var channelInformation = this.entityRepository.LoadUserChannelInformation(subscriptionId);
 
             var channelInformationViewModel = new ChannelInformationViewModel
-                                                  {
-                                                      Title = channelInformation.Title,
-                                                      Created = channelInformation.Created
-                                                  };
+                                              {
+                                                  Title = channelInformation.Title,
+                                                  Created = channelInformation.Created
+                                              };
 
             var rssEntryToReadViewModels =
-                this.mapper.Map<List<RssEntryToReadViewModel>>(loadAllUnreadEntriesFromSubscription);
+                    this.mapper.Map<List<RssEntryToReadViewModel>>(loadAllUnreadEntriesFromSubscription);
 
             var viewModel = new RssSubscriptionIndexViewModel(
-                subscriptionId,
-                channelInformationViewModel,
-                rssEntryToReadViewModels,
-                StreamType.Person);
+                                                              subscriptionId,
+                                                              channelInformationViewModel,
+                                                              rssEntryToReadViewModels,
+                                                              StreamType.Person);
 
             return viewModel;
         }
