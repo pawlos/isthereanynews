@@ -9,10 +9,7 @@
     using IsThereAnyNews.Web.Infrastructure;
     using IsThereAnyNews.Web.Interfaces.Services;
 
-    [RoleAuthorize(Roles = new[]
-                               {
-                                   ItanRole.SuperAdmin
-                               })]
+    [RoleAuthorize(Roles = new[] {ItanRole.SuperAdmin})]
     public class AdminController : Controller
     {
         private readonly IService service;

@@ -16,7 +16,7 @@
             var configureMapper = IsThereAnyNewsAutomapper.ConfigureMapper();
 
             var itanDatabaseContext = new ItanDatabaseContext();
-            var updateRepository = new EntityRepository(itanDatabaseContext, null);
+            var updateRepository = new EntityRepository(itanDatabaseContext,configureMapper);
 
             this.service = new Service(updateRepository, configureMapper, null);
 
