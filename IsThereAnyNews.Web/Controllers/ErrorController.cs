@@ -2,38 +2,38 @@ namespace IsThereAnyNews.Web.Controllers
 {
     using System.Web.Mvc;
 
-    public class ErrorController : Controller
+    public partial class ErrorController: Controller
     {
         [PreventDirectAccess]
-        public ActionResult AccessDenied()
+        public virtual ActionResult AccessDenied()
         {
             return this.View("Execute");
         }
 
-        public ActionResult NotFound()
+        public virtual ActionResult NotFound()
         {
             return this.View("Execute");
         }
 
         [PreventDirectAccess]
-        public ActionResult OtherHttpStatusCode(int httpStatusCode)
+        public virtual ActionResult OtherHttpStatusCode(int httpStatusCode)
         {
             return this.View("Execute", httpStatusCode);
         }
 
         [PreventDirectAccess]
-        public ActionResult ServerError()
+        public virtual ActionResult ServerError()
         {
             return this.View("Execute");
         }
 
-        private class PreventDirectAccessAttribute : FilterAttribute,
+        private class PreventDirectAccessAttribute: FilterAttribute,
                                                      IAuthorizationFilter
         {
             public void OnAuthorization(AuthorizationContext filterContext)
             {
                 var value = filterContext.RouteData.Values["fromAppErrorEvent"];
-                if (!(value is bool && (bool)value))
+                if(!(value is bool && (bool)value))
                 {
                     filterContext.Result = new ViewResult { ViewName = "Error404" };
                 }

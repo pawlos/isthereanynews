@@ -1,7 +1,14 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
-
-<p>Use this area to provide additional information.</p>
+﻿<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">How to use</div>
+        <div class="panel-body">
+            <p>After you login you can browse @Html.ActionLink("public channels", MVC.Home.PublicChannels()) and subscribe to them. Next when you go to @Html.ActionLink("your rss", "My", "Home") channels you will be able to read rss entries from these channels.</p>
+            <p>Also you can checkout the @Html.ActionLink("users list", MVC.Home.Users()) and subscribe to them, the you will see what they click and read so that you know what is popular in your friends list.</p>
+            <p>If you already are using some rss reader application, you can export from you old and import that to ITAN. Use @Html.ActionLink("import", MVC.Home.ImportOpml()) options under you account dropdown list.</p>
+        </div>
+        <div class="panel-heading">Questions, suggestions, ...</div>
+        <div class="panel-body">
+            <p>Please use @Html.ActionLink("asd", MVC.Home.Contact()) to drop us a message</p>
+        </div>
+    </div>
+</div>

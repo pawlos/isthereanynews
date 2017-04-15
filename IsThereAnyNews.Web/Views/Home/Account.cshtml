@@ -19,7 +19,7 @@
                     All actions will be shown under this display name:
                 </div>
                 <div>
-                    @Model.DisplayName <span>@Html.ActionLink("change", "ChangeDisplayName")</span>
+                    @Model.DisplayName <span>@Html.ActionLink("change", MVC.Home.ChangeDisplayName())</span>
                 </div>
             </div>
             <div class="row">
@@ -27,7 +27,7 @@
                     We will contact you via
                 </div>
                 <div>
-                    @Model.Email <span>@Html.ActionLink("change", "ChangeEmail")</span>
+                    @Model.Email <span>@Html.ActionLink("change", MVC.Home.ChangeEmail())</span>
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@ angular.module("itan")
         data: {}
     }
 
-    $http.get("/Admin/ConfigurationStatus")
+    $http.get("/Home/ConfigurationStatus")
     .success(function (data) {
         $scope.configurationStatus.data = data;
         $scope.configurationStatus.loaded = true;
@@ -16,7 +16,7 @@ angular.module("itan")
     $scope.onRegistrationClick = function (newRegistrationStatus) {
         var httpOptions = {
             method: 'POST',
-            url: "/Admin/ChangeRegistration",
+            url: "/Home/ChangeRegistration",
             data: {
                 status: newRegistrationStatus
             }
@@ -30,7 +30,7 @@ angular.module("itan")
     $scope.onUsersLimitClicked = function (newLimit) {
         var httpOptions = {
             method: 'POST',
-            url: "/Admin/ChangeUsersLimit",
+            url: "/Home/ChangeUsersLimit",
             data: {
                 limit: newLimit
             }
@@ -45,7 +45,7 @@ angular.module("itan")
     $scope.onSpinUpdateJob = function () {
         var httpOptions = {
             method: 'POST',
-            url: "/Admin/SpinUpdateJob",
+            url: "/Home/SpinUpdateJob",
             data: {
             }
         };

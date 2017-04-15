@@ -5,7 +5,7 @@
 }
 
 <div class="container">
-    @using (Html.BeginForm("Add", "RssChannel", FormMethod.Post))
+    @using (Html.BeginForm(MVC.Home.AddChannel(), FormMethod.Post))
     {
         @Html.ValidationSummary()
         <div class="row">
@@ -22,7 +22,7 @@
                         class="btn btn-primary pull-right">
                     Add channel
                 </button>
-                @Html.ActionLink("back to subscriptions", "My","RssChannel")
+                @Html.ActionLink("back to subscriptions", MVC.Home.My())
             </div>
         </div>
     }

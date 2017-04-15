@@ -64,7 +64,7 @@ angular.module("itan")
         return "";
     }
 
-    $http.get("/RssChannel/MyChannelList")
+    $http.get("/Home/MyChannelList")
         .success(function (data) {
             $scope.channels.list = data;
             $scope.channels.loaded = true;
@@ -72,7 +72,7 @@ angular.module("itan")
 
     $scope.onChannelClick = function (channel) {
         $scope.channels.current = channel;
-        $http.get("/Stream/ReadAjax?streamType=" + channel.StreamType + "&id=" + channel.Id)
+        $http.get("/Home/ReadAjax?streamType=" + channel.StreamType + "&id=" + channel.Id)
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
@@ -87,7 +87,7 @@ angular.module("itan")
         var ids = entries.DisplayedRss;
         var httpOptions = {
             method: 'POST',
-            url: "/Stream/MarkEntriesSkipped",
+            url: "/Home/MarkEntriesSkipped",
             data: {
                 StreamType: entries.StreamType,
                 Entries: ids,
@@ -105,7 +105,7 @@ angular.module("itan")
     $scope.markReadWithEvent = function (streamType, item) {
         var httpOptions = {
             method: 'POST',
-            url: "/Stream/MarkReadWithEvent",
+            url: "/Home/MarkReadWithEvent",
             data: {
                 StreamType: streamType,
                 Id: item.RssEntryViewModel.Id,
@@ -124,7 +124,7 @@ angular.module("itan")
     $scope.onArticleBodyClicked = function (streamType, id, url) {
         var httpOptions = {
             method: 'POST',
-            url: "/Stream/MarkClickedWithEvent",
+            url: "/Home/MarkClickedWithEvent",
             data: {
                 Id: id
             }
@@ -138,7 +138,7 @@ angular.module("itan")
     $scope.onThumbsUpClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/RssItemAction/VoteUp",
+            url: "/Home/VoteUp",
             data: {
                 streamType: streamType,
                 id: id
@@ -149,7 +149,7 @@ angular.module("itan")
     $scope.onThumbsDownClick = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/RssItemAction/VoteDown",
+            url: "/Home/VoteDown",
             data: {
                 streamType: streamType,
                 id: id
@@ -161,7 +161,7 @@ angular.module("itan")
     $scope.onMarkUnreadClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/RssItemAction/MarkNotRead",
+            url: "/Home/MarkNotRead",
             data: {
                 streamType: streamType,
                 id: id
@@ -173,7 +173,7 @@ angular.module("itan")
     $scope.onShareClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/RssItemAction/Share",
+            url: "/Home/Share",
             data: {
                 streamType: streamType,
                 id: id
@@ -184,7 +184,7 @@ angular.module("itan")
     $scope.onCommentsClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/RssItemAction/AddComment",
+            url: "/Home/AddComment",
             data: {
                 streamType: streamType,
                 id: id
@@ -196,7 +196,7 @@ angular.module("itan")
     $scope.onReadLaterClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/RssItemAction/AddToReadLater",
+            url: "/Home/AddToReadLater",
             data: {
                 streamType: streamType,
                 id: id
@@ -208,7 +208,7 @@ angular.module("itan")
     $scope.onAddChannelClicked = function (newChannel) {
         var options = {
             method: "POST",
-            url: "/RssChannel/AddChannel",
+            url: "/Home/AddChannel",
             data: {
                 RssChannelLink: newChannel.link,
                 RssChannelName: newChannel.title

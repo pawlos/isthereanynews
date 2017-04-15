@@ -10,13 +10,12 @@
             @using (Html.BeginForm())
             {
                 <div class="form-group">
-                    <label>Email</label><br />
-                    <input placeholder="@Model.Email" 
-                           name="Email" id="Email" type="text" class="form-control">
+                    <label>Display name</label><br/>
+                    <input placeholder="@Model.DisplayName" name="Displayname" id="Displayname" type="text" class="form-control">
                 </div>
                 <div class="pull-right">
-                    @Html.ActionLink("back", "Index", "Account")
-                    <input type="submit" class="btn btn-primary" value="change" />
+                    @Html.ActionLink("back", MVC.Home.Account())
+                    <input type="submit" class="btn btn-primary" value="change"/>
                 </div>
             }
         </div>

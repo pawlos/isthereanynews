@@ -33,7 +33,7 @@ angular.module("itan")
     };
 
 
-    $http.get("/RssChannel/PublicChannels")
+    $http.get("/Home/PublicChannels")
         .success(function (data) {
             $scope.channels.list = data;
             $scope.channels.loaded = true;
@@ -59,7 +59,7 @@ angular.module("itan")
     }
 
     $scope.onChannelClick = function (channel) {
-        $http.get("/RssChannel/Public/" + channel.Id)
+        $http.get("/Home/Public/" + channel.Id)
             .success(function(data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
@@ -93,7 +93,7 @@ angular.module("itan")
     $scope.subscribe = function (channelId) {
         var httpOptions = {
             method: 'POST',
-            url: "/RssChannel/Subscribe",
+            url: "/Home/Subscribe",
             data: {
                 channelId: channelId
             }
@@ -107,7 +107,7 @@ angular.module("itan")
     $scope.unsubscribe = function (channelId) {
         var httpOptions = {
             method: 'POST',
-            url: "/RssChannel/Unsubscribe",
+            url: "/Home/Unsubscribe",
             data: {
                 channelId: channelId
             }
