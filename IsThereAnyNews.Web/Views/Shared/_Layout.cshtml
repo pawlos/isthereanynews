@@ -38,7 +38,7 @@
 
                 <ul class="nav navbar-nav">
                     <li data-toggle="tooltip" data-placement="bottom" title="Home page"><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span></a></li>
-                    <li data-toggle="tooltip" data-placement="bottom" title="Public channels"><a href="@Url.Action("RssChannel", "Home")"><span class="fa fa-globe"></span></a></li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="Public channels"><a href="@Url.Action(MVC.Feeds.Index())"><span class="fa fa-globe"></span></a></li>
                     <li data-toggle="tooltip" data-placement="bottom" title="Users list"><a href="@Url.Action("Users","Home")"><span class="fa fa-users"></span></a></li>
                     @if (User.Identity.IsAuthenticated)
             {
@@ -56,7 +56,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action("Account","Home")">Account</a></li>
                                 <li><a href="@Url.Action("ImportOpml","Home")">Import OPML</a></li>
-                                <li><a href="@Url.Action("RssChannel","Home")">Add new channel</a></li>
+                                <li><a href="@Url.Action(MVC.Feeds.Index())">Add new channel</a></li>
                                 <li><a href="@Url.Action("LogOff", "Home")">Logout
                                     <span style="color: red" class="fa fa-sign-out"></span></a></li>
                                 @if (User.IsInRole(ItanRole.SuperAdmin.ToString()))
@@ -109,7 +109,7 @@
     <div class="clearfix navbarfix"></div>
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container">
-            <span>Is there any news 2016-2017 (C) @System.Reflection.Assembly.Load("IsThereAnyNews.Web").GetName().Version.ToString()</span>
+            <span>Is there any news 2016-2017 (C) 0.1.2</span>
         </div>
     </nav>
     @RenderSection("scripts", required: false)

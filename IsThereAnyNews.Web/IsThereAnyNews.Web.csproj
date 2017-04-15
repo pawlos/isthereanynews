@@ -193,8 +193,12 @@
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\FeedsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="ErrorController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FeedsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -1098,7 +1102,7 @@
     <Content Include="Views\Home\RegistrationClosed.cshtml" />
     <Content Include="Views\Home\ImportOpml.cshtml" />
     <Content Include="Views\Home\AddChannel.cshtml" />
-    <Content Include="Views\Home\RssChannel.cshtml" />
+    <Content Include="Views\Feeds\Index.cshtml" />
     <Content Include="Views\Home\My.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Home\Users.cshtml" />

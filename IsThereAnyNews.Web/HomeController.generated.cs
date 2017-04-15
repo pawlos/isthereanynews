@@ -155,18 +155,6 @@ namespace IsThereAnyNews.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SubscribeToChannel()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SubscribeToChannel);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult UnsubscribeFromChannel()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnsubscribeFromChannel);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult AddComment()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddComment);
@@ -241,15 +229,11 @@ namespace IsThereAnyNews.Web.Controllers
             public readonly string LogOff = "LogOff";
             public readonly string RegistrationClosed = "RegistrationClosed";
             public readonly string AddChannel = "AddChannel";
-            public readonly string RssChannel = "RssChannel";
             public readonly string MarkAllReadForSubscription = "MarkAllReadForSubscription";
             public readonly string MarkRssEntryViewed = "MarkRssEntryViewed";
             public readonly string My = "My";
             public readonly string MyChannelList = "MyChannelList";
             public readonly string Public = "Public";
-            public readonly string PublicChannels = "PublicChannels";
-            public readonly string SubscribeToChannel = "SubscribeToChannel";
-            public readonly string UnsubscribeFromChannel = "UnsubscribeFromChannel";
             public readonly string AddComment = "AddComment";
             public readonly string AddToReadLater = "AddToReadLater";
             public readonly string MarkNotRead = "MarkNotRead";
@@ -288,15 +272,11 @@ namespace IsThereAnyNews.Web.Controllers
             public const string LogOff = "LogOff";
             public const string RegistrationClosed = "RegistrationClosed";
             public const string AddChannel = "AddChannel";
-            public const string RssChannel = "RssChannel";
             public const string MarkAllReadForSubscription = "MarkAllReadForSubscription";
             public const string MarkRssEntryViewed = "MarkRssEntryViewed";
             public const string My = "My";
             public const string MyChannelList = "MyChannelList";
             public const string Public = "Public";
-            public const string PublicChannels = "PublicChannels";
-            public const string SubscribeToChannel = "SubscribeToChannel";
-            public const string UnsubscribeFromChannel = "UnsubscribeFromChannel";
             public const string AddComment = "AddComment";
             public const string AddToReadLater = "AddToReadLater";
             public const string MarkNotRead = "MarkNotRead";
@@ -456,22 +436,6 @@ namespace IsThereAnyNews.Web.Controllers
         {
             public readonly string id = "id";
         }
-        static readonly ActionParamsClass_SubscribeToChannel s_params_SubscribeToChannel = new ActionParamsClass_SubscribeToChannel();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SubscribeToChannel SubscribeToChannelParams { get { return s_params_SubscribeToChannel; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SubscribeToChannel
-        {
-            public readonly string channelId = "channelId";
-        }
-        static readonly ActionParamsClass_UnsubscribeFromChannel s_params_UnsubscribeFromChannel = new ActionParamsClass_UnsubscribeFromChannel();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_UnsubscribeFromChannel UnsubscribeFromChannelParams { get { return s_params_UnsubscribeFromChannel; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UnsubscribeFromChannel
-        {
-            public readonly string channelId = "channelId";
-        }
         static readonly ActionParamsClass_AddComment s_params_AddComment = new ActionParamsClass_AddComment();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_AddComment AddCommentParams { get { return s_params_AddComment; } }
@@ -557,7 +521,6 @@ namespace IsThereAnyNews.Web.Controllers
                 public readonly string Login = "Login";
                 public readonly string My = "My";
                 public readonly string RegistrationClosed = "RegistrationClosed";
-                public readonly string RssChannel = "RssChannel";
                 public readonly string User = "User";
                 public readonly string Users = "Users";
             }
@@ -572,7 +535,6 @@ namespace IsThereAnyNews.Web.Controllers
             public readonly string Login = "~/Views/Home/Login.cshtml";
             public readonly string My = "~/Views/Home/My.cshtml";
             public readonly string RegistrationClosed = "~/Views/Home/RegistrationClosed.cshtml";
-            public readonly string RssChannel = "~/Views/Home/RssChannel.cshtml";
             public readonly string User = "~/Views/Home/User.cshtml";
             public readonly string Users = "~/Views/Home/Users.cshtml";
         }
@@ -888,17 +850,6 @@ namespace IsThereAnyNews.Web.Controllers
         }
 
         [NonAction]
-        partial void RssChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult RssChannel()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RssChannel);
-            RssChannelOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
         partial void MarkAllReadForSubscriptionOverride(T4MVC_System_Web_Mvc_HttpStatusCodeResult callInfo, IsThereAnyNews.Dtos.MarkReadForSubscriptionDto model);
 
         [NonAction]
@@ -953,41 +904,6 @@ namespace IsThereAnyNews.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Public);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             PublicOverride(callInfo, id);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void PublicChannelsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult PublicChannels()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PublicChannels);
-            PublicChannelsOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SubscribeToChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long channelId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult SubscribeToChannel(long channelId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SubscribeToChannel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
-            SubscribeToChannelOverride(callInfo, channelId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void UnsubscribeFromChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long channelId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult UnsubscribeFromChannel(long channelId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnsubscribeFromChannel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
-            UnsubscribeFromChannelOverride(callInfo, channelId);
             return callInfo;
         }
 

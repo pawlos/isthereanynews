@@ -286,12 +286,6 @@
             return this.RedirectToAction("My");
         }
 
-        [HttpGet]
-        public virtual ActionResult RssChannel()
-        {
-            return this.View("RssChannel");
-        }
-
         [HttpPost]
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public virtual HttpStatusCodeResult MarkAllReadForSubscription(MarkReadForSubscriptionDto model)
@@ -333,28 +327,8 @@
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
-        public virtual ActionResult PublicChannels()
-        {
-            var viewmodel = this.service.LoadAllChannels();
-            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
-        }
+        
 
-        [HttpPost]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public virtual ActionResult SubscribeToChannel(long channelId)
-        {
-            this.service.SubscribeCurrentUserToChannel(channelId);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-        [HttpPost]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public virtual ActionResult UnsubscribeFromChannel(long channelId)
-        {
-            this.service.UnsubscribeCurrentUserFromChannelId(channelId);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
 
 
         [HttpPost]
