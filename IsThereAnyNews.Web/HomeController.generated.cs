@@ -118,12 +118,6 @@ namespace IsThereAnyNews.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ContactAdministration()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ContactAdministration);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ExternalLogin()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLogin);
@@ -224,7 +218,6 @@ namespace IsThereAnyNews.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string About = "About";
             public readonly string MarkClickedWithEvent = "MarkClickedWithEvent";
             public readonly string MarkEntriesRead = "MarkEntriesRead";
             public readonly string MarkEntriesSkipped = "MarkEntriesSkipped";
@@ -241,9 +234,6 @@ namespace IsThereAnyNews.Web.Controllers
             public readonly string ConfigurationStatus = "ConfigurationStatus";
             public readonly string Admin = "Admin";
             public readonly string SpinUpdateJob = "SpinUpdateJob";
-            public readonly string ContactAdministration = "ContactAdministration";
-            public readonly string Contact = "Contact";
-            public readonly string Success = "Success";
             public readonly string ExternalLogin = "ExternalLogin";
             public readonly string ExternalLoginCallback = "ExternalLoginCallback";
             public readonly string ExternalLoginFailure = "ExternalLoginFailure";
@@ -275,7 +265,6 @@ namespace IsThereAnyNews.Web.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string About = "About";
             public const string MarkClickedWithEvent = "MarkClickedWithEvent";
             public const string MarkEntriesRead = "MarkEntriesRead";
             public const string MarkEntriesSkipped = "MarkEntriesSkipped";
@@ -292,9 +281,6 @@ namespace IsThereAnyNews.Web.Controllers
             public const string ConfigurationStatus = "ConfigurationStatus";
             public const string Admin = "Admin";
             public const string SpinUpdateJob = "SpinUpdateJob";
-            public const string ContactAdministration = "ContactAdministration";
-            public const string Contact = "Contact";
-            public const string Success = "Success";
             public const string ExternalLogin = "ExternalLogin";
             public const string ExternalLoginCallback = "ExternalLoginCallback";
             public const string ExternalLoginFailure = "ExternalLoginFailure";
@@ -410,14 +396,6 @@ namespace IsThereAnyNews.Web.Controllers
         public ActionParamsClass_ChangeUsersLimit ChangeUsersLimitParams { get { return s_params_ChangeUsersLimit; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ChangeUsersLimit
-        {
-            public readonly string dto = "dto";
-        }
-        static readonly ActionParamsClass_ContactAdministration s_params_ContactAdministration = new ActionParamsClass_ContactAdministration();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ContactAdministration ContactAdministrationParams { get { return s_params_ContactAdministration; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ContactAdministration
         {
             public readonly string dto = "dto";
         }
@@ -569,38 +547,32 @@ namespace IsThereAnyNews.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _ContactAdministration = "_ContactAdministration";
-                public readonly string About = "About";
                 public readonly string Account = "Account";
                 public readonly string AddChannel = "AddChannel";
                 public readonly string Admin = "Admin";
                 public readonly string ChangeDisplayName = "ChangeDisplayName";
                 public readonly string ChangeEmail = "ChangeEmail";
-                public readonly string Contact = "Contact";
                 public readonly string ImportOpml = "ImportOpml";
                 public readonly string Index = "Index";
                 public readonly string Login = "Login";
                 public readonly string My = "My";
                 public readonly string RegistrationClosed = "RegistrationClosed";
                 public readonly string RssChannel = "RssChannel";
-                public readonly string Success = "Success";
                 public readonly string User = "User";
                 public readonly string Users = "Users";
             }
             public readonly string _ContactAdministration = "~/Views/Home/_ContactAdministration.cshtml";
-            public readonly string About = "~/Views/Home/About.cshtml";
             public readonly string Account = "~/Views/Home/Account.cshtml";
             public readonly string AddChannel = "~/Views/Home/AddChannel.cshtml";
             public readonly string Admin = "~/Views/Home/Admin.cshtml";
             public readonly string ChangeDisplayName = "~/Views/Home/ChangeDisplayName.cshtml";
             public readonly string ChangeEmail = "~/Views/Home/ChangeEmail.cshtml";
-            public readonly string Contact = "~/Views/Home/Contact.cshtml";
             public readonly string ImportOpml = "~/Views/Home/ImportOpml.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
             public readonly string Login = "~/Views/Home/Login.cshtml";
             public readonly string My = "~/Views/Home/My.cshtml";
             public readonly string RegistrationClosed = "~/Views/Home/RegistrationClosed.cshtml";
             public readonly string RssChannel = "~/Views/Home/RssChannel.cshtml";
-            public readonly string Success = "~/Views/Home/Success.cshtml";
             public readonly string User = "~/Views/Home/User.cshtml";
             public readonly string Users = "~/Views/Home/Users.cshtml";
         }
@@ -619,17 +591,6 @@ namespace IsThereAnyNews.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void AboutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult About()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.About);
-            AboutOverride(callInfo);
             return callInfo;
         }
 
@@ -830,40 +791,6 @@ namespace IsThereAnyNews.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.SpinUpdateJob);
             SpinUpdateJobOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ContactAdministrationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.ContactAdministrationDto dto);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult ContactAdministration(IsThereAnyNews.Dtos.ContactAdministrationDto dto)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ContactAdministration);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
-            ContactAdministrationOverride(callInfo, dto);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ContactOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Contact()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Contact);
-            ContactOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SuccessOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Success()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Success);
-            SuccessOverride(callInfo);
             return callInfo;
         }
 

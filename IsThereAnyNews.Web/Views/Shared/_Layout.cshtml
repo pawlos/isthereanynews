@@ -1,4 +1,5 @@
-﻿@using IsThereAnyNews.SharedData
+﻿@using System.Web.UI.WebControls
+@using IsThereAnyNews.SharedData
 @using IsThereAnyNews.Web.Controllers
 <!DOCTYPE html>
 <html ng-app="itan">
@@ -56,9 +57,10 @@
                                 <li><a href="@Url.Action("Account","Home")">Account</a></li>
                                 <li><a href="@Url.Action("ImportOpml","Home")">Import OPML</a></li>
                                 <li><a href="@Url.Action("RssChannel","Home")">Add new channel</a></li>
-                                <li><a href="@Url.Action("LogOff", "Home")">Logout <span style="color: red" class="fa fa-sign-out"></span></a></li>
+                                <li><a href="@Url.Action("LogOff", "Home")">Logout
+                                    <span style="color: red" class="fa fa-sign-out"></span></a></li>
                                 @if (User.IsInRole(ItanRole.SuperAdmin.ToString()))
-                                {
+                                { 
                                     <li>
                                         <a href="@Url.Action("Admin","Home")">
                                             Supa Admin <span class="fa fa-lock"></span>
@@ -67,16 +69,36 @@
                                 }
                             </ul>
                         </li>
-                        <li data-toggle="tooltip" data-placement="bottom" title="Contact"><a href="@Url.Action("Contact","Home")"><span class="fa fa-envelope"></span></a></li>
-                        <li data-toggle="tooltip" data-placement="bottom" title="About"><a href="@Url.Action("About","Home")"><span style="color: green" class="fa fa-question"></span></a></li>
+                        <li data-toggle="tooltip" data-placement="bottom" title="Contact">
+                            <a href="@Url.Action(MVC.Contact.Index())">
+                                <span class="fa fa-envelope"></span>
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" data-placement="bottom" title="About">
+                            <a href="@Url.Action(MVC.About.Index())">
+                                <span style="color: green" class="fa fa-question"></span>
+                            </a>
+                        </li>
                     </ul>
                 }
                 else
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li data-toggle="tooltip" data-placement="bottom" title="Contact"><a href="@Url.Action("Contact", "Home")"><span class="fa fa-envelope"></span></a></li>
-                        <li data-toggle="tooltip" data-placement="bottom" title="About"><a href="@Url.Action("About", "Home")"><span style="color: green" class="fa fa-question"></span></a></li>
-                        <li><a href="@Url.Action("Login", "Home")" class="btn"><span class="fa fa-sign-in"></span></a></li>
+                        <li data-toggle="tooltip" data-placement="bottom" title="Contact">
+                            <a href="@Url.Action(MVC.Contact.Index())">
+                                <span class="fa fa-envelope"></span>
+                            </a>
+                        </li>
+                        <li data-toggle="tooltip" data-placement="bottom" title="About">
+                            <a href="@Url.Action(MVC.About.Index())">
+                                <span style="color: green" class="fa fa-question"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Login", "Home")" class="btn">
+                                <span class="fa fa-sign-in"></span>
+                            </a>
+                        </li>
                     </ul>
                 }
             </div>

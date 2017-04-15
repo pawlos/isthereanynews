@@ -27,7 +27,9 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
+    public static IsThereAnyNews.Web.Controllers.AboutController About = new IsThereAnyNews.Web.Controllers.T4MVC_AboutController();
     public static IsThereAnyNews.Web.Controllers.AccountController Account = new IsThereAnyNews.Web.Controllers.T4MVC_AccountController();
+    public static IsThereAnyNews.Web.Controllers.ContactController Contact = new IsThereAnyNews.Web.Controllers.T4MVC_ContactController();
     public static IsThereAnyNews.Web.Controllers.ErrorController Error = new IsThereAnyNews.Web.Controllers.T4MVC_ErrorController();
     public static IsThereAnyNews.Web.Controllers.HomeController Home = new IsThereAnyNews.Web.Controllers.T4MVC_HomeController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();

@@ -1373,7 +1373,16 @@ order by Updated";
 
         public long SaveToDatabase(ContactAdministrationDto entity)
         {
-            throw new NotImplementedException();
+            var contactAdministration = new ContactAdministration
+                                        {
+                                            Email = entity.Email,
+                                            Message = entity.Message,
+                                            Name = entity.Name,
+                                            Topic = entity.Topic
+                                        };
+            this.database.ContactsAdministration.Add(contactAdministration);
+            this.database.SaveChanges();
+            return contactAdministration.Id;
         }
     }
 }

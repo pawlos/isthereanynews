@@ -31,10 +31,7 @@
             return this.View("Index");
         }
 
-        public virtual ActionResult About()
-        {
-            return this.View("About");
-        }
+        
 
         [HttpPost]
         public virtual ActionResult MarkClickedWithEvent(MarkClickedDto dto)
@@ -172,31 +169,6 @@
         {
             Task.Run(() => this.service.UpdateGlobalRss());
             return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-        [HttpPost]
-        public virtual ActionResult ContactAdministration(ContactAdministrationDto dto)
-        {
-            if(this.ModelState.IsValid)
-            {
-                this.service.SaveAdministrationContact(dto);
-                return this.RedirectToAction("Success");
-            }
-
-            var contactViewModel = this.service.GetViewModel();
-            return this.View("Index", contactViewModel);
-        }
-
-        public virtual ActionResult Contact()
-        {
-            var viewModel = this.service.GetViewModel();
-            return this.View("Contact", viewModel);
-        }
-
-        [HttpGet]
-        public virtual ActionResult Success()
-        {
-            return this.View("Success");
         }
 
         private IAuthenticationManager AuthenticationManager => this.HttpContext.GetOwinContext()
