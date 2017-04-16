@@ -1,6 +1,5 @@
 namespace IsThereAnyNews.Web.Controllers
 {
-    using System.Threading.Tasks;
     using System.Web.Mvc;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Web.Interfaces.Services;

@@ -33,6 +33,9 @@ public static partial class MVC
     public static IsThereAnyNews.Web.Controllers.ErrorController Error = new IsThereAnyNews.Web.Controllers.T4MVC_ErrorController();
     public static IsThereAnyNews.Web.Controllers.FeedsController Feeds = new IsThereAnyNews.Web.Controllers.T4MVC_FeedsController();
     public static IsThereAnyNews.Web.Controllers.HomeController Home = new IsThereAnyNews.Web.Controllers.T4MVC_HomeController();
+    public static IsThereAnyNews.Web.Controllers.LoginController Login = new IsThereAnyNews.Web.Controllers.T4MVC_LoginController();
+    public static IsThereAnyNews.Web.Controllers.LogoutController Logout = new IsThereAnyNews.Web.Controllers.T4MVC_LogoutController();
+    public static IsThereAnyNews.Web.Controllers.ReadersController Readers = new IsThereAnyNews.Web.Controllers.T4MVC_ReadersController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
     public static T4MVC.TestController Test = new T4MVC.TestController();
 }
@@ -1824,6 +1827,1677 @@ internal static class T4MVCHelpers {
     }
 }
 
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class AboutController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public AboutController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected AboutController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public AboutController Actions { get { return MVC.About; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "About";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "About";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+            }
+            public readonly string Index = "~/Views/About/Index.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_AboutController : IsThereAnyNews.Web.Controllers.AboutController
+    {
+        public T4MVC_AboutController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class AccountController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected AccountController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public AccountController Actions { get { return MVC.Account; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Account";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Account";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string ChangeDisplayName = "ChangeDisplayName";
+            public readonly string ChangeEmail = "ChangeEmail";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string ChangeDisplayName = "ChangeDisplayName";
+            public const string ChangeEmail = "ChangeEmail";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string ChangeDisplayName = "ChangeDisplayName";
+                public readonly string ChangeEmail = "ChangeEmail";
+                public readonly string Index = "Index";
+            }
+            public readonly string ChangeDisplayName = "~/Views/Account/ChangeDisplayName.cshtml";
+            public readonly string ChangeEmail = "~/Views/Account/ChangeEmail.cshtml";
+            public readonly string Index = "~/Views/Account/Index.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_AccountController : IsThereAnyNews.Web.Controllers.AccountController
+    {
+        public T4MVC_AccountController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ChangeDisplayNameOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ChangeDisplayName()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeDisplayName);
+            ChangeDisplayNameOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ChangeDisplayNameOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.ChangeDisplayNameModelDto model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ChangeDisplayName(IsThereAnyNews.Dtos.ChangeDisplayNameModelDto model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeDisplayName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ChangeDisplayNameOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ChangeEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ChangeEmail()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeEmail);
+            ChangeEmailOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ChangeEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.ChangeEmailModelDto model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ChangeEmail(IsThereAnyNews.Dtos.ChangeEmailModelDto model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeEmail);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ChangeEmailOverride(callInfo, model);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class ContactController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected ContactController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ContactController Actions { get { return MVC.Contact; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Contact";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Contact";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Success = "Success";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Success = "Success";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+                public readonly string Success = "Success";
+            }
+            public readonly string Index = "~/Views/Contact/Index.cshtml";
+            public readonly string Success = "~/Views/Contact/Success.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_ContactController : IsThereAnyNews.Web.Controllers.ContactController
+    {
+        public T4MVC_ContactController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.ContactAdministrationDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index(IsThereAnyNews.Dtos.ContactAdministrationDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            IndexOverride(callInfo, dto);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SuccessOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Success()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Success);
+            SuccessOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class ErrorController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ErrorController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected ErrorController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult OtherHttpStatusCode()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OtherHttpStatusCode);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ErrorController Actions { get { return MVC.Error; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Error";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Error";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string AccessDenied = "AccessDenied";
+            public readonly string NotFound = "NotFound";
+            public readonly string OtherHttpStatusCode = "OtherHttpStatusCode";
+            public readonly string ServerError = "ServerError";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string AccessDenied = "AccessDenied";
+            public const string NotFound = "NotFound";
+            public const string OtherHttpStatusCode = "OtherHttpStatusCode";
+            public const string ServerError = "ServerError";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Execute = "Execute";
+            }
+            public readonly string Execute = "~/Views/Error/Execute.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_ErrorController : IsThereAnyNews.Web.Controllers.ErrorController
+    {
+        public T4MVC_ErrorController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void AccessDeniedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AccessDenied()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AccessDenied);
+            AccessDeniedOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void NotFoundOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult NotFound()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NotFound);
+            NotFoundOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void OtherHttpStatusCodeOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int httpStatusCode);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult OtherHttpStatusCode(int httpStatusCode)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.OtherHttpStatusCode);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "httpStatusCode", httpStatusCode);
+            OtherHttpStatusCodeOverride(callInfo, httpStatusCode);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ServerErrorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ServerError()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ServerError);
+            ServerErrorOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class FeedsController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected FeedsController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SubscribeToChannel()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SubscribeToChannel);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UnsubscribeFromChannel()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnsubscribeFromChannel);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public FeedsController Actions { get { return MVC.Feeds; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Feeds";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Feeds";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Public = "Public";
+            public readonly string SubscribeToChannel = "SubscribeToChannel";
+            public readonly string UnsubscribeFromChannel = "UnsubscribeFromChannel";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Public = "Public";
+            public const string SubscribeToChannel = "SubscribeToChannel";
+            public const string UnsubscribeFromChannel = "UnsubscribeFromChannel";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+            }
+            public readonly string Index = "~/Views/Feeds/Index.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_FeedsController : IsThereAnyNews.Web.Controllers.FeedsController
+    {
+        public T4MVC_FeedsController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void PublicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Public()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Public);
+            PublicOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SubscribeToChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long channelId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SubscribeToChannel(long channelId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SubscribeToChannel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
+            SubscribeToChannelOverride(callInfo, channelId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UnsubscribeFromChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long channelId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UnsubscribeFromChannel(long channelId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnsubscribeFromChannel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
+            UnsubscribeFromChannelOverride(callInfo, channelId);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class HomeController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected HomeController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult MarkClickedWithEvent()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkClickedWithEvent);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult MarkEntriesRead()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkEntriesRead);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult MarkEntriesSkipped()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkEntriesSkipped);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult MarkReadWithEvent()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkReadWithEvent);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ReadAjax()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReadAjax);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SubscribeToUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SubscribeToUser);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UnsubscribeFromUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnsubscribeFromUser);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.HttpStatusCodeResult ChangeRegistration()
+        {
+            return new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.ChangeRegistration);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.HttpStatusCodeResult ChangeUsersLimit()
+        {
+            return new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.ChangeUsersLimit);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.HttpStatusCodeResult MarkAllReadForSubscription()
+        {
+            return new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.MarkAllReadForSubscription);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.HttpStatusCodeResult MarkRssEntryViewed()
+        {
+            return new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.MarkRssEntryViewed);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Public()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Public);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AddComment()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddComment);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AddToReadLater()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddToReadLater);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult MarkNotRead()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkNotRead);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Share()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Share);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult VoteDown()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VoteDown);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Voteup()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Voteup);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public HomeController Actions { get { return MVC.Home; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Home";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Home";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string MarkClickedWithEvent = "MarkClickedWithEvent";
+            public readonly string MarkEntriesRead = "MarkEntriesRead";
+            public readonly string MarkEntriesSkipped = "MarkEntriesSkipped";
+            public readonly string MarkReadWithEvent = "MarkReadWithEvent";
+            public readonly string ReadAjax = "ReadAjax";
+            public readonly string Logout = "Logout";
+            public readonly string ImportOpml = "ImportOpml";
+            public readonly string SubscribeToUser = "SubscribeToUser";
+            public readonly string UnsubscribeFromUser = "UnsubscribeFromUser";
+            public readonly string ChangeRegistration = "ChangeRegistration";
+            public readonly string ChangeUsersLimit = "ChangeUsersLimit";
+            public readonly string ConfigurationStatus = "ConfigurationStatus";
+            public readonly string Admin = "Admin";
+            public readonly string SpinUpdateJob = "SpinUpdateJob";
+            public readonly string AddChannel = "AddChannel";
+            public readonly string MarkAllReadForSubscription = "MarkAllReadForSubscription";
+            public readonly string MarkRssEntryViewed = "MarkRssEntryViewed";
+            public readonly string My = "My";
+            public readonly string MyChannelList = "MyChannelList";
+            public readonly string Public = "Public";
+            public readonly string AddComment = "AddComment";
+            public readonly string AddToReadLater = "AddToReadLater";
+            public readonly string MarkNotRead = "MarkNotRead";
+            public readonly string Share = "Share";
+            public readonly string VoteDown = "VoteDown";
+            public readonly string Voteup = "Voteup";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string MarkClickedWithEvent = "MarkClickedWithEvent";
+            public const string MarkEntriesRead = "MarkEntriesRead";
+            public const string MarkEntriesSkipped = "MarkEntriesSkipped";
+            public const string MarkReadWithEvent = "MarkReadWithEvent";
+            public const string ReadAjax = "ReadAjax";
+            public const string Logout = "Logout";
+            public const string ImportOpml = "ImportOpml";
+            public const string SubscribeToUser = "SubscribeToUser";
+            public const string UnsubscribeFromUser = "UnsubscribeFromUser";
+            public const string ChangeRegistration = "ChangeRegistration";
+            public const string ChangeUsersLimit = "ChangeUsersLimit";
+            public const string ConfigurationStatus = "ConfigurationStatus";
+            public const string Admin = "Admin";
+            public const string SpinUpdateJob = "SpinUpdateJob";
+            public const string AddChannel = "AddChannel";
+            public const string MarkAllReadForSubscription = "MarkAllReadForSubscription";
+            public const string MarkRssEntryViewed = "MarkRssEntryViewed";
+            public const string My = "My";
+            public const string MyChannelList = "MyChannelList";
+            public const string Public = "Public";
+            public const string AddComment = "AddComment";
+            public const string AddToReadLater = "AddToReadLater";
+            public const string MarkNotRead = "MarkNotRead";
+            public const string Share = "Share";
+            public const string VoteDown = "VoteDown";
+            public const string Voteup = "Voteup";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _ContactAdministration = "_ContactAdministration";
+                public readonly string AddChannel = "AddChannel";
+                public readonly string Admin = "Admin";
+                public readonly string ImportOpml = "ImportOpml";
+                public readonly string Index = "Index";
+                public readonly string My = "My";
+            }
+            public readonly string _ContactAdministration = "~/Views/Home/_ContactAdministration.cshtml";
+            public readonly string AddChannel = "~/Views/Home/AddChannel.cshtml";
+            public readonly string Admin = "~/Views/Home/Admin.cshtml";
+            public readonly string ImportOpml = "~/Views/Home/ImportOpml.cshtml";
+            public readonly string Index = "~/Views/Home/Index.cshtml";
+            public readonly string My = "~/Views/Home/My.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_HomeController : IsThereAnyNews.Web.Controllers.HomeController
+    {
+        public T4MVC_HomeController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MarkClickedWithEventOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.MarkClickedDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult MarkClickedWithEvent(IsThereAnyNews.Dtos.MarkClickedDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkClickedWithEvent);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            MarkClickedWithEventOverride(callInfo, dto);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MarkEntriesReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.MarkReadDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult MarkEntriesRead(IsThereAnyNews.Dtos.MarkReadDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkEntriesRead);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            MarkEntriesReadOverride(callInfo, dto);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MarkEntriesSkippedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.MarkSkippedDto model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult MarkEntriesSkipped(IsThereAnyNews.Dtos.MarkSkippedDto model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkEntriesSkipped);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            MarkEntriesSkippedOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MarkReadWithEventOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.MarkReadDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult MarkReadWithEvent(IsThereAnyNews.Dtos.MarkReadDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkReadWithEvent);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            MarkReadWithEventOverride(callInfo, dto);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ReadAjaxOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.SharedData.StreamType streamType, long id, IsThereAnyNews.SharedData.ShowReadEntries showReadEntries);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ReadAjax(IsThereAnyNews.SharedData.StreamType streamType, long id, IsThereAnyNews.SharedData.ShowReadEntries showReadEntries)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReadAjax);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "streamType", streamType);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "showReadEntries", showReadEntries);
+            ReadAjaxOverride(callInfo, streamType, id, showReadEntries);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LogoutOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Logout()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Logout);
+            LogoutOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ImportOpmlOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ImportOpml()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ImportOpml);
+            ImportOpmlOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ImportOpmlOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.OpmlImporterIndexDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ImportOpml(IsThereAnyNews.Dtos.OpmlImporterIndexDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ImportOpml);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            ImportOpmlOverride(callInfo, dto);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SubscribeToUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.SubscribeToUserActivityDto model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SubscribeToUser(IsThereAnyNews.Dtos.SubscribeToUserActivityDto model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SubscribeToUser);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            SubscribeToUserOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UnsubscribeFromUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.SubscribeToUserActivityDto model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UnsubscribeFromUser(IsThereAnyNews.Dtos.SubscribeToUserActivityDto model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnsubscribeFromUser);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            UnsubscribeFromUserOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ChangeRegistrationOverride(T4MVC_System_Web_Mvc_HttpStatusCodeResult callInfo, IsThereAnyNews.Dtos.ChangeRegistrationDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.HttpStatusCodeResult ChangeRegistration(IsThereAnyNews.Dtos.ChangeRegistrationDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.ChangeRegistration);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            ChangeRegistrationOverride(callInfo, dto);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ChangeUsersLimitOverride(T4MVC_System_Web_Mvc_HttpStatusCodeResult callInfo, IsThereAnyNews.Dtos.ChangeUsersLimitDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.HttpStatusCodeResult ChangeUsersLimit(IsThereAnyNews.Dtos.ChangeUsersLimitDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.ChangeUsersLimit);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            ChangeUsersLimitOverride(callInfo, dto);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ConfigurationStatusOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult ConfigurationStatus()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ConfigurationStatus);
+            ConfigurationStatusOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AdminOverride(T4MVC_System_Web_Mvc_ViewResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ViewResult Admin()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ViewResult(Area, Name, ActionNames.Admin);
+            AdminOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SpinUpdateJobOverride(T4MVC_System_Web_Mvc_HttpStatusCodeResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.HttpStatusCodeResult SpinUpdateJob()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.SpinUpdateJob);
+            SpinUpdateJobOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddChannel()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddChannel);
+            AddChannelOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.AddChannelDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddChannel(IsThereAnyNews.Dtos.AddChannelDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddChannel);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            AddChannelOverride(callInfo, dto);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MarkAllReadForSubscriptionOverride(T4MVC_System_Web_Mvc_HttpStatusCodeResult callInfo, IsThereAnyNews.Dtos.MarkReadForSubscriptionDto model);
+
+        [NonAction]
+        public override System.Web.Mvc.HttpStatusCodeResult MarkAllReadForSubscription(IsThereAnyNews.Dtos.MarkReadForSubscriptionDto model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.MarkAllReadForSubscription);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            MarkAllReadForSubscriptionOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MarkRssEntryViewedOverride(T4MVC_System_Web_Mvc_HttpStatusCodeResult callInfo, long channelId);
+
+        [NonAction]
+        public override System.Web.Mvc.HttpStatusCodeResult MarkRssEntryViewed(long channelId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.MarkRssEntryViewed);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
+            MarkRssEntryViewedOverride(callInfo, channelId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult My()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.My);
+            MyOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MyChannelListOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult MyChannelList()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.MyChannelList);
+            MyChannelListOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void PublicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Public(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Public);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            PublicOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddCommentOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.RssActionModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddComment(IsThereAnyNews.Dtos.RssActionModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddComment);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            AddCommentOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddToReadLaterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.RssActionModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddToReadLater(IsThereAnyNews.Dtos.RssActionModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddToReadLater);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            AddToReadLaterOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void MarkNotReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.RssActionModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult MarkNotRead(IsThereAnyNews.Dtos.RssActionModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkNotRead);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            MarkNotReadOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ShareOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.RssActionModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Share(IsThereAnyNews.Dtos.RssActionModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Share);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ShareOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void VoteDownOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.RssActionModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult VoteDown(IsThereAnyNews.Dtos.RssActionModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.VoteDown);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            VoteDownOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void VoteupOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.RssActionModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Voteup(IsThereAnyNews.Dtos.RssActionModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Voteup);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            VoteupOverride(callInfo, model);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class LoginController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected LoginController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ExternalLogin()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLogin);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginCallback()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallback);
+            return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public LoginController Actions { get { return MVC.Login; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Login";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Login";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string ExternalLogin = "ExternalLogin";
+            public readonly string ExternalLoginCallback = "ExternalLoginCallback";
+            public readonly string RegistrationClosed = "RegistrationClosed";
+            public readonly string ExternalLoginFailure = "ExternalLoginFailure";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string ExternalLogin = "ExternalLogin";
+            public const string ExternalLoginCallback = "ExternalLoginCallback";
+            public const string RegistrationClosed = "RegistrationClosed";
+            public const string ExternalLoginFailure = "ExternalLoginFailure";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+                public readonly string RegistrationClosed = "RegistrationClosed";
+            }
+            public readonly string Index = "~/Views/Login/Index.cshtml";
+            public readonly string RegistrationClosed = "~/Views/Login/RegistrationClosed.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_LoginController : IsThereAnyNews.Web.Controllers.LoginController
+    {
+        public T4MVC_LoginController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ExternalLoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string provider, string returnUrl);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLogin);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "provider", provider);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ExternalLoginOverride(callInfo, provider, returnUrl);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ExternalLoginCallbackOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        [NonAction]
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ExternalLoginCallback(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginCallback);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            ExternalLoginCallbackOverride(callInfo, returnUrl);
+            return System.Threading.Tasks.Task.FromResult(callInfo as System.Web.Mvc.ActionResult);
+        }
+
+        [NonAction]
+        partial void RegistrationClosedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RegistrationClosed()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RegistrationClosed);
+            RegistrationClosedOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ExternalLoginFailureOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ExternalLoginFailure()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ExternalLoginFailure);
+            ExternalLoginFailureOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class LogoutController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public LogoutController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected LogoutController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public LogoutController Actions { get { return MVC.Logout; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Logout";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Logout";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_LogoutController : IsThereAnyNews.Web.Controllers.LogoutController
+    {
+        public T4MVC_LogoutController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class ReadersController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected ReadersController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Account()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Account);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ReadersController Actions { get { return MVC.Readers; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Readers";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Readers";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Index = "Index";
+            public readonly string Account = "Account";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Index = "Index";
+            public const string Account = "Account";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+                public readonly string User = "User";
+            }
+            public readonly string Index = "~/Views/Readers/Index.cshtml";
+            public readonly string User = "~/Views/Readers/User.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_ReadersController : IsThereAnyNews.Web.Controllers.ReadersController
+    {
+        public T4MVC_ReadersController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AccountOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Account(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Account);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            AccountOverride(callInfo, id);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace T4MVC
+{
+    public class SharedController
+    {
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _Layout = "_Layout";
+            }
+            public readonly string _Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+    }
+
+}
+
+namespace T4MVC
+{
+    public class TestController
+    {
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+            }
+            public readonly string Index = "~/Views/Test/Index.cshtml";
+        }
+    }
+
+}
 
 
 

@@ -5,9 +5,9 @@
 }
 
 <div class="container">
-    @foreach (var profile in Model.Profiles)
+    @foreach(var profile in Model.Profiles)
     {
-        <a href="@Url.Action(MVC.Home.User(profile.Id))" class="col-sm-2 btn btn-default btn-xs border-less" role="button">
+        <a href="@Url.Action(MVC.Readers.Index())" class="col-sm-2 btn btn-default btn-xs border-less" role="button">
             <span>@profile.DisplayName</span>
             <span><i class="fa fa-rss">@profile.ChannelsCount</i></span>
         </a>
