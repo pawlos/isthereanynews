@@ -29,6 +29,13 @@ namespace IsThereAnyNews.Web.Controllers
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public virtual ActionResult Feed(long id)
+        {
+            var viewmodel = this.service.GetViewModelFormChannelId(id);
+            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
         public virtual ActionResult SubscribeToChannel(long channelId)
@@ -63,7 +70,15 @@ namespace IsThereAnyNews.Web.Controllers
 
             this.service.CreateNewChannelIfNotExists(dto);
             this.service.SubscribeCurrentUserToChannel(dto);
-            return this.RedirectToAction(MVC.Home.My());
+            return this.RedirectToAction(MVC.Subscriptions.Index());
+        }
+
+        [HttpGet]
+        public virtual ActionResult ReadAjax(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
+        {
+            var entries = this.service.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
+            var result = this.Json(entries, JsonRequestBehavior.AllowGet);
+            return result;
         }
     }
 }

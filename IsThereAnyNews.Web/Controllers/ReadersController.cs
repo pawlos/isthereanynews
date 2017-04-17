@@ -1,6 +1,7 @@
 namespace IsThereAnyNews.Web.Controllers
 {
     using System.Web.Mvc;
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Web.Interfaces.Services;
 
     public partial class ReadersController: Controller
@@ -23,6 +24,22 @@ namespace IsThereAnyNews.Web.Controllers
         {
             var userPublicProfile = this.service.LoadUserPublicProfile(id);
             return this.View("User", userPublicProfile);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public virtual ActionResult SubscribeToUser(SubscribeToUserActivityDto model)
+        {
+            this.service.SubscribeToUser(model);
+            return this.RedirectToAction(MVC.Readers.Account(model.ViewingUserId));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public virtual ActionResult UnsubscribeFromUser(SubscribeToUserActivityDto model)
+        {
+            this.service.UnsubscribeToUser(model);
+            return this.RedirectToAction(MVC.Readers.Account(model.ViewingUserId));
         }
     }
 }

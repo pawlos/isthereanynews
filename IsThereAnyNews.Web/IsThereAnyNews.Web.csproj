@@ -181,7 +181,10 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\OpmlController.cs" />
+    <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Models\ChallengeResult.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -1075,7 +1078,7 @@
     <Content Include="Views\Account\ChangeDisplayName.cshtml" />
     <Content Include="Views\Account\ChangeEmail.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Home\Admin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\_ContactAdministration.cshtml" />
     <Content Include="Views\Contact\Index.cshtml" />
     <Content Include="Views\Contact\Success.cshtml" />
@@ -1084,7 +1087,7 @@
     <Content Include="Views\Opml\Import.cshtml" />
     <Content Include="Views\Feeds\Add.cshtml" />
     <Content Include="Views\Feeds\Index.cshtml" />
-    <Content Include="Views\Home\My.cshtml" />
+    <Content Include="Views\Subscriptions\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Readers\Index.cshtml" />
     <Content Include="Views\Readers\User.cshtml" />

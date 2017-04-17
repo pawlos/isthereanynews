@@ -42,7 +42,7 @@
                     <li data-toggle="tooltip" data-placement="bottom" title="Users list"><a href="@Url.Action(MVC.Readers.Index())"><span class="fa fa-users"></span></a></li>
                     @if (User.Identity.IsAuthenticated)
             {
-                        <li data-toggle="tooltip" data-placement="bottom" title="Subscription"><a href="@Url.Action("My", "Home")"><span class="fa fa-rss"></span></a></li>
+                        <li data-toggle="tooltip" data-placement="bottom" title="Subscription"><a href="@Url.Action(MVC.Subscriptions.Index())"><span class="fa fa-rss"></span></a></li>
                     }
                 </ul>
 
@@ -64,7 +64,7 @@
                                 @if (User.IsInRole(ItanRole.SuperAdmin.ToString()))
                                 { 
                                     <li>
-                                        <a href="@Url.Action("Admin","Home")">
+                                        <a href="@Url.Action(MVC.Admin.Index())">
                                             Supa Admin <span class="fa fa-lock"></span>
                                         </a>
                                     </li>

@@ -59,7 +59,7 @@ angular.module("itan")
         }
 
         $scope.onChannelClick = function (channel) {
-            $http.get("/Home/Public/" + channel.Id)
+            $http.get("/Feeds/Feed/" + channel.Id)
                 .success(function (data) {
                     $scope.channel.loaded = true;
                     $scope.channel.entries = data;

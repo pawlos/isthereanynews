@@ -32,7 +32,7 @@ namespace IsThereAnyNews.Web.Controllers
             }
 
             this.service.Import(dto);
-            return this.RedirectToAction(MVC.Home.My());
+            return this.RedirectToAction(MVC.Subscriptions.Index());
         }
     }
 }

@@ -49,7 +49,7 @@ angular.module("itan")
     }
 
     $scope.loadChannels = function () {
-        $http.get("/RssChannel/MyChannelList")
+        $http.get("/Subscriptions/MyChannelList")
        .success(function (data) {
            $scope.channels.list = data;
            $scope.channels.loaded = true;
@@ -64,7 +64,7 @@ angular.module("itan")
         return "";
     }
 
-    $http.get("/Home/MyChannelList")
+    $http.get("/Subscriptions/MyChannelList")
         .success(function (data) {
             $scope.channels.list = data;
             $scope.channels.loaded = true;
@@ -72,7 +72,7 @@ angular.module("itan")
 
     $scope.onChannelClick = function (channel) {
         $scope.channels.current = channel;
-        $http.get("/Home/ReadAjax?streamType=" + channel.StreamType + "&id=" + channel.Id)
+        $http.get("/Feeds/ReadAjax?streamType=" + channel.StreamType + "&id=" + channel.Id)
             .success(function (data) {
                 $scope.channel.loaded = true;
                 $scope.channel.entries = data;
@@ -87,7 +87,7 @@ angular.module("itan")
         var ids = entries.DisplayedRss;
         var httpOptions = {
             method: 'POST',
-            url: "/Home/MarkEntriesSkipped",
+            url: "/Entries/MarkEntriesSkipped",
             data: {
                 StreamType: entries.StreamType,
                 Entries: ids,
@@ -105,7 +105,7 @@ angular.module("itan")
     $scope.markReadWithEvent = function (streamType, item) {
         var httpOptions = {
             method: 'POST',
-            url: "/Home/MarkReadWithEvent",
+            url: "/Entries/MarkReadWithEvent",
             data: {
                 StreamType: streamType,
                 Id: item.RssEntryViewModel.Id,
@@ -124,7 +124,7 @@ angular.module("itan")
     $scope.onArticleBodyClicked = function (streamType, id, url) {
         var httpOptions = {
             method: 'POST',
-            url: "/Home/MarkClickedWithEvent",
+            url: "/Entries/MarkClickedWithEvent",
             data: {
                 Id: id
             }
@@ -138,7 +138,7 @@ angular.module("itan")
     $scope.onThumbsUpClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/Home/VoteUp",
+            url: "/Entries/VoteUp",
             data: {
                 streamType: streamType,
                 id: id
@@ -149,7 +149,7 @@ angular.module("itan")
     $scope.onThumbsDownClick = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/Home/VoteDown",
+            url: "/Entries/VoteDown",
             data: {
                 streamType: streamType,
                 id: id
@@ -161,7 +161,7 @@ angular.module("itan")
     $scope.onMarkUnreadClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/Home/MarkNotRead",
+            url: "/Entries/MarkNotRead",
             data: {
                 streamType: streamType,
                 id: id
@@ -173,7 +173,7 @@ angular.module("itan")
     $scope.onShareClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/Home/Share",
+            url: "/Entries/Share",
             data: {
                 streamType: streamType,
                 id: id
@@ -184,7 +184,7 @@ angular.module("itan")
     $scope.onCommentsClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/Home/AddComment",
+            url: "/Entries/AddComment",
             data: {
                 streamType: streamType,
                 id: id
@@ -196,7 +196,7 @@ angular.module("itan")
     $scope.onReadLaterClicked = function (streamType, id) {
         var httpOptions = {
             method: "POST",
-            url: "/Home/AddToReadLater",
+            url: "/Entries/AddToReadLater",
             data: {
                 streamType: streamType,
                 id: id
