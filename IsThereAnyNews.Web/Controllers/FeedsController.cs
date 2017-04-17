@@ -2,6 +2,7 @@ namespace IsThereAnyNews.Web.Controllers
 {
     using System.Net;
     using System.Web.Mvc;
+    using IsThereAnyNews.Dtos;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.Web.Infrastructure;
     using IsThereAnyNews.Web.Interfaces.Services;
@@ -42,6 +43,27 @@ namespace IsThereAnyNews.Web.Controllers
         {
             this.service.UnsubscribeCurrentUserFromChannelId(channelId);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+        [HttpGet]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
+        public virtual ActionResult Add()
+        {
+            return this.View("Add");
+        }
+
+        [HttpPost]
+        [RoleAuthorize(Roles = new[] { ItanRole.User })]
+        public virtual ActionResult Add(AddChannelDto dto)
+        {
+            if(this.ModelState.IsValid == false)
+            {
+                return this.View("Add", dto);
+            }
+
+            this.service.CreateNewChannelIfNotExists(dto);
+            this.service.SubscribeCurrentUserToChannel(dto);
+            return this.RedirectToAction(MVC.Home.My());
         }
     }
 }

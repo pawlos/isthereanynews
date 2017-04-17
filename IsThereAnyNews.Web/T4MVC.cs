@@ -35,6 +35,7 @@ public static partial class MVC
     public static IsThereAnyNews.Web.Controllers.HomeController Home = new IsThereAnyNews.Web.Controllers.T4MVC_HomeController();
     public static IsThereAnyNews.Web.Controllers.LoginController Login = new IsThereAnyNews.Web.Controllers.T4MVC_LoginController();
     public static IsThereAnyNews.Web.Controllers.LogoutController Logout = new IsThereAnyNews.Web.Controllers.T4MVC_LogoutController();
+    public static IsThereAnyNews.Web.Controllers.OpmlController Opml = new IsThereAnyNews.Web.Controllers.T4MVC_OpmlController();
     public static IsThereAnyNews.Web.Controllers.ReadersController Readers = new IsThereAnyNews.Web.Controllers.T4MVC_ReadersController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
     public static T4MVC.TestController Test = new T4MVC.TestController();
@@ -2402,6 +2403,7 @@ namespace IsThereAnyNews.Web.Controllers
             public readonly string Public = "Public";
             public readonly string SubscribeToChannel = "SubscribeToChannel";
             public readonly string UnsubscribeFromChannel = "UnsubscribeFromChannel";
+            public readonly string Add = "Add";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -2411,6 +2413,7 @@ namespace IsThereAnyNews.Web.Controllers
             public const string Public = "Public";
             public const string SubscribeToChannel = "SubscribeToChannel";
             public const string UnsubscribeFromChannel = "UnsubscribeFromChannel";
+            public const string Add = "Add";
         }
 
 
@@ -2424,8 +2427,10 @@ namespace IsThereAnyNews.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Add = "Add";
                 public readonly string Index = "Index";
             }
+            public readonly string Add = "~/Views/Feeds/Add.cshtml";
             public readonly string Index = "~/Views/Feeds/Index.cshtml";
         }
     }
@@ -2478,6 +2483,29 @@ namespace IsThereAnyNews.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnsubscribeFromChannel);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
             UnsubscribeFromChannelOverride(callInfo, channelId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Add()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Add);
+            AddOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.AddChannelDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Add(IsThereAnyNews.Dtos.AddChannelDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Add);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            AddOverride(callInfo, dto);
             return callInfo;
         }
 
@@ -2648,7 +2676,6 @@ namespace IsThereAnyNews.Web.Controllers
             public readonly string MarkReadWithEvent = "MarkReadWithEvent";
             public readonly string ReadAjax = "ReadAjax";
             public readonly string Logout = "Logout";
-            public readonly string ImportOpml = "ImportOpml";
             public readonly string SubscribeToUser = "SubscribeToUser";
             public readonly string UnsubscribeFromUser = "UnsubscribeFromUser";
             public readonly string ChangeRegistration = "ChangeRegistration";
@@ -2656,7 +2683,6 @@ namespace IsThereAnyNews.Web.Controllers
             public readonly string ConfigurationStatus = "ConfigurationStatus";
             public readonly string Admin = "Admin";
             public readonly string SpinUpdateJob = "SpinUpdateJob";
-            public readonly string AddChannel = "AddChannel";
             public readonly string MarkAllReadForSubscription = "MarkAllReadForSubscription";
             public readonly string MarkRssEntryViewed = "MarkRssEntryViewed";
             public readonly string My = "My";
@@ -2680,7 +2706,6 @@ namespace IsThereAnyNews.Web.Controllers
             public const string MarkReadWithEvent = "MarkReadWithEvent";
             public const string ReadAjax = "ReadAjax";
             public const string Logout = "Logout";
-            public const string ImportOpml = "ImportOpml";
             public const string SubscribeToUser = "SubscribeToUser";
             public const string UnsubscribeFromUser = "UnsubscribeFromUser";
             public const string ChangeRegistration = "ChangeRegistration";
@@ -2688,7 +2713,6 @@ namespace IsThereAnyNews.Web.Controllers
             public const string ConfigurationStatus = "ConfigurationStatus";
             public const string Admin = "Admin";
             public const string SpinUpdateJob = "SpinUpdateJob";
-            public const string AddChannel = "AddChannel";
             public const string MarkAllReadForSubscription = "MarkAllReadForSubscription";
             public const string MarkRssEntryViewed = "MarkRssEntryViewed";
             public const string My = "My";
@@ -2714,16 +2738,12 @@ namespace IsThereAnyNews.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _ContactAdministration = "_ContactAdministration";
-                public readonly string AddChannel = "AddChannel";
                 public readonly string Admin = "Admin";
-                public readonly string ImportOpml = "ImportOpml";
                 public readonly string Index = "Index";
                 public readonly string My = "My";
             }
             public readonly string _ContactAdministration = "~/Views/Home/_ContactAdministration.cshtml";
-            public readonly string AddChannel = "~/Views/Home/AddChannel.cshtml";
             public readonly string Admin = "~/Views/Home/Admin.cshtml";
-            public readonly string ImportOpml = "~/Views/Home/ImportOpml.cshtml";
             public readonly string Index = "~/Views/Home/Index.cshtml";
             public readonly string My = "~/Views/Home/My.cshtml";
         }
@@ -2819,29 +2839,6 @@ namespace IsThereAnyNews.Web.Controllers
         }
 
         [NonAction]
-        partial void ImportOpmlOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult ImportOpml()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ImportOpml);
-            ImportOpmlOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ImportOpmlOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.OpmlImporterIndexDto dto);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult ImportOpml(IsThereAnyNews.Dtos.OpmlImporterIndexDto dto)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ImportOpml);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
-            ImportOpmlOverride(callInfo, dto);
-            return callInfo;
-        }
-
-        [NonAction]
         partial void SubscribeToUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.SubscribeToUserActivityDto model);
 
         [NonAction]
@@ -2919,29 +2916,6 @@ namespace IsThereAnyNews.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.SpinUpdateJob);
             SpinUpdateJobOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void AddChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult AddChannel()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddChannel);
-            AddChannelOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void AddChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.AddChannelDto dto);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult AddChannel(IsThereAnyNews.Dtos.AddChannelDto dto)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddChannel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
-            AddChannelOverride(callInfo, dto);
             return callInfo;
         }
 
@@ -3331,6 +3305,112 @@ namespace IsThereAnyNews.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+    }
+}
+
+namespace IsThereAnyNews.Web.Controllers
+{
+    public partial class OpmlController
+    {
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected OpmlController(Dummy d) { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoute(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
+            var callInfo = result.GetT4MVCResult();
+            return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public OpmlController Actions { get { return MVC.Opml; } }
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Area = "";
+        [GeneratedCode("T4MVC", "2.0")]
+        public readonly string Name = "Opml";
+        [GeneratedCode("T4MVC", "2.0")]
+        public const string NameConst = "Opml";
+        [GeneratedCode("T4MVC", "2.0")]
+        static readonly ActionNamesClass s_actions = new ActionNamesClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionNamesClass ActionNames { get { return s_actions; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNamesClass
+        {
+            public readonly string Import = "Import";
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionNameConstants
+        {
+            public const string Import = "Import";
+        }
+
+
+        static readonly ViewsClass s_views = new ViewsClass();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ViewsClass Views { get { return s_views; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Import = "Import";
+            }
+            public readonly string Import = "~/Views/Opml/Import.cshtml";
+        }
+    }
+
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public partial class T4MVC_OpmlController : IsThereAnyNews.Web.Controllers.OpmlController
+    {
+        public T4MVC_OpmlController() : base(Dummy.Instance) { }
+
+        [NonAction]
+        partial void ImportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Import()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Import);
+            ImportOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ImportOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.OpmlImporterIndexDto dto);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Import(IsThereAnyNews.Dtos.OpmlImporterIndexDto dto)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Import);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
+            ImportOverride(callInfo, dto);
             return callInfo;
         }
 

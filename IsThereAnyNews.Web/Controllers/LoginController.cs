@@ -9,6 +9,7 @@ namespace IsThereAnyNews.Web.Controllers
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels.Login;
     using IsThereAnyNews.Web.Interfaces.Services;
+    using IsThereAnyNews.Web.Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.Owin.Security;
 

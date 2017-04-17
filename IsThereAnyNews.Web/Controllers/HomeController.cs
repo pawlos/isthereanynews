@@ -71,27 +71,6 @@
             return this.RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        [Authorize]
-        public virtual ActionResult ImportOpml()
-        {
-            var viewmodel = new OpmlImporterIndexViewModel();
-            return this.View("ImportOpml", viewmodel);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public virtual ActionResult ImportOpml(OpmlImporterIndexDto dto)
-        {
-            if(!this.ModelState.IsValid)
-            {
-                return this.View("Index", null);
-            }
-
-            this.service.Import(dto);
-            return this.RedirectToAction("My", "Home");
-        }
-
         [HttpPost]
         [Authorize]
         public virtual ActionResult SubscribeToUser(SubscribeToUserActivityDto model)
@@ -147,26 +126,7 @@
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        [HttpGet]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public virtual ActionResult AddChannel()
-        {
-            return this.View("AddChannel");
-        }
-
-        [HttpPost]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public virtual ActionResult AddChannel(AddChannelDto dto)
-        {
-            if(this.ModelState.IsValid == false)
-            {
-                return this.View("AddChannel", dto);
-            }
-
-            this.service.CreateNewChannelIfNotExists(dto);
-            this.service.SubscribeCurrentUserToChannel(dto);
-            return this.RedirectToAction("My");
-        }
+        
 
         [HttpPost]
         [RoleAuthorize(Roles = new[] { ItanRole.User })]

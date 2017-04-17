@@ -57,7 +57,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action(MVC.Account.Index())">Account</a></li>
-                                <li><a href="@Url.Action("ImportOpml","Home")">Import OPML</a></li>
+                                <li><a href="@Url.Action(MVC.Opml.Import())">Import OPML</a></li>
                                 <li><a href="@Url.Action(MVC.Feeds.Index())">Add new channel</a></li>
                                 <li><a href="@Url.Action(MVC.Logout.Index())">Logout
                                     <span style="color: red" class="fa fa-sign-out"></span></a></li>

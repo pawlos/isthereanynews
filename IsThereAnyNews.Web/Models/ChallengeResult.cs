@@ -1,4 +1,4 @@
-﻿namespace IsThereAnyNews.Web.Controllers
+﻿namespace IsThereAnyNews.Web.Models
 {
     using System.Web;
     using System.Web.Mvc;

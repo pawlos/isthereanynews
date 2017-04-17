@@ -181,13 +181,14 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ChallengeResult.cs" />
+    <Compile Include="Controllers\OpmlController.cs" />
+    <Compile Include="Models\ChallengeResult.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\FeedsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\LogOffController.cs" />
+    <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ReadersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1080,8 +1081,8 @@
     <Content Include="Views\Contact\Success.cshtml" />
     <Content Include="Views\Error\Execute.cshtml" />
     <Content Include="Views\Login\RegistrationClosed.cshtml" />
-    <Content Include="Views\Home\ImportOpml.cshtml" />
-    <Content Include="Views\Home\AddChannel.cshtml" />
+    <Content Include="Views\Opml\Import.cshtml" />
+    <Content Include="Views\Feeds\Add.cshtml" />
     <Content Include="Views\Feeds\Index.cshtml" />
     <Content Include="Views\Home\My.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
@@ -1093,7 +1094,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

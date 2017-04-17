@@ -12,7 +12,7 @@ namespace IsThereAnyNews.Web.Controllers
         public virtual ActionResult Index()
         {
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction(MVC.Home.Index());
         }
     }
 }

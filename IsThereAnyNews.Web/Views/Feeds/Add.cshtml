@@ -5,7 +5,7 @@
 }
 
 <div class="container">
-    @using (Html.BeginForm(MVC.Home.AddChannel(), FormMethod.Post))
+    @using(Html.BeginForm(MVC.Feeds.Add(), FormMethod.Post))
     {
         @Html.ValidationSummary()
         <div class="row">
