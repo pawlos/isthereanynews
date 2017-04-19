@@ -37,17 +37,25 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                 <ul class="nav navbar-nav">
-                    <li data-toggle="tooltip" data-placement="bottom" title="Home page"><a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span></a></li>
-                    <li data-toggle="tooltip" data-placement="bottom" title="Public channels"><a href="@Url.Action(MVC.Feeds.Index())"><span class="fa fa-globe"></span></a></li>
-                    <li data-toggle="tooltip" data-placement="bottom" title="Users list"><a href="@Url.Action(MVC.Readers.Index())"><span class="fa fa-users"></span></a></li>
-                    @if (User.Identity.IsAuthenticated)
-            {
-                        <li data-toggle="tooltip" data-placement="bottom" title="Subscription"><a href="@Url.Action(MVC.Subscriptions.Index())"><span class="fa fa-rss"></span></a></li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="Home page">
+                        <a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span></a>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="Public channels">
+                        <a href="@Url.Action(MVC.Feeds.Index())"><span class="fa fa-globe"></span></a>
+                    </li>
+                    <li data-toggle="tooltip" data-placement="bottom" title="Users list">
+                        <a href="@Url.Action(MVC.Readers.Index())"><span class="fa fa-users"></span></a>
+                    </li>
+                    @if(User.Identity.IsAuthenticated)
+                    {
+                        <li data-toggle="tooltip" data-placement="bottom" title="Subscription">
+                            <a href="@Url.Action(MVC.Subscriptions.Index())"><span class="fa fa-rss"></span></a>
+                        </li>
                     }
                 </ul>
 
-                @if (User.Identity.IsAuthenticated)
-            {
+                @if(User.Identity.IsAuthenticated)
+                {
 
                     <ul class="nav navbar-nav navbar-right">
                         <li data-toggle="tooltip" data-placement="bottom" title="You">
@@ -58,11 +66,15 @@
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action(MVC.Account.Index())">Account</a></li>
                                 <li><a href="@Url.Action(MVC.Opml.Import())">Import OPML</a></li>
-                                <li><a href="@Url.Action(MVC.Feeds.Index())">Add new channel</a></li>
-                                <li><a href="@Url.Action(MVC.Logout.Index())">Logout
-                                    <span style="color: red" class="fa fa-sign-out"></span></a></li>
-                                @if (User.IsInRole(ItanRole.SuperAdmin.ToString()))
-                                { 
+                                <li><a href="@Url.Action(MVC.Feeds.Add())">Add new channel</a></li>
+                                <li>
+                                    <a href="@Url.Action(MVC.Logout.Index())">
+                                        Logout
+                                        <span style="color: red" class="fa fa-sign-out"></span>
+                                    </a>
+                                </li>
+                                @if(User.IsInRole(ItanRole.SuperAdmin.ToString()))
+                                {
                                     <li>
                                         <a href="@Url.Action(MVC.Admin.Index())">
                                             Supa Admin <span class="fa fa-lock"></span>
