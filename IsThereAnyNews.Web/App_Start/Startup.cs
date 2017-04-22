@@ -66,7 +66,7 @@
                     {
                         ConsumerKey = this.configurationReader.TwitterConsumerKey,
                         ConsumerSecret = this.configurationReader.TwitterConsumerSecret,
-                        SignInAsAuthenticationType = ConstantStrings.AuthorizationCookieName,
+                        SignInAsAuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                         BackchannelCertificateValidator = null
 
                         // can be for demo purposes
