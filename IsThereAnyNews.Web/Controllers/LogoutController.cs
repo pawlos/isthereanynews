@@ -1,3 +1,5 @@
+using Microsoft.AspNet.Identity;
+
 namespace IsThereAnyNews.Web.Controllers
 {
     using System.Web;
@@ -13,7 +15,7 @@ namespace IsThereAnyNews.Web.Controllers
             this.HttpContext
                 .GetOwinContext()
                 .Authentication
-                .SignOut(ConstantStrings.AuthorizationCookieName);
+                .SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return this.RedirectToAction(MVC.Home.Index());
         }
     }
