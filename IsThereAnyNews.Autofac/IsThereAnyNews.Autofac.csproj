@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IsThereAnyNews.Autofac</RootNamespace>
     <AssemblyName>IsThereAnyNews.Autofac</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,6 +114,14 @@
     <ProjectReference Include="..\IsThereAnyNews.HtmlStrip\IsThereAnyNews.HtmlStrip.csproj">
       <Project>{25C15560-5C76-4AB2-9B0C-AABF93F6318A}</Project>
       <Name>IsThereAnyNews.HtmlStrip</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Infrastructure.Import.Opml\IsThereAnyNews.Infrastructure.Import.Opml.csproj">
+      <Project>{6EFB890E-CB38-4D52-9DB8-F32A0040B6B8}</Project>
+      <Name>IsThereAnyNews.Infrastructure.Import.Opml</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.Infrastructure.Web\IsThereAnyNews.Infrastructure.Web.csproj">
+      <Project>{f22690a4-2182-475f-a84e-1164d54504b7}</Project>
+      <Name>IsThereAnyNews.Infrastructure.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Infrastructure\IsThereAnyNews.Infrastructure.csproj">
       <Project>{93a4ae8c-dfb5-4a54-9d8a-904d761a3b1d}</Project>

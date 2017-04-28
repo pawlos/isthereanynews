@@ -56,71 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItanDatabaseContext.cs" />
-    <Compile Include="Migrations\201607052313561_m0001_initial.cs" />
-    <Compile Include="Migrations\201607052313561_m0001_initial.Designer.cs">
-      <DependentUpon>201607052313561_m0001_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607052316076_m0002_Trigger_User_InsteadOfDelete.cs" />
-    <Compile Include="Migrations\201607052316076_m0002_Trigger_User_InsteadOfDelete.Designer.cs">
-      <DependentUpon>201607052316076_m0002_Trigger_User_InsteadOfDelete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607212341131_contact_administration.cs" />
-    <Compile Include="Migrations\201607212341131_contact_administration.Designer.cs">
-      <DependentUpon>201607212341131_contact_administration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608042223476_itan-exceptions.cs" />
-    <Compile Include="Migrations\201608042223476_itan-exceptions.Designer.cs">
-      <DependentUpon>201608042223476_itan-exceptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608042236087_exception-with-userid.cs" />
-    <Compile Include="Migrations\201608042236087_exception-with-userid.Designer.cs">
-      <DependentUpon>201608042236087_exception-with-userid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608062248375_exception-events.cs" />
-    <Compile Include="Migrations\201608062248375_exception-events.Designer.cs">
-      <DependentUpon>201608062248375_exception-events.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609250605133_db-table-name-changed.cs" />
-    <Compile Include="Migrations\201609250605133_db-table-name-changed.Designer.cs">
-      <DependentUpon>201609250605133_db-table-name-changed.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609250612456_interaction-type-added-to-table.cs" />
-    <Compile Include="Migrations\201609250612456_interaction-type-added-to-table.Designer.cs">
-      <DependentUpon>201609250612456_interaction-type-added-to-table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609250620399_table dropped.cs" />
-    <Compile Include="Migrations\201609250620399_table dropped.Designer.cs">
-      <DependentUpon>201609250620399_table dropped.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609250627082_fixed id name in table.cs" />
-    <Compile Include="Migrations\201609250627082_fixed id name in table.Designer.cs">
-      <DependentUpon>201609250627082_fixed id name in table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609280649066_feature-request-extended.cs" />
-    <Compile Include="Migrations\201609280649066_feature-request-extended.Designer.cs">
-      <DependentUpon>201609280649066_feature-request-extended.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610161521025_application_configuration.cs" />
-    <Compile Include="Migrations\201610161521025_application_configuration.Designer.cs">
-      <DependentUpon>201610161521025_application_configuration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610161522104_users_limit.cs" />
-    <Compile Include="Migrations\201610161522104_users_limit.Designer.cs">
-      <DependentUpon>201610161522104_users_limit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611112240306_stripped-text.cs" />
-    <Compile Include="Migrations\201611112240306_stripped-text.Designer.cs">
-      <DependentUpon>201611112240306_stripped-text.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701221419539_isskipped.cs" />
-    <Compile Include="Migrations\201701221419539_isskipped.Designer.cs">
-      <DependentUpon>201701221419539_isskipped.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201702051207204_nlnl.cs" />
-    <Compile Include="Migrations\201702051207204_nlnl.Designer.cs">
-      <DependentUpon>201702051207204_nlnl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationConfiguration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\ItanException.cs" />
@@ -157,56 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Comparers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607052313561_m0001_initial.resx">
-      <DependentUpon>201607052313561_m0001_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607052316076_m0002_Trigger_User_InsteadOfDelete.resx">
-      <DependentUpon>201607052316076_m0002_Trigger_User_InsteadOfDelete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607212341131_contact_administration.resx">
-      <DependentUpon>201607212341131_contact_administration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608042223476_itan-exceptions.resx">
-      <DependentUpon>201608042223476_itan-exceptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608042236087_exception-with-userid.resx">
-      <DependentUpon>201608042236087_exception-with-userid.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608062248375_exception-events.resx">
-      <DependentUpon>201608062248375_exception-events.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609250605133_db-table-name-changed.resx">
-      <DependentUpon>201609250605133_db-table-name-changed.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609250612456_interaction-type-added-to-table.resx">
-      <DependentUpon>201609250612456_interaction-type-added-to-table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609250620399_table dropped.resx">
-      <DependentUpon>201609250620399_table dropped.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609250627082_fixed id name in table.resx">
-      <DependentUpon>201609250627082_fixed id name in table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609280649066_feature-request-extended.resx">
-      <DependentUpon>201609280649066_feature-request-extended.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610161521025_application_configuration.resx">
-      <DependentUpon>201610161521025_application_configuration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610161522104_users_limit.resx">
-      <DependentUpon>201610161522104_users_limit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611112240306_stripped-text.resx">
-      <DependentUpon>201611112240306_stripped-text.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701221419539_isskipped.resx">
-      <DependentUpon>201701221419539_isskipped.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702051207204_nlnl.resx">
-      <DependentUpon>201702051207204_nlnl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

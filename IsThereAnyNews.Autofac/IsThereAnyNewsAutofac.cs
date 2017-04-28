@@ -14,6 +14,8 @@
     using IsThereAnyNews.EntityFramework;
     using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.Infrastructure.Implementation;
+    using IsThereAnyNews.Infrastructure.Import.Opml;
+    using IsThereAnyNews.Infrastructure.Web;
     using IsThereAnyNews.RssChannelUpdater;
     using IsThereAnyNews.Services;
     using IsThereAnyNews.Services.Handlers;
@@ -48,6 +50,8 @@
             builder.RegisterType<RssUpdateJob>().InstancePerLifetimeScope();
 
             builder.RegisterType<HtmlStripper>().As<IHtmlStripper>();
+            builder.RegisterType<Infrastructure>().As<IInfrastructure>();
+            builder.RegisterType<ImportOpml>().As<IImportOpml>();
             builder.RegisterType<WebConfigReaderWrapper>().As<IConfigurationReaderWrapper>();
 
             builder.RegisterType<UserAuthentication>().As<IUserAuthentication>();

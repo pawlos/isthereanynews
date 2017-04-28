@@ -5,6 +5,8 @@
     using IsThereAnyNews.Automapper;
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.EntityFramework;
+    using IsThereAnyNews.Infrastructure.Import.Opml;
+    using IsThereAnyNews.Infrastructure.Web;
     using IsThereAnyNews.Services;
 
     public class RssUpdateJob : IJob
@@ -17,8 +19,10 @@
 
             var itanDatabaseContext = new ItanDatabaseContext();
             var updateRepository = new EntityRepository(itanDatabaseContext,configureMapper);
+            var infrastructure = new Infrastructure();
+            var importOpml = new ImportOpml();
 
-            this.service = new Service(updateRepository, configureMapper, null);
+            this.service = new Service(updateRepository, configureMapper, null, infrastructure, importOpml);
 
         }
 

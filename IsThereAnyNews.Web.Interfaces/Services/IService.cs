@@ -31,8 +31,6 @@
 
         void CreateNewChannelIfNotExists(AddChannelDto dto);
 
-        bool CurrentUserIsAuthenticated();
-
         void CurrentVotedownForArticleByCurrentUser(RssActionModel id);
 
         void CurrentVoteupForArticleByCurrentUser(RssActionModel id);
@@ -41,18 +39,6 @@
 
         RegistrationSupported GetCurrentRegistrationStatus();
 
-        ClaimsPrincipal GetCurrentUser();
-
-        long GetCurrentUserId();
-
-        AuthenticationTypeProvider GetCurrentUserLoginProvider(ClaimsIdentity identity);
-
-        List<ItanRole> GetCurrentUserRoles();
-
-        IEnumerable<XmlNode> GetOutlines(Stream inputStream);
-
-        string GetUserSocialIdFromIdentity(ClaimsIdentity identity);
-
         ContactViewModel GetViewModel();
 
         RssChannelIndexViewModel GetViewModelFormChannelId(long id);
@@ -60,8 +46,6 @@
         void Import(OpmlImporterIndexDto dto);
 
         bool IsUserRegistered(ClaimsIdentity identity);
-
-        List<SyndicationItemAdapter> Load(string url);
 
         RssChannelsIndexViewModel LoadAllChannels();
 

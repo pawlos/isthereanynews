@@ -1,7 +1,6 @@
-﻿namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Infrastructure.Import.Opml
 {
     using System.Collections.Generic;
-
     using IsThereAnyNews.ProjectionModels.Mess;
 
     public class RssSourceWithUrlAndTitleComparer : IEqualityComparer<RssSourceWithUrlAndTitle>

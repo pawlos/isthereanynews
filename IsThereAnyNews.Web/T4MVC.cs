@@ -2815,6 +2815,12 @@ namespace IsThereAnyNews.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Feed()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Feed);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult SubscribeToChannel()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SubscribeToChannel);
@@ -2849,6 +2855,7 @@ namespace IsThereAnyNews.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string Public = "Public";
+            public readonly string Feed = "Feed";
             public readonly string SubscribeToChannel = "SubscribeToChannel";
             public readonly string UnsubscribeFromChannel = "UnsubscribeFromChannel";
             public readonly string Add = "Add";
@@ -2860,6 +2867,7 @@ namespace IsThereAnyNews.Web.Controllers
         {
             public const string Index = "Index";
             public const string Public = "Public";
+            public const string Feed = "Feed";
             public const string SubscribeToChannel = "SubscribeToChannel";
             public const string UnsubscribeFromChannel = "UnsubscribeFromChannel";
             public const string Add = "Add";
@@ -2909,6 +2917,18 @@ namespace IsThereAnyNews.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Public);
             PublicOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FeedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Feed(long id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Feed);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            FeedOverride(callInfo, id);
             return callInfo;
         }
 
