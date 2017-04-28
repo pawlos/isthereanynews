@@ -1,226 +1,98 @@
-angular.module("itan")
-.controller("itan.MyRssChannelsCtrl", function ($scope, $http) {
-    $scope.channels = {
-        loaded: false,
-        list: {},
-        current: {}
-    };
+angular
+    .module("itan")
+    .controller("itan.MyRssChannelsCtrl", 
+               ['$scope','$http', 'subscriptionService','entryService',
+        function ($scope, $http, subscriptionService,entryService) {
+            $scope.channels = {
+                loaded: false,
+                list: {},
+                current: {}
+            };
 
-    $scope.channel = {
-        loaded: false,
-        entries: {}
-    };
+            $scope.channel = {
+                loaded: false,
+                entries: {}
+            };
 
-    $scope.maxHeight = function () {
-        var h = document.documentElement.clientHeight -
-            $(".navbar-fixed-top").height() -
-            $(".navbar-fixed-bottom").height() -
-            20; // missing px somewhere :)
-        return h;
-    };
+            subscriptionService.loadSubscriptions($scope,$http);
 
-    $scope.maxHeight2 = function () {
-        var h = document.documentElement.clientHeight -
-            $(".navbar-fixed-top").height() -
-            $(".navbar-fixed-bottom").height() -
-            $(".title").height() -
-            $(".utils").height() -
-            20; // missing px somewhere :)
-        return h;
-    };
+            $scope.onChannelClick =  function (channel) {
+                subscriptionService.onChannelClick($scope,$http,channel);
+            };
+            $scope.markEntriesRead = function(entries) {
+                entryService.markEntriesRead($scope, $http,entries);
+            };
+            $scope.markReadWithEvent = function(streamType, item) {
+                entryService.markReadWithEvent($scope, $http, streamType, item);
+            };
+            $scope.onArticleBodyClicked = function(streamType, id, url) {
+                entryService.onArticleBodyClicked($http, streamType, id, url);
+            };
+            $scope.onThumbsUpClicked = function(streamType, id) {
+                entryService.onThumbsUpClicked($http, streamType, id);
+            };
+            $scope.onThumbsDownClick = function(streamType, id) {
+                entryService.onThumbsDownClick($http, streamType, id);
+            };
+            $scope.onMarkUnreadClicked = function(streamType, id) {
+                entryService.onMarkUnreadClicked($http, streamType, id);
+            };
+            $scope.onShareClicked = function(streamType, id) {
+                entryService.onShareClicked($http, streamType, id);
+            };
+            $scope.onCommentsClicked = function(streamType, id) {
+                entryService.onCommentsClicked($http, streamType, id);
+            };
+            $scope.onReadLaterClicked = function(streamType, id) {
+                entryService.onReadLaterClicked($http, streamType, id);
+            };
+            $scope.onShareClicked = function(streamType, id) {
+                entryService.onShareClicked($http, streamType, id);
 
-    $(window).on("resize.doResize", function () {
-        $scope.$apply(function () {
-            $scope.setHeights();
-        });
-    });
+            };
 
 
-    $scope.setHeights = function () {
-        var h = $(".height");
-        h.height($scope.maxHeight());
-        h[0].style.overflowY = "auto";
-        h[0].style.overflowX = "hidden";
+            $scope.maxHeight = function () {
+                var h = document.documentElement.clientHeight -
+                    $(".navbar-fixed-top").height() -
+                    $(".navbar-fixed-bottom").height() -
+                    20; // missing px somewhere :)
+                return h;
+            };
 
-        var h2 = $(".height2");
-        h2.height($scope.maxHeight2());
-        h2[0].style.overflowY = "auto";
-        h2[0].style.overflowX = "hidden";
-    }
+            $scope.maxHeight2 = function () {
+                var h = document.documentElement.clientHeight -
+                    $(".navbar-fixed-top").height() -
+                    $(".navbar-fixed-bottom").height() -
+                    $(".title").height() -
+                    $(".utils").height() -
+                    20; // missing px somewhere :)
+                return h;
+            };
 
-    $scope.loadChannels = function () {
-        $http.get("/Subscriptions/MyChannelList")
-       .success(function (data) {
-           $scope.channels.list = data;
-           $scope.channels.loaded = true;
-       });
-    }
-
-    $scope.isCurrent = function (channel) {
-        var x = channel === $scope.channels.current;
-        if (x) {
-            return "btn-info";
-        }
-        return "";
-    }
-
-    $http.get("/Subscriptions/MyChannelList")
-        .success(function (data) {
-            $scope.channels.list = data;
-            $scope.channels.loaded = true;
-        });
-
-    $scope.onChannelClick = function (channel) {
-        $scope.channels.current = channel;
-        $http.get("/Feeds/ReadAjax?streamType=" + channel.StreamType + "&id=" + channel.Id)
-            .success(function (data) {
-                $scope.channel.loaded = true;
-                $scope.channel.entries = data;
-                $(".nocss-rss-item-list")
-               .collapse({
-                   toggle: false
-               });
+            $(window).on("resize.doResize", function () {
+                $scope.$apply(function () {
+                    $scope.setHeights();
+                });
             });
-    };
 
-    $scope.markEntriesRead = function (entries) {
-        var ids = entries.DisplayedRss;
-        var httpOptions = {
-            method: 'POST',
-            url: "/Entries/MarkEntriesSkipped",
-            data: {
-                StreamType: entries.StreamType,
-                Entries: ids,
-                SubscriptionId: entries.SubscriptionId
+            $scope.setHeights = function () {
+                var h = $(".height");
+                h.height($scope.maxHeight());
+                h[0].style.overflowY = "auto";
+                h[0].style.overflowX = "hidden";
+
+                var h2 = $(".height2");
+                h2.height($scope.maxHeight2());
+                h2[0].style.overflowY = "auto";
+                h2[0].style.overflowX = "hidden";
             }
 
-        };
-        $http(httpOptions)
-        .success(function () {
-            $scope.channels.current.Count = 0;
-            $scope.channel.entries.RssEntryToReadViewModels = [];
-        });
-    }
-
-    $scope.markReadWithEvent = function (streamType, item) {
-        var httpOptions = {
-            method: 'POST',
-            url: "/Entries/MarkReadWithEvent",
-            data: {
-                StreamType: streamType,
-                Id: item.RssEntryViewModel.Id,
-                SubscriptionId: item.RssEntryViewModel.SubscriptionId
-            }
-        };
-        $http(httpOptions)
-            .success(function () {
-                if (!item.wasRead) {
-                    $scope.channels.current.Count--;
+            $scope.isCurrent = function (channel) {
+                if(subscriptionService.isCurrent($scope, channel)){
+                    return "btn-info";
                 }
-                item.wasRead = true;
-            });
-    };
-
-    $scope.onArticleBodyClicked = function (streamType, id, url) {
-        var httpOptions = {
-            method: 'POST',
-            url: "/Entries/MarkClickedWithEvent",
-            data: {
-                Id: id
+                return "";
             }
-        };
-        $http(httpOptions)
-            .success(function () {
-            });
-        window.open(url, "_blank");
-    };
-
-    $scope.onThumbsUpClicked = function (streamType, id) {
-        var httpOptions = {
-            method: "POST",
-            url: "/Entries/VoteUp",
-            data: {
-                streamType: streamType,
-                id: id
-            }
-        };
-        $http(httpOptions);
-    };
-    $scope.onThumbsDownClick = function (streamType, id) {
-        var httpOptions = {
-            method: "POST",
-            url: "/Entries/VoteDown",
-            data: {
-                streamType: streamType,
-                id: id
-            }
-        };
-        $http(httpOptions);
-    };
-
-    $scope.onMarkUnreadClicked = function (streamType, id) {
-        var httpOptions = {
-            method: "POST",
-            url: "/Entries/MarkNotRead",
-            data: {
-                streamType: streamType,
-                id: id
-            }
-        };
-        $http(httpOptions);
-    };
-
-    $scope.onShareClicked = function (streamType, id) {
-        var httpOptions = {
-            method: "POST",
-            url: "/Entries/Share",
-            data: {
-                streamType: streamType,
-                id: id
-            }
-        };
-        $http(httpOptions);
-    };
-    $scope.onCommentsClicked = function (streamType, id) {
-        var httpOptions = {
-            method: "POST",
-            url: "/Entries/AddComment",
-            data: {
-                streamType: streamType,
-                id: id
-            }
-        };
-        $http(httpOptions);
-    };
-
-    $scope.onReadLaterClicked = function (streamType, id) {
-        var httpOptions = {
-            method: "POST",
-            url: "/Entries/AddToReadLater",
-            data: {
-                streamType: streamType,
-                id: id
-            }
-        };
-        $http(httpOptions);
-    };
-
-    $scope.onAddChannelClicked = function (newChannel) {
-        var options = {
-            method: "POST",
-            url: "/Home/AddChannel",
-            data: {
-                RssChannelLink: newChannel.link,
-                RssChannelName: newChannel.title
-            }
-        };
-        $http(options)
-            .success(function () {
-                $scope.loadChannels();
-            });
-    };
-
-    $scope.setHeights();
-
-});
+        }]);
 

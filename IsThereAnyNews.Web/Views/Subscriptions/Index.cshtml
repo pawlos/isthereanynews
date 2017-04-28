@@ -4,6 +4,8 @@
 
 @section scripts
 {
+    <script src="~/Scripts/itan/entryService.js"></script>
+    <script src="~/Scripts/itan/subscriptionService.js"></script>
     <script src="~/Scripts/itan/myRssChannelsCtrl.js"></script>
     <script src="~/Scripts/itan/filterRawHtml.js"></script>
     <script src="~/Scripts/itan/filterMoment.js"></script>
@@ -14,7 +16,7 @@
     <div class="row">
         <div class="col-sm-3 nocss-mychannel-list text-ellipse-too-long height">
             <div class="row">
-                <input type="checkbox" ng-model="showAllChannels"/>show all channels
+                <input type="checkbox" ng-model="showAllChannels" />show all channels
             </div>
             <div class="row">
                 <div ng-hide="channels.loaded">

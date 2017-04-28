@@ -251,6 +251,8 @@
     <Content Include="Scripts\angular\angular-touch.min.js" />
     <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angular.min.js" />
+    <Content Include="Scripts\itan\entryService.js" />
+    <Content Include="Scripts\itan\subscriptionService.js" />
     <Content Include="Scripts\various\bootstrap.js" />
     <Content Include="Scripts\various\bootstrap.min.js" />
     <Content Include="fonts\FontAwesome.otf" />
