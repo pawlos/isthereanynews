@@ -3,11 +3,13 @@
 }
 @section scripts
 {
-    <script src="~/Scripts/itan/filterMoment.js"></script>
-    <script src="~/Scripts/itan/filterRawHtml.js"></script>
-    <script src="~/Scripts/itan/publicRssChannelsCtrl.js"></script>
+    <script src="~/Scripts/itan/filters/filterMoment.js"></script>
+    <script src="~/Scripts/itan/filters/filterRawHtml.js"></script>
+    <script src="~/Scripts/itan/services/feedsService.js"></script>
+    <script src="~/Scripts/itan/infrastructure/windowSizeHandler.js"></script>
+    <script src="~/Scripts/itan/controllers/feedsController.js"></script>
 }
-<div class="container" ng-controller="itan.PublicRssChannelsCtrl">
+<div class="container" ng-controller="itan.feedsController">
     <div class="row">
         <div class="col-sm-4 height">
             <div ng-hide="channels.loaded"
@@ -35,13 +37,13 @@
                         <h2>{{channel.entries.Title}}</h2>
                         <h3>{{channel.entries.Added|moment:'YYYY-MM-DD'}}</h3>
                         <h3>{{channel.entries.Updated|moment:'YYYY-MM-DD HH:mm'}}</h3>
-                        @if (User.Identity.IsAuthenticated)
+                        @if(User.Identity.IsAuthenticated)
                         {
-                        <button class="btn"
-                                ng-class="buttonSubscriptionClass(channel)"
-                                ng-click="onSubscribeClick(channel.entries.ChannelId,channel.entries.SubscriptionInfo.IsSubscribed)">
-                            {{channel.entries.SubscriptionInfo.IsSubscribed?"unsubscribe":"subscribe"}}
-                        </button>
+                            <button class="btn"
+                                    ng-class="buttonSubscriptionClass(channel)"
+                                    ng-click="onSubscribeClick(channel.entries.ChannelId,channel.entries.SubscriptionInfo.IsSubscribed)">
+                                {{channel.entries.SubscriptionInfo.IsSubscribed?"unsubscribe":"subscribe"}}
+                            </button>
                         }
                     </div>
                 </div>

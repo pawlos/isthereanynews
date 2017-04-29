@@ -4,15 +4,15 @@
 
 @section scripts
 {
-    <script src="~/Scripts/itan/entryService.js"></script>
-    <script src="~/Scripts/itan/subscriptionService.js"></script>
-    <script src="~/Scripts/itan/myRssChannelsCtrl.js"></script>
-    <script src="~/Scripts/itan/filterRawHtml.js"></script>
-    <script src="~/Scripts/itan/filterMoment.js"></script>
+    <script src="~/Scripts/itan/services/entryService.js"></script>
+    <script src="~/Scripts/itan/services/subscriptionService.js"></script>
+    <script src="~/Scripts/itan/controllers/subscriptionsController.js"></script>
+    <script src="~/Scripts/itan/infrastructure/windowSizeHandler.js"></script>
+    <script src="~/Scripts/itan/filters/filterRawHtml.js"></script>
+    <script src="~/Scripts/itan/filters/filterMoment.js"></script>
 }
 
-<div class="container" ng-controller="itan.MyRssChannelsCtrl">
-
+<div class="container" ng-controller="itan.subscriptionsController">
     <div class="row">
         <div class="col-sm-3 nocss-mychannel-list text-ellipse-too-long height">
             <div class="row">

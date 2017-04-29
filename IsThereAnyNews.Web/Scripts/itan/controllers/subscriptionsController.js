@@ -1,8 +1,8 @@
 angular
     .module("itan")
-    .controller("itan.MyRssChannelsCtrl", 
-               ['$scope','$http', 'subscriptionService','entryService',
-        function ($scope, $http, subscriptionService,entryService) {
+    .controller("itan.subscriptionsController", 
+               ['$scope','$http', 'subscriptionService','entryService','windowSizeHandler',
+        function ($scope, $http, subscriptionService,entryService,windowSizeHandler) {
             $scope.channels = {
                 loaded: false,
                 list: {},
@@ -51,42 +51,11 @@ angular
 
             };
 
-
-            $scope.maxHeight = function () {
-                var h = document.documentElement.clientHeight -
-                    $(".navbar-fixed-top").height() -
-                    $(".navbar-fixed-bottom").height() -
-                    20; // missing px somewhere :)
-                return h;
-            };
-
-            $scope.maxHeight2 = function () {
-                var h = document.documentElement.clientHeight -
-                    $(".navbar-fixed-top").height() -
-                    $(".navbar-fixed-bottom").height() -
-                    $(".title").height() -
-                    $(".utils").height() -
-                    20; // missing px somewhere :)
-                return h;
-            };
-
-            $(window).on("resize.doResize", function () {
+           $(window).on("resize.doResize", function () {
                 $scope.$apply(function () {
-                    $scope.setHeights();
+                    windowSizeHandler.setHeights();
                 });
             });
-
-            $scope.setHeights = function () {
-                var h = $(".height");
-                h.height($scope.maxHeight());
-                h[0].style.overflowY = "auto";
-                h[0].style.overflowX = "hidden";
-
-                var h2 = $(".height2");
-                h2.height($scope.maxHeight2());
-                h2[0].style.overflowY = "auto";
-                h2[0].style.overflowX = "hidden";
-            }
 
             $scope.isCurrent = function (channel) {
                 if(subscriptionService.isCurrent($scope, channel)){
