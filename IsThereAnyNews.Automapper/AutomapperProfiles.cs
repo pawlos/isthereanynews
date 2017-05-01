@@ -138,7 +138,8 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<RssChannelSubscription, RssChannelSubscriptionDTO>();
             this.CreateMap<RssChannelSubscription, RssChannelInformationDTO>();
             this.CreateMap<UserSubscriptionEntryToReadDTO, RssEntryToReadViewModel>();
-            this.CreateMap<RssChannelSubscriptionDTO, RssChannelSubscriptionViewModel>();
+            this.CreateMap<RssChannelSubscriptionDTO, RssChannelSubscriptionViewModel>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Title));
 
             this.CreateMap<SyndicationItemAdapter, NewRssEntryDTO>()
                 .ForMember(d => d.ItemId, o => o.MapFrom(s => s.Id))

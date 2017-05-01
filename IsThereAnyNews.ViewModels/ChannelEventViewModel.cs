@@ -2,7 +2,7 @@
 {
     using IsThereAnyNews.SharedData;
 
-    public class ChannelEventViewModel
+    public class ChannelEventViewModel : ISubscriptionViewModel
     {
         public string Count { get; set; }
 

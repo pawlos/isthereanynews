@@ -191,10 +191,15 @@
         public RssChannelsMyViewModel LoadAllChannelsOfCurrentUser()
         {
             var currentUserId = this.infrastructure.GetCurrentUserId();
-            var rssSubscriptions = this.entityRepository.LoadAllSubscriptionsForUser(currentUserId);
+            List<RssChannelSubscriptionDTO> rssSubscriptions = this.entityRepository.LoadAllSubscriptionsForUser(currentUserId);
+            List<ObservableUserEventsInformation> listOfUsers = this.LoadAllObservableSubscription();
+            AdminEventsViewModel events = this.LoadEvents();
 
-            // this.rssEntriesToReadRepository.CopyRssThatWerePublishedAfterLastReadTimeToUser(currentUserId, rssSubscriptions);
             var viewmodel = this.mapper.Map<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>(rssSubscriptions);
+
+            viewmodel.Users = listOfUsers;
+            viewmodel.Events = events;
+
             return viewmodel;
         }
 

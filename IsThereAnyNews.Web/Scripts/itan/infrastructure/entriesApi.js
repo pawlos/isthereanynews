@@ -1,46 +1,36 @@
 angular
-    .module("itan")
-    .factory("entryService", function () {
-        return {
-        markEntriesRead:function($scope, $http, entries) {
-            var ids = entries.DisplayedRss;
+.module('itan')
+.factory('entriesApi',['$http', function($http){
+    return {
+        markEntriesRead:function(streamType, ids, subscriptionId,callback) {
             var httpOptions = {
                 method: 'POST',
                 url: "/Entries/MarkEntriesSkipped",
                 data: {
-                    StreamType: entries.StreamType,
+                    StreamType: streamType,
                     Entries: ids,
-                    SubscriptionId: entries.SubscriptionId
+                    SubscriptionId: subscriptionId
                 }
-
             };
             $http(httpOptions)
-                .success(function() {
-                    $scope.channels.current.Count = 0;
-                    $scope.channel.entries.RssEntryToReadViewModels = [];
-                });
+                .success(callback);
         },
 
-        markReadWithEvent:function ($scope, $http, streamType, item) {
+        markReadWithEvent:function (streamType, id, subscriptionId,callback) {
             var httpOptions = {
                 method: 'POST',
                 url: "/Entries/MarkReadWithEvent",
                 data: {
                     StreamType: streamType,
-                    Id: item.RssEntryViewModel.Id,
-                    SubscriptionId: item.RssEntryViewModel.SubscriptionId
+                    Id: id,
+                    SubscriptionId: subscriptionId
                 }
             };
             $http(httpOptions)
-                .success(function () {
-                    if (!item.wasRead) {
-                        $scope.channels.current.Count--;
-                    }
-                    item.wasRead = true;
-                });
+                .success(callback);
         },
 
-        onArticleBodyClicked:function ($http, streamType, id, url) {
+        onArticleBodyClicked:function (id,callback) {
             var httpOptions = {
                 method: 'POST',
                 url: "/Entries/MarkClickedWithEvent",
@@ -49,12 +39,10 @@ angular
                 }
             };
             $http(httpOptions)
-                .success(function () {
-                });
-            window.open(url, "_blank");
+                .success(callback);
         },
 
-        onThumbsUpClicked:function ($http, streamType, id) {
+        onThumbsUpClicked:function (streamType, id,callback) {
             var httpOptions = {
                 method: "POST",
                 url: "/Entries/VoteUp",
@@ -63,10 +51,10 @@ angular
                     id: id
                 }
             };
-            $http(httpOptions);
+            $http(httpOptions).success(callback);
         },
 
-        onThumbsDownClick:function ($http, streamType, id) {
+        onThumbsDownClick:function (streamType, id,callback) {
             var httpOptions = {
                 method: "POST",
                 url: "/Entries/VoteDown",
@@ -75,10 +63,10 @@ angular
                     id: id
                 }
             };
-            $http(httpOptions);
+            $http(httpOptions).success(callback);
         },
 
-        onMarkUnreadClicked:function ($http, streamType, id) {
+        onMarkUnreadClicked:function (streamType, id,callback) {
             var httpOptions = {
                 method: "POST",
                 url: "/Entries/MarkNotRead",
@@ -87,10 +75,10 @@ angular
                     id: id
                 }
             };
-            $http(httpOptions);
+            $http(httpOptions).success(callback);
         },
 
-        onShareClicked:function ($http, streamType, id) {
+        onShareClicked:function (streamType, id,callback) {
             var httpOptions = {
                 method: "POST",
                 url: "/Entries/Share",
@@ -99,9 +87,9 @@ angular
                     id: id
                 }
             };
-            $http(httpOptions);
+            $http(httpOptions).success(callback);
         },
-        onCommentsClicked:function ($http, streamType, id) {
+        onCommentsClicked:function (streamType, id,callback) {
             var httpOptions = {
                 method: "POST",
                 url: "/Entries/AddComment",
@@ -110,10 +98,10 @@ angular
                     id: id
                 }
             };
-            $http(httpOptions);
+            $http(httpOptions).success(callback);
         },
 
-        onReadLaterClicked:function ($http, streamType, id) {
+        onReadLaterClicked:function (streamType, id,callback) {
             var httpOptions = {
                 method: "POST",
                 url: "/Entries/AddToReadLater",
@@ -122,6 +110,7 @@ angular
                     id: id
                 }
             };
-            $http(httpOptions);
+            $http(httpOptions).success(callback);
         }
-    }});
+    }
+}])

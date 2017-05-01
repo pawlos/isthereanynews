@@ -256,10 +256,13 @@
     <Content Include="Scripts\itan\controllers\superAdminCtrl.js" />
     <Content Include="Scripts\itan\filters\filterMoment.js" />
     <Content Include="Scripts\itan\filters\filterRawHtml.js" />
+    <Content Include="Scripts\itan\infrastructure\entriesApi.js" />
+    <Content Include="Scripts\itan\infrastructure\feedsApi.js" />
+    <Content Include="Scripts\itan\infrastructure\subscriptionsApi.js" />
     <Content Include="Scripts\itan\infrastructure\windowSizeHandler.js" />
-    <Content Include="Scripts\itan\services\entryService.js" />
+    <Content Include="Scripts\itan\services\entriesService.js" />
     <Content Include="Scripts\itan\services\feedsService.js" />
-    <Content Include="Scripts\itan\services\subscriptionService.js" />
+    <Content Include="Scripts\itan\services\subscriptionsService.js" />
     <Content Include="Scripts\various\bootstrap.js" />
     <Content Include="Scripts\various\bootstrap.min.js" />
     <Content Include="fonts\FontAwesome.otf" />
@@ -1102,7 +1105,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IsThereAnyNews.Autofac\IsThereAnyNews.Autofac.csproj">

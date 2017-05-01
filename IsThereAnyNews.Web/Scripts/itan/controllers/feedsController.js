@@ -25,8 +25,9 @@ angular
             });
 
             $scope.onChannelClick = function (channel) {
-                feedsService.onChannelClick($scope, $http, channel);
-                windowSizeHandler.setHeights();
+                feedsService.onChannelClick($scope, channel, function(){
+                    windowSizeHandler.setHeights();
+                });
             };
 
             $scope.isCurrent = function (channel) {
@@ -41,10 +42,10 @@ angular
             }
 
             $scope.onSubscribeClick = function (channelId, isSubscribed) {
-                feedsService.onSubscribeClick($scope, $http, channelId, isSubscribed);
+                feedsService.onSubscribeClick($scope, channelId, isSubscribed);
             };
 
-            feedsService.loadFeeds($scope, $http);
+            feedsService.loadFeeds($scope);
             windowSizeHandler.setHeights();
         }]);
 

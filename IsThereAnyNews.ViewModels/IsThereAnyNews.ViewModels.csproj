@@ -83,6 +83,7 @@
     <Compile Include="ContactViewModel.cs" />
     <Compile Include="EventRssViewedViewModel.cs" />
     <Compile Include="ExternalLoginListViewModel.cs" />
+    <Compile Include="ISubscriptionViewModel.cs" />
     <Compile Include="ItanApplicationConfigurationViewModel.cs" />
     <Compile Include="LoginSuccessViewModel.cs" />
     <Compile Include="Login\AuthorizationIndexViewModel.cs" />

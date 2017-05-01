@@ -28,10 +28,6 @@ namespace IsThereAnyNews.Web.Controllers
         public virtual JsonResult MyChannelList()
         {
             var viewmodel = this.service.LoadAllChannelsOfCurrentUser();
-            var listOfUsers = this.service.LoadAllObservableSubscription();
-            var events = this.service.LoadEvents();
-            viewmodel.Users = listOfUsers;
-            viewmodel.Events = events;
             return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
         }
 

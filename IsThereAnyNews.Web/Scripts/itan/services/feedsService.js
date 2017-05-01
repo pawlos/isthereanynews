@@ -1,27 +1,21 @@
 angular
     .module("itan")
-    .factory("feedsService", [function () {
+    .factory("feedsService", ['feedsApi',function (feedsApi) {
         return {
-            onChannelClick: function ($scope, $http, channel) {
-                $http.get("/Feeds/Feed/" + channel.Id)
-                    .success(function (data) {
+            onChannelClick: function ($scope, channel, callback) {
+                feedsApi.loadFeedChannel(channel.Id, function(data){
                         $scope.channel.loaded = true;
                         $scope.channel.entries = data;
                         $scope.channels.current = channel;
-                    })
-                    .then(function () {
-                        $scope.setHeights();
+                        callback();
                     });
             },
-
-            loadFeeds: function ($scope, $http) {
-                $http.get("/Feeds/Public")
-                    .success(function (data) {
+            loadFeeds: function ($scope) {
+                feedsApi.loadFeeds(function(data){
                         $scope.channels.list = data;
                         $scope.channels.loaded = true;
                     });
             },
-
             isCurrent: function ($scope, channel) {
                 var x = channel === $scope.channels.current;
                 if (x) {
@@ -29,47 +23,26 @@ angular
                 }
                 return "";
             },
-
             buttonSubscriptionClass: function (channel) {
                 return channel.entries.SubscriptionInfo.IsSubscribed ? "btn-danger" : "btn-primary";
             },
-
-            onSubscribeClick: function ($scope, $http, channelId, isSubscribed) {
+            onSubscribeClick: function ($scope, channelId, isSubscribed) {
                 if (isSubscribed) {
                     this.unsubscribe(channelId);
                 } else {
                     this.subscribe(channelId);
                 }
             },
-
-            subscribe: function ($scope, $http, channelId) {
-                var httpOptions = {
-                    method: 'POST',
-                    url: "/Feeds/SubscribeToChannel",
-                    data: {
-                        channelId: channelId
-                    }
-                };
-                $http(httpOptions)
-                    .success(function () {
+            subscribe: function ($scope, channelId) {
+                feedsApi.subscribe(channelId,function(){
                         $scope.updateSubscriptionStatus(channelId, true);
                     });
             },
-
-            unsubscribe: function ($scope, $http, channelId) {
-                var httpOptions = {
-                    method: 'POST',
-                    url: "/Feeds/UnsubscribeFromChannel",
-                    data: {
-                        channelId: channelId
-                    }
-                };
-                $http(httpOptions)
-                    .success(function () {
+            unsubscribe: function ($scope, channelId) {
+                feedsApi.unsubscribe(channelId, function(){
                         $scope.updateSubscriptionStatus(channelId, false);
                     });
             },
-
             updateSubscriptionStatus: function ($scope, channelId, newstatus) {
                 if ($scope.channel.entries.ChannelId === channelId) {
                     $scope.channel.entries.SubscriptionInfo.IsSubscribed = newstatus;

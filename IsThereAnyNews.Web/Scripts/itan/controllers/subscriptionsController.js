@@ -1,8 +1,8 @@
 angular
     .module("itan")
     .controller("itan.subscriptionsController", 
-               ['$scope','$http', 'subscriptionService','entryService','windowSizeHandler',
-        function ($scope, $http, subscriptionService,entryService,windowSizeHandler) {
+               ['$scope','subscriptionsService','entriesService','windowSizeHandler',
+        function ($scope, subscriptionsService,entriesService,windowSizeHandler) {
             $scope.channels = {
                 loaded: false,
                 list: {},
@@ -14,40 +14,45 @@ angular
                 entries: {}
             };
 
-            subscriptionService.loadSubscriptions($scope,$http);
+            subscriptionsService.loadSubscriptions($scope);
 
             $scope.onChannelClick =  function (channel) {
-                subscriptionService.onChannelClick($scope,$http,channel);
+                subscriptionsService.onChannelClick($scope,channel, function(){
+                    $(".nocss-rss-item-list")
+                            .collapse({
+                                toggle: false
+                            });
+                });
             };
             $scope.markEntriesRead = function(entries) {
-                entryService.markEntriesRead($scope, $http,entries);
+                entriesService.markEntriesRead($scope,entries);
             };
             $scope.markReadWithEvent = function(streamType, item) {
-                entryService.markReadWithEvent($scope, $http, streamType, item);
+                entriesService.markReadWithEvent($scope, streamType, item);
             };
             $scope.onArticleBodyClicked = function(streamType, id, url) {
-                entryService.onArticleBodyClicked($http, streamType, id, url);
+                entriesService.onArticleBodyClicked(streamType, id, url);
             };
             $scope.onThumbsUpClicked = function(streamType, id) {
-                entryService.onThumbsUpClicked($http, streamType, id);
+                entriesService.onThumbsUpClicked( streamType, id);
             };
             $scope.onThumbsDownClick = function(streamType, id) {
-                entryService.onThumbsDownClick($http, streamType, id);
+                entriesService.onThumbsDownClick(streamType, id);
             };
             $scope.onMarkUnreadClicked = function(streamType, id) {
-                entryService.onMarkUnreadClicked($http, streamType, id);
+                entriesService.onMarkUnreadClicked(streamType, id);
             };
             $scope.onShareClicked = function(streamType, id) {
-                entryService.onShareClicked($http, streamType, id);
+                entriesService.onShareClicked(streamType, id);
             };
             $scope.onCommentsClicked = function(streamType, id) {
-                entryService.onCommentsClicked($http, streamType, id);
+                entriesService.onCommentsClicked(streamType, id);
             };
             $scope.onReadLaterClicked = function(streamType, id) {
-                entryService.onReadLaterClicked($http, streamType, id);
+                entriesService.onReadLaterClicked(streamType, id);
             };
             $scope.onShareClicked = function(streamType, id) {
-                entryService.onShareClicked($http, streamType, id);
+                entriesService.onShareClicked(streamType, id);
 
             };
 
@@ -58,7 +63,7 @@ angular
             });
 
             $scope.isCurrent = function (channel) {
-                if(subscriptionService.isCurrent($scope, channel)){
+                if(subscriptionsService.isCurrent($scope, channel)){
                     return "btn-info";
                 }
                 return "";
