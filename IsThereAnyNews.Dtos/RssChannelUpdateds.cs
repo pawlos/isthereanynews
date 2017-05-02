@@ -2,6 +2,6 @@
 {
     public class RssChannelUpdateds
     {
-        public int UpdateCout { get; set; }
+        public int Count { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using IsThereAnyNews.SharedData;
 
-namespace IsThereAnyNews.ViewModels
+namespace IsThereAnyNews.ViewModels.Subscriptions
 {
     public interface ISubscriptionViewModel
     {
@@ -11,5 +11,7 @@ namespace IsThereAnyNews.ViewModels
         string Name { get; }
 
         StreamType StreamType { get; }
+
+        string IconType { get; }
     }
 }

@@ -32,7 +32,7 @@
                        class="btn btn-default btn-xs full-width border-less text-left"
                        ng-class="isCurrent(channel)"
                        ng-click="onChannelClick(channel)">
-                        <i class="fa fa-rss left"></i>
+                        <i class="fa {{channel.IconType}} left"></i>
                         {{channel.Name}} ({{channel.Count}})
                     </a>
                 </div>

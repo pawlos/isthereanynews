@@ -18,7 +18,7 @@
     using IsThereAnyNews.ProjectionModels.Mess;
     using IsThereAnyNews.SharedData;
 
-    public class EntityRepository : IEntityRepository
+    public class EntityRepository: IEntityRepository
     {
         private readonly ItanDatabaseContext database;
 
@@ -404,13 +404,13 @@
                 var userSubscriptionEntryToRead = new UserSubscriptionEntryToRead
                 {
                     EventRssUserInteractionId =
-                                                              userInteraction.Id,
+                        userInteraction.Id,
                     UserSubscriptionId =
-                                                              observedUsersId.Single(
-                                                                  o =>
-                                                                      o.ObservedId
-                                                                      == userInteraction
-                                                                          .UserId).Id
+                        observedUsersId.Single(
+                            o =>
+                                o.ObservedId
+                                == userInteraction
+                                    .UserId).Id
                 };
                 this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
             }
@@ -430,7 +430,7 @@
 
         public void CreateNewSubscription(long followerId, long observedId)
         {
-            if (this.IsUserSubscribedToUser(followerId, observedId))
+            if(this.IsUserSubscribedToUser(followerId, observedId))
             {
                 return;
             }
@@ -473,7 +473,7 @@
 
         public void DeleteUserSubscription(long followerId, long observedId)
         {
-            if (this.IsUserSubscribedToUser(followerId, observedId) == false)
+            if(this.IsUserSubscribedToUser(followerId, observedId) == false)
             {
                 return;
             }
@@ -1012,7 +1012,7 @@ order by Updated";
         {
             var count = this.database.RssChannelUpdates.Count();
 
-            return new RssChannelUpdateds { UpdateCout = count };
+            return new RssChannelUpdateds { Count = count };
         }
 
         public List<ChannelUpdateEventDto> LoadUpdateEvents(int eventsCount)
@@ -1116,7 +1116,7 @@ order by Updated";
                         });
 
             this.database.Configuration.ValidateOnSaveEnabled = false;
-            foreach (var rssEntryToRead in rssEntryToReads)
+            foreach(var rssEntryToRead in rssEntryToReads)
             {
                 this.database.RssEntriesToRead.Add(rssEntryToRead);
                 this.database.SaveChanges();
@@ -1374,12 +1374,12 @@ order by Updated";
         public long SaveToDatabase(ContactAdministrationDto entity)
         {
             var contactAdministration = new ContactAdministration
-                                        {
-                                            Email = entity.Email,
-                                            Message = entity.Message,
-                                            Name = entity.Name,
-                                            Topic = entity.Topic
-                                        };
+            {
+                Email = entity.Email,
+                Message = entity.Message,
+                Name = entity.Name,
+                Topic = entity.Topic
+            };
             this.database.ContactsAdministration.Add(contactAdministration);
             this.database.SaveChanges();
             return contactAdministration.Id;

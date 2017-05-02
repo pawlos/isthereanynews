@@ -1,4 +1,5 @@
 using System.ServiceModel.Syndication;
+using IsThereAnyNews.ViewModels.Subscriptions;
 
 namespace IsThereAnyNews.Automapper
 {
@@ -93,7 +94,7 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.Viewed, o => o.MapFrom(s => s.Created))
                 .ForMember(d => d.RssId, o => o.MapFrom(s => s.Id));
 
-            this.CreateMap<List<RssChannelUpdatedEvent>, List<ChannelEventViewModel>>();
+            this.CreateMap<List<RssChannelUpdatedEvent>, List<ISubscriptionViewModel>>();
 
             this.CreateMap<AddChannelDto, RssChannel>()
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.RssChannelName))

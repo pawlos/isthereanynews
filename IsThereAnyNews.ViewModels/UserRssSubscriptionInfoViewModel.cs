@@ -1,3 +1,4 @@
+
 namespace IsThereAnyNews.ViewModels
 {
     public class UserRssSubscriptionInfoViewModel

@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.Services
+﻿using IsThereAnyNews.ViewModels.Subscriptions;
+
+namespace IsThereAnyNews.Services
 {
     using System;
     using System.Collections.Generic;
@@ -192,24 +194,34 @@
         {
             var currentUserId = this.infrastructure.GetCurrentUserId();
             List<RssChannelSubscriptionDTO> rssSubscriptions = this.entityRepository.LoadAllSubscriptionsForUser(currentUserId);
-            List<ObservableUserEventsInformation> listOfUsers = this.LoadAllObservableSubscription();
-            AdminEventsViewModel events = this.LoadEvents();
+            List<ObservableUserEventsInformation> listOfUsers = this.LoadAllObservableSubscription(currentUserId);
 
+            var roles = this.infrastructure.GetCurrentUserRoles();
             var viewmodel = this.mapper.Map<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>(rssSubscriptions);
 
+            if(roles.Contains(ItanRole.SuperAdmin))
+            {
+                var updates = this.entityRepository.LoadUpdateEvents();
+                var creations = this.entityRepository.LoadCreateEvents();
+                var exceptions = this.entityRepository.LoadExceptionEvents();
+                var u = new ChannelEventUpdatesViewModel { Count = updates.Count.ToString() };
+                var c = new ChannelEventCreationViewModel { Count = creations.Count.ToString() };
+                var e = new ChannelEventExceptionViewModel { Count = exceptions.Count.ToString() };
+                viewmodel.Creations = c;
+                viewmodel.Updates = u;
+                viewmodel.Exceptions = e;
+            }
             viewmodel.Users = listOfUsers;
-            viewmodel.Events = events;
 
             return viewmodel;
         }
 
-        public List<ObservableUserEventsInformation> LoadAllObservableSubscription()
+        public List<ObservableUserEventsInformation> LoadAllObservableSubscription(long userId)
         {
             var now = DateTime.Now;
-            var currentUserId = this.infrastructure.GetCurrentUserId();
-            this.entityRepository.CopyAllUnreadElementsToUser(currentUserId);
-            var loadNameAndCountForUser = this.entityRepository.LoadNameAndCountForUser(currentUserId);
-            this.entityRepository.UpdateUserLastReadTime(currentUserId, now);
+            this.entityRepository.CopyAllUnreadElementsToUser(userId);
+            var loadNameAndCountForUser = this.entityRepository.LoadNameAndCountForUser(userId);
+            this.entityRepository.UpdateUserLastReadTime(userId, now);
             var list = loadNameAndCountForUser.Select(this.ProjectToObservableUserEventsInformation)
                                               .ToList();
             return list;
@@ -229,17 +241,6 @@
                                      .ToList();
             var viewmodel = new AllUsersPublicProfilesViewModel { Profiles = list };
             return viewmodel;
-        }
-
-        public AdminEventsViewModel LoadEvents()
-        {
-            var roles = this.infrastructure.GetCurrentUserRoles();
-            if(roles.Contains(ItanRole.SuperAdmin))
-            {
-                return this.LoadSuperAdminEvents();
-            }
-
-            return new AdminEventsViewModel();
         }
 
         public UserDetailedPublicProfileViewModel LoadUserPublicProfile(long id)
@@ -285,7 +286,7 @@
 
         public void MarkEntriesRead(MarkReadDto dto)
         {
-            var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
+            //var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
 
             // var toberead = RssToMarkRead(dto.DisplayedItems);
             // subscriptionHandler.MarkRead(toberead);
@@ -450,18 +451,6 @@
             var subscriptionInfo = this.entityRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
             var userRssSubscriptionInfoViewModel = this.mapper.Map<UserRssSubscriptionInfoViewModel>(subscriptionInfo);
             return userRssSubscriptionInfoViewModel;
-        }
-
-        public AdminEventsViewModel LoadSuperAdminEvents()
-        {
-            var updates = this.entityRepository.LoadUpdateEvents();
-            var creations = this.entityRepository.LoadCreateEvents();
-            var exceptions = this.entityRepository.LoadExceptionEvents();
-            ChannelEventViewModel u = new ChannelEventUpdatesViewModel { Count = updates.UpdateCout.ToString(), Name = "Updates", Id = -1 };
-            var c = new ChannelEventCreationViewModel { Count = creations.Count.ToString(), Name = "Creations", Id = -2 };
-            var e = new ChannelEventExceptionViewModel { Count = exceptions.Count.ToString(), Name = "Exceptions", Id = -3 };
-            var events = new AdminEventsViewModel { Updates = u, Creations = c, Exceptions = e };
-            return events;
         }
 
         public void OpenFullArticle(RssActionModel model)

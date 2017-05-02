@@ -1,7 +1,6 @@
-﻿
 using IsThereAnyNews.SharedData;
 
-namespace IsThereAnyNews.ViewModels.RssChannel
+namespace IsThereAnyNews.ViewModels.Subscriptions
 {
     public class RssChannelSubscriptionViewModel : ISubscriptionViewModel
     {
@@ -10,5 +9,6 @@ namespace IsThereAnyNews.ViewModels.RssChannel
         public long Id { get; set; }
 
         public StreamType StreamType => StreamType.Rss;
+        public string IconType => "fa-rss";
     }
 }
