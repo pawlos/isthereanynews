@@ -10,15 +10,16 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-
-INSERT INTO [dbo].[ApplicationConfigurations]
-           ([Created]
-           ,[Updated]
-           ,[RegistrationSupported]
-           ,[UsersLimit])
-     VALUES
-           (CURRENT_TIMESTAMP,
-           CURRENT_TIMESTAMP,
-           4,
-           1)
-GO
+IF NOT EXISTS (SELECT * FROM ApplicationConfigurations)
+BEGIN
+    INSERT INTO [dbo].[ApplicationConfigurations]
+               ([Created]
+               ,[Updated]
+               ,[RegistrationSupported]
+               ,[UsersLimit])
+         VALUES
+               (CURRENT_TIMESTAMP,
+               CURRENT_TIMESTAMP,
+               4,
+               1)
+END
