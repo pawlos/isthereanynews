@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[RssEntriesToRead] (
-    [Id]                       BIGINT   NOT NULL,
+    [Id]                       BIGINT   NOT NULL IDENTITY,
     [Created]                  DATETIME NOT NULL,
     [Updated]                  DATETIME NOT NULL,
     [IsRead]                   BIT      NOT NULL,
