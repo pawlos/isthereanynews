@@ -7,7 +7,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
-    public class ChannelUpdatesSubscriptionHandler : ISubscriptionHandler
+    public class ChannelUpdatesSubscriptionHandler: ISubscriptionHandler
     {
         private readonly IEntityRepository entityRepository;
 
@@ -28,18 +28,13 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var channelInformationViewModel = new ChannelInformationViewModel
-                                              {
-                                                  Created = DateTime.MinValue,
-                                                  Title = "Channel update events"
-                                              };
-
             var loadAllRssEntriesForUserAndChannel = this.LoadUpdateEvents(showReadEntries);
 
             var subscriptionIndexViewModel = new RssSubscriptionIndexViewModel(0,
-                                                                               channelInformationViewModel,
-                                                                               loadAllRssEntriesForUserAndChannel,
-                                                                               StreamType.Channel);
+                "Channel update events",
+                DateTime.MinValue,
+                loadAllRssEntriesForUserAndChannel,
+                StreamType.Channel);
 
             var rssSubscriptionIndexViewModel = subscriptionIndexViewModel;
 

@@ -71,9 +71,10 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
                                                              .ToList();
             var rssChannelInformationDto = this.entityRepository.LoadChannelChannelInformation(subscriptionId);
             var viewModel = new RssSubscriptionIndexViewModel(subscriptionId,
-                                                              new ChannelInformationViewModel { Created = rssChannelInformationDto.Created, Title = rssChannelInformationDto.Title },
-                                                              rssEntryToReadViewModels,
-                                                              StreamType.Rss);
+                rssChannelInformationDto.Title,
+                rssChannelInformationDto.Created,
+                rssEntryToReadViewModels,
+                StreamType.Rss);
             viewModel.SubscriptionId = subscriptionId;
             return viewModel;
         }

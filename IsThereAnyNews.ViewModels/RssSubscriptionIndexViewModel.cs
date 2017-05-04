@@ -1,4 +1,6 @@
-﻿namespace IsThereAnyNews.ViewModels
+﻿using System;
+
+namespace IsThereAnyNews.ViewModels
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -7,15 +9,14 @@
 
     public class RssSubscriptionIndexViewModel
     {
-        public RssSubscriptionIndexViewModel(long subscriptionId, ChannelInformationViewModel channelInformation, List<RssEntryToReadViewModel> loadAllRssEntriesForUserAndChannel, StreamType streamType)
+        public RssSubscriptionIndexViewModel(long subscriptionId, string title, DateTime creationDateTime, List<RssEntryToReadViewModel> loadAllRssEntriesForUserAndChannel, StreamType streamType)
         {
             this.SubscriptionId = subscriptionId;
-            this.ChannelInformation = channelInformation;
+            Title = title;
+            CreationDateTime = creationDateTime;
             this.StreamType = streamType;
             this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel;
         }
-
-        public ChannelInformationViewModel ChannelInformation { get; set; }
 
         public string DisplayedRss => string.Join(";", this.RssEntryToReadViewModels.Select(x => x.RssEntryViewModel.Id));
 
@@ -24,5 +25,7 @@
         public StreamType StreamType { get; set; }
 
         public long SubscriptionId { get; set; }
+        public string Title { get; }
+        public DateTime CreationDateTime { get; }
     }
 }

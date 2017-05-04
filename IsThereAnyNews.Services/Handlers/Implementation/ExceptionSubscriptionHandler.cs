@@ -27,14 +27,15 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             throw new NotImplementedException();
         }
 
-        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
+        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId,
+            ShowReadEntries showReadEntries)
         {
-            var channelInformationViewModel = new ChannelInformationViewModel {Created = DateTime.MinValue, Title = "Application exceptions"};
             var loadAllRssEntriesForUserAndChannel = this.LoadExceptionEvents(showReadEntries);
             var subscriptionIndexViewModel = new RssSubscriptionIndexViewModel(0,
-                                                                               channelInformationViewModel,
-                                                                               loadAllRssEntriesForUserAndChannel,
-                                                                               StreamType.Channel);
+                "Exceptions",
+                DateTime.MinValue,
+                loadAllRssEntriesForUserAndChannel,
+                StreamType.Channel);
             var rssSubscriptionIndexViewModel = subscriptionIndexViewModel;
             return rssSubscriptionIndexViewModel;
         }
