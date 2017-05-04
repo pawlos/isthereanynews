@@ -838,16 +838,15 @@
 
         public List<UserSubscriptionEntryToReadDTO> LoadAllUserEntriesFromSubscription(long subscriptionId)
         {
-            var userSubscriptions = this.database.UsersSubscriptions
-                                       .Where(s => s.Id == subscriptionId)
-                                       .Include(s => s.EntriesToRead)
-                                       .SelectMany(s => s.EntriesToRead)
-                                       .Include(s => s.EventRssUserInteraction)
-                                       .Include(s => s.EventRssUserInteraction.RssEntry)
-                                       .ProjectTo<UserSubscriptionEntryToReadDTO>()
-                                       .ToList();
+            var x = "select ERUI.Id as EruiId, ERUI.InteractionType, RE.* " +
+                     "from UserSubscriptions US join EventRssUserInteractions ERUI on US.ObservedId = ERUI.UserId " +
+                     "join RssEntries RE on ERUI.RssEntryId = RE.Id " +
+                     $"where US.Id = {subscriptionId} AND " +
+                     $"ERUI.InteractionType in ({(int)InteractionType.Clicked}, {(int)InteractionType.Viewed}) ";
 
-            return userSubscriptions.ToList();
+            var rssEntryDtos = this.database.Database.SqlQuery<RssEntryDTO>(x).ToList();
+            var userSubscriptionEntryToReadDtos = rssEntryDtos.Select(a => new UserSubscriptionEntryToReadDTO { RssEntryDto = a, Id = a.Id, IsRead = false }).ToList();
+            return userSubscriptionEntryToReadDtos;
         }
 
         public List<UserPublicProfile> LoadAllUsersPublicProfileWithChannelsCount()
@@ -867,17 +866,16 @@
 
         public List<UserSubscriptionEntryToReadDTO> LoadAllUserUnreadEntriesFromSubscription(long subscriptionId)
         {
-            var userSubscriptions = this.database.UsersSubscriptions
-                             .Where(s => s.Id == subscriptionId)
-                             .Include(s => s.EntriesToRead)
-                             .SelectMany(s => s.EntriesToRead)
-                             .Include(s => s.EventRssUserInteraction)
-                             .Include(s => s.EventRssUserInteraction.RssEntry)
-                             .Where(s => !s.IsRead)
-                             .ProjectTo<UserSubscriptionEntryToReadDTO>()
-                             .ToList();
+            var x = "select ERUI.Id as EruiId, ERUI.InteractionType, RE.* " +
+                    "from UserSubscriptions US join EventRssUserInteractions ERUI on US.ObservedId = ERUI.UserId " +
+                    "join RssEntries RE on ERUI.RssEntryId = RE.Id " +
+                    "LEFT JOIN UserSubscriptionEntryToReads USETR on ERUI.Id = USETR.EventRssUserInteractionId " +
+                    $"where US.Id = {subscriptionId} AND USETR.Id is NULL AND " +
+                    $"ERUI.InteractionType in ({(int)InteractionType.Clicked}, {(int)InteractionType.Viewed}) ";
 
-            return userSubscriptions.ToList();
+            var rssEntryDtos = this.database.Database.SqlQuery<RssEntryDTO>(x).ToList();
+            var userSubscriptionEntryToReadDtos = rssEntryDtos.Select(a=>new UserSubscriptionEntryToReadDTO { RssEntryDto = a, Id = a.Id,IsRead = false}).ToList();
+            return userSubscriptionEntryToReadDtos;
         }
 
         public ApplicationConfigurationDTO LoadApplicationConfiguration()
@@ -953,12 +951,16 @@ order by Updated";
 
         public List<NameAndCountUserSubscription> LoadNameAndCountForUser(long currentUserId)
         {
+            var x =
+                "select USS.Id as SubscriptionId, A.* from UserSubscriptions USS " +
+                "join(select U.Id as 'UserId', U.DisplayName, Count(*) as 'Count' " +
+                "from UserSubscriptions US join EventRssUserInteractions ERUI on US.ObservedId = ERUI.UserId " +
+                "join Users U on US.ObservedId = U.Id left join UserSubscriptionEntryToReads USETR " +
+                $"on ERUI.Id = USETR.EventRssUserInteractionId where FollowerId = {currentUserId} AND ERUI.InteractionType IN({(int)InteractionType.Clicked}, {(int)InteractionType.Viewed}) " +
+                "AND USETR.Id is null GROUP BY U.Id, U.DisplayName) A on USS.ObservedId = A.UserId ";
+
             var nameAndCountUserSubscriptions =
-                this.database.UsersSubscriptions.Include(us => us.Observed)
-                    .Include(us => us.EntriesToRead)
-                    .Where(us => us.FollowerId == currentUserId)
-                    .Select(this.ProjectToNameAndCountUserSubscription)
-                    .ToList();
+                this.database.Database.SqlQuery<NameAndCountUserSubscription>(x).ToList();
             return nameAndCountUserSubscriptions;
         }
 
@@ -1053,7 +1055,9 @@ order by Updated";
         public RssChannelInformationDTO LoadUserChannelInformation(long subscriptionId)
         {
             var userSubscription =
-                this.database.UsersSubscriptions.Include(x => x.Observed)
+                this.database
+                    .UsersSubscriptions
+                    .Include(x => x.Observed)
                     .Where(x => x.Id == subscriptionId)
                     .ProjectTo<RssChannelInformationDTO>()
                     .Single();
@@ -1316,16 +1320,6 @@ order by Updated";
                     .Where(l => l.SocialId == userId)
                     .Any();
             return exists;
-        }
-
-        private NameAndCountUserSubscription ProjectToNameAndCountUserSubscription(UserSubscription arg)
-        {
-            return new NameAndCountUserSubscription
-            {
-                Id = arg.Id,
-                Name = arg.Observed.DisplayName,
-                Count = arg.EntriesToRead.Count(x => !x.IsRead)
-            };
         }
 
         private void SaveFeatureRequestToDatabase(FeatureRequest featureRequest)

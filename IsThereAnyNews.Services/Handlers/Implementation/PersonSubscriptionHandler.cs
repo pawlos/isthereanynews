@@ -1,3 +1,5 @@
+using IsThereAnyNews.EntityFramework.Models.Entities;
+
 namespace IsThereAnyNews.Services.Handlers.Implementation
 {
     using System;
@@ -8,7 +10,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
-    public class PersonSubscriptionHandler : ISubscriptionHandler
+    public class PersonSubscriptionHandler: ISubscriptionHandler
     {
         private readonly IEntityRepository entityRepository;
 
@@ -42,7 +44,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
         {
-            throw new NotImplementedException();
+            // empty now
         }
 
         public void MarkSkipped(long modelSubscriptionId, List<long> ids)
@@ -55,13 +57,13 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             long subscriptionId,
             ShowReadEntries showReadEntries)
         {
-            if (!this.entityRepository.DoesUserOwnsUserSubscription(subscriptionId, userId))
+            if(!this.entityRepository.DoesUserOwnsUserSubscription(subscriptionId, userId))
             {
                 var ci = new ChannelInformationViewModel
-                         {
-                             Title = "You are not subscribed to this user",
-                             Created = DateTime.MaxValue
-                         };
+                {
+                    Title = "You are not subscribed to this user",
+                    Created = DateTime.MaxValue
+                };
 
                 var rssSubscriptionIndexViewModel = new RssSubscriptionIndexViewModel(
                                                                                       subscriptionId,
@@ -72,23 +74,28 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             }
 
             List<UserSubscriptionEntryToReadDTO> loadAllUnreadEntriesFromSubscription;
-            if (showReadEntries != ShowReadEntries.Show)
+            if(showReadEntries != ShowReadEntries.Show)
+            {
                 loadAllUnreadEntriesFromSubscription =
-                        this.entityRepository.LoadAllUserUnreadEntriesFromSubscription(subscriptionId);
+                    this.entityRepository.LoadAllUserUnreadEntriesFromSubscription(subscriptionId);
+            }
             else
+            {
                 loadAllUnreadEntriesFromSubscription =
-                        this.entityRepository.LoadAllUserEntriesFromSubscription(subscriptionId);
+                    this.entityRepository.LoadAllUserEntriesFromSubscription(subscriptionId);
+            }
 
             var channelInformation = this.entityRepository.LoadUserChannelInformation(subscriptionId);
 
             var channelInformationViewModel = new ChannelInformationViewModel
-                                              {
-                                                  Title = channelInformation.Title,
-                                                  Created = channelInformation.Created
-                                              };
+            {
+                Title = channelInformation.Title,
+                Created = channelInformation.Created
+            };
 
             var rssEntryToReadViewModels =
-                    this.mapper.Map<List<RssEntryToReadViewModel>>(loadAllUnreadEntriesFromSubscription);
+                    this.mapper.Map<List<UserSubscriptionEntryToReadDTO>, List<RssEntryToReadViewModel>>
+                    (loadAllUnreadEntriesFromSubscription);
 
             var viewModel = new RssSubscriptionIndexViewModel(
                                                               subscriptionId,

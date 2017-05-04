@@ -218,10 +218,7 @@ namespace IsThereAnyNews.Services
 
         public List<ObservableUserEventsInformation> LoadAllObservableSubscription(long userId)
         {
-            var now = DateTime.Now;
-            this.entityRepository.CopyAllUnreadElementsToUser(userId);
             var loadNameAndCountForUser = this.entityRepository.LoadNameAndCountForUser(userId);
-            this.entityRepository.UpdateUserLastReadTime(userId, now);
             var list = loadNameAndCountForUser.Select(this.ProjectToObservableUserEventsInformation)
                                               .ToList();
             return list;
@@ -230,7 +227,8 @@ namespace IsThereAnyNews.Services
         public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
         {
             var provider = this.subscriptionHandlerFactory.GetProvider(streamType);
-            var viewmodel = provider.GetSubscriptionViewModel(666666, subscriptionId, showReadEntries);
+            var currentUserId = this.infrastructure.GetCurrentUserId();
+            var viewmodel = provider.GetSubscriptionViewModel(currentUserId, subscriptionId, showReadEntries);
             return viewmodel;
         }
 
@@ -508,7 +506,7 @@ namespace IsThereAnyNews.Services
 
         private ObservableUserEventsInformation ProjectToObservableUserEventsInformation(NameAndCountUserSubscription arg)
         {
-            return new ObservableUserEventsInformation { Id = arg.Id, Name = arg.Name, Count = arg.Count.ToString() };
+            return new ObservableUserEventsInformation { Id = arg.SubscriptionId, Name = arg.DisplayName, Count = arg.Count.ToString() };
         }
 
         private UserPublicProfileViewModel ProjectToViewModel(UserPublicProfile model)

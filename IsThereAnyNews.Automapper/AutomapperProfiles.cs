@@ -82,9 +82,9 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.Channels, o => o.MapFrom(s => s.RssSubscriptionList))
                 .ForMember(d => d.ViewingUserId, o => o.MapFrom(s => s.Id));
 
-            this.CreateMap<Dtos.NameAndCountUserSubscription, PublicProfileChannelInformation>()
-                .ForMember(d => d.Name, o => o.MapFrom(s => s.Name))
-                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id));
+            this.CreateMap<NameAndCountUserSubscription, PublicProfileChannelInformation>()
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.DisplayName))
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.UserId));
 
             this.CreateMap<RssChannelSubscription, PublicProfileChannelInformation>()
                .ForMember(d => d.Name, o => o.MapFrom(s => s.Title));
@@ -138,7 +138,8 @@ namespace IsThereAnyNews.Automapper
             this.CreateMap<UserSubscription, RssChannelInformationDTO>();
             this.CreateMap<RssChannelSubscription, RssChannelSubscriptionDTO>();
             this.CreateMap<RssChannelSubscription, RssChannelInformationDTO>();
-            this.CreateMap<UserSubscriptionEntryToReadDTO, RssEntryToReadViewModel>();
+            this.CreateMap<UserSubscriptionEntryToReadDTO, RssEntryToReadViewModel>()
+                .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.RssEntryDto));
             this.CreateMap<RssChannelSubscriptionDTO, RssChannelSubscriptionViewModel>()
                 .ForMember(d => d.Name, o => o.MapFrom(s => s.Title));
 
