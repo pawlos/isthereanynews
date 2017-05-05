@@ -7,24 +7,20 @@ namespace IsThereAnyNews.ViewModels
 
     using IsThereAnyNews.SharedData;
 
-    public class RssSubscriptionIndexViewModel
+    public class RssSubscriptionIndexViewModel: ISubscriptionContentIndexViewModel
     {
-        public RssSubscriptionIndexViewModel(long subscriptionId, string title, DateTime creationDateTime, List<RssEntryToReadViewModel> loadAllRssEntriesForUserAndChannel, StreamType streamType)
+        public RssSubscriptionIndexViewModel(long subscriptionId, string title, DateTime creationDateTime, List<RssEntryToReadViewModel> loadAllRssEntriesForUserAndChannel)
         {
             this.SubscriptionId = subscriptionId;
-            Title = title;
-            CreationDateTime = creationDateTime;
-            this.StreamType = streamType;
+            this.Title = title;
+            this.CreationDateTime = creationDateTime;
             this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel;
         }
 
-        public string DisplayedRss => string.Join(";", this.RssEntryToReadViewModels.Select(x => x.RssEntryViewModel.Id));
-
-        public List<RssEntryToReadViewModel> RssEntryToReadViewModels { get; set; }
-
-        public StreamType StreamType { get; set; }
-
-        public long SubscriptionId { get; set; }
+        public List<long> DisplayedRss => this.RssEntryToReadViewModels.Select(x => x.RssEntryViewModel.Id).ToList();
+        public List<RssEntryToReadViewModel> RssEntryToReadViewModels { get; }
+        public StreamType StreamType => StreamType.Rss;
+        public long SubscriptionId { get; }
         public string Title { get; }
         public DateTime CreationDateTime { get; }
     }

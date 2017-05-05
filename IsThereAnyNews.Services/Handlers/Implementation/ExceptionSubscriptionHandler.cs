@@ -17,7 +17,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository = entityRepository;
         }
 
-        public void AddEventSkipped(long cui, string entries)
+        public void AddEventSkipped(long cui, List<long> entries)
         {
             throw new NotImplementedException();
         }
@@ -27,15 +27,13 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             throw new NotImplementedException();
         }
 
-        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId,
-            ShowReadEntries showReadEntries)
+        public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
             var loadAllRssEntriesForUserAndChannel = this.LoadExceptionEvents(showReadEntries);
-            var subscriptionIndexViewModel = new RssSubscriptionIndexViewModel(0,
+            var subscriptionIndexViewModel = new ExceptionSubscriptionIndexViewModel(0,
                 "Exceptions",
                 DateTime.MinValue,
-                loadAllRssEntriesForUserAndChannel,
-                StreamType.Channel);
+                loadAllRssEntriesForUserAndChannel);
             var rssSubscriptionIndexViewModel = subscriptionIndexViewModel;
             return rssSubscriptionIndexViewModel;
         }

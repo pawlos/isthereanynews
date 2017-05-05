@@ -24,13 +24,9 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository = entityRepository;
         }
 
-        public void AddEventSkipped(long cui, string entries)
+        public void AddEventSkipped(long cui, List<long> entries)
         {
-            var x = entries.Split(new[] { ",", ";" },
-                                  StringSplitOptions.RemoveEmptyEntries);
-            var ids = x.Select(l => long.Parse(l))
-                       .ToList();
-            this.entityRepository.AddEventRssSkipped(cui, ids);
+            this.entityRepository.AddEventRssSkipped(cui, entries);
         }
 
         public void AddEventViewed(long cui, long id)
@@ -48,34 +44,32 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository.MarkRssEntriesSkipped(modelSubscriptionId, ids);
         }
 
-        public RssSubscriptionIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
+        public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
             var rssEntryToReadDtos = this.entityRepository.LoadRss(subscriptionId, showReadEntries);
             var rssEntryToReadViewModels = rssEntryToReadDtos.OrderByDescending(o => o.PublicationDate)
-                                                             .Select(x =>
-                                                                         new RssEntryToReadViewModel
-                                                                         {
-                                                                             Id = 0,
-                                                                             IsRead = false,
-                                                                             RssEntryViewModel =
-                                                                                     new RssEntryViewModel
-                                                                                     {
-                                                                                         Id = x.Id,
-                                                                                         Title = x.Title,
-                                                                                         PreviewText = this.htmlStripper.GetContentOnly(x.PreviewText),
-                                                                                         PublicationDate = x.PublicationDate,
-                                                                                         Url = x.Url,
-                                                                                         SubscriptionId = subscriptionId
-                                                                                     }
-                                                                         })
-                                                             .ToList();
+                .Select(x =>
+                    new RssEntryToReadViewModel
+                    {
+                        Id = 0,
+                        IsRead = false,
+                        RssEntryViewModel =
+                            new RssEntryViewModel
+                            {
+                                Id = x.Id,
+                                Title = x.Title,
+                                PreviewText = this.htmlStripper.GetContentOnly(x.PreviewText),
+                                PublicationDate = x.PublicationDate,
+                                Url = x.Url,
+                                SubscriptionId = subscriptionId
+                            }
+                    })
+                .ToList();
             var rssChannelInformationDto = this.entityRepository.LoadChannelChannelInformation(subscriptionId);
             var viewModel = new RssSubscriptionIndexViewModel(subscriptionId,
                 rssChannelInformationDto.Title,
                 rssChannelInformationDto.Created,
-                rssEntryToReadViewModels,
-                StreamType.Rss);
-            viewModel.SubscriptionId = subscriptionId;
+                rssEntryToReadViewModels);
             return viewModel;
         }
     }

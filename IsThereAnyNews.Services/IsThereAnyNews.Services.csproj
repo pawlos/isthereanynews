@@ -84,8 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Handlers\Implementation\ChannelUpdatesSubscriptionHandler.cs" />
+    <Compile Include="Handlers\Implementation\ChannelUpdateSubscriptionIndexViewModel.cs" />
     <Compile Include="Handlers\Implementation\ExceptionSubscriptionHandler.cs" />
+    <Compile Include="Handlers\Implementation\ExceptionSubscriptionIndexViewModel.cs" />
     <Compile Include="Handlers\Implementation\PersonSubscriptionHandler.cs" />
+    <Compile Include="Handlers\Implementation\PersonSubscriptionIndexViewModel.cs" />
     <Compile Include="Handlers\Implementation\RssSubscriptionHandler.cs" />
     <Compile Include="Handlers\Implementation\SubscriptionHandlerFactory.cs" />
     <Compile Include="Handlers\ISubscriptionHandler.cs" />

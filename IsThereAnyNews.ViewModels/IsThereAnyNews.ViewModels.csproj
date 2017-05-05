@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="AccountDetailsViewModel.cs" />
     <Compile Include="AllUsersPublicProfilesViewModel.cs" />
+    <Compile Include="ISubscriptionContentIndexViewModel.cs" />
     <Compile Include="RssEntryViewModel.cs" />
     <Compile Include="Subscriptions\ChannelEventCreationViewModel.cs" />
     <Compile Include="Subscriptions\ChannelEventExceptionViewModel.cs" />

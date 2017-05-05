@@ -719,15 +719,13 @@
 
         public List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId)
         {
-            var sqlQuery = $@"SELECT s.Title, s.Id, count(*) as Count FROM RssEntries r1
-              LEFT JOIN RssEntriesToRead r2
-              on r1.Id=r2.RssEntryId
-              join RssChannelSubscriptions s
-              on r1.RssChannelId = s.RssChannelId
-              where s.UserId = {currentUserId}
-              and r2.Id is null
-              group by r1.RssChannelId,s.Id,s.Title
-             ";
+            var sqlQuery = "select RCS.Title, RCS.Id, count(*) as Count from RssChannelSubscriptions RCS " +
+                           "JOIN RssEntries RE ON RE.RssChannelId = RCS.RssChannelId " +
+                           "LEFT join RssEntriesToRead RETR on RETR.RssChannelSubscriptionId = RCS.Id " +
+                           $"WHERE RCS.UserId = {currentUserId} " +
+                           "and RETR.Id is null " +
+                           "group by RE.RssChannelId, RCS.Id, RCS.Title";
+
             var rssChannelSubscriptionDtos =
                 this.database.Database.SqlQuery<RssChannelSubscriptionDTO>(sqlQuery).ToList();
             return rssChannelSubscriptionDtos;
@@ -967,16 +965,18 @@ order by Updated";
         public List<RssEntryDTO> LoadRss(long subscriptionId, ShowReadEntries showReadEntries)
         {
             var joinType = showReadEntries == ShowReadEntries.Hide ? "left join" : "join";
-            var emptyQuery = showReadEntries == ShowReadEntries.Hide ? "and r2.id is null" : string.Empty;
+            var emptyQuery = showReadEntries == ShowReadEntries.Hide ? "and RETR.id is null" : string.Empty;
 
-            var sqlQuery = $@"select r1.Title,r1.PublicationDate,r1.PreviewText,r1.Id,r1.Url from RssEntries r1
-                                             {joinType} RssEntriesToRead r2
-                                            on r1.Id=r2.RssEntryId
-                                            join RssChannelSubscriptions s
-                                            on s.RssChannelId = r1.RssChannelId
-                                            where s.Id={subscriptionId} {emptyQuery}";
+            var x = "select RE.Title,RE.PublicationDate,RE.PreviewText,RE.Id,RE.Url from RssChannelSubscriptions RCS "+
+                    "JOIN RssEntries RE " +
+                    "ON RE.RssChannelId = RCS.RssChannelId " +
+                    $"{joinType} RssEntriesToRead RETR " +
+                    "ON RETR.RssChannelSubscriptionId = RCS.Id " +
+                    "where " +
+                    $"RCS.Id = {subscriptionId} " +
+                    $"{emptyQuery}";
 
-            var rssEntryToReadDtos = this.database.Database.SqlQuery<RssEntryDTO>(sqlQuery).ToList();
+            var rssEntryToReadDtos = this.database.Database.SqlQuery<RssEntryDTO>(x).ToList();
             return rssEntryToReadDtos;
         }
 

@@ -224,7 +224,7 @@ namespace IsThereAnyNews.Services
             return list;
         }
 
-        public RssSubscriptionIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
+        public ISubscriptionContentIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
         {
             var provider = this.subscriptionHandlerFactory.GetProvider(streamType);
             var currentUserId = this.infrastructure.GetCurrentUserId();
@@ -294,8 +294,7 @@ namespace IsThereAnyNews.Services
         {
             var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(model.StreamType);
             var cui = this.infrastructure.GetCurrentUserId();
-            var ids = RssToMarkRead(model.Entries);
-            subscriptionHandler.MarkSkipped(model.SubscriptionId, ids);
+            subscriptionHandler.MarkSkipped(model.SubscriptionId, model.Entries);
             subscriptionHandler.AddEventSkipped(cui, model.Entries);
         }
 
@@ -465,14 +464,6 @@ namespace IsThereAnyNews.Services
             rssEntriesList.ForEach(r => r.RssChannelId = rssChannel.Id);
             this.entityRepository.SaveToDatabase(rssEntriesList);
             this.entityRepository.SaveEvent(rssChannel.Id);
-        }
-
-        private static List<long> RssToMarkRead(string model)
-        {
-            var rssToMarkRead = model.Split(Separator, StringSplitOptions.None)
-                                     .Select(long.Parse)
-                                     .ToList();
-            return rssToMarkRead;
         }
 
         private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier, AuthenticationTypeProvider authenticationTypeProvider, long newUserId)
