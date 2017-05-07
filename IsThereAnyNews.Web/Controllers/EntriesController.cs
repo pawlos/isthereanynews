@@ -15,30 +15,23 @@ namespace IsThereAnyNews.Web.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult MarkClickedWithEvent(MarkClickedDto dto)
+        public virtual ActionResult MarkClicked(EntryClickedDto dto)
         {
             this.service.MarkClicked(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public virtual ActionResult MarkEntriesRead(MarkReadDto dto)
-        {
-            this.service.MarkEntriesRead(dto);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-        [HttpPost]
-        public virtual ActionResult MarkEntriesSkipped(MarkSkippedDto model)
+        public virtual ActionResult MarkEntriesSkipped(EntriesSkippedDto model)
         {
             this.service.MarkEntriesSkipped(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
-        public virtual ActionResult MarkReadWithEvent(MarkReadDto dto)
+        public virtual ActionResult MarkNavigated(EntryNavigatedDto dto)
         {
-            this.service.MarkRead(dto);
+            this.service.MarkNavigated(dto);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 

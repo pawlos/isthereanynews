@@ -11,6 +11,6 @@ namespace IsThereAnyNews.ViewModels.Subscriptions
         public string Name { get; set; }
 
         public StreamType StreamType => StreamType.Person;
-        public string IconType => "fa-person";
+        public string IconType => "fa-user-circle";
     }
 }

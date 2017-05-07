@@ -19,7 +19,7 @@ angular
         markReadWithEvent:function (streamType, id, subscriptionId,callback) {
             var httpOptions = {
                 method: 'POST',
-                url: "/Entries/MarkReadWithEvent",
+                url: "/Entries/MarkClicked",
                 data: {
                     StreamType: streamType,
                     Id: id,
@@ -30,12 +30,14 @@ angular
                 .success(callback);
         },
 
-        onArticleBodyClicked:function (id,callback) {
+        onArticleBodyClicked: function (streamType, id, subscriptionId, callback) {
             var httpOptions = {
                 method: 'POST',
-                url: "/Entries/MarkClickedWithEvent",
+                url: "/Entries/MarkNavigated",
                 data: {
-                    Id: id
+                    StreamType: streamType,
+                    Id: id,
+                    SubscriptionId: subscriptionId
                 }
             };
             $http(httpOptions)

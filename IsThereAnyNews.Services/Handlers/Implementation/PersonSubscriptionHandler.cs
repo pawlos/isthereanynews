@@ -24,16 +24,6 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository = entityRepository;
         }
 
-        public void AddEventSkipped(long cui, List<long> entries)
-        {
-            // dont know what to do here
-        }
-
-        public void AddEventViewed(long cui, long id)
-        {
-            // dont know what to do here
-        }
-
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(
             long userId,
             long subscriptionId,
@@ -42,15 +32,9 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             return this.GetPersonSubscriptionIndexViewModel(userId, subscriptionId, showReadEntries);
         }
 
-        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
-        {
-            // empty now
-        }
-
-        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
-        {
-            this.entityRepository.MarkPersonEntriesSkipped(modelSubscriptionId, ids);
-        }
+        public void MarkClicked(long cui, long id, long subscriptionId) => throw new NotImplementedException();
+        public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId) => throw new NotImplementedException();
+        public void MarkSkipped(long cui, long subscriptionId, List<long> entries) => throw new NotImplementedException();
 
         private ISubscriptionContentIndexViewModel GetPersonSubscriptionIndexViewModel(
             long userId,

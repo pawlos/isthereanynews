@@ -8,9 +8,8 @@ namespace IsThereAnyNews.Services.Handlers
     public interface ISubscriptionHandler
     {
         ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries);
-        void MarkSkipped(long modelSubscriptionId, List<long> ids);
-        void MarkRead(long userId, long rssId, long dtoSubscriptionId);
-        void AddEventViewed(long cui, long id);
-        void AddEventSkipped(long cui, List<long> entries);
+        void MarkNavigated(long userId, long rssId, long dtoSubscriptionId);
+        void MarkClicked(long cui, long id, long subscriptionId);
+        void MarkSkipped(long cui, long subscriptionId, List<long> entries);
     }
 }

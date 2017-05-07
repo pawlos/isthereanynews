@@ -63,11 +63,13 @@ namespace IsThereAnyNews.DataAccess
         SocialLogin FindSocialLogin(string socialLoginId, AuthenticationTypeProvider provider);
 
         long FindSubscriptionIdOfUserAndOfChannel(long userId, long channelId);
-
+        void MarkRssClicked(long id, long subscriptionId);
+        void AddEventRssClicked(long cui, long id);
         List<User> GetAllUsers();
 
         List<long> GetChannelIdSubscriptionsForUser(long currentUserId);
-
+        void MarkRssNavigated(long rssId, long subscriptionId);
+        void AddEventRssNavigated(long userId, long rssId);
         RegistrationSupported GetCurrentRegistrationStatus();
 
         List<long> GetIdByChannelUrl(List<string> urlstoChannels);
@@ -150,15 +152,7 @@ namespace IsThereAnyNews.DataAccess
 
         void MarkChannelRead(List<long> ids);
 
-        void MarkClicked(long dtoId, long currentUserId);
-
-        void MarkEntriesSkipped(long modelSubscriptionId, List<long> ids);
-
-        void MarkEntryViewedByUser(long currentUserId, long rssToReadId);
-
         void MarkPersonEntriesSkipped(long modelSubscriptionId, List<long> ids);
-
-        void MarkRead(List<long> ids);
 
         void MarkRssEntriesSkipped(long subscriptionId, List<long> ids);
 

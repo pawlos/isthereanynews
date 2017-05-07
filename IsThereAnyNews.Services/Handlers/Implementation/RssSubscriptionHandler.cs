@@ -24,26 +24,6 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository = entityRepository;
         }
 
-        public void AddEventSkipped(long cui, List<long> entries)
-        {
-            this.entityRepository.AddEventRssSkipped(cui, entries);
-        }
-
-        public void AddEventViewed(long cui, long id)
-        {
-            this.entityRepository.AddEventRssViewed(cui, id);
-        }
-
-        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
-        {
-            this.entityRepository.InsertReadRssToRead(userId, rssId, dtoSubscriptionId);
-        }
-
-        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
-        {
-            this.entityRepository.MarkRssEntriesSkipped(modelSubscriptionId, ids);
-        }
-
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
             var rssEntryToReadDtos = this.entityRepository.LoadRss(subscriptionId, userId);
@@ -71,6 +51,24 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
                 rssChannelInformationDto.Created,
                 rssEntryToReadViewModels);
             return viewModel;
+        }
+
+        public void MarkClicked(long cui, long id, long subscriptionId)
+        {
+            this.entityRepository.MarkRssClicked(id, subscriptionId);
+            this.entityRepository.AddEventRssClicked(cui, id);
+        }
+
+        public void MarkNavigated(long userId, long rssId, long subscriptionId)
+        {
+            this.entityRepository.MarkRssNavigated(rssId, subscriptionId);
+            this.entityRepository.AddEventRssNavigated(userId, rssId);
+        }
+
+        public void MarkSkipped(long cui, long subscriptionId, List<long> entries)
+        {
+            this.entityRepository.MarkRssEntriesSkipped(subscriptionId, entries);
+            this.entityRepository.AddEventRssSkipped(cui, entries);
         }
     }
 }

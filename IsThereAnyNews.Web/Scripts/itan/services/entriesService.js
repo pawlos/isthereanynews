@@ -9,17 +9,19 @@ angular
                 });
         },
         markReadWithEvent:function ($scope, streamType, item) {
-            entriesApi.markReadWithEvent(streamType,item.RssEntryViewModel.Id,item.RssEntryViewModel.SubscriptionId,
-            function(){
-                    if (!item.wasRead) {
-                        $scope.channels.current.Count--;
-                    }
-                    item.wasRead = true;
-                });
+            if (!item.IsRead) {
+                entriesApi.markReadWithEvent(streamType,item.RssEntryViewModel.Id,item.RssEntryViewModel.SubscriptionId,
+                function(){
+                        if (!item.IsRead) {
+                            $scope.channels.current.Count--;
+                        }
+                        item.IsRead = true;
+                    });
+            }
         },
-        onArticleBodyClicked:function ($http, streamType, id, url) {
-            entriesApi.onArticleBodyClicked(id, function(){
-            window.open(url, "_blank");
+        onArticleBodyClicked:function (streamType, item) {
+            entriesApi.onArticleBodyClicked(streamType, item.RssEntryViewModel.Id, item.RssEntryViewModel.SubscriptionId, function(){
+                window.open(item.RssEntryViewModel.Url, "_blank");
             });
         },
         onThumbsUpClicked:function ($http, streamType, id) {

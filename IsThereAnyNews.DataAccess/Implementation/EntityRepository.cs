@@ -18,7 +18,7 @@
     using IsThereAnyNews.ProjectionModels.Mess;
     using IsThereAnyNews.SharedData;
 
-    public class EntityRepository: IEntityRepository
+    public class EntityRepository : IEntityRepository
     {
         private readonly ItanDatabaseContext database;
 
@@ -58,7 +58,7 @@
             {
                 RssEntryId = rssToReadId,
                 UserId = currentUserId,
-                InteractionType = InteractionType.Viewed
+                InteractionType = InteractionType.Clicked
             };
 
             this.database.EventsRssUserInteraction.Add(eventRssViewed);
@@ -430,7 +430,7 @@
 
         public void CreateNewSubscription(long followerId, long observedId)
         {
-            if(this.IsUserSubscribedToUser(followerId, observedId))
+            if (this.IsUserSubscribedToUser(followerId, observedId))
             {
                 return;
             }
@@ -473,7 +473,7 @@
 
         public void DeleteUserSubscription(long followerId, long observedId)
         {
-            if(this.IsUserSubscribedToUser(followerId, observedId) == false)
+            if (this.IsUserSubscribedToUser(followerId, observedId) == false)
             {
                 return;
             }
@@ -742,10 +742,11 @@
               + "    (\n"
               + "        SELECT rcs.RssChannelId\n"
               + "        FROM dbo.RssChannelSubscriptions AS rcs\n"
-              + "        WHERE rcs.UserId = 1\n"
+              + $"        WHERE rcs.UserId = {currentUserId}\n"
               + "    )\n"
               + "          AND RRR.id IS NULL\n"
               + ") AS RRE ON rcs.RssChannelId = RRE.RssChannelId\n"
+              + $"WHERE rcs.UserId={currentUserId}"
               + "GROUP BY rcs.Id,\n"
               + "         rcs.Title;";
 
@@ -863,7 +864,7 @@
                      "from UserSubscriptions US join EventRssUserInteractions ERUI on US.ObservedId = ERUI.UserId " +
                      "join RssEntries RE on ERUI.RssEntryId = RE.Id " +
                      $"where US.Id = {subscriptionId} AND " +
-                     $"ERUI.InteractionType in ({(int)InteractionType.Clicked}, {(int)InteractionType.Viewed}) ";
+                     $"ERUI.InteractionType in ({(int)InteractionType.Clicked}, {(int)InteractionType.Navigated}) ";
 
             var rssEntryDtos = this.database.Database.SqlQuery<RssEntryDTO>(x).ToList();
             var userSubscriptionEntryToReadDtos = rssEntryDtos.Select(a => new UserSubscriptionEntryToReadDTO { RssEntryDto = a, Id = a.Id, IsRead = false }).ToList();
@@ -892,10 +893,10 @@
                     "join RssEntries RE on ERUI.RssEntryId = RE.Id " +
                     "LEFT JOIN UserSubscriptionEntryToReads USETR on ERUI.Id = USETR.EventRssUserInteractionId " +
                     $"where US.Id = {subscriptionId} AND USETR.Id is NULL AND " +
-                    $"ERUI.InteractionType in ({(int)InteractionType.Clicked}, {(int)InteractionType.Viewed}) ";
+                    $"ERUI.InteractionType in ({(int)InteractionType.Clicked}, {(int)InteractionType.Navigated}) ";
 
             var rssEntryDtos = this.database.Database.SqlQuery<RssEntryDTO>(x).ToList();
-            var userSubscriptionEntryToReadDtos = rssEntryDtos.Select(a=>new UserSubscriptionEntryToReadDTO { RssEntryDto = a, Id = a.Id,IsRead = false}).ToList();
+            var userSubscriptionEntryToReadDtos = rssEntryDtos.Select(a => new UserSubscriptionEntryToReadDTO { RssEntryDto = a, Id = a.Id, IsRead = false }).ToList();
             return userSubscriptionEntryToReadDtos;
         }
 
@@ -977,7 +978,7 @@ order by Updated";
                 "join(select U.Id as 'UserId', U.DisplayName, Count(*) as 'Count' " +
                 "from UserSubscriptions US join EventRssUserInteractions ERUI on US.ObservedId = ERUI.UserId " +
                 "join Users U on US.ObservedId = U.Id left join UserSubscriptionEntryToReads USETR " +
-                $"on ERUI.Id = USETR.EventRssUserInteractionId where FollowerId = {currentUserId} AND ERUI.InteractionType IN({(int)InteractionType.Clicked}, {(int)InteractionType.Viewed}) " +
+                $"on ERUI.Id = USETR.EventRssUserInteractionId where FollowerId = {currentUserId} AND ERUI.InteractionType IN({(int)InteractionType.Clicked}, {(int)InteractionType.Navigated}) " +
                 "AND USETR.Id is null GROUP BY U.Id, U.DisplayName) A on USS.ObservedId = A.UserId ";
 
             var nameAndCountUserSubscriptions =
@@ -1148,7 +1149,7 @@ order by Updated";
                         });
 
             this.database.Configuration.ValidateOnSaveEnabled = false;
-            foreach(var rssEntryToRead in rssEntryToReads)
+            foreach (var rssEntryToRead in rssEntryToReads)
             {
                 this.database.RssEntriesToRead.Add(rssEntryToRead);
                 this.database.SaveChanges();
@@ -1162,60 +1163,6 @@ order by Updated";
         {
             var formattableString = $"UPDATE RssEntriesToRead SET IsRead=1 WHERE Id in ({string.Join(",", ids)})";
             this.database.Database.ExecuteSqlCommand(formattableString);
-        }
-
-        public void MarkClicked(long id, long currentUserId)
-        {
-            var eventRssClicked = new EventRssUserInteraction()
-            {
-                UserId = currentUserId,
-                RssEntryId = id,
-                InteractionType = InteractionType.Clicked
-            };
-
-            this.database.EventsRssUserInteraction.Add(eventRssClicked);
-            this.database.SaveChanges();
-        }
-
-        public void MarkEntriesSkipped(long modelSubscriptionId, List<long> ids)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MarkEntryViewedByUser(long currentUserId, long rssToReadId)
-        {
-            var rssEntryToRead =
-                this.database.RssEntriesToRead.Include(r => r.RssChannelSubscription)
-                    .Include(r => r.RssEntry)
-                    .Where(x => x.Id == rssToReadId)
-                    .Where(x => x.RssChannelSubscription.UserId == currentUserId)
-                    .Single();
-
-            rssEntryToRead.IsViewed = true;
-            rssEntryToRead.IsRead = true;
-
-            this.database.SaveChanges();
-
-        }
-
-        public void MarkRead(List<long> ids)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MarkUserEntriesSkipped(long modelSubscriptionId, List<long> ids)
-        {
-            var userSubscriptionEntryToReads =
-                ids.Select(
-                    x =>
-                        new UserSubscriptionEntryToRead
-                        {
-                            IsSkipped = true,
-                            EventRssUserInteractionId = x,
-                            UserSubscriptionId = modelSubscriptionId
-                        });
-            this.database.UsersSubscriptionsToRead.AddRange(userSubscriptionEntryToReads);
-            this.database.SaveChanges();
         }
 
         public void MarkUserRead(List<long> ids)
@@ -1405,6 +1352,47 @@ order by Updated";
             this.database.ContactsAdministration.Add(contactAdministration);
             this.database.SaveChanges();
             return contactAdministration.Id;
+        }
+
+        public void MarkRssClicked(long id, long subscriptionId)
+        {
+            var data = new RssEntryToRead
+            {
+                RssEntryId = id,
+                RssChannelSubscriptionId = subscriptionId,
+                IsRead = true
+            };
+            this.database.RssEntriesToRead.Add(data);
+            this.database.SaveChanges();
+        }
+        public void AddEventRssClicked(long cui, long id)
+        {
+            var data = new EventRssUserInteraction
+            {
+                InteractionType = InteractionType.Clicked,
+                RssEntryId = id,
+                UserId = cui
+            };
+            this.database.EventsRssUserInteraction.Add(data);
+            this.database.SaveChanges();
+        }
+        public void MarkRssNavigated(long rssId, long subscriptionId)
+        {
+            this.database.RssEntriesToRead
+                .Single(x => x.RssEntryId == rssId && x.RssChannelSubscriptionId == subscriptionId)
+                .IsViewed = true;
+            this.database.SaveChanges();
+        }
+        public void AddEventRssNavigated(long userId, long rssId)
+        {
+            var data = new EventRssUserInteraction
+            {
+                InteractionType = InteractionType.Navigated,
+                RssEntryId = rssId,
+                UserId = userId
+            };
+            this.database.EventsRssUserInteraction.Add(data);
+            this.database.SaveChanges();
         }
     }
 }

@@ -16,16 +16,6 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository = entityRepository;
         }
 
-        public void AddEventSkipped(long cui, List<long> entries)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddEventViewed(long cui, long id)
-        {
-            throw new NotImplementedException();
-        }
-
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
             var loadAllRssEntriesForUserAndChannel = this.LoadUpdateEvents(showReadEntries);
@@ -40,15 +30,9 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             return rssSubscriptionIndexViewModel;
         }
 
-        public void MarkRead(long userId, long rssId, long dtoSubscriptionId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void MarkSkipped(long modelSubscriptionId, List<long> ids)
-        {
-            throw new NotImplementedException();
-        }
+        public void MarkClicked(long cui, long id, long subscriptionId) => throw new NotImplementedException();
+        public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId) => throw new NotImplementedException();
+        public void MarkSkipped(long cui, long subscriptionId, List<long> entries) => throw new NotImplementedException();
 
         private List<RssEntryToReadViewModel> LoadUpdateEvents(ShowReadEntries showReadEntries)
         {

@@ -16,9 +16,8 @@ namespace IsThereAnyNews.Web.Interfaces.Services
         ItanApplicationConfigurationViewModel ReadConfiguration();
         void UpdateGlobalRss();
         ContactViewModel GetViewModel();
-        void MarkClicked(MarkClickedDto dto);
-        void MarkEntriesRead(MarkReadDto dto);
-        void MarkRead(MarkReadDto dto);
+        void MarkClicked(EntryClickedDto dto);
+        void MarkNavigated(EntryNavigatedDto dto);
         void AddCommentToRssItemByCurrentUser(RssActionModel model);
         void AddToReadLaterQueueForCurrentUser(RssActionModel model);
         void MarkRssItemAsNotReadByCurrentUser(RssActionModel model);
@@ -39,7 +38,7 @@ namespace IsThereAnyNews.Web.Interfaces.Services
         RssChannelsMyViewModel LoadAllChannelsOfCurrentUser();
         void MarkAllRssReadForSubscription(MarkReadForSubscriptionDto model);
         void SaveAdministrationContact(ContactAdministrationDto dto);
-        void MarkEntriesSkipped(MarkSkippedDto model);
+        void MarkEntriesSkipped(EntriesSkippedDto model);
         RegistrationSupported GetCurrentRegistrationStatus();
         bool CanRegisterIfWithinLimits();
         bool IsUserRegistered(ClaimsIdentity identity);

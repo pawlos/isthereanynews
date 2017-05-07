@@ -30,8 +30,8 @@ angular
             $scope.markReadWithEvent = function(streamType, item) {
                 entriesService.markReadWithEvent($scope, streamType, item);
             };
-            $scope.onArticleBodyClicked = function(streamType, id, url) {
-                entriesService.onArticleBodyClicked(streamType, id, url);
+            $scope.onArticleBodyClicked = function(streamType,item) {
+                entriesService.onArticleBodyClicked(streamType, item);
             };
             $scope.onThumbsUpClicked = function(streamType, id) {
                 entriesService.onThumbsUpClicked( streamType, id);

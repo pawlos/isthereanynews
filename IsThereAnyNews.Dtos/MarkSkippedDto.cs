@@ -3,7 +3,7 @@ using IsThereAnyNews.SharedData;
 
 namespace IsThereAnyNews.Dtos
 {
-    public class MarkSkippedDto
+    public class EntriesSkippedDto
     {
         public List<long> Entries { get; set; }
         public StreamType StreamType { get; set; }

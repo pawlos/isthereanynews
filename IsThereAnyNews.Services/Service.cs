@@ -276,34 +276,25 @@ namespace IsThereAnyNews.Services
             }
         }
 
-        public void MarkClicked(MarkClickedDto dto)
-        {
-            var currentUserId = this.infrastructure.GetCurrentUserId();
-            this.entityRepository.MarkClicked(dto.Id, currentUserId);
-        }
-
-        public void MarkEntriesRead(MarkReadDto dto)
-        {
-            //var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
-
-            // var toberead = RssToMarkRead(dto.DisplayedItems);
-            // subscriptionHandler.MarkRead(toberead);
-        }
-
-        public void MarkEntriesSkipped(MarkSkippedDto model)
-        {
-            var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(model.StreamType);
-            var cui = this.infrastructure.GetCurrentUserId();
-            subscriptionHandler.MarkSkipped(model.SubscriptionId, model.Entries);
-            subscriptionHandler.AddEventSkipped(cui, model.Entries);
-        }
-
-        public void MarkRead(MarkReadDto dto)
+        public void MarkClicked(EntryClickedDto dto)
         {
             var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
             var cui = this.infrastructure.GetCurrentUserId();
-            subscriptionHandler.MarkRead(cui, dto.Id, dto.SubscriptionId);
-            subscriptionHandler.AddEventViewed(cui, dto.Id);
+            subscriptionHandler.MarkClicked(cui, dto.Id, dto.SubscriptionId);
+        }
+
+        public void MarkEntriesSkipped(EntriesSkippedDto model)
+        {
+            var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(model.StreamType);
+            var cui = this.infrastructure.GetCurrentUserId();
+            subscriptionHandler.MarkSkipped(cui, model.SubscriptionId, model.Entries);
+        }
+
+        public void MarkNavigated(EntryNavigatedDto dto)
+        {
+            var subscriptionHandler = this.subscriptionHandlerFactory.GetProvider(dto.StreamType);
+            var cui = this.infrastructure.GetCurrentUserId();
+            subscriptionHandler.MarkNavigated(cui, dto.Id, dto.SubscriptionId);
         }
 
         public void MarkRssItemAsNotReadByCurrentUser(RssActionModel model)

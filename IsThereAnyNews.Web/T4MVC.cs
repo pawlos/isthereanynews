@@ -125,47 +125,52 @@ namespace Links
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
-        public static readonly string angular_animate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-animate.min.js") ? Url("angular-animate.min.js") : Url("angular-animate.js");
-        public static readonly string angular_animate_min_js = Url("angular-animate.min.js");
-        public static readonly string angular_animate_min_js_map = Url("angular-animate.min.js.map");
-        public static readonly string angular_aria_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-aria.min.js") ? Url("angular-aria.min.js") : Url("angular-aria.js");
-        public static readonly string angular_aria_min_js = Url("angular-aria.min.js");
-        public static readonly string angular_aria_min_js_map = Url("angular-aria.min.js.map");
-        public static readonly string angular_cookies_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-cookies.min.js") ? Url("angular-cookies.min.js") : Url("angular-cookies.js");
-        public static readonly string angular_cookies_min_js = Url("angular-cookies.min.js");
-        public static readonly string angular_cookies_min_js_map = Url("angular-cookies.min.js.map");
-        public static readonly string angular_csp_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-csp.min.css") ? Url("angular-csp.min.css") : Url("angular-csp.css");
-        public static readonly string angular_loader_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-loader.min.js") ? Url("angular-loader.min.js") : Url("angular-loader.js");
-        public static readonly string angular_loader_min_js = Url("angular-loader.min.js");
-        public static readonly string angular_loader_min_js_map = Url("angular-loader.min.js.map");
-        public static readonly string angular_message_format_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-message-format.min.js") ? Url("angular-message-format.min.js") : Url("angular-message-format.js");
-        public static readonly string angular_message_format_min_js = Url("angular-message-format.min.js");
-        public static readonly string angular_message_format_min_js_map = Url("angular-message-format.min.js.map");
-        public static readonly string angular_messages_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-messages.min.js") ? Url("angular-messages.min.js") : Url("angular-messages.js");
-        public static readonly string angular_messages_min_js = Url("angular-messages.min.js");
-        public static readonly string angular_messages_min_js_map = Url("angular-messages.min.js.map");
-        public static readonly string angular_mocks_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-mocks.min.js") ? Url("angular-mocks.min.js") : Url("angular-mocks.js");
-        public static readonly string angular_parse_ext_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-parse-ext.min.js") ? Url("angular-parse-ext.min.js") : Url("angular-parse-ext.js");
-        public static readonly string angular_parse_ext_min_js = Url("angular-parse-ext.min.js");
-        public static readonly string angular_parse_ext_min_js_map = Url("angular-parse-ext.min.js.map");
-        public static readonly string angular_resource_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-resource.min.js") ? Url("angular-resource.min.js") : Url("angular-resource.js");
-        public static readonly string angular_resource_min_js = Url("angular-resource.min.js");
-        public static readonly string angular_resource_min_js_map = Url("angular-resource.min.js.map");
-        public static readonly string angular_route_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-route.min.js") ? Url("angular-route.min.js") : Url("angular-route.js");
-        public static readonly string angular_route_min_js = Url("angular-route.min.js");
-        public static readonly string angular_route_min_js_map = Url("angular-route.min.js.map");
-        public static readonly string angular_sanitize_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-sanitize.min.js") ? Url("angular-sanitize.min.js") : Url("angular-sanitize.js");
-        public static readonly string angular_sanitize_min_js = Url("angular-sanitize.min.js");
-        public static readonly string angular_sanitize_min_js_map = Url("angular-sanitize.min.js.map");
-        public static readonly string angular_scenario_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-scenario.min.js") ? Url("angular-scenario.min.js") : Url("angular-scenario.js");
-        public static readonly string angular_touch_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-touch.min.js") ? Url("angular-touch.min.js") : Url("angular-touch.js");
-        public static readonly string angular_touch_min_js = Url("angular-touch.min.js");
-        public static readonly string angular_touch_min_js_map = Url("angular-touch.min.js.map");
-        public static readonly string angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular.min.js") ? Url("angular.min.js") : Url("angular.js");
-        public static readonly string angular_min_js = Url("angular.min.js");
-        public static readonly string angular_min_js_map = Url("angular.min.js.map");
-        public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
-        public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class angular {
+            public const string UrlPath = "~/Scripts/angular";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+            public static readonly string angular_animate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-animate.min.js") ? Url("angular-animate.min.js") : Url("angular-animate.js");
+            public static readonly string angular_animate_min_js = Url("angular-animate.min.js");
+            public static readonly string angular_animate_min_js_map = Url("angular-animate.min.js.map");
+            public static readonly string angular_aria_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-aria.min.js") ? Url("angular-aria.min.js") : Url("angular-aria.js");
+            public static readonly string angular_aria_min_js = Url("angular-aria.min.js");
+            public static readonly string angular_aria_min_js_map = Url("angular-aria.min.js.map");
+            public static readonly string angular_cookies_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-cookies.min.js") ? Url("angular-cookies.min.js") : Url("angular-cookies.js");
+            public static readonly string angular_cookies_min_js = Url("angular-cookies.min.js");
+            public static readonly string angular_cookies_min_js_map = Url("angular-cookies.min.js.map");
+            public static readonly string angular_csp_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-csp.min.css") ? Url("angular-csp.min.css") : Url("angular-csp.css");
+            public static readonly string angular_loader_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-loader.min.js") ? Url("angular-loader.min.js") : Url("angular-loader.js");
+            public static readonly string angular_loader_min_js = Url("angular-loader.min.js");
+            public static readonly string angular_loader_min_js_map = Url("angular-loader.min.js.map");
+            public static readonly string angular_message_format_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-message-format.min.js") ? Url("angular-message-format.min.js") : Url("angular-message-format.js");
+            public static readonly string angular_message_format_min_js = Url("angular-message-format.min.js");
+            public static readonly string angular_message_format_min_js_map = Url("angular-message-format.min.js.map");
+            public static readonly string angular_messages_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-messages.min.js") ? Url("angular-messages.min.js") : Url("angular-messages.js");
+            public static readonly string angular_messages_min_js = Url("angular-messages.min.js");
+            public static readonly string angular_messages_min_js_map = Url("angular-messages.min.js.map");
+            public static readonly string angular_mocks_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-mocks.min.js") ? Url("angular-mocks.min.js") : Url("angular-mocks.js");
+            public static readonly string angular_parse_ext_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-parse-ext.min.js") ? Url("angular-parse-ext.min.js") : Url("angular-parse-ext.js");
+            public static readonly string angular_parse_ext_min_js = Url("angular-parse-ext.min.js");
+            public static readonly string angular_parse_ext_min_js_map = Url("angular-parse-ext.min.js.map");
+            public static readonly string angular_resource_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-resource.min.js") ? Url("angular-resource.min.js") : Url("angular-resource.js");
+            public static readonly string angular_resource_min_js = Url("angular-resource.min.js");
+            public static readonly string angular_resource_min_js_map = Url("angular-resource.min.js.map");
+            public static readonly string angular_route_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-route.min.js") ? Url("angular-route.min.js") : Url("angular-route.js");
+            public static readonly string angular_route_min_js = Url("angular-route.min.js");
+            public static readonly string angular_route_min_js_map = Url("angular-route.min.js.map");
+            public static readonly string angular_sanitize_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-sanitize.min.js") ? Url("angular-sanitize.min.js") : Url("angular-sanitize.js");
+            public static readonly string angular_sanitize_min_js = Url("angular-sanitize.min.js");
+            public static readonly string angular_sanitize_min_js_map = Url("angular-sanitize.min.js.map");
+            public static readonly string angular_scenario_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-scenario.min.js") ? Url("angular-scenario.min.js") : Url("angular-scenario.js");
+            public static readonly string angular_touch_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular-touch.min.js") ? Url("angular-touch.min.js") : Url("angular-touch.js");
+            public static readonly string angular_touch_min_js = Url("angular-touch.min.js");
+            public static readonly string angular_touch_min_js_map = Url("angular-touch.min.js.map");
+            public static readonly string angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/angular.min.js") ? Url("angular.min.js") : Url("angular.js");
+            public static readonly string angular_min_js = Url("angular.min.js");
+            public static readonly string angular_min_js_map = Url("angular.min.js.map");
+        }
+    
         public static readonly string errors_json = Url("errors.json");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class i18n {
@@ -923,33 +928,83 @@ namespace Links
             public const string UrlPath = "~/Scripts/itan";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
-            public static readonly string filterMoment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/filterMoment.min.js") ? Url("filterMoment.min.js") : Url("filterMoment.js");
-            public static readonly string filterRawHtml_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/filterRawHtml.min.js") ? Url("filterRawHtml.min.js") : Url("filterRawHtml.js");
-            public static readonly string myRssChannelsCtrl_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/myRssChannelsCtrl.min.js") ? Url("myRssChannelsCtrl.min.js") : Url("myRssChannelsCtrl.js");
-            public static readonly string publicRssChannelsCtrl_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/publicRssChannelsCtrl.min.js") ? Url("publicRssChannelsCtrl.min.js") : Url("publicRssChannelsCtrl.js");
-            public static readonly string superAdminCtrl_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/superAdminCtrl.min.js") ? Url("superAdminCtrl.min.js") : Url("superAdminCtrl.js");
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class controllers {
+                public const string UrlPath = "~/Scripts/itan/controllers";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+                public static readonly string feedsController_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/feedsController.min.js") ? Url("feedsController.min.js") : Url("feedsController.js");
+                public static readonly string subscriptionsController_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/subscriptionsController.min.js") ? Url("subscriptionsController.min.js") : Url("subscriptionsController.js");
+                public static readonly string superAdminCtrl_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/superAdminCtrl.min.js") ? Url("superAdminCtrl.min.js") : Url("superAdminCtrl.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class filters {
+                public const string UrlPath = "~/Scripts/itan/filters";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+                public static readonly string filterMoment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/filterMoment.min.js") ? Url("filterMoment.min.js") : Url("filterMoment.js");
+                public static readonly string filterRawHtml_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/filterRawHtml.min.js") ? Url("filterRawHtml.min.js") : Url("filterRawHtml.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class infrastructure {
+                public const string UrlPath = "~/Scripts/itan/infrastructure";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+                public static readonly string entriesApi_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/entriesApi.min.js") ? Url("entriesApi.min.js") : Url("entriesApi.js");
+                public static readonly string feedsApi_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/feedsApi.min.js") ? Url("feedsApi.min.js") : Url("feedsApi.js");
+                public static readonly string subscriptionsApi_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/subscriptionsApi.min.js") ? Url("subscriptionsApi.min.js") : Url("subscriptionsApi.js");
+                public static readonly string windowSizeHandler_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/windowSizeHandler.min.js") ? Url("windowSizeHandler.min.js") : Url("windowSizeHandler.js");
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class services {
+                public const string UrlPath = "~/Scripts/itan/services";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+                public static readonly string entriesService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/entriesService.min.js") ? Url("entriesService.min.js") : Url("entriesService.js");
+                public static readonly string feedsService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/feedsService.min.js") ? Url("feedsService.min.js") : Url("feedsService.js");
+                public static readonly string subscriptionsService_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/subscriptionsService.min.js") ? Url("subscriptionsService.min.js") : Url("subscriptionsService.js");
+            }
+        
         }
     
-        public static readonly string jquery_1_10_2_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-1.10.2.intellisense.min.js") ? Url("jquery-1.10.2.intellisense.min.js") : Url("jquery-1.10.2.intellisense.js");
-        public static readonly string jquery_3_1_0_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.0.intellisense.min.js") ? Url("jquery-3.1.0.intellisense.min.js") : Url("jquery-3.1.0.intellisense.js");
-        public static readonly string jquery_3_1_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.0.min.js") ? Url("jquery-3.1.0.min.js") : Url("jquery-3.1.0.js");
-        public static readonly string jquery_3_1_0_min_js = Url("jquery-3.1.0.min.js");
-        public static readonly string jquery_3_1_0_min_map = Url("jquery-3.1.0.min.map");
-        public static readonly string jquery_3_1_0_slim_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.0.slim.min.js") ? Url("jquery-3.1.0.slim.min.js") : Url("jquery-3.1.0.slim.js");
-        public static readonly string jquery_3_1_0_slim_min_js = Url("jquery-3.1.0.slim.min.js");
-        public static readonly string jquery_3_1_0_slim_min_map = Url("jquery-3.1.0.slim.min.map");
-        public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
-        public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
-        public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
-        public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
-        public static readonly string moment_with_locales_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/moment-with-locales.min.js") ? Url("moment-with-locales.min.js") : Url("moment-with-locales.js");
-        public static readonly string moment_with_locales_min_js = Url("moment-with-locales.min.js");
-        public static readonly string moment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/moment.min.js") ? Url("moment.min.js") : Url("moment.js");
-        public static readonly string moment_min_js = Url("moment.min.js");
-        public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
-        public static readonly string respond_min_js = Url("respond.min.js");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class jquery {
+            public const string UrlPath = "~/Scripts/jquery";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+            public static readonly string jquery_3_1_0_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.0.intellisense.min.js") ? Url("jquery-3.1.0.intellisense.min.js") : Url("jquery-3.1.0.intellisense.js");
+            public static readonly string jquery_3_1_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.0.min.js") ? Url("jquery-3.1.0.min.js") : Url("jquery-3.1.0.js");
+            public static readonly string jquery_3_1_0_min_js = Url("jquery-3.1.0.min.js");
+            public static readonly string jquery_3_1_0_min_map = Url("jquery-3.1.0.min.map");
+            public static readonly string jquery_3_1_0_slim_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery-3.1.0.slim.min.js") ? Url("jquery-3.1.0.slim.min.js") : Url("jquery-3.1.0.slim.js");
+            public static readonly string jquery_3_1_0_slim_min_js = Url("jquery-3.1.0.slim.min.js");
+            public static readonly string jquery_3_1_0_slim_min_map = Url("jquery-3.1.0.slim.min.map");
+            public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
+            public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
+            public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
+            public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
+            public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class various {
+            public const string UrlPath = "~/Scripts/various";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(UrlPath); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(UrlPath + "/" + fileName); }
+            public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
+            public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+            public static readonly string modernizr_2_6_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/modernizr-2.6.2.min.js") ? Url("modernizr-2.6.2.min.js") : Url("modernizr-2.6.2.js");
+            public static readonly string moment_with_locales_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/moment-with-locales.min.js") ? Url("moment-with-locales.min.js") : Url("moment-with-locales.js");
+            public static readonly string moment_with_locales_min_js = Url("moment-with-locales.min.js");
+            public static readonly string moment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/moment.min.js") ? Url("moment.min.js") : Url("moment.js");
+            public static readonly string moment_min_js = Url("moment.min.js");
+            public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(UrlPath + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
+            public static readonly string respond_min_js = Url("respond.min.js");
+        }
+    
         public static readonly string version_json = Url("version.json");
     }
 
@@ -979,6 +1034,39 @@ namespace Links
     {
         public static partial class Scripts 
         {
+            public static partial class angular 
+            {
+                public static class Assets
+                {
+                    public const string angular_animate_js = "~/Scripts/angular/angular-animate.js"; 
+                    public const string angular_animate_min_js = "~/Scripts/angular/angular-animate.min.js"; 
+                    public const string angular_aria_js = "~/Scripts/angular/angular-aria.js"; 
+                    public const string angular_aria_min_js = "~/Scripts/angular/angular-aria.min.js"; 
+                    public const string angular_cookies_js = "~/Scripts/angular/angular-cookies.js"; 
+                    public const string angular_cookies_min_js = "~/Scripts/angular/angular-cookies.min.js"; 
+                    public const string angular_csp_css = "~/Scripts/angular/angular-csp.css";
+                    public const string angular_loader_js = "~/Scripts/angular/angular-loader.js"; 
+                    public const string angular_loader_min_js = "~/Scripts/angular/angular-loader.min.js"; 
+                    public const string angular_message_format_js = "~/Scripts/angular/angular-message-format.js"; 
+                    public const string angular_message_format_min_js = "~/Scripts/angular/angular-message-format.min.js"; 
+                    public const string angular_messages_js = "~/Scripts/angular/angular-messages.js"; 
+                    public const string angular_messages_min_js = "~/Scripts/angular/angular-messages.min.js"; 
+                    public const string angular_mocks_js = "~/Scripts/angular/angular-mocks.js"; 
+                    public const string angular_parse_ext_js = "~/Scripts/angular/angular-parse-ext.js"; 
+                    public const string angular_parse_ext_min_js = "~/Scripts/angular/angular-parse-ext.min.js"; 
+                    public const string angular_resource_js = "~/Scripts/angular/angular-resource.js"; 
+                    public const string angular_resource_min_js = "~/Scripts/angular/angular-resource.min.js"; 
+                    public const string angular_route_js = "~/Scripts/angular/angular-route.js"; 
+                    public const string angular_route_min_js = "~/Scripts/angular/angular-route.min.js"; 
+                    public const string angular_sanitize_js = "~/Scripts/angular/angular-sanitize.js"; 
+                    public const string angular_sanitize_min_js = "~/Scripts/angular/angular-sanitize.min.js"; 
+                    public const string angular_scenario_js = "~/Scripts/angular/angular-scenario.js"; 
+                    public const string angular_touch_js = "~/Scripts/angular/angular-touch.js"; 
+                    public const string angular_touch_min_js = "~/Scripts/angular/angular-touch.min.js"; 
+                    public const string angular_js = "~/Scripts/angular/angular.js"; 
+                    public const string angular_min_js = "~/Scripts/angular/angular.min.js"; 
+                }
+            }
             public static partial class i18n 
             {
                 public static class Assets
@@ -1731,64 +1819,79 @@ namespace Links
             }
             public static partial class itan 
             {
+                public static partial class controllers 
+                {
+                    public static class Assets
+                    {
+                        public const string feedsController_js = "~/Scripts/itan/controllers/feedsController.js"; 
+                        public const string subscriptionsController_js = "~/Scripts/itan/controllers/subscriptionsController.js"; 
+                        public const string superAdminCtrl_js = "~/Scripts/itan/controllers/superAdminCtrl.js"; 
+                    }
+                }
+                public static partial class filters 
+                {
+                    public static class Assets
+                    {
+                        public const string filterMoment_js = "~/Scripts/itan/filters/filterMoment.js"; 
+                        public const string filterRawHtml_js = "~/Scripts/itan/filters/filterRawHtml.js"; 
+                    }
+                }
+                public static partial class infrastructure 
+                {
+                    public static class Assets
+                    {
+                        public const string entriesApi_js = "~/Scripts/itan/infrastructure/entriesApi.js"; 
+                        public const string feedsApi_js = "~/Scripts/itan/infrastructure/feedsApi.js"; 
+                        public const string subscriptionsApi_js = "~/Scripts/itan/infrastructure/subscriptionsApi.js"; 
+                        public const string windowSizeHandler_js = "~/Scripts/itan/infrastructure/windowSizeHandler.js"; 
+                    }
+                }
+                public static partial class services 
+                {
+                    public static class Assets
+                    {
+                        public const string entriesService_js = "~/Scripts/itan/services/entriesService.js"; 
+                        public const string feedsService_js = "~/Scripts/itan/services/feedsService.js"; 
+                        public const string subscriptionsService_js = "~/Scripts/itan/services/subscriptionsService.js"; 
+                    }
+                }
                 public static class Assets
                 {
-                    public const string filterMoment_js = "~/Scripts/itan/filterMoment.js"; 
-                    public const string filterRawHtml_js = "~/Scripts/itan/filterRawHtml.js"; 
-                    public const string myRssChannelsCtrl_js = "~/Scripts/itan/myRssChannelsCtrl.js"; 
-                    public const string publicRssChannelsCtrl_js = "~/Scripts/itan/publicRssChannelsCtrl.js"; 
-                    public const string superAdminCtrl_js = "~/Scripts/itan/superAdminCtrl.js"; 
+                }
+            }
+            public static partial class jquery 
+            {
+                public static class Assets
+                {
+                    public const string jquery_3_1_0_intellisense_js = "~/Scripts/jquery/jquery-3.1.0.intellisense.js"; 
+                    public const string jquery_3_1_0_js = "~/Scripts/jquery/jquery-3.1.0.js"; 
+                    public const string jquery_3_1_0_min_js = "~/Scripts/jquery/jquery-3.1.0.min.js"; 
+                    public const string jquery_3_1_0_slim_js = "~/Scripts/jquery/jquery-3.1.0.slim.js"; 
+                    public const string jquery_3_1_0_slim_min_js = "~/Scripts/jquery/jquery-3.1.0.slim.min.js"; 
+                    public const string jquery_validate_js = "~/Scripts/jquery/jquery.validate.js"; 
+                    public const string jquery_validate_min_js = "~/Scripts/jquery/jquery.validate.min.js"; 
+                    public const string jquery_validate_unobtrusive_js = "~/Scripts/jquery/jquery.validate.unobtrusive.js"; 
+                    public const string jquery_validate_unobtrusive_min_js = "~/Scripts/jquery/jquery.validate.unobtrusive.min.js"; 
+                }
+            }
+            public static partial class various 
+            {
+                public static class Assets
+                {
+                    public const string bootstrap_js = "~/Scripts/various/bootstrap.js"; 
+                    public const string bootstrap_min_js = "~/Scripts/various/bootstrap.min.js"; 
+                    public const string modernizr_2_6_2_js = "~/Scripts/various/modernizr-2.6.2.js"; 
+                    public const string moment_with_locales_js = "~/Scripts/various/moment-with-locales.js"; 
+                    public const string moment_with_locales_min_js = "~/Scripts/various/moment-with-locales.min.js"; 
+                    public const string moment_js = "~/Scripts/various/moment.js"; 
+                    public const string moment_min_js = "~/Scripts/various/moment.min.js"; 
+                    public const string respond_js = "~/Scripts/various/respond.js"; 
+                    public const string respond_min_js = "~/Scripts/various/respond.min.js"; 
                 }
             }
             public static class Assets
             {
                 public const string _references_js = "~/Scripts/_references.js"; 
-                public const string angular_animate_js = "~/Scripts/angular-animate.js"; 
-                public const string angular_animate_min_js = "~/Scripts/angular-animate.min.js"; 
-                public const string angular_aria_js = "~/Scripts/angular-aria.js"; 
-                public const string angular_aria_min_js = "~/Scripts/angular-aria.min.js"; 
-                public const string angular_cookies_js = "~/Scripts/angular-cookies.js"; 
-                public const string angular_cookies_min_js = "~/Scripts/angular-cookies.min.js"; 
-                public const string angular_csp_css = "~/Scripts/angular-csp.css";
-                public const string angular_loader_js = "~/Scripts/angular-loader.js"; 
-                public const string angular_loader_min_js = "~/Scripts/angular-loader.min.js"; 
-                public const string angular_message_format_js = "~/Scripts/angular-message-format.js"; 
-                public const string angular_message_format_min_js = "~/Scripts/angular-message-format.min.js"; 
-                public const string angular_messages_js = "~/Scripts/angular-messages.js"; 
-                public const string angular_messages_min_js = "~/Scripts/angular-messages.min.js"; 
-                public const string angular_mocks_js = "~/Scripts/angular-mocks.js"; 
-                public const string angular_parse_ext_js = "~/Scripts/angular-parse-ext.js"; 
-                public const string angular_parse_ext_min_js = "~/Scripts/angular-parse-ext.min.js"; 
-                public const string angular_resource_js = "~/Scripts/angular-resource.js"; 
-                public const string angular_resource_min_js = "~/Scripts/angular-resource.min.js"; 
-                public const string angular_route_js = "~/Scripts/angular-route.js"; 
-                public const string angular_route_min_js = "~/Scripts/angular-route.min.js"; 
-                public const string angular_sanitize_js = "~/Scripts/angular-sanitize.js"; 
-                public const string angular_sanitize_min_js = "~/Scripts/angular-sanitize.min.js"; 
-                public const string angular_scenario_js = "~/Scripts/angular-scenario.js"; 
-                public const string angular_touch_js = "~/Scripts/angular-touch.js"; 
-                public const string angular_touch_min_js = "~/Scripts/angular-touch.min.js"; 
-                public const string angular_js = "~/Scripts/angular.js"; 
-                public const string angular_min_js = "~/Scripts/angular.min.js"; 
-                public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
-                public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
-                public const string jquery_1_10_2_intellisense_js = "~/Scripts/jquery-1.10.2.intellisense.js"; 
-                public const string jquery_3_1_0_intellisense_js = "~/Scripts/jquery-3.1.0.intellisense.js"; 
-                public const string jquery_3_1_0_js = "~/Scripts/jquery-3.1.0.js"; 
-                public const string jquery_3_1_0_min_js = "~/Scripts/jquery-3.1.0.min.js"; 
-                public const string jquery_3_1_0_slim_js = "~/Scripts/jquery-3.1.0.slim.js"; 
-                public const string jquery_3_1_0_slim_min_js = "~/Scripts/jquery-3.1.0.slim.min.js"; 
-                public const string jquery_validate_js = "~/Scripts/jquery.validate.js"; 
-                public const string jquery_validate_min_js = "~/Scripts/jquery.validate.min.js"; 
-                public const string jquery_validate_unobtrusive_js = "~/Scripts/jquery.validate.unobtrusive.js"; 
-                public const string jquery_validate_unobtrusive_min_js = "~/Scripts/jquery.validate.unobtrusive.min.js"; 
-                public const string modernizr_2_6_2_js = "~/Scripts/modernizr-2.6.2.js"; 
-                public const string moment_with_locales_js = "~/Scripts/moment-with-locales.js"; 
-                public const string moment_with_locales_min_js = "~/Scripts/moment-with-locales.min.js"; 
-                public const string moment_js = "~/Scripts/moment.js"; 
-                public const string moment_min_js = "~/Scripts/moment.min.js"; 
-                public const string respond_js = "~/Scripts/respond.js"; 
-                public const string respond_min_js = "~/Scripts/respond.min.js"; 
             }
         }
         public static partial class Content 
@@ -2393,15 +2496,9 @@ namespace IsThereAnyNews.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult MarkClickedWithEvent()
+        public virtual System.Web.Mvc.ActionResult MarkClicked()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkClickedWithEvent);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult MarkEntriesRead()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkEntriesRead);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkClicked);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -2411,9 +2508,9 @@ namespace IsThereAnyNews.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult MarkReadWithEvent()
+        public virtual System.Web.Mvc.ActionResult MarkNavigated()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkReadWithEvent);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkNavigated);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -2467,10 +2564,9 @@ namespace IsThereAnyNews.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string MarkClickedWithEvent = "MarkClickedWithEvent";
-            public readonly string MarkEntriesRead = "MarkEntriesRead";
+            public readonly string MarkClicked = "MarkClicked";
             public readonly string MarkEntriesSkipped = "MarkEntriesSkipped";
-            public readonly string MarkReadWithEvent = "MarkReadWithEvent";
+            public readonly string MarkNavigated = "MarkNavigated";
             public readonly string AddComment = "AddComment";
             public readonly string AddToReadLater = "AddToReadLater";
             public readonly string MarkNotRead = "MarkNotRead";
@@ -2482,10 +2578,9 @@ namespace IsThereAnyNews.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string MarkClickedWithEvent = "MarkClickedWithEvent";
-            public const string MarkEntriesRead = "MarkEntriesRead";
+            public const string MarkClicked = "MarkClicked";
             public const string MarkEntriesSkipped = "MarkEntriesSkipped";
-            public const string MarkReadWithEvent = "MarkReadWithEvent";
+            public const string MarkNavigated = "MarkNavigated";
             public const string AddComment = "AddComment";
             public const string AddToReadLater = "AddToReadLater";
             public const string MarkNotRead = "MarkNotRead";
@@ -2515,34 +2610,22 @@ namespace IsThereAnyNews.Web.Controllers
         public T4MVC_EntriesController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void MarkClickedWithEventOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.MarkClickedDto dto);
+        partial void MarkClickedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.EntryClickedDto dto);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult MarkClickedWithEvent(IsThereAnyNews.Dtos.MarkClickedDto dto)
+        public override System.Web.Mvc.ActionResult MarkClicked(IsThereAnyNews.Dtos.EntryClickedDto dto)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkClickedWithEvent);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkClicked);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
-            MarkClickedWithEventOverride(callInfo, dto);
+            MarkClickedOverride(callInfo, dto);
             return callInfo;
         }
 
         [NonAction]
-        partial void MarkEntriesReadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.MarkReadDto dto);
+        partial void MarkEntriesSkippedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.EntriesSkippedDto model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult MarkEntriesRead(IsThereAnyNews.Dtos.MarkReadDto dto)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkEntriesRead);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
-            MarkEntriesReadOverride(callInfo, dto);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void MarkEntriesSkippedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.MarkSkippedDto model);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult MarkEntriesSkipped(IsThereAnyNews.Dtos.MarkSkippedDto model)
+        public override System.Web.Mvc.ActionResult MarkEntriesSkipped(IsThereAnyNews.Dtos.EntriesSkippedDto model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkEntriesSkipped);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -2551,14 +2634,14 @@ namespace IsThereAnyNews.Web.Controllers
         }
 
         [NonAction]
-        partial void MarkReadWithEventOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.MarkReadDto dto);
+        partial void MarkNavigatedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.EntryNavigatedDto dto);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult MarkReadWithEvent(IsThereAnyNews.Dtos.MarkReadDto dto)
+        public override System.Web.Mvc.ActionResult MarkNavigated(IsThereAnyNews.Dtos.EntryNavigatedDto dto)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkReadWithEvent);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.MarkNavigated);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "dto", dto);
-            MarkReadWithEventOverride(callInfo, dto);
+            MarkNavigatedOverride(callInfo, dto);
             return callInfo;
         }
 
