@@ -46,7 +46,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var rssEntryToReadDtos = this.entityRepository.LoadRss(subscriptionId, showReadEntries);
+            var rssEntryToReadDtos = this.entityRepository.LoadRss(subscriptionId, userId);
             var rssEntryToReadViewModels = rssEntryToReadDtos.OrderByDescending(o => o.PublicationDate)
                 .Select(x =>
                     new RssEntryToReadViewModel

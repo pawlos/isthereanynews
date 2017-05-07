@@ -12,6 +12,9 @@ namespace IsThereAnyNews.ViewModels.RssChannel
             this.ChannelsSubscriptions = new List<RssChannelSubscriptionViewModel>();
             this.Users = new List<ObservableUserEventsInformation>();
             this.ChannelEvents = new List<ISubscriptionViewModel>();
+            this.Creations = new ChannelEventCreationViewModel();
+            this.Exceptions = new ChannelEventExceptionViewModel();
+            this.Updates = new ChannelEventUpdatesViewModel();
         }
 
         public List<RssChannelSubscriptionViewModel> ChannelsSubscriptions { get; set; }

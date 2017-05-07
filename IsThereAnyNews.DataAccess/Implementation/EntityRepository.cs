@@ -719,15 +719,38 @@
 
         public List<RssChannelSubscriptionDTO> LoadAllSubscriptionsForUser(long currentUserId)
         {
-            var sqlQuery = "select RCS.Title, RCS.Id, count(*) as Count from RssChannelSubscriptions RCS " +
-                           "JOIN RssEntries RE ON RE.RssChannelId = RCS.RssChannelId " +
-                           "LEFT join RssEntriesToRead RETR on RETR.RssChannelSubscriptionId = RCS.Id " +
-                           $"WHERE RCS.UserId = {currentUserId} " +
-                           "and RETR.Id is null " +
-                           "group by RE.RssChannelId, RCS.Id, RCS.Title";
+            string sql = "SELECT RCS.Title,\n"
+              + "       RCS.Id,\n"
+              + "       COUNT(*) AS 'Count'\n"
+              + "FROM dbo.RssChannelSubscriptions AS rcs\n"
+              + "     JOIN\n"
+              + "(\n"
+              + "    SELECT re.*\n"
+              + "    FROM dbo.RssEntries AS re\n"
+              + "         LEFT JOIN\n"
+              + "    (\n"
+              + "        SELECT *\n"
+              + "        FROM dbo.RssEntriesToRead AS retr\n"
+              + "        WHERE retr.RssChannelSubscriptionId IN\n"
+              + "        (\n"
+              + "            SELECT rcs.id\n"
+              + "            FROM dbo.RssChannelSubscriptions AS rcs\n"
+              + $"            WHERE rcs.UserId = {currentUserId}\n"
+              + "        )\n"
+              + "    ) AS RRR ON RRR.RssEntryId = re.id\n"
+              + "    WHERE re.RssChannelId IN\n"
+              + "    (\n"
+              + "        SELECT rcs.RssChannelId\n"
+              + "        FROM dbo.RssChannelSubscriptions AS rcs\n"
+              + "        WHERE rcs.UserId = 1\n"
+              + "    )\n"
+              + "          AND RRR.id IS NULL\n"
+              + ") AS RRE ON rcs.RssChannelId = RRE.RssChannelId\n"
+              + "GROUP BY rcs.Id,\n"
+              + "         rcs.Title;";
 
             var rssChannelSubscriptionDtos =
-                this.database.Database.SqlQuery<RssChannelSubscriptionDTO>(sqlQuery).ToList();
+                this.database.Database.SqlQuery<RssChannelSubscriptionDTO>(sql).ToList();
             return rssChannelSubscriptionDtos;
         }
 
@@ -962,21 +985,26 @@ order by Updated";
             return nameAndCountUserSubscriptions;
         }
 
-        public List<RssEntryDTO> LoadRss(long subscriptionId, ShowReadEntries showReadEntries)
+        public List<RssEntryDTO> LoadRss(long subscriptionId, long userId)
         {
-            var joinType = showReadEntries == ShowReadEntries.Hide ? "left join" : "join";
-            var emptyQuery = showReadEntries == ShowReadEntries.Hide ? "and RETR.id is null" : string.Empty;
+            string sql = "SELECT RE.Title,\n"
+                         + "       RE.PublicationDate,\n"
+                         + "       RE.PreviewText,\n"
+                         + "       RE.Id,\n"
+                         + "       RE.Url\n"
+                         + "FROM dbo.RssEntries AS re\n"
+                         + "     JOIN dbo.RssChannelSubscriptions AS rcs ON re.RssChannelId = rcs.RssChannelId\n"
+                         + "WHERE re.Id NOT IN\n"
+                         + "(\n"
+                         + "    SELECT retr.RssEntryId\n"
+                         + "    FROM dbo.RssChannelSubscriptions AS rcs\n"
+                         + "         JOIN dbo.RssEntriesToRead AS retr ON retr.RssChannelSubscriptionId = rcs.Id\n"
+                         + $"    WHERE rcs.UserId = {userId}\n"
+                         + $"          AND rcs.id = {subscriptionId}\n"
+                         + ")\n"
+                         + $"    AND rcs.id = {subscriptionId};";
 
-            var x = "select RE.Title,RE.PublicationDate,RE.PreviewText,RE.Id,RE.Url from RssChannelSubscriptions RCS "+
-                    "JOIN RssEntries RE " +
-                    "ON RE.RssChannelId = RCS.RssChannelId " +
-                    $"{joinType} RssEntriesToRead RETR " +
-                    "ON RETR.RssChannelSubscriptionId = RCS.Id " +
-                    "where " +
-                    $"RCS.Id = {subscriptionId} " +
-                    $"{emptyQuery}";
-
-            var rssEntryToReadDtos = this.database.Database.SqlQuery<RssEntryDTO>(x).ToList();
+            var rssEntryToReadDtos = this.database.Database.SqlQuery<RssEntryDTO>(sql).ToList();
             return rssEntryToReadDtos;
         }
 

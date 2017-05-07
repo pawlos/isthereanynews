@@ -130,7 +130,7 @@ namespace IsThereAnyNews.DataAccess
 
         List<NameAndCountUserSubscription> LoadNameAndCountForUser(long currentUserId);
 
-        List<RssEntryDTO> LoadRss(long subscriptionId, ShowReadEntries showReadEntries);
+        List<RssEntryDTO> LoadRss(long subscriptionId, long userId);
 
         RssChannelDTO LoadRssChannel(long id);
 
