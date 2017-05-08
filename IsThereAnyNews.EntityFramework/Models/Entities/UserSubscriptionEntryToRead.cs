@@ -19,5 +19,6 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
 
         public bool IsRead { get; set; }
         public bool IsSkipped { get; set; }
+        public bool IsViewed { get; set; }
     }
 }

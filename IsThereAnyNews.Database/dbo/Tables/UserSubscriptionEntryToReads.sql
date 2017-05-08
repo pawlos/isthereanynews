@@ -5,7 +5,8 @@
     [UserSubscriptionId]        BIGINT   NOT NULL,
     [IsRead]                    BIT      NOT NULL,
     [EventRssUserInteractionId] BIGINT   NOT NULL,
-    [IsSkipped]                 BIT      DEFAULT ((0)) NOT NULL,
+    [IsSkipped]                 BIT      NOT NULL DEFAULT ((0)) ,
+    [IsViewed]                  BIT      NOT NULL DEFAULT 0, 
     CONSTRAINT [PK_dbo.UserSubscriptionEntryToReads] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_dbo.UserSubscriptionEntryToReads_dbo.EventRssUserInteractions_EventRssUserInteractionId] FOREIGN KEY ([EventRssUserInteractionId]) REFERENCES [dbo].[EventRssUserInteractions] ([Id]) ON DELETE CASCADE,
     CONSTRAINT [FK_dbo.UserSubscriptionEntryToReads_dbo.UserSubscriptions_UserSubscriptionId] FOREIGN KEY ([UserSubscriptionId]) REFERENCES [dbo].[UserSubscriptions] ([Id]) ON DELETE CASCADE
