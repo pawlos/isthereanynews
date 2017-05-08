@@ -3,7 +3,6 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using AutoMapper;
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.SharedData;
@@ -15,11 +14,8 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         private readonly IHtmlStripper htmlStripper;
 
-        private readonly IMapper mapper;
-
-        public RssSubscriptionHandler(IMapper mapper, IHtmlStripper htmlStripper, IEntityRepository entityRepository)
+        public RssSubscriptionHandler(IHtmlStripper htmlStripper, IEntityRepository entityRepository)
         {
-            this.mapper = mapper;
             this.htmlStripper = htmlStripper;
             this.entityRepository = entityRepository;
         }

@@ -1,5 +1,3 @@
-using IsThereAnyNews.EntityFramework.Models.Entities;
-
 namespace IsThereAnyNews.Services.Handlers.Implementation
 {
     using System;
@@ -10,7 +8,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
-    public class PersonSubscriptionHandler: ISubscriptionHandler
+    public class PersonSubscriptionHandler : ISubscriptionHandler
     {
         private readonly IEntityRepository entityRepository;
 
@@ -32,9 +30,10 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             return this.GetPersonSubscriptionIndexViewModel(userId, subscriptionId, showReadEntries);
         }
 
-        public void MarkClicked(long cui, long id, long subscriptionId) => throw new NotImplementedException();
-        public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId) => throw new NotImplementedException();
-        public void MarkSkipped(long cui, long subscriptionId, List<long> entries) => throw new NotImplementedException();
+        public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId)
+        {
+            throw new NotImplementedException();
+        }
 
         private ISubscriptionContentIndexViewModel GetPersonSubscriptionIndexViewModel(
             long userId,
@@ -52,7 +51,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             }
 
             List<UserSubscriptionEntryToReadDTO> loadAllUnreadEntriesFromSubscription;
-            if(showReadEntries != ShowReadEntries.Show)
+            if (showReadEntries != ShowReadEntries.Show)
             {
                 loadAllUnreadEntriesFromSubscription =
                     this.entityRepository.LoadAllUserUnreadEntriesFromSubscription(subscriptionId);
@@ -77,5 +76,14 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
             return viewModel;
         }
+
+        public void MarkClicked(long cui, long id, long subscriptionId)
+        {
+            this.entityRepository.MarkPersonActivityClicked(id, subscriptionId);
+            this.entityRepository.AddEventPersonActivityClicked(cui, id);
+        }
+
+        public void MarkSkipped(long cui, long subscriptionId, List<long> entries) => throw new NotImplementedException();
+
     }
 }

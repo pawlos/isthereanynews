@@ -186,5 +186,7 @@ namespace IsThereAnyNews.DataAccess
         void UpdateUserLastReadTime(long currentUserId, DateTime now);
 
         bool UserIsRegistered(AuthenticationTypeProvider authenticationTypeProvider, string userId);
+        void MarkPersonActivityClicked(long id, long subscriptionId);
+        void AddEventPersonActivityClicked(long cui, long id);
     }
 }

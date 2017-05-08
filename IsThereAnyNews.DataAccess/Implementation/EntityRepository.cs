@@ -1297,6 +1297,30 @@ order by Updated";
             return exists;
         }
 
+        public void MarkPersonActivityClicked(long id, long subscriptionId)
+        {
+            var userSubscriptionEntryToRead = new UserSubscriptionEntryToRead
+                                              {
+                                                  EventRssUserInteractionId = id,
+                                                  IsRead = true,
+                                                  UserSubscriptionId = subscriptionId
+                                              };
+            this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
+            this.database.SaveChanges();
+        }
+
+        public void AddEventPersonActivityClicked(long cui, long id)
+        {
+            var eventRssUserInteraction = new EventRssUserInteraction
+                                          {
+                                              InteractionType = InteractionType.Clicked,
+                                              RssEntryId = id,
+                                              UserId = cui
+                                          };
+            this.database.EventsRssUserInteraction.Add(eventRssUserInteraction);
+            this.database.SaveChanges();
+        }
+
         private void SaveFeatureRequestToDatabase(FeatureRequest featureRequest)
         {
             this.database.FeatureRequests.Add(featureRequest);
