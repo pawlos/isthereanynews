@@ -188,5 +188,9 @@ namespace IsThereAnyNews.DataAccess
         bool UserIsRegistered(AuthenticationTypeProvider authenticationTypeProvider, string userId);
         void MarkPersonActivityClicked(long id, long subscriptionId);
         void AddEventPersonActivityClicked(long cui, long id);
+        void MarkPersonActivityNavigated(long userId, long rssId);
+        void AddEventPersonActivityNavigated(long userId, long rssId);
+        void MarkPersonActivitySkipped(long subscriptionId, List<long> entries);
+        void AddEventPersonActivitySkipped(long cui, List<long> entries);
     }
 }

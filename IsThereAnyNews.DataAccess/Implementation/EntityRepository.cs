@@ -888,7 +888,7 @@
 
         public List<UserSubscriptionEntryToReadDTO> LoadAllUserUnreadEntriesFromSubscription(long subscriptionId)
         {
-            var x = "select ERUI.Id as EruiId, ERUI.InteractionType, RE.* " +
+            var x = "SELECT RE.Title,RE.PublicationDate, RE.PreviewText, RE.Url, ERUI.Id " +
                     "from UserSubscriptions US join EventRssUserInteractions ERUI on US.ObservedId = ERUI.UserId " +
                     "join RssEntries RE on ERUI.RssEntryId = RE.Id " +
                     "LEFT JOIN UserSubscriptionEntryToReads USETR on ERUI.Id = USETR.EventRssUserInteractionId " +
@@ -1311,13 +1311,69 @@ order by Updated";
 
         public void AddEventPersonActivityClicked(long cui, long id)
         {
+            var rssEntryId = this.database.EventsRssUserInteraction.Single(x => x.Id == id)
+                                 .RssEntryId;
             var eventRssUserInteraction = new EventRssUserInteraction
                                           {
                                               InteractionType = InteractionType.Clicked,
-                                              RssEntryId = id,
+                                              RssEntryId = rssEntryId,
                                               UserId = cui
                                           };
             this.database.EventsRssUserInteraction.Add(eventRssUserInteraction);
+            this.database.SaveChanges();
+        }
+
+        public void MarkPersonActivityNavigated(long rssId, long subscriptionId)
+        {
+            this.database.UsersSubscriptionsToRead
+                .Single(x => x.UserSubscriptionId == subscriptionId && x.EventRssUserInteractionId == rssId)
+                .IsViewed = true;
+            this.database.SaveChanges();
+        }
+
+        public void AddEventPersonActivityNavigated(long userId, long rssId)
+        {
+            var rssEntryId = this.database.EventsRssUserInteraction.Single(x => x.Id == rssId)
+                                 .RssEntryId;
+            var eventRssUserInteraction = new EventRssUserInteraction
+                                          {
+                                              InteractionType = InteractionType.Navigated,
+                                              RssEntryId = rssEntryId,
+                                              UserId = userId
+            };
+            this.database.EventsRssUserInteraction.Add(eventRssUserInteraction);
+            this.database.SaveChanges();
+        }
+
+        public void MarkPersonActivitySkipped(long subscriptionId, List<long> entries)
+        {
+            var toSkip = entries.Select(
+                    i =>
+                        new UserSubscriptionEntryToRead
+                        {
+                            IsRead = false,
+                            IsSkipped = true,
+                            EventRssUserInteractionId = i,
+                            UserSubscriptionId = subscriptionId
+                        }).ToList();
+
+            this.database.UsersSubscriptionsToRead.AddRange(toSkip);
+            this.database.SaveChanges();
+        }
+
+        public void AddEventPersonActivitySkipped(long cui, List<long> entries)
+        {
+            var rssEntryId = (from xxx in this.database.EventsRssUserInteraction
+                             where entries.Contains(xxx.Id)
+                             select xxx.RssEntryId).ToList();
+
+            var eventRssUserInteractions = rssEntryId.Select(ev => new EventRssUserInteraction
+                                                                   {
+                                                                       InteractionType = InteractionType.Skipped,
+                                                                       RssEntryId = ev,
+                                                                       UserId = cui
+                                                                   });
+            this.database.EventsRssUserInteraction.AddRange(eventRssUserInteractions);
             this.database.SaveChanges();
         }
 
