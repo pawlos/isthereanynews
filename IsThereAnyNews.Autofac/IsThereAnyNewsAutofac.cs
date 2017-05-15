@@ -58,7 +58,7 @@
 
             builder.RegisterType<RssSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Rss);
             builder.RegisterType<PersonSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Person);
-            builder.RegisterType<ChannelUpdatesSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Channel);
+            builder.RegisterType<ChannelUpdatesSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.ChannelUpdate);
             builder.RegisterType<ExceptionSubscriptionHandler>().Keyed<ISubscriptionHandler>(StreamType.Exception);
 
             builder.RegisterType<SubscriptionHandlerFactory>().As<ISubscriptionHandlerFactory>();

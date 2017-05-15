@@ -296,6 +296,7 @@
     <Content Include="Scripts\angular\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular\angular-aria.min.js.map" />
     <Content Include="Scripts\angular\angular-animate.min.js.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\IsThereAnyNewsWeb20170401064156 - Web Deploy.pubxml" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
@@ -1111,9 +1112,17 @@
       <Project>{c06edaa6-ee09-4ed1-85c4-a11db07e5d4d}</Project>
       <Name>IsThereAnyNews.Autofac</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.DataAccess\IsThereAnyNews.DataAccess.csproj">
+      <Project>{112524E8-F4E5-4874-A870-79F2FEC8947C}</Project>
+      <Name>IsThereAnyNews.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Dtos\IsThereAnyNews.Dtos.csproj">
       <Project>{756F51E8-7A9C-4645-8858-55C91561F131}</Project>
       <Name>IsThereAnyNews.Dtos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IsThereAnyNews.EntityFramework\IsThereAnyNews.EntityFramework.csproj">
+      <Project>{8A68B5B9-F09C-4769-9219-38CC6084DEC3}</Project>
+      <Name>IsThereAnyNews.EntityFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\IsThereAnyNews.Extensions\IsThereAnyNews.Extensions.csproj">
       <Project>{0651ce64-06f8-466c-8b8f-a5c09d2e4eb3}</Project>

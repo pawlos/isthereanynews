@@ -18,7 +18,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public List<long> DisplayedRss => RssEntryToReadViewModels.Select(x => x.Id).ToList();
         public List<RssEntryToReadViewModel> RssEntryToReadViewModels { get; }
-        public StreamType StreamType => StreamType.Channel;
+        public StreamType StreamType => StreamType.ChannelUpdate;
         public long SubscriptionId { get; }
         public string Title { get; }
         public DateTime CreationDateTime { get; }

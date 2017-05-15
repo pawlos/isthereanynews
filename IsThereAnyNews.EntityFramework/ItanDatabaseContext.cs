@@ -32,9 +32,16 @@
         public DbSet<ContactAdministration> ContactsAdministration { get; set; }
         public DbSet<ContactAdministrationEvent> ContactsAdministrationEvents { get; set; }
         public DbSet<ItanException> ItanExceptions { get; set; }
+        public DbSet<ItanExceptionToRead> ItanExceptionsToRead { get; set; }
         public DbSet<EventItanException> EventException { get; set; }
 
         public DbSet<ApplicationConfiguration> ApplicationConfiguration { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ItanExceptionToRead>()
+                        .ToTable("ItanExceptionsToRead");
+        }
 
         public override int SaveChanges()
         {

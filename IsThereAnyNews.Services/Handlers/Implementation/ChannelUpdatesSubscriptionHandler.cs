@@ -18,25 +18,23 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var loadAllRssEntriesForUserAndChannel = this.LoadUpdateEvents(showReadEntries);
+            var loadAllRssEntriesForUserAndChannel = this.LoadUpdateEvents();
 
             var subscriptionIndexViewModel = new ChannelUpdateSubscriptionIndexViewModel(0,
                 "Channel update events",
                 DateTime.MinValue,
                 loadAllRssEntriesForUserAndChannel);
 
-            var rssSubscriptionIndexViewModel = subscriptionIndexViewModel;
-
-            return rssSubscriptionIndexViewModel;
+            return subscriptionIndexViewModel;
         }
 
         public void MarkClicked(long cui, long id, long subscriptionId) => throw new NotImplementedException();
         public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId) => throw new NotImplementedException();
         public void MarkSkipped(long cui, long subscriptionId, List<long> entries) => throw new NotImplementedException();
 
-        private List<RssEntryToReadViewModel> LoadUpdateEvents(ShowReadEntries showReadEntries)
+        private List<RssEntryToReadViewModel> LoadUpdateEvents()
         {
-            var dtos = this.entityRepository.LoadUpdateEvents(100);
+            var dtos = this.entityRepository.LoadUpdateEvents();
             var rssEntryToReadViewModels =
                     dtos.Select(d =>
                                     new RssEntryToReadViewModel

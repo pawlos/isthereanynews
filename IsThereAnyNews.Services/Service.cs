@@ -201,9 +201,9 @@ namespace IsThereAnyNews.Services
 
             if(roles.Contains(ItanRole.SuperAdmin))
             {
-                var updates = this.entityRepository.LoadUpdateEvents();
-                var creations = this.entityRepository.LoadCreateEvents();
-                var exceptions = this.entityRepository.LoadExceptionEvents();
+                var updates = this.entityRepository.LoadCreateEventsCount();
+                var creations = this.entityRepository.LoadCreateEventsCount();
+                var exceptions = this.entityRepository.LoadExceptionEventsCount(currentUserId);
                 var u = new ChannelEventUpdatesViewModel { Count = updates.Count.ToString() };
                 var c = new ChannelEventCreationViewModel { Count = creations.Count.ToString() };
                 var e = new ChannelEventExceptionViewModel { Count = exceptions.Count.ToString() };

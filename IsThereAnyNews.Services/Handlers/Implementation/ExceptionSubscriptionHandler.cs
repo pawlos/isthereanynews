@@ -19,7 +19,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var loadAllRssEntriesForUserAndChannel = this.LoadExceptionEvents(showReadEntries);
+            var loadAllRssEntriesForUserAndChannel = this.LoadExceptionEvents(userId);
             var subscriptionIndexViewModel = new ExceptionSubscriptionIndexViewModel(0,
                 "Exceptions",
                 DateTime.MinValue,
@@ -28,39 +28,50 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             return rssSubscriptionIndexViewModel;
         }
 
-        public void MarkClicked(long cui, long id, long subscriptionId) => throw new NotImplementedException();
-        public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId) => throw new NotImplementedException();
-        public void MarkSkipped(long cui, long subscriptionId, List<long> entries) => throw new NotImplementedException();
-
-        private List<RssEntryToReadViewModel> LoadExceptionEvents(ShowReadEntries showReadEntries)
+        
+        private List<RssEntryToReadViewModel> LoadExceptionEvents(long userId)
         {
-            var loadLatestExceptions = this.LoadLatestExceptions(100);
+            var loadLatestExceptions = this.LoadLatestExceptions(userId);
             var rssEntryToReadViewModels =
                     loadLatestExceptions.Select(
-                                                s =>
-                                                    new RssEntryToReadViewModel
-                                                    {
-                                                        Id = s.Id,
-                                                        IsRead = false,
-                                                        RssEntryViewModel =
-                                                                new RssEntryViewModel
-                                                                {
-                                                                    Id = s.Id,
-                                                                    PublicationDate = s.Occured,
-                                                                    Url = string.Empty,
-                                                                    Title = s.Typeof,
-                                                                    PreviewText =
-                                                                            $"Message: <br/>{s.Message}<br/> StackTrace:<br/>{s.StackTrace}<br/> Source:<br/>{s.Source}<br/>",
-                                                                    SubscriptionId = 0
-                                                                }
-                                                    });
+                            s =>
+                                new RssEntryToReadViewModel
+                                {
+                                    Id = s.Id,
+                                    IsRead = false,
+                                    RssEntryViewModel =
+                                            new RssEntryViewModel
+                                            {
+                                                Id = s.Id,
+                                                PublicationDate = s.Occured,
+                                                Url = string.Empty,
+                                                Title = s.Typeof,
+                                                PreviewText =
+                                                        $"Message: <br/>{s.Message}<br/> StackTrace:<br/>{s.StackTrace}<br/> Source:<br/>{s.Source}<br/>",
+                                                SubscriptionId = 0
+                                            }
+                                });
             return rssEntryToReadViewModels.ToList();
         }
 
-        private List<ExceptionEventDto> LoadLatestExceptions(int eventCount)
+        private List<ExceptionEventDto> LoadLatestExceptions(long userId)
         {
-            var loadLatest = this.entityRepository.LoadLatest(eventCount);
+            var loadLatest = this.entityRepository.LoadExceptionList(userId);
             return loadLatest;
+        }
+
+        public void MarkClicked(long cui, long id, long subscriptionId)
+        {
+            this.entityRepository.MarkExceptionActivityClicked(cui, id);
+        }
+
+        public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId)
+        {
+        }
+
+        public void MarkSkipped(long cui, long subscriptionId, List<long> entries)
+        {
+            this.entityRepository.MarkExceptionActivitySkipped(cui, entries);
         }
     }
 }

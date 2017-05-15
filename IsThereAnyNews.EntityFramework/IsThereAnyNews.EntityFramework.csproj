@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ItanDatabaseContext.cs" />
+    <Compile Include="Models\Entities\ItanExceptionsToRead.cs" />
     <Compile Include="Models\Entities\ApplicationConfiguration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\ItanException.cs" />

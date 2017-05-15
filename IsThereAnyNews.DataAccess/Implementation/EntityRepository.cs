@@ -18,7 +18,7 @@
     using IsThereAnyNews.ProjectionModels.Mess;
     using IsThereAnyNews.SharedData;
 
-    public class EntityRepository : IEntityRepository
+    public class EntityRepository: IEntityRepository
     {
         private readonly ItanDatabaseContext database;
 
@@ -399,7 +399,7 @@
                     .Where(x => x.Created >= lastReadTime)
                     .ToList();
 
-            foreach (var userInteraction in eventRssUserInteractions)
+            foreach(var userInteraction in eventRssUserInteractions)
             {
                 var userSubscriptionEntryToRead = new UserSubscriptionEntryToRead
                 {
@@ -430,7 +430,7 @@
 
         public void CreateNewSubscription(long followerId, long observedId)
         {
-            if (this.IsUserSubscribedToUser(followerId, observedId))
+            if(this.IsUserSubscribedToUser(followerId, observedId))
             {
                 return;
             }
@@ -473,7 +473,7 @@
 
         public void DeleteUserSubscription(long followerId, long observedId)
         {
-            if (this.IsUserSubscribedToUser(followerId, observedId) == false)
+            if(this.IsUserSubscribedToUser(followerId, observedId) == false)
             {
                 return;
             }
@@ -934,40 +934,33 @@ order by Updated";
             return rssChannelForUpdateDto.Single();
         }
 
-        RssChannelCreations LoadCreateEvents()
+        public RssChannelExceptions LoadExceptionEventsCount(long currentUserId)
         {
-            var count = this.database.EventRssChannelCreated.Count();
-
-            var rssChannelCreations = new RssChannelCreations { Count = count };
-
-            return rssChannelCreations;
+            string sql = "SELECT count(*) AS 'Count'\n"
+                         + "FROM dbo.ItanExceptions ie\n"
+                         + "WHERE ie.Id NOT IN\n"
+                         + "(\n"
+                         + "    SELECT ietr.ItanExceptionId\n"
+                         + "    FROM dbo.ItanExceptionsToRead ietr\n"
+                         + $"    WHERE userid = {currentUserId}\n"
+                         + ")";
+            var c = this.database.Database.SqlQuery<RssChannelExceptions>(sql).Single();
+            return c;
         }
 
-        public RssChannelExceptions LoadExceptionEvents()
+        public List<ExceptionEventDto> LoadExceptionList(long userId)
         {
-            var count = this.database.EventException.Count();
-            return new RssChannelExceptions { Count = count };
-        }
-
-        public List<ExceptionEventDto> LoadLatest(int eventCount)
-        {
-            var exceptionEventDtos =
-                this.database.EventException.Include(i => i.ItanException)
-                    .OrderByDescending(o => o.Id)
-                    .Take(eventCount)
-                    .Select(
-                        s =>
-                            new ExceptionEventDto
-                            {
-                                Id = s.Id,
-                                Occured = s.Created,
-                                ErrorId = s.ErrorId,
-                                Message = s.ItanException.Message,
-                                StackTrace = s.ItanException.Stacktrace,
-                                Source = s.ItanException.Source,
-                                Typeof = s.ItanException.Typeof
-                            })
-                    .ToList();
+            string sql = "SELECT *\n"
+                         + "FROM dbo.ItanExceptions ie\n"
+                         + "WHERE ie.Id NOT IN\n"
+                         + "(\n"
+                         + "    SELECT ietr.ItanExceptionId\n"
+                         + "    FROM dbo.ItanExceptionsToRead ietr\n"
+                         + $"    WHERE userid = {userId}\n"
+                         + ")\n"
+                         + "ORDER BY ie.Created;";
+            var exceptionEventDtos = this.database.Database.SqlQuery<ExceptionEventDto>(sql)
+                .ToList();
             return exceptionEventDtos;
         }
 
@@ -1039,19 +1032,18 @@ order by Updated";
             return rssChannel.Single();
         }
 
-        public RssChannelUpdateds LoadUpdateEvents()
+        public RssChannelUpdateds LoadUpdateEventsCount()
         {
             var count = this.database.RssChannelUpdates.Count();
 
             return new RssChannelUpdateds { Count = count };
         }
 
-        public List<ChannelUpdateEventDto> LoadUpdateEvents(int eventsCount)
+        public List<ChannelUpdateEventDto> LoadUpdateEvents()
         {
             var channelUpdateEventDtos =
                 this.database.RssChannelUpdates.Include(i => i.RssChannel)
                     .OrderByDescending(o => o.Id)
-                    .Take(eventsCount)
                     .Select(
                         c =>
                             new ChannelUpdateEventDto
@@ -1149,7 +1141,7 @@ order by Updated";
                         });
 
             this.database.Configuration.ValidateOnSaveEnabled = false;
-            foreach (var rssEntryToRead in rssEntryToReads)
+            foreach(var rssEntryToRead in rssEntryToReads)
             {
                 this.database.RssEntriesToRead.Add(rssEntryToRead);
                 this.database.SaveChanges();
@@ -1300,11 +1292,11 @@ order by Updated";
         public void MarkPersonActivityClicked(long id, long subscriptionId)
         {
             var userSubscriptionEntryToRead = new UserSubscriptionEntryToRead
-                                              {
-                                                  EventRssUserInteractionId = id,
-                                                  IsRead = true,
-                                                  UserSubscriptionId = subscriptionId
-                                              };
+            {
+                EventRssUserInteractionId = id,
+                IsRead = true,
+                UserSubscriptionId = subscriptionId
+            };
             this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
             this.database.SaveChanges();
         }
@@ -1314,11 +1306,11 @@ order by Updated";
             var rssEntryId = this.database.EventsRssUserInteraction.Single(x => x.Id == id)
                                  .RssEntryId;
             var eventRssUserInteraction = new EventRssUserInteraction
-                                          {
-                                              InteractionType = InteractionType.Clicked,
-                                              RssEntryId = rssEntryId,
-                                              UserId = cui
-                                          };
+            {
+                InteractionType = InteractionType.Clicked,
+                RssEntryId = rssEntryId,
+                UserId = cui
+            };
             this.database.EventsRssUserInteraction.Add(eventRssUserInteraction);
             this.database.SaveChanges();
         }
@@ -1336,10 +1328,10 @@ order by Updated";
             var rssEntryId = this.database.EventsRssUserInteraction.Single(x => x.Id == rssId)
                                  .RssEntryId;
             var eventRssUserInteraction = new EventRssUserInteraction
-                                          {
-                                              InteractionType = InteractionType.Navigated,
-                                              RssEntryId = rssEntryId,
-                                              UserId = userId
+            {
+                InteractionType = InteractionType.Navigated,
+                RssEntryId = rssEntryId,
+                UserId = userId
             };
             this.database.EventsRssUserInteraction.Add(eventRssUserInteraction);
             this.database.SaveChanges();
@@ -1364,16 +1356,49 @@ order by Updated";
         public void AddEventPersonActivitySkipped(long cui, List<long> entries)
         {
             var rssEntryId = (from xxx in this.database.EventsRssUserInteraction
-                             where entries.Contains(xxx.Id)
-                             select xxx.RssEntryId).ToList();
+                              where entries.Contains(xxx.Id)
+                              select xxx.RssEntryId).ToList();
 
             var eventRssUserInteractions = rssEntryId.Select(ev => new EventRssUserInteraction
-                                                                   {
-                                                                       InteractionType = InteractionType.Skipped,
-                                                                       RssEntryId = ev,
-                                                                       UserId = cui
-                                                                   });
+            {
+                InteractionType = InteractionType.Skipped,
+                RssEntryId = ev,
+                UserId = cui
+            });
             this.database.EventsRssUserInteraction.AddRange(eventRssUserInteractions);
+            this.database.SaveChanges();
+        }
+
+        public RssChannelCreations LoadCreateEventsCount()
+        {
+            var count = this.database.EventRssChannelCreated.Count();
+            var rssChannelCreations = new RssChannelCreations { Count = count };
+            return rssChannelCreations;
+        }
+
+        public void MarkExceptionActivityClicked(long cui, long id)
+        {
+            var itanExceptionsToRead = new ItanExceptionToRead
+            {
+                IsViewed = true,
+                ItanExceptionId = id,
+                UserId = cui
+            };
+            this.database.ItanExceptionsToRead.Add(itanExceptionsToRead);
+            this.database.SaveChanges();
+        }
+
+        public void MarkExceptionActivitySkipped(long cui, List<long> entries)
+        {
+            var results = entries.Select(e =>
+                                             new ItanExceptionToRead
+                                             {
+                                                 ItanExceptionId = e,
+                                                 UserId = cui,
+                                                 IsSkipped = true
+                                             })
+                                 .ToList();
+            this.database.ItanExceptionsToRead.AddRange(results);
             this.database.SaveChanges();
         }
 
@@ -1413,11 +1438,6 @@ order by Updated";
 
             this.database.RssEntriesToRead.AddRange(toSkip);
             this.database.SaveChanges();
-        }
-
-        RssChannelCreations IEntityRepository.LoadCreateEvents()
-        {
-            return this.LoadCreateEvents();
         }
 
         public long SaveToDatabase(ContactAdministrationDto entity)

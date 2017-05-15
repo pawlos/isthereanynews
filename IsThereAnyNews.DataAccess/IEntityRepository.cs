@@ -124,11 +124,9 @@ namespace IsThereAnyNews.DataAccess
 
         RssChannelForUpdateDTO LoadChannelToUpdate();
 
-        RssChannelCreations LoadCreateEvents();
+        RssChannelExceptions LoadExceptionEventsCount(long currentUserId);
 
-        RssChannelExceptions LoadExceptionEvents();
-
-        List<ExceptionEventDto> LoadLatest(int eventCount);
+        List<ExceptionEventDto> LoadExceptionList(long userId);
 
         List<NameAndCountUserSubscription> LoadNameAndCountForUser(long currentUserId);
 
@@ -136,9 +134,7 @@ namespace IsThereAnyNews.DataAccess
 
         RssChannelDTO LoadRssChannel(long id);
 
-        RssChannelUpdateds LoadUpdateEvents();
-
-        List<ChannelUpdateEventDto> LoadUpdateEvents(int eventsCount);
+        List<ChannelUpdateEventDto> LoadUpdateEvents();
 
         ChannelUrlAndTitleDTO LoadUrlAndTitle(long channelId);
 
@@ -192,5 +188,8 @@ namespace IsThereAnyNews.DataAccess
         void AddEventPersonActivityNavigated(long userId, long rssId);
         void MarkPersonActivitySkipped(long subscriptionId, List<long> entries);
         void AddEventPersonActivitySkipped(long cui, List<long> entries);
+        RssChannelCreations LoadCreateEventsCount();
+        void MarkExceptionActivityClicked(long cui, long id);
+        void MarkExceptionActivitySkipped(long cui, List<long> entries);
     }
 }
