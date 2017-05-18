@@ -4,7 +4,7 @@ namespace IsThereAnyNews.ViewModels.Subscriptions
 {
     public class ChannelEventCreationViewModel: ISubscriptionViewModel
     {
-        public virtual StreamType StreamType => StreamType.ChannelUpdate;
+        public virtual StreamType StreamType => StreamType.ChannelCreation;
         public string Count { get; set; }
         public long Id { get; }
         public string Name => "Channels creation";

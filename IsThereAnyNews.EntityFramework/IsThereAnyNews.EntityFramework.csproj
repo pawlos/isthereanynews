@@ -55,9 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventRssChannelUpdatedToRead.cs" />
+    <Compile Include="Models\Entities\EventRssChannelCreatedToRead.cs" />
+    <Compile Include="Models\Entities\EventRssChannelUpdatedToRead.cs" />
     <Compile Include="ItanDatabaseContext.cs" />
-    <Compile Include="Models\Entities\ItanExceptionsToRead.cs" />
+    <Compile Include="Models\Entities\ItanExceptionToRead.cs" />
     <Compile Include="Models\Entities\ApplicationConfiguration.cs" />
     <Compile Include="Models\Entities\ContactAdministration.cs" />
     <Compile Include="Models\Entities\ItanException.cs" />

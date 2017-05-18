@@ -34,6 +34,7 @@
         public DbSet<ItanException> ItanExceptions { get; set; }
         public DbSet<ItanExceptionToRead> ItanExceptionsToRead { get; set; }
         public DbSet<EventRssChannelUpdatedToRead> EventRssChannelUpdatedsToRead { get; set; }
+        public DbSet<EventRssChannelCreatedToRead> EventRssChannelCreatedToRead { get; set; }
         public DbSet<EventItanException> EventException { get; set; }
 
         public DbSet<ApplicationConfiguration> ApplicationConfiguration { get; set; }
@@ -44,6 +45,8 @@
                         .ToTable("ItanExceptionsToRead");
             modelBuilder.Entity<EventRssChannelUpdatedToRead>()
                         .ToTable("EventRssChannelUpdateToRead");
+            modelBuilder.Entity<EventRssChannelCreatedToRead>()
+                        .ToTable("EventRssChannelCreatedsToRead");
         }
 
         public override int SaveChanges()

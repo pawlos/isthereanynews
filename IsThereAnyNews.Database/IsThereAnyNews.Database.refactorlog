@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="42d83343-4cd8-4764-8ad0-438784d57a4a" ChangeDateTime="05/15/2017 20:56:26">
+    <Property Name="ElementName" Value="[dbo].[ItanExceptionsToRead].[Is]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ItanExceptionsToRead]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="IsViewed" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="101bebf4-5450-4014-bb3f-995d53080ba4" ChangeDateTime="05/17/2017 21:11:22">
+    <Property Name="ElementName" Value="[dbo].[EventRssChannelUpdateToRead].[ItanExceptionId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[EventRssChannelUpdateToRead]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EventRssChannelUpdates" />
+  </Operation>
+</Operations>

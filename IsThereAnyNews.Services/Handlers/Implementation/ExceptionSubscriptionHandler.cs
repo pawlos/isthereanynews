@@ -5,6 +5,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using System.Linq;
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Services.Handlers.ViewModels;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 

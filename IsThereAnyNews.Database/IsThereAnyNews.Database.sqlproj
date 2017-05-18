@@ -201,6 +201,10 @@
     <Build Include="Security\Permissions.sql" />
     <Build Include="dbo\Tables\ItanExceptionsToRead.sql" />
     <Build Include="dbo\Tables\EventRssChannelUpdateToRead.sql" />
+    <Build Include="dbo\Tables\EventRssChannelCreatedsToRead.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />

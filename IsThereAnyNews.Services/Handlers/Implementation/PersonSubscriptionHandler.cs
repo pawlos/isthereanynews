@@ -5,6 +5,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using AutoMapper;
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.ProjectionModels;
+    using IsThereAnyNews.Services.Handlers.ViewModels;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 

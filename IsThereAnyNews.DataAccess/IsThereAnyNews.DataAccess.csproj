@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChannelCreateEventDto.cs" />
     <Compile Include="Implementation\EntityRepository.cs" />
     <Compile Include="IEntityRepository.cs" />
     <Compile Include="Implementation\RssChannelDTOComparer.cs" />

@@ -8,31 +8,30 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
-    public class ChannelUpdatesSubscriptionHandler: ISubscriptionHandler
+    public class ChannelCreationsSubscriptionHandler: ISubscriptionHandler
     {
         private readonly IEntityRepository entityRepository;
 
-        public ChannelUpdatesSubscriptionHandler(IEntityRepository entityRepository)
+        public ChannelCreationsSubscriptionHandler(IEntityRepository entityRepository)
         {
             this.entityRepository = entityRepository;
         }
 
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
         {
-            var loadAllRssEntriesForUserAndChannel = this.LoadUpdateEvents(userId);
+            var loadAllRssEntriesForUserAndChannel = this.LoadCreationEvents(userId);
 
-            var subscriptionIndexViewModel = new ChannelUpdateSubscriptionIndexViewModel(0,
-                "Channel update events",
+            var subscriptionIndexViewModel = new ChannelCreationSubscriptionIndexViewModel(0,
+                "Channel creation events",
                 DateTime.MinValue,
                 loadAllRssEntriesForUserAndChannel);
 
             return subscriptionIndexViewModel;
         }
 
-
-        private List<RssEntryToReadViewModel> LoadUpdateEvents(long userId)
+        private List<RssEntryToReadViewModel> LoadCreationEvents(long userId)
         {
-            var dtos = this.entityRepository.LoadUpdateEvents(userId).OrderBy(o=>o.Updated);
+            var dtos = this.entityRepository.LoadCreationEvents(userId).OrderBy(o=>o.Updated);
             var rssEntryToReadViewModels =
                     dtos.Select(d =>
                                     new RssEntryToReadViewModel
@@ -57,12 +56,12 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public void MarkClicked(long cui, long id, long subscriptionId)
         {
-            this.entityRepository.MarkChannelUpdateClicked(cui, id);
+            this.entityRepository.MarkChannelCreateClicked(cui, id);
         }
 
         public void MarkSkipped(long cui, long subscriptionId, List<long> entries)
         {
-            this.entityRepository.MarkChannelUpdateSkipped(cui, entries);
+            this.entityRepository.MarkChannelCreateSkipped(cui, entries);
         }
     }
 }

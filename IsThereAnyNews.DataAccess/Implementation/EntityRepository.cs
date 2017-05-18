@@ -1072,6 +1072,31 @@ order by Updated";
             this.database.SaveChanges();
         }
 
+        public void MarkChannelCreateClicked(long cui, long id)
+        {
+            var eventRssChannelUpdatedToRead = new EventRssChannelCreatedToRead
+            {
+                EventRssChannelCreatedId = id,
+                IsViewed = true,
+                UserId = cui
+            };
+            this.database.EventRssChannelCreatedToRead.Add(eventRssChannelUpdatedToRead);
+            this.database.SaveChanges();
+        }
+
+        public void MarkChannelCreateSkipped(long cui, List<long> entries)
+        {
+            var eventRssChannelUpdatedToReads = entries.Select(e =>
+                                                                   new EventRssChannelCreatedToRead
+                                                                   {
+                                                                       EventRssChannelCreatedId = e,
+                                                                       IsSkipped = true,
+                                                                       UserId = cui
+                                                                   });
+            this.database.EventRssChannelCreatedToRead.AddRange(eventRssChannelUpdatedToReads);
+            this.database.SaveChanges();
+        }
+
         public List<ChannelUpdateEventDto> LoadUpdateEvents(long userId)
         {
             string sql = "SELECT ercu.Id,ercu.Created as 'Updated',rc.Title as 'ChannelTitle'\n"
@@ -1085,6 +1110,22 @@ order by Updated";
                          + ");";
 
             var channelUpdateEventDtos = this.database.Database.SqlQuery<ChannelUpdateEventDto>(sql).ToList();
+            return channelUpdateEventDtos;
+        }
+
+        public List<ChannelCreateEventDto> LoadCreationEvents(long userId)
+        {
+            string sql = "SELECT ercc.Id, ercc.Created as 'Updated',rc.Title as 'ChannelTitle'\n"
+                         + "FROM dbo.EventRssChannelCreateds ercc\n"
+                         + "JOIN dbo.RssChannels rc ON ercc.RssChannelId = rc.Id\n"
+                         + "WHERE ercc.Id NOT IN\n"
+                         + "(\n"
+                         + "    SELECT dbo.EventRssChannelCreatedsToRead.EventRssChannelCreatedId\n"
+                         + "    FROM EventRssChannelCreatedsToRead\n"
+                         + $"    WHERE UserId = {userId}\n"
+                         + ");";
+
+            var channelUpdateEventDtos = this.database.Database.SqlQuery<ChannelCreateEventDto>(sql).ToList();
             return channelUpdateEventDtos;
         }
 
@@ -1400,11 +1441,19 @@ order by Updated";
             this.database.SaveChanges();
         }
 
-        public RssChannelCreations LoadCreateEventsCount()
+        public RssChannelCreations LoadCreateEventsCount(long currentUserId)
         {
-            var count = this.database.EventRssChannelCreated.Count();
-            var rssChannelCreations = new RssChannelCreations { Count = count };
-            return rssChannelCreations;
+            string sql = "SELECT COUNT(*) as Count\n"
+                         + "FROM dbo.EventRssChannelCreateds ercc\n"
+                         + "WHERE ercc.Id NOT IN\n"
+                         + "(\n"
+                         + "    SELECT dbo.EventRssChannelCreatedsToRead.EventRssChannelCreatedId\n"
+                         + "    FROM EventRssChannelCreatedsToRead\n"
+                         + $"    WHERE UserId = {currentUserId}\n"
+                         + ");";
+            var rssChannelUpdateds = this.database.Database.SqlQuery<RssChannelCreations>(sql)
+                                         .Single();
+            return rssChannelUpdateds;
         }
 
         public void MarkExceptionActivityClicked(long cui, long id)
