@@ -200,6 +200,7 @@
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="Security\Permissions.sql" />
     <Build Include="dbo\Tables\ItanExceptionsToRead.sql" />
+    <Build Include="dbo\Tables\EventRssChannelUpdateToRead.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Script.PostDeployment1.sql" />

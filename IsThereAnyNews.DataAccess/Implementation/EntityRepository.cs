@@ -1032,28 +1032,59 @@ order by Updated";
             return rssChannel.Single();
         }
 
-        public RssChannelUpdateds LoadUpdateEventsCount()
+        public RssChannelUpdateds LoadUpdateEventsCount(long currentUserId)
         {
-            var count = this.database.RssChannelUpdates.Count();
-
-            return new RssChannelUpdateds { Count = count };
+            string sql = "SELECT COUNT(*) as Count\n"
+                         + "FROM dbo.EventRssChannelUpdates ercu\n"
+                         + "WHERE ercu.Id NOT IN\n"
+                         + "(\n"
+                         + "    SELECT dbo.EventRssChannelUpdateToRead.EventRssChannelUpdatedId\n"
+                         + "    FROM EventRssChannelUpdateToRead\n"
+                         + $"    WHERE Userid = {currentUserId}\n"
+                         + ");";
+            var rssChannelUpdateds = this.database.Database.SqlQuery<RssChannelUpdateds>(sql)
+                                         .Single();
+            return rssChannelUpdateds;
         }
 
-        public List<ChannelUpdateEventDto> LoadUpdateEvents()
+        public void MarkChannelUpdateClicked(long cui, long id)
         {
-            var channelUpdateEventDtos =
-                this.database.RssChannelUpdates.Include(i => i.RssChannel)
-                    .OrderByDescending(o => o.Id)
-                    .Select(
-                        c =>
-                            new ChannelUpdateEventDto
-                            {
-                                Id = c.Id,
-                                Updated = c.Created,
-                                ChannelTitle = c.RssChannel.Title
-                            })
-                    .ToList();
+            var eventRssChannelUpdatedToRead = new EventRssChannelUpdatedToRead
+            {
+                EventRssChannelUpdatedId = id,
+                IsViewed = true,
+                UserId = cui
+            };
+            this.database.EventRssChannelUpdatedsToRead.Add(eventRssChannelUpdatedToRead);
+            this.database.SaveChanges();
+        }
 
+        public void MarkChannelUpdateSkipped(long cui, List<long> entries)
+        {
+            var eventRssChannelUpdatedToReads = entries.Select(e =>
+                                                                   new EventRssChannelUpdatedToRead
+                                                                   {
+                                                                       EventRssChannelUpdatedId = e,
+                                                                       IsSkipped = true,
+                                                                       UserId = cui
+                                                                   });
+            this.database.EventRssChannelUpdatedsToRead.AddRange(eventRssChannelUpdatedToReads);
+            this.database.SaveChanges();
+        }
+
+        public List<ChannelUpdateEventDto> LoadUpdateEvents(long userId)
+        {
+            string sql = "SELECT ercu.Id,ercu.Created as 'Updated',rc.Title as 'ChannelTitle'\n"
+                         + "FROM dbo.EventRssChannelUpdates ercu\n"
+                         + "JOIN dbo.RssChannels rc ON ercu.RssChannelId = rc.Id\n"
+                         + "WHERE ercu.Id NOT IN\n"
+                         + "(\n"
+                         + "    SELECT dbo.EventRssChannelUpdateToRead.EventRssChannelUpdatedId\n"
+                         + "    FROM EventRssChannelUpdateToRead\n"
+                         + $"    WHERE Userid = {userId}\n"
+                         + ");";
+
+            var channelUpdateEventDtos = this.database.Database.SqlQuery<ChannelUpdateEventDto>(sql).ToList();
             return channelUpdateEventDtos;
         }
 

@@ -33,6 +33,7 @@
         public DbSet<ContactAdministrationEvent> ContactsAdministrationEvents { get; set; }
         public DbSet<ItanException> ItanExceptions { get; set; }
         public DbSet<ItanExceptionToRead> ItanExceptionsToRead { get; set; }
+        public DbSet<EventRssChannelUpdatedToRead> EventRssChannelUpdatedsToRead { get; set; }
         public DbSet<EventItanException> EventException { get; set; }
 
         public DbSet<ApplicationConfiguration> ApplicationConfiguration { get; set; }
@@ -41,6 +42,8 @@
         {
             modelBuilder.Entity<ItanExceptionToRead>()
                         .ToTable("ItanExceptionsToRead");
+            modelBuilder.Entity<EventRssChannelUpdatedToRead>()
+                        .ToTable("EventRssChannelUpdateToRead");
         }
 
         public override int SaveChanges()
