@@ -10,8 +10,6 @@
     using System.Web.Optimization;
     using System.Web.Routing;
 
-    using Exceptionless;
-
     using IsThereAnyNews.Autofac;
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.EntityFramework.Models.Entities;
@@ -19,6 +17,8 @@
     using IsThereAnyNews.RssChannelUpdater;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.Web.Controllers;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
 
     public class MvcApplication: HttpApplication
     {
@@ -31,6 +31,12 @@
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             IsThereAnyNewsAutofac.RegisterDependencies();
             IsThereAnyNewsScheduler.ScheduleRssUpdater();
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                TypeNameHandling = TypeNameHandling.Objects,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
         }
 #if !DEBUG
         private IEnumerable<Exception> GetAllExceptions(Exception ex)
@@ -60,17 +66,17 @@
                                  .ToList()
                                  .Select(
                                  exception => new ItanException
-                                              {
-                                                  Message = exception.Message,
-                                                  Source = exception.Source,
-                                                  Stacktrace = exception.StackTrace,
-                                                  Typeof = exception.GetType()
+                                 {
+                                     Message = exception.Message,
+                                     Source = exception.Source,
+                                     Stacktrace = exception.StackTrace,
+                                     Typeof = exception.GetType()
                                                                     .ToString(),
-                                                  ErrorId = exceptionGuid,
-                                                  UserId = userId
-                                              });
+                                     ErrorId = exceptionGuid,
+                                     UserId = userId
+                                 });
             var eventItanExceptions =
-                    exceptions.Select(e => new EventItanException {ErrorId = exceptionGuid, ItanException = e});
+                    exceptions.Select(e => new EventItanException { ErrorId = exceptionGuid, ItanException = e });
 
             repository.SaveExceptionToDatabase(eventItanExceptions);
         }
@@ -83,7 +89,6 @@
         private void ShowCustomErrorPage(Exception exception)
         {
             var httpException = exception as HttpException ?? new HttpException(500, "Internal Server Error", exception);
-            exception.ToExceptionless().Submit();
             this.SaveExceptionToDatabase(httpException);
             this.Response.Clear();
             var routeData = new RouteData();

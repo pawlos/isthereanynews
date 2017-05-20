@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
 
-    using IsThereAnyNews.SharedData;
     using IsThereAnyNews.Web.Interfaces.Infrastructure;
 
     using Microsoft.AspNet.Identity;

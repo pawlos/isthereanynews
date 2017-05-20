@@ -2,7 +2,6 @@ namespace IsThereAnyNews.EntityFramework.Models.Entities
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using IsThereAnyNews.EntityFramework.Models.Interfaces;
 

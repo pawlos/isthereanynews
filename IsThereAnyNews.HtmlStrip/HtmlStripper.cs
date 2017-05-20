@@ -3,8 +3,6 @@ namespace IsThereAnyNews.HtmlStrip
     using System;
     using System.Text;
 
-    using HtmlAgilityPack;
-
     public class HtmlStripper : IHtmlStripper
     {
         public string GetContentOnly(string itemSummary)
@@ -24,7 +22,7 @@ namespace IsThereAnyNews.HtmlStrip
                 }
                 return content.ToString().Replace("\n", "<br/>");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return string.Empty;
             }

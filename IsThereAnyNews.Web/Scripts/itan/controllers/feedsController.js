@@ -12,8 +12,8 @@ angular
             $scope.channel = {
                 loaded: false,
                 entries: {
-                    SubscriptionInfo: {
-                        IsSubscribed: ''
+                    subscriptionInfo: {
+                        isSubscribed: ''
                     }
                 }
             };

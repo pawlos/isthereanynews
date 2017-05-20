@@ -1,9 +1,8 @@
-namespace IsThereAnyNews.Web.Infrastructure
+namespace IsThereAnyNews.Web
 {
     using System;
     using System.Linq;
     using System.Web.Mvc;
-
     using IsThereAnyNews.SharedData;
 
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]

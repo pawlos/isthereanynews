@@ -9,6 +9,6 @@ angular
             onChannelClick: function (streamType, id,callback) {
                 $http.get("/Feeds/ReadAjax?streamType=" + streamType + "&id=" + id)
                     .success(callback);
-            },
+            }
     }
 }])

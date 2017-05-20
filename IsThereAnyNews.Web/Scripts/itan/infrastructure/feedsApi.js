@@ -31,8 +31,6 @@ angular
                 };
                 $http(httpOptions)
                     .success(callback);
-            },
-
-
+            }
     }
 }]);

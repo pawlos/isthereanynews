@@ -106,7 +106,7 @@ namespace IsThereAnyNews.Web.Controllers
         [AllowAnonymous]
         public virtual ActionResult ExternalLoginFailure()
         {
-            return this.View();
+            return new EmptyResult();
         }
     }
 }

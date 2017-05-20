@@ -1,4 +1,4 @@
-namespace IsThereAnyNews.Web.Infrastructure
+namespace IsThereAnyNews.Web
 {
     using System;
     using System.Linq;

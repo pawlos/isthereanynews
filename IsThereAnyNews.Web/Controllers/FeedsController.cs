@@ -4,7 +4,6 @@ namespace IsThereAnyNews.Web.Controllers
     using System.Web.Mvc;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.SharedData;
-    using IsThereAnyNews.Web.Infrastructure;
     using IsThereAnyNews.Web.Interfaces.Services;
 
     public partial class FeedsController: Controller

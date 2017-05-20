@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using IsThereAnyNews.Automapper;
-using IsThereAnyNews.DataAccess.Implementation;
 using IsThereAnyNews.EntityFramework;
 using IsThereAnyNews.EntityFramework.Models.Entities;
-using IsThereAnyNews.Infrastructure.Import.Opml;
-using IsThereAnyNews.Services;
 
 using System.Data.Entity;
 using IsThereAnyNews.EntityFramework.Models.Events;
@@ -15,22 +12,13 @@ namespace IsThereAnyNews.ContentGenerator
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var xxxxxx = 1000;
 
             ItanDatabaseContext database = new ItanDatabaseContext();
             database.Configuration.ValidateOnSaveEnabled = false;
 
-            //database.Database.Log += s => Console.WriteLine($"***{s}***");
-            var configureMapper = IsThereAnyNewsAutomapper.ConfigureMapper();
-
-            var itanDatabaseContext = new ItanDatabaseContext();
-            var updateRepository = new EntityRepository(itanDatabaseContext, configureMapper);
-            var infrastructure = new Infrastructure.Web.Infrastructure();
-            var importOpml = new ImportOpml();
-
-            var service = new Service(updateRepository, configureMapper, null, infrastructure, importOpml);
             List<User> users = new List<User>();
 
             Console.WriteLine($"creating {xxxxxx} users ");

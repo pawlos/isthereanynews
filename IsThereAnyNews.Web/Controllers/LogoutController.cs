@@ -4,7 +4,6 @@ namespace IsThereAnyNews.Web.Controllers
 {
     using System.Web;
     using System.Web.Mvc;
-    using IsThereAnyNews.SharedData;
 
     public partial class LogoutController: Controller
     {

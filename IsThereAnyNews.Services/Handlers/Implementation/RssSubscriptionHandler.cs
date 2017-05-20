@@ -1,6 +1,5 @@
 namespace IsThereAnyNews.Services.Handlers.Implementation
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using IsThereAnyNews.DataAccess;
