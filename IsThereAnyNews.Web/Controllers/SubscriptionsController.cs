@@ -37,12 +37,5 @@ namespace IsThereAnyNews.Web.Controllers
             this.service.MarkAllRssReadForSubscription(model);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
-
-        [HttpPost]
-        [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public virtual HttpStatusCodeResult MarkRssEntryViewed(long channelId)
-        {
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
     }
 }
