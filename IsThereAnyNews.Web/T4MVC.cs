@@ -3833,16 +3833,6 @@ namespace IsThereAnyNews.Web.Controllers
 
         [NonAction]
         partial void MarkRssEntryViewedOverride(T4MVC_System_Web_Mvc_HttpStatusCodeResult callInfo, long channelId);
-
-        [NonAction]
-        public override System.Web.Mvc.HttpStatusCodeResult MarkRssEntryViewed(long channelId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.MarkRssEntryViewed);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
-            MarkRssEntryViewedOverride(callInfo, channelId);
-            return callInfo;
-        }
-
     }
 }
 
