@@ -6,6 +6,8 @@ using IsThereAnyNews.ViewModels.RssChannel;
 
 namespace IsThereAnyNews.Web.Interfaces.Services
 {
+    using IsThereAnyNews.Dtos.Feeds;
+
     public interface IService
     {
         AccountDetailsViewModel GetAccountDetailsViewModel();
@@ -24,9 +26,9 @@ namespace IsThereAnyNews.Web.Interfaces.Services
         void ShareRssItem(RssActionModel model);
         void CurrentVotedownForArticleByCurrentUser(RssActionModel model);
         void CurrentVoteupForArticleByCurrentUser(RssActionModel model);
-        RssChannelsIndexViewModel LoadAllChannels();
-        RssChannelIndexViewModel GetViewModelFormChannelId(long id);
-        void UnsubscribeCurrentUserFromChannelId(long channelId);
+        RssChannelsIndexViewModel LoadPublicRssFeeds(FeedsGetPublic input);
+        FeedEntriesViewModel GetFeedEntries(FeedsGetEntries id);
+        void UnsubscribeCurrentUserFromChannelId(FeedsPostSubscription model);
         void CreateNewChannelIfNotExists(AddChannelDto dto);
         void StoreCurrentUserIdInSession(ClaimsIdentity identity);
         void StoreItanRolesToSession(ClaimsIdentity identity);
@@ -43,8 +45,9 @@ namespace IsThereAnyNews.Web.Interfaces.Services
         bool CanRegisterIfWithinLimits();
         bool IsUserRegistered(ClaimsIdentity identity);
         void RegisterIfNewUser(ClaimsIdentity identity);
-        void SubscribeCurrentUserToChannel(long channelId);
+        void SubscribeCurrentUserToChannel(FeedsPostSubscription model);
         void SubscribeCurrentUserToChannel(AddChannelDto channelId);
         ISubscriptionContentIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long id, ShowReadEntries showReadEntries);
+        FeedsIndexViewModel LoadPublicFeedsNumbers();
     }
 }

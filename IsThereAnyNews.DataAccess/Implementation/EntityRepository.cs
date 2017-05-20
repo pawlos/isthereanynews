@@ -661,24 +661,26 @@
             return rssChannels;
         }
 
-        public List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics()
+        public List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics(long currentUserId, int skip, int take)
         {
-            var f = from channel in this.database.RssChannels
-                    join subscription in this.database.RssChannelsSubscriptions on channel.Id equals
-                    subscription.RssChannelId into RCS
-                    join entries in this.database.RssEntries on channel.Id equals entries.RssChannelId into RE
-                    select
-                    new RssChannelSubscriptionWithStatisticsData
-                    {
-                        Id = channel.Id,
-                        Title = channel.Title,
-                        SubscriptionsCount = RCS.Count(),
-                        RssEntriesCount = RE.Count(),
-                        Created = channel.Created,
-                        Updated = channel.Updated
-                    };
-
-            return f.Distinct().ToList();
+            var channels = this.database
+                               .RssChannels
+                               .OrderBy(rssChannel => rssChannel.Created)
+                               .Skip(skip)
+                               .Take(take)
+                               .Include(r => r.RssEntries)
+                               .Include(r => r.Subscriptions);
+            var rssChannelSubscriptionWithStatisticsDatas = channels
+                    .Select(c => new RssChannelSubscriptionWithStatisticsData
+                                 {
+                                     Created = c.Created,
+                                     Id = c.Id,
+                                     Title = c.Title,
+                                     RssEntriesCount = c.RssEntries.Count,
+                                     IsSubscribed = c.Subscriptions.Select(s=>s.UserId).Contains(currentUserId)
+                                 })
+                    .ToList();
+            return rssChannelSubscriptionWithStatisticsDatas;
         }
 
         public List<RssEntryToReadDTO> LoadAllEntriesFromChannelSubscription(long subscriptionId)
@@ -1095,6 +1097,33 @@ order by Updated";
                                                                    });
             this.database.EventRssChannelCreatedToRead.AddRange(eventRssChannelUpdatedToReads);
             this.database.SaveChanges();
+        }
+
+        public FeedEntries GetFeedEntries(long feedId, long skip, long take)
+        {
+            var rssEntryDtos = this.database.RssEntries.Where(e => e.RssChannelId == feedId)
+                                   .OrderBy(e => e.PublicationDate)
+                                   .Skip((int) skip)
+                                   .Take((int) take)
+                                   .Select(e =>
+                                               new RssEntryDTO
+                                               {
+                                                   Id = e.Id,
+                                                   PreviewText = e.PreviewText,
+                                                   PublicationDate = e.Created,
+                                                   Title = e.Title,
+                                                   Url = e.Url
+                                               }
+                                   )
+                                   .ToList();
+            var feedEntries = new FeedEntries(rssEntryDtos);
+            return feedEntries;
+        }
+
+        public NumberOfRssFeeds ReadNumberOfAllRssFeeds()
+        {
+            var count = this.database.RssChannels.Count();
+            return new NumberOfRssFeeds(count);
         }
 
         public List<ChannelUpdateEventDto> LoadUpdateEvents(long userId)

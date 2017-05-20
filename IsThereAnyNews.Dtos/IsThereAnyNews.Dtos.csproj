@@ -51,12 +51,16 @@
     <Compile Include="ChannelUpdateEventDto.cs" />
     <Compile Include="ContactAdministrationDto.cs" />
     <Compile Include="ExceptionEventDto.cs" />
+    <Compile Include="Feeds\FeedsGetEntries.cs" />
+    <Compile Include="Feeds\FeedsGetPublic.cs" />
+    <Compile Include="Feeds\FeedsPostSubscription.cs" />
     <Compile Include="MarkClickedDto.cs" />
     <Compile Include="MarkReadDto.cs" />
     <Compile Include="MarkReadForSubscriptionDto.cs" />
     <Compile Include="MarkSkippedDto.cs" />
     <Compile Include="NameAndCountUserSubscription.cs" />
     <Compile Include="NewRssEntryDTO.cs" />
+    <Compile Include="NumberOfRssFeeds.cs" />
     <Compile Include="OpmlImporterIndexDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RssActionModel.cs" />

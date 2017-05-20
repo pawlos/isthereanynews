@@ -175,6 +175,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\EntriesController.cs" />
+    <Compile Include="Controllers\JsonNetResult.cs" />
     <Compile Include="Controllers\OpmlController.cs" />
     <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Models\ChallengeResult.cs" />

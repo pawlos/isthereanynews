@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IsThereAnyNews.ViewModels.FeedsIndexViewModel
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section scripts
@@ -10,42 +12,43 @@
     <script src="~/Scripts/itan/infrastructure/windowSizeHandler.js"></script>
     <script src="~/Scripts/itan/controllers/feedsController.js"></script>
 }
-<div class="container" ng-controller="itan.feedsController">
+<div class="container" ng-controller="itan.feedsController" ng-init="init(@Model.Count)">
     <div class="row">
         <div class="col-sm-4 height">
-            <div ng-hide="channels.loaded"
+            <div ng-hide="feedsModel.feedsLoaded"
                  class="fa fa-4x fa-spin fa-spinner"></div>
-            <div ng-show="channels.loaded" class="text-ellipse-too-long">
-                <a ng-repeat="channel in channels.list.AllChannels"
-                   ng-class="isCurrent(channel)"
-                   ng-click="onChannelClick(channel)"
+            <div ng-show="feedsModel.feedsLoaded" class="text-ellipse-too-long">
+                <a ng-repeat="feed in feedsModel.feeds"
+                   ng-class="isCurrent(feed)"
+                   ng-click="onFeedClick(feed)"
                    class="btn btn-xs btn-default full-width border-less text-left">
                     <div>
                         <div>
-                            {{channel.Title}} ({{channel.RssEntriesCount}})
+                            {{feed.title}} ({{feed.rssEntriesCount}})
                         </div>
                     </div>
                 </a>
+            </div>
+            <div ng-hide="feedsModel.feeds.length<numberOfAllFeeds">
+                    <span ng-click="onClickLoadMore">Load more</span>
             </div>
         </div>
         <div class="col-sm-8">
             <div class="row title">
                 <div class="col-sm-12">
-                    <div ng-hide="channel.loaded">
+                    <div ng-hide="feedsModel.feedLoaded">
                         <h3>Please select channel to see news</h3>
                     </div>
-                    <div ng-show="channel.loaded">
+                    <div ng-show="feedsModel.feedLoaded">
                         <h2>
-                            <div>{{channel.entries.Title}}</div>
-                            <span class="fa fa-plus"></span>{{channel.entries.Added|moment:'YYYY-MM-DD'}}
-                            <span class="fa fa-refresh"></span>{{channel.entries.Updated|moment:'YYYY-MM-DD HH:mm'}}
+                            {{feedsModel.currentFeed.title}}
                         </h2>
                         @if(User.Identity.IsAuthenticated)
                         {
                             <button class="btn"
-                                    ng-class="buttonSubscriptionClass(channel)"
-                                    ng-click="onSubscribeClick(channel.entries.ChannelId,channel.entries.SubscriptionInfo.IsSubscribed)">
-                                {{channel.entries.SubscriptionInfo.IsSubscribed?"unsubscribe":"subscribe"}}
+                                    ng-class="buttonSubscriptionClass(feedsModel.currentFeed)"
+                                    ng-click="onSubscribeClick(feedsModel.currentFeed.id, feedsModel.currentFeed.isSubscribed)">
+                                {{feedsModel.currentFeed.isSubscribed?"unsubscribe":"subscribe"}}
                             </button>
                         }
                     </div>
@@ -54,23 +57,23 @@
             <div class="row height2">
                 <div class="col-sm-12">
                     <div class="panel-group" id="accordion" role="tablist">
-                        <div class="panel panel-default" ng-repeat="item in channel.entries.Entries">
+                        <div class="panel panel-default" ng-repeat="item in feedsModel.entries">
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion"
-                                       href="#rss-{{item.Id}}">
-                                        <span>{{item.Title}}</span>
+                                       href="#rss-{{item.id}}">
+                                        <span>{{item.title}}</span>
                                         <span class="small right">
-                                            {{item.PublicationDate|moment:'DD/MMMM/YYYY'}}
+                                            {{item.publicationDate|moment:'DD/MMMM/YYYY'}}
                                         </span>
                                     </a>
                                 </h4>
                             </div>
-                            <div id="rss-{{item.Id}}"
+                            <div id="rss-{{item.id}}"
                                  class="panel-collapse collapse"
                                  role="tabpanel">
                                 <div class="panel-body"
-                                     ng-bind-html="item.PreviewText | rawHtml">
+                                     ng-bind-html="item.previewText | rawHtml">
                                 </div>
                             </div>
                         </div>

@@ -1,22 +1,18 @@
 angular
     .module("itan")
-    .controller("itan.feedsController",
-    ['$scope', '$http', 'feedsService','windowSizeHandler',
+    .controller("itan.feedsController", ['$scope', '$http', 'feedsService', 'windowSizeHandler',
         function ($scope, $http, feedsService, windowSizeHandler) {
-            $scope.channels = {
-                loaded: false,
-                list: {},
-                current: {}
-            };
+            $scope.feedsModel = {
+                numberOfAllFeeds: 0,
+                feedsLoaded: false,
+                feeds: [],
+                entries: [],
+                currentFeed: {
+                    isSubscribed: false
+                },
+                feedLoaded: false
+            }
 
-            $scope.channel = {
-                loaded: false,
-                entries: {
-                    subscriptionInfo: {
-                        isSubscribed: ''
-                    }
-                }
-            };
 
             $(window).on("resize.doResize", function () {
                 $scope.$apply(function () {
@@ -24,28 +20,30 @@ angular
                 });
             });
 
-            $scope.onChannelClick = function (channel) {
-                feedsService.onChannelClick($scope, channel, function(){
+            $scope.init = function (numberOfAllFeeds) {
+                $scope.numberOfAllFeeds = numberOfAllFeeds;
+            }
+
+            $scope.onFeedClick = function (feed) {
+                $scope.feedsModel.currentFeed = feed;
+                feedsService.onClick($scope.feedsModel, feed, function () {
                     windowSizeHandler.setHeights();
+                    $scope.feedsModel.feedLoaded = true;
                 });
             };
 
-            $scope.isCurrent = function (channel) {
-                if (feedsService.isCurrent($scope, channel)) {
-                    return "btn-info";
-                }
-                return "";
-            }
-
-            $scope.buttonSubscriptionClass = function (channel) {
-                return feedsService.buttonSubscriptionClass(channel);
-            }
-
-            $scope.onSubscribeClick = function (channelId, isSubscribed) {
-                feedsService.onSubscribeClick($scope, channelId, isSubscribed);
+            $scope.isCurrent = function (feed) {
+                return feedsService.isCurrent($scope.feedsModel, feed);
             };
-
-            feedsService.loadFeeds($scope);
+            $scope.buttonSubscriptionClass = function (feed) {
+                return feedsService.buttonSubscriptionClass(feed);
+            };
+            $scope.onClickLoadMore = function(){
+            };
+            $scope.onSubscribeClick = function (channelId, isSubscribed) {
+                feedsService.onSubscribeClick($scope.feedsModel, channelId, isSubscribed);
+            };
+            feedsService.loadFeeds($scope.feedsModel);
             windowSizeHandler.setHeights();
-        }]);
-
+        }
+    ]);

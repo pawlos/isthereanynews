@@ -1,52 +1,45 @@
 angular
     .module("itan")
-    .factory("feedsService", ['feedsApi',function (feedsApi) {
+    .factory("feedsService", ['feedsApi', function (feedsApi) {
         return {
-            onChannelClick: function ($scope, channel, callback) {
-                feedsApi.loadFeedChannel(channel.Id, function(data){
-                        $scope.channel.loaded = true;
-                        $scope.channel.entries = data;
-                        $scope.channels.current = channel;
-                        callback();
-                    });
+            onClick: function (model, feed, callback) {
+                feedsApi.loadFeedChannel(feed.id, function (data) {
+                    callback();
+                    model.entries = data.rssEntryViewModels;
+                });
             },
-            loadFeeds: function ($scope) {
-                feedsApi.loadFeeds(function(data){
-                        $scope.channels.list = data;
-                        $scope.channels.loaded = true;
-                    });
+            loadFeeds: function (model) {
+                feedsApi.loadFeeds(function (data) {
+                    model.feeds = data.allChannels;
+                    model.feedsLoaded = true;
+                });
             },
-            isCurrent: function ($scope, channel) {
-                var x = channel === $scope.channels.current;
+            isCurrent: function (model, feed) {
+                var x = model.currentFeed === feed;
                 if (x) {
                     return "btn-info";
                 }
                 return "";
             },
-            buttonSubscriptionClass: function (channel) {
-                return channel.entries.SubscriptionInfo.IsSubscribed ? "btn-danger" : "btn-primary";
+            buttonSubscriptionClass: function (feed) {
+                return feed.isSubscribed ? "btn-danger" : "btn-primary";
             },
-            onSubscribeClick: function ($scope, channelId, isSubscribed) {
+            onSubscribeClick: function (model, feedId, isSubscribed) {
                 if (isSubscribed) {
-                    this.unsubscribe(channelId);
+                    this.unsubscribe(model, feedId);
                 } else {
-                    this.subscribe(channelId);
+                    this.subscribe(model, feedId);
                 }
             },
-            subscribe: function ($scope, channelId) {
-                feedsApi.subscribe(channelId,function(){
-                        $scope.updateSubscriptionStatus(channelId, true);
-                    });
+            subscribe: function (model, feedId) {
+                feedsApi.subscribe(feedId, function () {
+                    model.currentFeed.isSubscribed = true;
+                });
             },
-            unsubscribe: function ($scope, channelId) {
-                feedsApi.unsubscribe(channelId, function(){
-                        $scope.updateSubscriptionStatus(channelId, false);
-                    });
+            unsubscribe: function (model, feedId) {
+                feedsApi.unsubscribe(feedId, function () {
+                    model.currentFeed.isSubscribed = false;
+                });
             },
-            updateSubscriptionStatus: function ($scope, channelId, newstatus) {
-                if ($scope.channel.entries.channelId === channelId) {
-                    $scope.channel.entries.subscriptionInfo.isSubscribed = newstatus;
-                }
-            }
         };
     }]);

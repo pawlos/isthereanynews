@@ -10,5 +10,6 @@ namespace IsThereAnyNews.ViewModels.RssChannel
         public int SubscriptionsCount { get; set; }
         public string Title { get; set; }
         public DateTime Updated { get; set; }
+        public bool IsSubscribed { get; set; }
     }
 }

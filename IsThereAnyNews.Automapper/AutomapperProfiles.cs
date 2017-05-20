@@ -9,7 +9,7 @@ namespace IsThereAnyNews.Automapper
     using System.Security.Claims;
 
     using AutoMapper;
-
+    using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.EntityFramework.Models.Events;
@@ -20,19 +20,21 @@ namespace IsThereAnyNews.Automapper
     using IsThereAnyNews.ViewModels;
     using IsThereAnyNews.ViewModels.RssChannel;
 
-    public class AutomapperProfiles : Profile
+    public class AutomapperProfiles: Profile
     {
         public AutomapperProfiles()
         {
             var htmlstrip = new HtmlStripper();
             this.CreateMap<ApplicationConfigurationDTO, ItanApplicationConfigurationViewModel>();
+            this.CreateMap<FeedEntries, FeedEntriesViewModel>()
+                .ForMember(d => d.RssEntryViewModels, o => o.MapFrom(s => s.RssEntryDtos));
 
             this.CreateMap<SyndicationItem, SyndicationItemAdapter>()
-              .ForMember(s => s.Id, o => o.MapFrom(s => s.Id))
-              .ForMember(s => s.PublishDate, o => o.MapFrom(s => s.PublishDate.UtcDateTime))
-              .ForMember(s => s.Summary, o => o.ResolveUsing<SyndicationSummaryResolver>())
-              .ForMember(s => s.Title, o => o.MapFrom(s => s.Title.Text))
-              .ForMember(s => s.Url, o => o.ResolveUsing<SyndicationUrlResolver>());
+              .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+              .ForMember(d => d.PublishDate, o => o.MapFrom(s => s.PublishDate.UtcDateTime))
+              .ForMember(d => d.Summary, o => o.ResolveUsing<SyndicationSummaryResolver>())
+              .ForMember(d => d.Title, o => o.MapFrom(s => s.Title.Text))
+              .ForMember(d => d.Url, o => o.ResolveUsing<SyndicationUrlResolver>());
 
             this.CreateMap<RssChannelSubscription, RssChannelSubscriptionViewModel>()
                 .ForMember(d => d.Count, o => o.MapFrom(s => s.RssEntriesToRead.Count(x => !x.IsRead)));

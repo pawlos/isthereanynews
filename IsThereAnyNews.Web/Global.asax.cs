@@ -31,12 +31,7 @@
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             IsThereAnyNewsAutofac.RegisterDependencies();
             IsThereAnyNewsScheduler.ScheduleRssUpdater();
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented,
-                TypeNameHandling = TypeNameHandling.Objects,
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
+            
         }
 #if !DEBUG
         private IEnumerable<Exception> GetAllExceptions(Exception ex)

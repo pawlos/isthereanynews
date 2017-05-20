@@ -12,7 +12,9 @@ namespace IsThereAnyNews.Services
     using AutoMapper;
     using Exceptionless;
     using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Dtos.Feeds;
     using IsThereAnyNews.Infrastructure.Import.Opml;
     using IsThereAnyNews.Infrastructure.Web;
     using IsThereAnyNews.ProjectionModels;
@@ -92,6 +94,12 @@ namespace IsThereAnyNews.Services
             this.entityRepository.ChangeUserLimit(dto.Limit);
         }
 
+        public void UnsubscribeCurrentUserFromChannelId(FeedsPostSubscription model)
+        {
+            var userId = this.infrastructure.GetCurrentUserId();
+            this.entityRepository.DeleteSubscriptionFromUser(model.FeedId, userId);
+        }
+
         public void CreateNewChannelIfNotExists(AddChannelDto dto)
         {
             var idByChannelUrl = this.entityRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
@@ -131,27 +139,11 @@ namespace IsThereAnyNews.Services
             return new ContactViewModel();
         }
 
-        public RssChannelIndexViewModel GetViewModelFormChannelId(long id)
+        public FeedEntriesViewModel GetFeedEntries(FeedsGetEntries model)
         {
-            var rssChannel = this.entityRepository.LoadRssChannel(id);
-            var rssChannelIndexViewModel = this.mapper.Map<RssChannelDTO, RssChannelIndexViewModel>(
-                    rssChannel,
-                    o => o.AfterMap(
-                            (s, d) =>
-                            {
-                                d.Entries = d.Entries.OrderByDescending(item => item.PublicationDate)
-                                             .ToList();
-                            }));
-
-            if(!this.infrastructure.CurrentUserIsAuthenticated())
-            {
-                return rssChannelIndexViewModel;
-            }
-
-            rssChannelIndexViewModel.IsAuthenticatedUser = true;
-            var userRssSubscriptionInfoViewModel = this.CreateUserSubscriptionInfo(id);
-            rssChannelIndexViewModel.SubscriptionInfo = userRssSubscriptionInfoViewModel;
-            return rssChannelIndexViewModel;
+            var feedEntries = this.entityRepository.GetFeedEntries(model.FeedId, model.Skip, model.Take);
+            var feedEntriesViewModel = this.mapper.Map<FeedEntries, FeedEntriesViewModel>(feedEntries);
+            return feedEntriesViewModel;
         }
 
         public void Import(OpmlImporterIndexDto dto)
@@ -183,9 +175,10 @@ namespace IsThereAnyNews.Services
             return items;
         }
 
-        public RssChannelsIndexViewModel LoadAllChannels()
+        public RssChannelsIndexViewModel LoadPublicRssFeeds(FeedsGetPublic input)
         {
-            var allChannels = this.entityRepository.LoadAllChannelsWithStatistics();
+            var currentUserId = this.infrastructure.GetCurrentUserId();
+            var allChannels = this.entityRepository.LoadAllChannelsWithStatistics(currentUserId, input.Skip, input.Take);
             var viewmodel = this.mapper.Map<RssChannelsIndexViewModel>(allChannels);
             return viewmodel;
         }
@@ -230,6 +223,12 @@ namespace IsThereAnyNews.Services
             var currentUserId = this.infrastructure.GetCurrentUserId();
             var viewmodel = provider.GetSubscriptionViewModel(currentUserId, subscriptionId, showReadEntries);
             return viewmodel;
+        }
+
+        public FeedsIndexViewModel LoadPublicFeedsNumbers()
+        {
+            var readNumberOfAllRssFeeds = this.entityRepository.ReadNumberOfAllRssFeeds();
+            return new FeedsIndexViewModel(readNumberOfAllRssFeeds.Count);
         }
 
         public AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile()
@@ -335,6 +334,16 @@ namespace IsThereAnyNews.Services
             }
         }
 
+        public void SubscribeCurrentUserToChannel(FeedsPostSubscription model)
+        {
+            var currentUserId = this.infrastructure.GetCurrentUserId();
+            var isUserSubscribedToChannelUrl = this.entityRepository.IsUserSubscribedToChannelId(currentUserId, model.FeedId);
+            if(!isUserSubscribedToChannelUrl)
+            {
+                this.entityRepository.Subscribe(model.FeedId, currentUserId);
+            }
+        }
+
         public void SaveAdministrationContact(ContactAdministrationDto dto)
         {
             var contactId = this.entityRepository.SaveToDatabase(dto);
@@ -370,14 +379,6 @@ namespace IsThereAnyNews.Services
             identity.AddClaims(claims);
         }
 
-        public void SubscribeCurrentUserToChannel(long channelId)
-        {
-            var currentUserId = this.infrastructure.GetCurrentUserId();
-            var isUserSubscribedToChannelUrl = this.entityRepository.IsUserSubscribedToChannelId(currentUserId, channelId);
-            if(!isUserSubscribedToChannelUrl)
-                this.entityRepository.Subscribe(channelId, currentUserId);
-        }
-
         public void SubscribeCurrentUserToChannel(AddChannelDto channelId)
         {
             var currentUserId = this.infrastructure.GetCurrentUserId();
@@ -394,12 +395,6 @@ namespace IsThereAnyNews.Services
         {
             var currentUserId = this.infrastructure.GetCurrentUserId();
             this.entityRepository.CreateNewSubscription(currentUserId, model.ViewingUserId);
-        }
-
-        public void UnsubscribeCurrentUserFromChannelId(long id)
-        {
-            var userId = this.infrastructure.GetCurrentUserId();
-            this.entityRepository.DeleteSubscriptionFromUser(id, userId);
         }
 
         public void UnsubscribeToUser(SubscribeToUserActivityDto model)

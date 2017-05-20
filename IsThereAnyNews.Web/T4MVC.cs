@@ -114,6 +114,19 @@ internal partial class T4MVC_System_Web_Mvc_ViewResult : System.Web.Mvc.ViewResu
     public string Protocol { get; set; }
     public RouteValueDictionary RouteValueDictionary { get; set; }
 }
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal partial class T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult : IsThereAnyNews.Web.Controllers.JsonNetResult, IT4MVCActionResult
+{
+    public T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult(string area, string controller, string action, string protocol = null): base(default(object))
+    {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
 
 
 
@@ -2898,9 +2911,15 @@ namespace IsThereAnyNews.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Feed()
+        public virtual IsThereAnyNews.Web.Controllers.JsonNetResult Public()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Feed);
+            return new T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult(Area, Name, ActionNames.Public);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual IsThereAnyNews.Web.Controllers.JsonNetResult Entries()
+        {
+            return new T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult(Area, Name, ActionNames.Entries);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -2938,7 +2957,7 @@ namespace IsThereAnyNews.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string Public = "Public";
-            public readonly string Feed = "Feed";
+            public readonly string Entries = "Entries";
             public readonly string SubscribeToChannel = "SubscribeToChannel";
             public readonly string UnsubscribeFromChannel = "UnsubscribeFromChannel";
             public readonly string Add = "Add";
@@ -2950,7 +2969,7 @@ namespace IsThereAnyNews.Web.Controllers
         {
             public const string Index = "Index";
             public const string Public = "Public";
-            public const string Feed = "Feed";
+            public const string Entries = "Entries";
             public const string SubscribeToChannel = "SubscribeToChannel";
             public const string UnsubscribeFromChannel = "UnsubscribeFromChannel";
             public const string Add = "Add";
@@ -2993,49 +3012,50 @@ namespace IsThereAnyNews.Web.Controllers
         }
 
         [NonAction]
-        partial void PublicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void PublicOverride(T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult callInfo, IsThereAnyNews.Dtos.Feeds.FeedsGetPublic input);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Public()
+        public override IsThereAnyNews.Web.Controllers.JsonNetResult Public(IsThereAnyNews.Dtos.Feeds.FeedsGetPublic input)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Public);
-            PublicOverride(callInfo);
+            var callInfo = new T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult(Area, Name, ActionNames.Public);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
+            PublicOverride(callInfo, input);
             return callInfo;
         }
 
         [NonAction]
-        partial void FeedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long id);
+        partial void EntriesOverride(T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult callInfo, IsThereAnyNews.Dtos.Feeds.FeedsGetEntries input);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Feed(long id)
+        public override IsThereAnyNews.Web.Controllers.JsonNetResult Entries(IsThereAnyNews.Dtos.Feeds.FeedsGetEntries input)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Feed);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            FeedOverride(callInfo, id);
+            var callInfo = new T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult(Area, Name, ActionNames.Entries);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
+            EntriesOverride(callInfo, input);
             return callInfo;
         }
 
         [NonAction]
-        partial void SubscribeToChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long channelId);
+        partial void SubscribeToChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.Feeds.FeedsPostSubscription input);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SubscribeToChannel(long channelId)
+        public override System.Web.Mvc.ActionResult SubscribeToChannel(IsThereAnyNews.Dtos.Feeds.FeedsPostSubscription input)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SubscribeToChannel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
-            SubscribeToChannelOverride(callInfo, channelId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
+            SubscribeToChannelOverride(callInfo, input);
             return callInfo;
         }
 
         [NonAction]
-        partial void UnsubscribeFromChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, long channelId);
+        partial void UnsubscribeFromChannelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.Dtos.Feeds.FeedsPostSubscription input);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult UnsubscribeFromChannel(long channelId)
+        public override System.Web.Mvc.ActionResult UnsubscribeFromChannel(IsThereAnyNews.Dtos.Feeds.FeedsPostSubscription input)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnsubscribeFromChannel);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "channelId", channelId);
-            UnsubscribeFromChannelOverride(callInfo, channelId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
+            UnsubscribeFromChannelOverride(callInfo, input);
             return callInfo;
         }
 
@@ -3738,12 +3758,6 @@ namespace IsThereAnyNews.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.MarkAllReadForSubscription);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.HttpStatusCodeResult MarkRssEntryViewed()
-        {
-            return new T4MVC_System_Web_Mvc_HttpStatusCodeResult(Area, Name, ActionNames.MarkRssEntryViewed);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public SubscriptionsController Actions { get { return MVC.Subscriptions; } }
@@ -3763,7 +3777,6 @@ namespace IsThereAnyNews.Web.Controllers
             public readonly string Index = "Index";
             public readonly string MyChannelList = "MyChannelList";
             public readonly string MarkAllReadForSubscription = "MarkAllReadForSubscription";
-            public readonly string MarkRssEntryViewed = "MarkRssEntryViewed";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -3772,7 +3785,6 @@ namespace IsThereAnyNews.Web.Controllers
             public const string Index = "Index";
             public const string MyChannelList = "MyChannelList";
             public const string MarkAllReadForSubscription = "MarkAllReadForSubscription";
-            public const string MarkRssEntryViewed = "MarkRssEntryViewed";
         }
 
 
@@ -3831,8 +3843,6 @@ namespace IsThereAnyNews.Web.Controllers
             return callInfo;
         }
 
-        [NonAction]
-        partial void MarkRssEntryViewedOverride(T4MVC_System_Web_Mvc_HttpStatusCodeResult callInfo, long channelId);
     }
 }
 

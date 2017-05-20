@@ -2,7 +2,7 @@ namespace IsThereAnyNews.DataAccess
 {
     using System;
     using System.Collections.Generic;
-
+    using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
     using IsThereAnyNews.EntityFramework.Models.Events;
@@ -102,7 +102,7 @@ namespace IsThereAnyNews.DataAccess
 
         List<RssChannel> LoadAllChannelsForUser(long userIdToLoad);
 
-        List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics();
+        List<RssChannelSubscriptionWithStatisticsData> LoadAllChannelsWithStatistics(long currentUserId, int skip, int take);
 
         List<RssEntryToReadDTO> LoadAllEntriesFromSubscription(long subscriptionId);
 
@@ -197,5 +197,7 @@ namespace IsThereAnyNews.DataAccess
         void MarkChannelUpdateSkipped(long cui, List<long> entries);
         void MarkChannelCreateClicked(long cui, long id);
         void MarkChannelCreateSkipped(long cui, List<long> entries);
+        FeedEntries GetFeedEntries(long feedId, long skip, long take);
+        NumberOfRssFeeds ReadNumberOfAllRssFeeds();
     }
 }

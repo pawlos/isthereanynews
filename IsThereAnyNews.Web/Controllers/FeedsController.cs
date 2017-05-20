@@ -3,10 +3,11 @@ namespace IsThereAnyNews.Web.Controllers
     using System.Net;
     using System.Web.Mvc;
     using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Dtos.Feeds;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.Web.Interfaces.Services;
 
-    public partial class FeedsController: Controller
+    public partial class FeedsController: Controller 
     {
         private readonly IService service;
 
@@ -18,36 +19,39 @@ namespace IsThereAnyNews.Web.Controllers
         [HttpGet]
         public virtual ActionResult Index()
         {
-            return this.View("Index");
+            var viewmodel = this.service.LoadPublicFeedsNumbers();
+            return this.View("Index", viewmodel);
         }
 
         [HttpGet]
-        public virtual ActionResult Public()
+        public virtual JsonNetResult Public(FeedsGetPublic input)
         {
-            var viewmodel = this.service.LoadAllChannels();
-            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
+            var viewmodel = this.service.LoadPublicRssFeeds(input);
+            var jsonNetResult = new JsonNetResult(viewmodel);
+            return jsonNetResult;
         }
 
         [HttpGet]
-        public virtual ActionResult Feed(long id)
+        public virtual JsonNetResult Entries(FeedsGetEntries input)
         {
-            var viewmodel = this.service.GetViewModelFormChannelId(id);
-            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
+            var viewmodel = this.service.GetFeedEntries(input);
+            var jsonNetResult = new JsonNetResult(viewmodel);
+            return jsonNetResult;
         }
 
         [HttpPost]
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public virtual ActionResult SubscribeToChannel(long channelId)
+        public virtual ActionResult SubscribeToChannel(FeedsPostSubscription input)
         {
-            this.service.SubscribeCurrentUserToChannel(channelId);
+            this.service.SubscribeCurrentUserToChannel(input);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         [HttpPost]
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public virtual ActionResult UnsubscribeFromChannel(long channelId)
+        public virtual ActionResult UnsubscribeFromChannel(FeedsPostSubscription input)
         {
-            this.service.UnsubscribeCurrentUserFromChannelId(channelId);
+            this.service.UnsubscribeCurrentUserFromChannelId(input);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
