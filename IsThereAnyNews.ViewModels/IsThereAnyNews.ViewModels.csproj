@@ -74,6 +74,7 @@
     <Compile Include="AccountDetailsViewModel.cs" />
     <Compile Include="AllUsersPublicProfilesViewModel.cs" />
     <Compile Include="ISubscriptionContentIndexViewModel.cs" />
+    <Compile Include="RssEntryToReadViewModel.cs" />
     <Compile Include="RssEntryViewModel.cs" />
     <Compile Include="Subscriptions\ChannelEventCreationViewModel.cs" />
     <Compile Include="Subscriptions\ChannelEventExceptionViewModel.cs" />
@@ -95,8 +96,6 @@
     <Compile Include="RssChannel\RssChannelsMyViewModel.cs" />
     <Compile Include="Subscriptions\RssChannelSubscriptionViewModel.cs" />
     <Compile Include="RssChannel\RssChannelWithStatisticsViewModel.cs" />
-    <Compile Include="RssEntryToReadViewModel.cs" />
-    <Compile Include="RssSubscriptionIndexViewModel.cs" />
     <Compile Include="SocialLoginViewModel.cs" />
     <Compile Include="UserDetailedPublicProfileViewModel.cs" />
     <Compile Include="UserPublicProfileViewModel.cs" />

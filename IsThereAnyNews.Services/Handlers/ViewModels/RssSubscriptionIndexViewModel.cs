@@ -1,11 +1,10 @@
-﻿using System;
-
-namespace IsThereAnyNews.ViewModels
+﻿namespace IsThereAnyNews.Services.Handlers.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-
     using IsThereAnyNews.SharedData;
+    using IsThereAnyNews.ViewModels;
 
     public class RssSubscriptionIndexViewModel: ISubscriptionContentIndexViewModel
     {

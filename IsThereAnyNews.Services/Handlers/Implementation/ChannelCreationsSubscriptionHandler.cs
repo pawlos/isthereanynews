@@ -36,8 +36,8 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
                     dtos.Select(d =>
                                     new RssEntryToReadViewModel
                                     {
-                                        Id = d.Id,
-                                        IsRead = false,
+                                        //Id = d.Id,
+                                        //IsRead = false,
                                         RssEntryViewModel =
                                                 new RssEntryViewModel
                                                 {

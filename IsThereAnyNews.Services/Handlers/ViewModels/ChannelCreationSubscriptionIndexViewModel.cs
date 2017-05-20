@@ -16,7 +16,7 @@ namespace IsThereAnyNews.Services.Handlers.ViewModels
             this.RssEntryToReadViewModels = rssEntryToReadViewModels;
         }
 
-        public List<long> DisplayedRss => this.RssEntryToReadViewModels.Select(x => x.Id).ToList();
+        public List<long> DisplayedRss => this.RssEntryToReadViewModels.Select(x => x.RssEntryViewModel.Id).ToList();
         public List<RssEntryToReadViewModel> RssEntryToReadViewModels { get; }
         public StreamType StreamType =>StreamType.ChannelCreation;
         public long SubscriptionId { get; }

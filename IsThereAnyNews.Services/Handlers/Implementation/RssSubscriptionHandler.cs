@@ -4,6 +4,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using System.Linq;
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.HtmlStrip;
+    using IsThereAnyNews.Services.Handlers.ViewModels;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
@@ -26,8 +27,8 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
                 .Select(x =>
                     new RssEntryToReadViewModel
                     {
-                        Id = 0,
-                        IsRead = false,
+                        //Id = 0,
+                        //IsRead = false,
                         RssEntryViewModel =
                             new RssEntryViewModel
                             {

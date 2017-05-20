@@ -44,8 +44,8 @@ angular
                     });
             },
             updateSubscriptionStatus: function ($scope, channelId, newstatus) {
-                if ($scope.channel.entries.ChannelId === channelId) {
-                    $scope.channel.entries.SubscriptionInfo.IsSubscribed = newstatus;
+                if ($scope.channel.entries.channelId === channelId) {
+                    $scope.channel.entries.subscriptionInfo.isSubscribed = newstatus;
                 }
             }
         };

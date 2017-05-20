@@ -38,8 +38,8 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
                             s =>
                                 new RssEntryToReadViewModel
                                 {
-                                    Id = s.Id,
-                                    IsRead = false,
+                                    //Id = s.Id,
+                                    //IsRead = false,
                                     RssEntryViewModel =
                                             new RssEntryViewModel
                                             {
