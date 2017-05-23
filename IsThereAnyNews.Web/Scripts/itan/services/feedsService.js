@@ -41,5 +41,11 @@ angular
                     model.currentFeed.isSubscribed = false;
                 });
             },
+            loadMoreFeeds: function (model) {
+                var toSkip = model.feeds.length;
+                var feeds = feedsApi.loadMoreFeeds(toSkip, function (loadedFeeds) {
+                    model.feeds = model.feeds.concat(loadedFeeds.allChannels);
+                });
+            }
         };
     }]);

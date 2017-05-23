@@ -665,7 +665,7 @@
         {
             var channels = this.database
                                .RssChannels
-                               .OrderBy(rssChannel => rssChannel.Created)
+                               .OrderBy(rssChannel => rssChannel.Id )
                                .Skip(skip)
                                .Take(take)
                                .Include(r => r.RssEntries)

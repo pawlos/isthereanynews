@@ -38,7 +38,8 @@ angular
             $scope.buttonSubscriptionClass = function (feed) {
                 return feedsService.buttonSubscriptionClass(feed);
             };
-            $scope.onClickLoadMore = function(){
+            $scope.onClickLoadMore = function () {
+                feedsService.loadMoreFeeds($scope.feedsModel);
             };
             $scope.onSubscribeClick = function (channelId, isSubscribed) {
                 feedsService.onSubscribeClick($scope.feedsModel, channelId, isSubscribed);

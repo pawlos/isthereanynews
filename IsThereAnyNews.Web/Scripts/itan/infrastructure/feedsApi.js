@@ -12,7 +12,7 @@ angular
                         feedId: id
                     }
                 }
-                $http(data).success(function(res){
+                $http(data).success(function (res) {
                     callback(res);
                 });
             },
@@ -41,6 +41,18 @@ angular
                 };
                 $http(httpOptions)
                     .success(callback);
+            },
+            loadMoreFeeds: function (toSkip, callback) {
+                var data = {
+                    url: '/Feeds/Public',
+                    method: 'get',
+                    params: {
+                        skip: toSkip,
+                    }
+                }
+                $http(data).success(function (res) {
+                    callback(res);
+                });
             }
         }
     }]);

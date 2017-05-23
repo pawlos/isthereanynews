@@ -29,8 +29,8 @@
                     </div>
                 </a>
             </div>
-            <div ng-hide="feedsModel.feeds.length<numberOfAllFeeds">
-                    <span ng-click="onClickLoadMore">Load more</span>
+            <div ng-hide="feedsModel.feeds.length>numberOfAllFeeds">
+                    <span ng-click="onClickLoadMore()">Load more feeds</span>
             </div>
         </div>
         <div class="col-sm-8">
