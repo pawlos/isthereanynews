@@ -5,6 +5,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using System.Linq;
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos;
+    using IsThereAnyNews.Dtos.Feeds;
     using IsThereAnyNews.Services.Handlers.ViewModels;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
@@ -18,7 +19,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository = entityRepository;
         }
 
-        public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
+        public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, FeedsGetRead input)
         {
             var loadAllRssEntriesForUserAndChannel = this.LoadExceptionEvents(userId);
             var subscriptionIndexViewModel = new ExceptionSubscriptionIndexViewModel(0,

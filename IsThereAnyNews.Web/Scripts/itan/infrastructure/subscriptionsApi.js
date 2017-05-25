@@ -7,8 +7,19 @@ angular
                     .success(callback);
             },
             onChannelClick: function (streamType, id,callback) {
-                $http.get("/Feeds/ReadAjax?streamType=" + streamType + "&id=" + id)
-                    .success(callback);
+                var data = {
+                    url: '/feeds/ReadAjax',
+                    method: 'get',
+                    params: {
+                        skip: 0,
+                        take: 100,
+                        feedId: id,
+                        streamType:streamType
+                    }
+                }
+                $http(data).success(function (res) {
+                    callback(res);
+                });
             }
     }
 }])

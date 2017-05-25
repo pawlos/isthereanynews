@@ -4,6 +4,7 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using System.Collections.Generic;
     using AutoMapper;
     using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos.Feeds;
     using IsThereAnyNews.ProjectionModels;
     using IsThereAnyNews.Services.Handlers.ViewModels;
     using IsThereAnyNews.SharedData;
@@ -25,13 +26,12 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(
             long userId,
-            long subscriptionId,
-            ShowReadEntries showReadEntries)
+            FeedsGetRead input)
         {
-            if (!this.entityRepository.DoesUserOwnsUserSubscription(subscriptionId, userId))
+            if (!this.entityRepository.DoesUserOwnsUserSubscription(input.FeedId, userId))
             {
                 var rssSubscriptionIndexViewModel = new PersonSubscriptionIndexViewModel(
-                        subscriptionId,
+                        input.FeedId,
                         "You are not subscribed to this user",
                         DateTime.MaxValue,
                         new List<RssEntryToReadViewModel>());
@@ -39,26 +39,26 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             }
 
             List<UserSubscriptionEntryToReadDTO> loadAllUnreadEntriesFromSubscription;
-            if (showReadEntries == ShowReadEntries.Show)
+            if (input.ShowReadEntries == ShowReadEntries.Show)
             {
                 loadAllUnreadEntriesFromSubscription =
-                        this.entityRepository.LoadAllUserEntriesFromSubscription(subscriptionId);
+                        this.entityRepository.LoadAllUserEntriesFromSubscription(input.FeedId);
             }
             else
             {
                 loadAllUnreadEntriesFromSubscription =
-                        this.entityRepository.LoadAllUserUnreadEntriesFromSubscription(subscriptionId);
+                        this.entityRepository.LoadAllUserUnreadEntriesFromSubscription(input.FeedId);
             }
 
-            var channelInformation = this.entityRepository.LoadUserChannelInformation(subscriptionId);
+            var channelInformation = this.entityRepository.LoadUserChannelInformation(input.FeedId);
 
             var rssEntryToReadViewModels =
                     this.mapper.Map<List<UserSubscriptionEntryToReadDTO>, List<RssEntryToReadViewModel>>
                             (loadAllUnreadEntriesFromSubscription);
-            rssEntryToReadViewModels.ForEach(x=>x.RssEntryViewModel.SubscriptionId = subscriptionId);
+            rssEntryToReadViewModels.ForEach(x=>x.RssEntryViewModel.SubscriptionId = input.FeedId);
 
             var viewModel = new PersonSubscriptionIndexViewModel(
-                    subscriptionId,
+                    input.FeedId,
                     channelInformation.Title,
                     channelInformation.Created,
                     rssEntryToReadViewModels);

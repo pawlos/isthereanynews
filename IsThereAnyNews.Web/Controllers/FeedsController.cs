@@ -7,7 +7,7 @@ namespace IsThereAnyNews.Web.Controllers
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.Web.Interfaces.Services;
 
-    public partial class FeedsController: Controller 
+    public partial class FeedsController: Controller
     {
         private readonly IService service;
 
@@ -77,11 +77,13 @@ namespace IsThereAnyNews.Web.Controllers
         }
 
         [HttpGet]
-        public virtual ActionResult ReadAjax(StreamType streamType, long id, ShowReadEntries showReadEntries = ShowReadEntries.Hide)
+        public virtual JsonNetResult ReadAjax(FeedsGetRead input)
         {
-            var entries = this.service.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(streamType, id, showReadEntries);
-            var result = this.Json(entries, JsonRequestBehavior.AllowGet);
+            var entries = this.service.LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(input);
+            var result = new JsonNetResult(entries);
             return result;
         }
     }
+
+   
 }

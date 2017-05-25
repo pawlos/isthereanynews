@@ -24,10 +24,10 @@ namespace IsThereAnyNews.Web.Controllers
 
         [HttpGet]
         [RoleAuthorize(Roles = new[] { ItanRole.User })]
-        public virtual JsonResult MyChannelList()
+        public virtual JsonNetResult MyChannelList()
         {
             var viewmodel = this.service.LoadAllChannelsOfCurrentUser();
-            return this.Json(viewmodel, JsonRequestBehavior.AllowGet);
+            return new JsonNetResult(viewmodel);
         }
 
         [HttpPost]

@@ -2935,9 +2935,9 @@ namespace IsThereAnyNews.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult ReadAjax()
+        public virtual IsThereAnyNews.Web.Controllers.JsonNetResult ReadAjax()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReadAjax);
+            return new T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult(Area, Name, ActionNames.ReadAjax);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -3083,16 +3083,14 @@ namespace IsThereAnyNews.Web.Controllers
         }
 
         [NonAction]
-        partial void ReadAjaxOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, IsThereAnyNews.SharedData.StreamType streamType, long id, IsThereAnyNews.SharedData.ShowReadEntries showReadEntries);
+        partial void ReadAjaxOverride(T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult callInfo, IsThereAnyNews.Dtos.Feeds.FeedsGetRead input);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ReadAjax(IsThereAnyNews.SharedData.StreamType streamType, long id, IsThereAnyNews.SharedData.ShowReadEntries showReadEntries)
+        public override IsThereAnyNews.Web.Controllers.JsonNetResult ReadAjax(IsThereAnyNews.Dtos.Feeds.FeedsGetRead input)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReadAjax);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "streamType", streamType);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "showReadEntries", showReadEntries);
-            ReadAjaxOverride(callInfo, streamType, id, showReadEntries);
+            var callInfo = new T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult(Area, Name, ActionNames.ReadAjax);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
+            ReadAjaxOverride(callInfo, input);
             return callInfo;
         }
 
@@ -3821,12 +3819,12 @@ namespace IsThereAnyNews.Web.Controllers
         }
 
         [NonAction]
-        partial void MyChannelListOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+        partial void MyChannelListOverride(T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.JsonResult MyChannelList()
+        public override IsThereAnyNews.Web.Controllers.JsonNetResult MyChannelList()
         {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.MyChannelList);
+            var callInfo = new T4MVC_IsThereAnyNews_Web_Controllers_JsonNetResult(Area, Name, ActionNames.MyChannelList);
             MyChannelListOverride(callInfo);
             return callInfo;
         }

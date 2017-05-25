@@ -1,45 +1,46 @@
 angular
     .module("itan")
-    .factory("entriesService", ['entriesApi',function (entriesApi) {
+    .factory("entriesService", ['entriesApi', function (entriesApi) {
         return {
-        markEntriesRead:function($scope,entries) {
-            entriesApi.markEntriesRead(entries.StreamType,entries.DisplayedRss,entries.SubscriptionId,function(){
-                    $scope.channels.current.Count = 0;
-                    $scope.channel.entries.RssEntryToReadViewModels = [];
+            markEntriesRead: function (model, entries) {
+                entriesApi.markEntriesRead(entries.streamType, entries.displayedRss, entries.subscriptionId, function () {
+                    model.channels.current.count = 0;
+                    model.channel.entries.rssEntryToReadViewModels = [];
                 });
-        },
-        markReadWithEvent:function ($scope, streamType, item) {
-            if (!item.IsRead) {
-                entriesApi.markReadWithEvent(streamType,item.RssEntryViewModel.Id,item.RssEntryViewModel.SubscriptionId,
-                function(){
-                        if (!item.IsRead) {
-                            $scope.channels.current.Count--;
-                        }
-                        item.IsRead = true;
-                    });
+            },
+            markReadWithEvent: function (model, streamType, item) {
+                if (!item.isRead) {
+                    entriesApi.markReadWithEvent(streamType, item.rssEntryViewModel.id, item.rssEntryViewModel.subscriptionId,
+                        function () {
+                            if (!item.isRead) {
+                                model.channels.current.count--;
+                            }
+                            item.isRead = true;
+                        });
+                }
+            },
+            onArticleBodyClicked: function (streamType, item) {
+                entriesApi.onArticleBodyClicked(streamType, item.rssEntryViewModel.id, item.rssEntryViewModel.subscriptionId, function () {
+                    window.open(item.rssEntryViewModel.url, "_blank");
+                });
+            },
+            onThumbsUpClicked: function ($http, streamType, id) {
+                entriesApi.onThumbsUpClicked(id, function () {});
+            },
+            onThumbsDownClick: function ($http, streamType, id) {
+                entriesApi.onThumbsDownClick(id, function () {});
+            },
+            onMarkUnreadClicked: function ($http, streamType, id) {
+                entriesApi.onMarkUnreadClicked(id, function () {});
+            },
+            onShareClicked: function ($http, streamType, id) {
+                entriesApi.onShareClicked(id, function () {});
+            },
+            onCommentsClicked: function ($http, streamType, id) {
+                entriesApi.onCommentsClicked(id, function () {});
+            },
+            onReadLaterClicked: function ($http, streamType, id) {
+                entriesApi.onReadLaterClicked(id, function () {});
             }
-        },
-        onArticleBodyClicked:function (streamType, item) {
-            entriesApi.onArticleBodyClicked(streamType, item.RssEntryViewModel.Id, item.RssEntryViewModel.SubscriptionId, function(){
-                window.open(item.RssEntryViewModel.Url, "_blank");
-            });
-        },
-        onThumbsUpClicked:function ($http, streamType, id) {
-            entriesApi.onThumbsUpClicked(id, function(){});
-        },
-        onThumbsDownClick:function ($http, streamType, id) {
-            entriesApi.onThumbsDownClick(id, function(){});
-        },
-        onMarkUnreadClicked:function ($http, streamType, id) {
-            entriesApi.onMarkUnreadClicked(id, function(){});
-        },
-        onShareClicked:function ($http, streamType, id) {
-            entriesApi.onShareClicked(id, function(){});
-        },
-        onCommentsClicked:function ($http, streamType, id) {
-            entriesApi.onCommentsClicked(id, function(){});
-        },
-        onReadLaterClicked:function ($http, streamType, id) {
-            entriesApi.onReadLaterClicked(id, function(){});
         }
-    }}]);
+    }]);

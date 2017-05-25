@@ -981,7 +981,7 @@ order by Updated";
             return nameAndCountUserSubscriptions;
         }
 
-        public List<RssEntryDTO> LoadRss(long subscriptionId, long userId)
+        public List<RssEntryDTO> LoadRss(long subscriptionId, long userId, int skip, int take)
         {
             string sql = "SELECT RE.Title,\n"
                          + "       RE.PublicationDate,\n"
@@ -991,14 +991,17 @@ order by Updated";
                          + "FROM dbo.RssEntries AS re\n"
                          + "     JOIN dbo.RssChannelSubscriptions AS rcs ON re.RssChannelId = rcs.RssChannelId\n"
                          + "WHERE re.Id NOT IN\n"
-                         + "(\n"
+                         + "(\n" 
                          + "    SELECT retr.RssEntryId\n"
                          + "    FROM dbo.RssChannelSubscriptions AS rcs\n"
                          + "         JOIN dbo.RssEntriesToRead AS retr ON retr.RssChannelSubscriptionId = rcs.Id\n"
                          + $"    WHERE rcs.UserId = {userId}\n"
                          + $"          AND rcs.id = {subscriptionId}\n"
                          + ")\n"
-                         + $"    AND rcs.id = {subscriptionId};";
+                         + $"    AND rcs.id = {subscriptionId}\n"
+                         + "     ORDER BY RE.Id\n"
+                         + $"    OFFSET {skip} row\n"
+                         + $"    FETCH NEXT {take} rows only\n";
 
             var rssEntryToReadDtos = this.database.Database.SqlQuery<RssEntryDTO>(sql).ToList();
             return rssEntryToReadDtos;
@@ -1605,3 +1608,4 @@ order by Updated";
         }
     }
 }
+ 

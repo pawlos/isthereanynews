@@ -217,11 +217,11 @@ namespace IsThereAnyNews.Services
             return list;
         }
 
-        public ISubscriptionContentIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long subscriptionId, ShowReadEntries showReadEntries)
+        public ISubscriptionContentIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(FeedsGetRead input)
         {
-            var provider = this.subscriptionHandlerFactory.GetProvider(streamType);
+            var provider = this.subscriptionHandlerFactory.GetProvider(input.StreamType);
             var currentUserId = this.infrastructure.GetCurrentUserId();
-            var viewmodel = provider.GetSubscriptionViewModel(currentUserId, subscriptionId, showReadEntries);
+            var viewmodel = provider.GetSubscriptionViewModel(currentUserId, input);
             return viewmodel;
         }
 

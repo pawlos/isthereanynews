@@ -3,12 +3,13 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using System.Collections.Generic;
     using System.Linq;
     using IsThereAnyNews.DataAccess;
+    using IsThereAnyNews.Dtos.Feeds;
     using IsThereAnyNews.HtmlStrip;
     using IsThereAnyNews.Services.Handlers.ViewModels;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
-    public class RssSubscriptionHandler : ISubscriptionHandler
+    public class RssSubscriptionHandler: ISubscriptionHandler
     {
         private readonly IEntityRepository entityRepository;
 
@@ -20,9 +21,9 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository = entityRepository;
         }
 
-        public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, long subscriptionId, ShowReadEntries showReadEntries)
+        public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, FeedsGetRead input)
         {
-            var rssEntryToReadDtos = this.entityRepository.LoadRss(subscriptionId, userId);
+            var rssEntryToReadDtos = this.entityRepository.LoadRss(input.FeedId, userId, input.Skip, input.Take);
             var rssEntryToReadViewModels = rssEntryToReadDtos.OrderByDescending(o => o.PublicationDate)
                 .Select(x =>
                     new RssEntryToReadViewModel
@@ -37,12 +38,12 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
                                 PreviewText = this.htmlStripper.GetContentOnly(x.PreviewText),
                                 PublicationDate = x.PublicationDate,
                                 Url = x.Url,
-                                SubscriptionId = subscriptionId
+                                SubscriptionId = input.FeedId
                             }
                     })
                 .ToList();
-            var rssChannelInformationDto = this.entityRepository.LoadChannelChannelInformation(subscriptionId);
-            var viewModel = new RssSubscriptionIndexViewModel(subscriptionId,
+            var rssChannelInformationDto = this.entityRepository.LoadChannelChannelInformation(input.FeedId);
+            var viewModel = new RssSubscriptionIndexViewModel(input.FeedId,
                 rssChannelInformationDto.Title,
                 rssChannelInformationDto.Created,
                 rssEntryToReadViewModels);

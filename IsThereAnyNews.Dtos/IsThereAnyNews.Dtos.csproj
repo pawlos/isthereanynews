@@ -53,6 +53,7 @@
     <Compile Include="ExceptionEventDto.cs" />
     <Compile Include="Feeds\FeedsGetEntries.cs" />
     <Compile Include="Feeds\FeedsGetPublic.cs" />
+    <Compile Include="Feeds\FeedsGetRead.cs" />
     <Compile Include="Feeds\FeedsPostSubscription.cs" />
     <Compile Include="MarkClickedDto.cs" />
     <Compile Include="MarkReadDto.cs" />

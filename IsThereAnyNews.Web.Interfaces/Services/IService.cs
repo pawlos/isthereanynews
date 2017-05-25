@@ -47,7 +47,7 @@ namespace IsThereAnyNews.Web.Interfaces.Services
         void RegisterIfNewUser(ClaimsIdentity identity);
         void SubscribeCurrentUserToChannel(FeedsPostSubscription model);
         void SubscribeCurrentUserToChannel(AddChannelDto channelId);
-        ISubscriptionContentIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(StreamType streamType, long id, ShowReadEntries showReadEntries);
+        ISubscriptionContentIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(FeedsGetRead input);
         FeedsIndexViewModel LoadPublicFeedsNumbers();
     }
 }
