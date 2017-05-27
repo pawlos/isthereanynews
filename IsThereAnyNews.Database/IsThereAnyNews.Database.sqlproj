@@ -212,4 +212,7 @@
   <ItemGroup>
     <RefactorLog Include="IsThereAnyNews.Database.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="localdeploy_ok_to_drop.publish.xml" />
+  </ItemGroup>
 </Project>

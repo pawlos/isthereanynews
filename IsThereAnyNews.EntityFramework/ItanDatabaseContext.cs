@@ -47,6 +47,8 @@
                         .ToTable("EventRssChannelUpdateToRead");
             modelBuilder.Entity<EventRssChannelCreatedToRead>()
                         .ToTable("EventRssChannelCreatedsToRead");
+            modelBuilder.Entity<RssChannel>()
+                        .ToTable("RssChannels");
         }
 
         public override int SaveChanges()

@@ -4,7 +4,7 @@
 
 @section scripts
 {
-<script src="~/Scripts/itan/infrastructure/entriesApi.js"></script>
+    <script src="~/Scripts/itan/infrastructure/entriesApi.js"></script>
     <script src="~/Scripts/itan/infrastructure/subscriptionsApi.js"></script>
     <script src="~/Scripts/itan/infrastructure/feedsApi.js"></script>
     <script src="~/Scripts/itan/services/entriesService.js"></script>
@@ -111,13 +111,13 @@
                                 </div>
                             </div>
                             <a href="#" ng-click="loadMoreEntries()"
-                                 ng-show="subscriptionModel.channel.entries.rssEntryToReadViewModels.length<subscriptionModel.channels.current.count">
-                                <i style="color: green" 
+                               ng-show="subscriptionModel.channel.entries.rssEntryToReadViewModels.length<subscriptionModel.channels.current.count">
+                                <i style="color: green"
                                    class="fa fa-caret-right" aria-hidden="true"></i>
-                                    Click to read more
-                                <i style="color: green"  
+                                Click to read more
+                                <i style="color: green"
                                    class="fa fa-caret-left" aria-hidden="true"></i>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>

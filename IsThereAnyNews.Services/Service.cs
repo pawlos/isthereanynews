@@ -58,7 +58,8 @@ namespace IsThereAnyNews.Services
             var loadUrlsForAllChannels = this.entityRepository.LoadUrlsForAllChannels();
             var channelsNewToGlobalSpace = channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant()))
                                                       .ToList();
-            this.entityRepository.SaveToDatabase(channelsNewToGlobalSpace);
+            var cui = this.infrastructure.GetCurrentUserId();
+            this.entityRepository.SaveToDatabase(cui,channelsNewToGlobalSpace);
         }
 
         public void AddToReadLaterQueueForCurrentUser(RssActionModel model)
@@ -466,15 +467,18 @@ namespace IsThereAnyNews.Services
 
         private void CreateNewChannel(AddChannelDto dto)
         {
-            var rssSourceWithUrlAndTitles = new List<RssSourceWithUrlAndTitle> { new RssSourceWithUrlAndTitle(dto.RssChannelLink, dto.RssChannelName) };
-            this.entityRepository.SaveToDatabase(rssSourceWithUrlAndTitles);
-            var urlsToChannels = new List<string> { dto.RssChannelLink };
+            var rssSourceWithUrlAndTitles =
+                    new List<RssSourceWithUrlAndTitle>
+                    {
+                        new RssSourceWithUrlAndTitle(dto.RssChannelLink, dto.RssChannelName)
+                    };
+            var cui = this.infrastructure.GetCurrentUserId();
+            this.entityRepository.SaveToDatabase(cui, rssSourceWithUrlAndTitles);
+            var urlsToChannels = new List<string> {dto.RssChannelLink};
             var listIds = this.entityRepository.GetIdByChannelUrl(urlsToChannels);
             var id = listIds.Single();
             this.entityRepository.SaveChannelCreatedEventToDatabase(id);
         }
-
-
 
         private AuthenticationTypeProvider GetUserAuthenticationProviderFromAuthentication(ClaimsIdentity identity)
         {

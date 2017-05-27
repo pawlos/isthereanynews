@@ -32,7 +32,7 @@ namespace IsThereAnyNews.DataAccess
 
         void AssignUserRole(long currentUserId);
 
-        void Blah();
+        //void Blah();
 
         bool CanRegisterWithinLimits();
 
@@ -161,7 +161,7 @@ namespace IsThereAnyNews.DataAccess
 
         void SaveEvent(long eventRssChannelUpdated);
 
-        void SaveToDatabase(List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace);
+        void SaveToDatabase(long newToGlobalSpace, List<RssSourceWithUrlAndTitle> channelsNewToGlobalSpace);
         void SaveToDatabase(List<NewRssEntryDTO> rssEntriesList);
         void SaveToDatabase(SocialLogin socialLogin);
         void SaveToDatabase(List<RssChannelSubscription> rssChannelSubscriptions);
