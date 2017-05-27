@@ -110,9 +110,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div ng-click="loadMoreEntries()"
+                            <a href="#" ng-click="loadMoreEntries()"
                                  ng-show="subscriptionModel.channel.entries.rssEntryToReadViewModels.length<subscriptionModel.channels.current.count">
-                                Click to read more
+                                <i style="color: green" 
+                                   class="fa fa-caret-right" aria-hidden="true"></i>
+                                    Click to read more
+                                <i style="color: green"  
+                                   class="fa fa-caret-left" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
