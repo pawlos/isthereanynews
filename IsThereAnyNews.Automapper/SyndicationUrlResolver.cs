@@ -16,14 +16,14 @@
             string destMember,
             ResolutionContext context)
         {
-            if (source.BaseUri != null && !string.IsNullOrWhiteSpace(source.BaseUri.ToString()))
-            {
-                return source.BaseUri.ToString();
-            }
-
             if (source.Links != null && source.Links.Any(x=>x.RelationshipType == "alternate"))
             {
                 return source.Links.First(x=>x.RelationshipType== "alternate").Uri.ToString();
+            }
+
+            if(source.BaseUri != null && !string.IsNullOrWhiteSpace(source.BaseUri.ToString()))
+            {
+                return source.BaseUri.ToString();
             }
 
             if(source.Links != null && source.Links.Any())
