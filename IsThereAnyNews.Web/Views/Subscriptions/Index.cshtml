@@ -27,12 +27,12 @@
                     <div class="fa-4x fa fa-spinner fa-spin"></div>
                 </div>
                 <div ng-show="subscriptionModel.channels.loaded">
-                    <a ng-repeat="channel in subscriptionModel.channels.list.channelsSubscriptions"
+                    <a ng-repeat="channel in subscriptionModel.channels.list.subscriptionViewModels"
                        ng-if="showAllChannels || channel.Count!=0"
                        class="btn btn-default btn-xs full-width border-less text-left"
                        ng-class="isCurrent(channel)"
                        ng-click="onChannelClick(channel)">
-                        <i class="fa {{channel.IconType}} left"></i>
+                        <i class="fa {{channel.iconType}} left"></i>
                         {{channel.name}} ({{channel.count}})
                     </a>
                 </div>
