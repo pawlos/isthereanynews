@@ -10,7 +10,8 @@ namespace IsThereAnyNews.EntityFramework.Models.Events
         public DateTime Created { get; set; }
 
         public long RssChannelId { get; set; }
-
         public RssChannel RssChannel { get; set; }
+
+        public long SubmitterId { get; set; }
     }
 }

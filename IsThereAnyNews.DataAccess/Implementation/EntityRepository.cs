@@ -665,20 +665,20 @@
         {
             var channels = this.database
                                .RssChannels
-                               .OrderBy(rssChannel => rssChannel.Id )
+                               .OrderBy(rssChannel => rssChannel.Id)
                                .Skip(skip)
                                .Take(take)
                                .Include(r => r.RssEntries)
                                .Include(r => r.Subscriptions);
             var rssChannelSubscriptionWithStatisticsDatas = channels
                     .Select(c => new RssChannelSubscriptionWithStatisticsData
-                                 {
-                                     Created = c.Created,
-                                     Id = c.Id,
-                                     Title = c.Title,
-                                     RssEntriesCount = c.RssEntries.Count,
-                                     IsSubscribed = c.Subscriptions.Select(s=>s.UserId).Contains(currentUserId)
-                                 })
+                    {
+                        Created = c.Created,
+                        Id = c.Id,
+                        Title = c.Title,
+                        RssEntriesCount = c.RssEntries.Count,
+                        IsSubscribed = c.Subscriptions.Select(s => s.UserId).Contains(currentUserId)
+                    })
                     .ToList();
             return rssChannelSubscriptionWithStatisticsDatas;
         }
@@ -991,7 +991,7 @@ order by Updated";
                          + "FROM dbo.RssEntries AS re\n"
                          + "     JOIN dbo.RssChannelSubscriptions AS rcs ON re.RssChannelId = rcs.RssChannelId\n"
                          + "WHERE re.Id NOT IN\n"
-                         + "(\n" 
+                         + "(\n"
                          + "    SELECT retr.RssEntryId\n"
                          + "    FROM dbo.RssChannelSubscriptions AS rcs\n"
                          + "         JOIN dbo.RssEntriesToRead AS retr ON retr.RssChannelSubscriptionId = rcs.Id\n"
@@ -1106,8 +1106,8 @@ order by Updated";
         {
             var rssEntryDtos = this.database.RssEntries.Where(e => e.RssChannelId == feedId)
                                    .OrderBy(e => e.PublicationDate)
-                                   .Skip((int) skip)
-                                   .Take((int) take)
+                                   .Skip((int)skip)
+                                   .Take((int)take)
                                    .Select(e =>
                                                new RssEntryDTO
                                                {
@@ -1267,9 +1267,9 @@ order by Updated";
             this.database.SaveChanges();
         }
 
-        public void SaveChannelCreatedEventToDatabase(long eventRssChannelCreated)
+        public void SaveChannelCreatedEventToDatabase(long submitterId, long eventRssChannelCreated)
         {
-            var rssChannelCreated = new EventRssChannelCreated { RssChannelId = eventRssChannelCreated };
+            var rssChannelCreated = new EventRssChannelCreated { RssChannelId = eventRssChannelCreated, SubmitterId = submitterId };
             this.database.EventRssChannelCreated.Add(rssChannelCreated);
             this.database.SaveChanges();
         }
@@ -1608,4 +1608,3 @@ order by Updated";
         }
     }
 }
- 

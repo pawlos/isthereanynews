@@ -477,7 +477,7 @@ namespace IsThereAnyNews.Services
             var urlsToChannels = new List<string> {dto.RssChannelLink};
             var listIds = this.entityRepository.GetIdByChannelUrl(urlsToChannels);
             var id = listIds.Single();
-            this.entityRepository.SaveChannelCreatedEventToDatabase(id);
+            this.entityRepository.SaveChannelCreatedEventToDatabase(cui, id);
         }
 
         private AuthenticationTypeProvider GetUserAuthenticationProviderFromAuthentication(ClaimsIdentity identity)

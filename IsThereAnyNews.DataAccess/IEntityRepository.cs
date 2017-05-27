@@ -153,7 +153,7 @@ namespace IsThereAnyNews.DataAccess
 
         void MarkRssEntriesSkipped(long subscriptionId, List<long> ids);
 
-        void SaveChannelCreatedEventToDatabase(long eventRssChannelCreated);
+        void SaveChannelCreatedEventToDatabase(long rssChannelCreated, long eventRssChannelCreated);
 
         void SaveContactAdministrationEventEventToDatabase(long contactId);
 
