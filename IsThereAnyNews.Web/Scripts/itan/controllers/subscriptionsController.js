@@ -24,6 +24,9 @@ angular
                         });
                 });
             };
+            $scope.loadMoreEntries=function(){
+                subscriptionsService.loadMoreEntries($scope.subscriptionModel)
+            };
             $scope.markEntriesRead = function (entries) {
                 entriesService.markEntriesRead($scope.subscriptionModel, entries);
             };

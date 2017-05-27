@@ -84,6 +84,4 @@ namespace IsThereAnyNews.Web.Controllers
             return result;
         }
     }
-
-   
 }

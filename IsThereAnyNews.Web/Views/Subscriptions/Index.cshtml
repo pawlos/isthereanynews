@@ -110,6 +110,10 @@
                                     </div>
                                 </div>
                             </div>
+                            <div ng-click="loadMoreEntries()"
+                                 ng-show="subscriptionModel.channel.entries.rssEntryToReadViewModels.length<subscriptionModel.channels.current.count">
+                                Click to read more
+                            </div>
                         </div>
                     </div>
                 </div>
