@@ -21,10 +21,16 @@
                 return source.BaseUri.ToString();
             }
 
-            if (source.Links != null && source.Links.Any())
+            if (source.Links != null && source.Links.Any(x=>x.RelationshipType == "alternate"))
+            {
+                return source.Links.First(x=>x.RelationshipType== "alternate").Uri.ToString();
+            }
+
+            if(source.Links != null && source.Links.Any())
             {
                 return source.Links.First().Uri.ToString();
             }
+
 
             throw new Exception("No link found");
         }
