@@ -5,6 +5,7 @@
     [Title]              NVARCHAR (MAX)     NULL,
     [Url]                NVARCHAR (MAX)     NULL,
     [RssLastUpdatedTime] DATETIMEOFFSET (7) NOT NULL,
+    [SubmitterId] BIGINT NOT NULL DEFAULT 0, 
     CONSTRAINT [PK_dbo.RssChannels] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
