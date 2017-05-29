@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.RssChannelUp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Extensions", "IsThereAnyNews.Extensions\IsThereAnyNews.Extensions.csproj", "{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{555341E8-1C68-4E5F-A646-0D90E0CC2F76}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Services.Tests", "tests\IsThereAnyNews.Services.Tests\IsThereAnyNews.Services.Tests.csproj", "{85BA6BC3-23D8-4A94-AA90-2E417B1A3DE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Automapper", "IsThereAnyNews.Automapper\IsThereAnyNews.Automapper.csproj", "{B24157E9-5C64-46D3-A7EF-A603969BCC76}"
