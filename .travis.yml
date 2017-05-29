@@ -1,2 +1,3 @@
 language: csharp
 solution: Itan-travis.sln
+mono:none
