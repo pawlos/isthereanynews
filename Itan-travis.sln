@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.RssChannelUp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Extensions", "IsThereAnyNews.Extensions\IsThereAnyNews.Extensions.csproj", "{0651CE64-06F8-466C-8B8F-A5C09D2E4EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Services.Tests", "tests\IsThereAnyNews.Services.Tests\IsThereAnyNews.Services.Tests.csproj", "{85BA6BC3-23D8-4A94-AA90-2E417B1A3DE0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Automapper", "IsThereAnyNews.Automapper\IsThereAnyNews.Automapper.csproj", "{B24157E9-5C64-46D3-A7EF-A603969BCC76}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Web", "IsThereAnyNews.Web\IsThereAnyNews.Web.csproj", "{251B3684-BCAF-49B0-AF76-E2C62A68B2AA}"
@@ -30,8 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.HtmlStrip", "IsThereAnyNews.HtmlStrip\IsThereAnyNews.HtmlStrip.csproj", "{25C15560-5C76-4AB2-9B0C-AABF93F6318A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.ProjectionModels", "IsThereAnyNews.ProjectionModels\IsThereAnyNews.ProjectionModels.csproj", "{F34CB611-4687-4B21-AEA9-3E62C1898E68}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Services.TestSupport", "IsThereAnyNews.Services.TestSupport\IsThereAnyNews.Services.TestSupport.csproj", "{B18E2BFC-EB68-466B-809B-7A2485FAD261}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IsThereAnyNews.Infrastructure", "IsThereAnyNews.Infrastructure\IsThereAnyNews.Infrastructure.csproj", "{93A4AE8C-DFB5-4A54-9D8A-904D761A3B1D}"
 EndProject
