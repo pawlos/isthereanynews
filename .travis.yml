@@ -1,2 +1,2 @@
 language: csharp
-solution: Itan.sln
+solution: Itan-travis.sln
