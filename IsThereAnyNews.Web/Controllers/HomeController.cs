@@ -9,7 +9,5 @@
         {
             return this.View("Index");
         }
-
-       
     }
 }

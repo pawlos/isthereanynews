@@ -2,12 +2,13 @@ namespace IsThereAnyNews.Web.Controllers
 {
     using System.Net;
     using System.Web.Mvc;
+
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Dtos.Feeds;
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.Web.Interfaces.Services;
 
-    public partial class FeedsController: Controller
+    public partial class FeedsController : Controller
     {
         private readonly IService service;
 

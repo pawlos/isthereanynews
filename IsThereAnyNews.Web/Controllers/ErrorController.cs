@@ -2,7 +2,7 @@ namespace IsThereAnyNews.Web.Controllers
 {
     using System.Web.Mvc;
 
-    public partial class ErrorController: Controller
+    public partial class ErrorController : Controller
     {
         [PreventDirectAccess]
         public virtual ActionResult AccessDenied()
@@ -27,8 +27,7 @@ namespace IsThereAnyNews.Web.Controllers
             return this.View("Execute");
         }
 
-        private class PreventDirectAccessAttribute: FilterAttribute,
-                                                     IAuthorizationFilter
+        private class PreventDirectAccessAttribute : FilterAttribute, IAuthorizationFilter
         {
             public void OnAuthorization(AuthorizationContext filterContext)
             {

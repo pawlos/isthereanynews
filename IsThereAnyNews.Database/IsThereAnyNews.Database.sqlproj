@@ -195,10 +195,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="Security\itan-full-dbo.sql" />
-    <Build Include="Security\itan-full-dbo_1.sql" />
-    <Build Include="Security\RoleMemberships.sql" />
-    <Build Include="Security\Permissions.sql" />
     <Build Include="dbo\Tables\ItanExceptionsToRead.sql" />
     <Build Include="dbo\Tables\EventRssChannelUpdateToRead.sql" />
     <Build Include="dbo\Tables\EventRssChannelCreatedsToRead.sql">

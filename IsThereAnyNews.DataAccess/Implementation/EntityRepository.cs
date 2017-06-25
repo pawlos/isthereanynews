@@ -389,36 +389,22 @@
         public void CopyAllUnreadElementsToUser(long currentUserId)
         {
             var observedUsersId = this.database.UsersSubscriptions.Where(x => x.FollowerId == currentUserId).ToList();
-
             var currentUserObservedUsersIds = observedUsersId.Select(x => x.ObservedId).ToList();
-
             var lastReadTime = this.database.Users.Single(x => x.Id == currentUserId).LastReadTime;
-
-            var eventRssUserInteractions =
-                this.database.EventsRssUserInteraction.Where(x => currentUserObservedUsersIds.Contains(x.UserId))
-                    .Where(x => x.Created >= lastReadTime)
-                    .ToList();
-
+            var eventRssUserInteractions = this.database.EventsRssUserInteraction.Where(x => currentUserObservedUsersIds.Contains(x.UserId)).Where(x => x.Created >= lastReadTime).ToList();
             foreach(var userInteraction in eventRssUserInteractions)
             {
                 var userSubscriptionEntryToRead = new UserSubscriptionEntryToRead
                 {
-                    EventRssUserInteractionId =
-                        userInteraction.Id,
-                    UserSubscriptionId =
-                        observedUsersId.Single(
-                            o =>
-                                o.ObservedId
-                                == userInteraction
-                                    .UserId).Id
+                    EventRssUserInteractionId = userInteraction.Id,
+                    UserSubscriptionId = observedUsersId.Single(o => o.ObservedId == userInteraction.UserId).Id
                 };
                 this.database.UsersSubscriptionsToRead.Add(userSubscriptionEntryToRead);
             }
-
             this.database.SaveChanges();
         }
 
-        public void CreateNewSociaLogin(
+        public void CreateNewSocialLogin(
             string identifierValue,
             AuthenticationTypeProvider authenticationTypeProvider,
             long newUserId)
@@ -1105,20 +1091,15 @@ order by Updated";
         public FeedEntries GetFeedEntries(long feedId, long skip, long take)
         {
             var rssEntryDtos = this.database.RssEntries.Where(e => e.RssChannelId == feedId)
-                                   .OrderBy(e => e.PublicationDate)
-                                   .Skip((int)skip)
-                                   .Take((int)take)
-                                   .Select(e =>
-                                               new RssEntryDTO
-                                               {
-                                                   Id = e.Id,
-                                                   PreviewText = e.PreviewText,
-                                                   PublicationDate = e.Created,
-                                                   Title = e.Title,
-                                                   Url = e.Url
-                                               }
-                                   )
-                                   .ToList();
+                .OrderBy(e => e.PublicationDate).Skip((int)skip).Take((int)take).Select(
+                    e => new RssEntryDTO
+                             {
+                                 Id = e.Id,
+                                 PreviewText = e.PreviewText,
+                                 PublicationDate = e.Created,
+                                 Title = e.Title,
+                                 Url = e.Url
+                             }).ToList();
             var feedEntries = new FeedEntries(rssEntryDtos);
             return feedEntries;
         }

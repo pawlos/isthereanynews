@@ -9,6 +9,7 @@ namespace IsThereAnyNews.Automapper
     using System.Security.Claims;
 
     using AutoMapper;
+
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.EntityFramework.Models.Entities;
@@ -20,7 +21,7 @@ namespace IsThereAnyNews.Automapper
     using IsThereAnyNews.ViewModels;
     using IsThereAnyNews.ViewModels.RssChannel;
 
-    public class AutomapperProfiles: Profile
+    public class AutomapperProfiles : Profile
     {
         public AutomapperProfiles()
         {
@@ -30,11 +31,11 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.RssEntryViewModels, o => o.MapFrom(s => s.RssEntryDtos));
 
             this.CreateMap<SyndicationItem, SyndicationItemAdapter>()
-              .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
-              .ForMember(d => d.PublishDate, o => o.MapFrom(s => s.PublishDate.UtcDateTime))
-              .ForMember(d => d.Summary, o => o.ResolveUsing<SyndicationSummaryResolver>())
-              .ForMember(d => d.Title, o => o.MapFrom(s => s.Title.Text))
-              .ForMember(d => d.Url, o => o.ResolveUsing<SyndicationUrlResolver>());
+                .ForMember(d => d.Id, o => o.MapFrom(s => s.Id))
+                .ForMember(d => d.PublishDate, o => o.MapFrom(s => s.PublishDate.UtcDateTime))
+                .ForMember(d => d.Summary, o => o.ResolveUsing<SyndicationSummaryResolver>())
+                .ForMember(d => d.Title, o => o.MapFrom(s => s.Title.Text))
+                .ForMember(d => d.Url, o => o.ResolveUsing<SyndicationUrlResolver>());
 
             this.CreateMap<RssChannelSubscription, RssChannelSubscriptionViewModel>()
                 .ForMember(d => d.Count, o => o.MapFrom(s => s.RssEntriesToRead.Count(x => !x.IsRead)));
@@ -89,7 +90,7 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.Id, o => o.MapFrom(s => s.UserId));
 
             this.CreateMap<RssChannelSubscription, PublicProfileChannelInformation>()
-               .ForMember(d => d.Name, o => o.MapFrom(s => s.Title));
+                .ForMember(d => d.Name, o => o.MapFrom(s => s.Title));
 
             this.CreateMap<EventRssUserInteraction, EventRssViewedViewModel>()
                 .ForMember(d => d.Title, o => o.MapFrom(s => s.RssEntry.Title))
@@ -121,7 +122,7 @@ namespace IsThereAnyNews.Automapper
                 .ForMember(d => d.RssEntryViewModel, o => o.MapFrom(s => s.RssEntryDto));
 
             this.CreateMap<RssEntryDTO, RssEntryViewModel>()
-               .ForMember(d => d.PreviewText, o => o.MapFrom(s => htmlstrip.GetContentOnly(s.PreviewText)));
+                .ForMember(d => d.PreviewText, o => o.MapFrom(s => htmlstrip.GetContentOnly(s.PreviewText)));
 
             this.CreateMap<UserSubscriptionEntryToRead, UserSubscriptionEntryToReadDTO>();
             this.CreateMap<RssChannel, RssChannelForUpdateDTO>();

@@ -16,7 +16,9 @@ namespace IsThereAnyNews.Automapper
             DateTime destMember,
             ResolutionContext context)
         {
-            return source.Updates.OrderByDescending(o => o.Created).FirstOrDefault()?.Created ?? DateTime.MinValue;
+            return source.Updates.OrderByDescending(o => o.Created)
+                         .FirstOrDefault()
+                         ?.Created ?? DateTime.MinValue;
         }
     }
 }

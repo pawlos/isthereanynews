@@ -18,11 +18,11 @@ namespace IsThereAnyNews.Infrastructure.Web
 
         public long GetCurrentUserId()
         {
+            long r = 0;
             long.TryParse(
               this.GetCurrentUser()
                   .Claims.SingleOrDefault(claim => claim.Type == ItanClaimTypes.ApplicationIdentifier)
-                  ?.Value,
-              out var r);
+                  ?.Value, out r);
             return r;
         }
 
@@ -36,7 +36,8 @@ namespace IsThereAnyNews.Infrastructure.Web
         {
             var issuer = identity.Claims.First(claim => !string.IsNullOrWhiteSpace(claim.Issuer))
                                  .Issuer;
-            Enum.TryParse(issuer, true, out AuthenticationTypeProvider enumResult);
+            AuthenticationTypeProvider enumResult = AuthenticationTypeProvider.Unknown;
+            Enum.TryParse(issuer, true, out enumResult);
             return enumResult;
         }
 

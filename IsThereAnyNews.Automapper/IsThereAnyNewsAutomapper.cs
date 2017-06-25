@@ -6,11 +6,7 @@ namespace IsThereAnyNews.Automapper
     {
         public static IMapper ConfigureMapper()
         {
-            Mapper.Initialize(
-                cfg =>
-                    {
-                        cfg.AddProfile<AutomapperProfiles>();
-                    });
+            Mapper.Initialize(cfg => { cfg.AddProfile<AutomapperProfiles>(); });
 
             return Mapper.Instance;
         }

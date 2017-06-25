@@ -16,9 +16,10 @@
             string destMember,
             ResolutionContext context)
         {
-            if (source.Links != null && source.Links.Any(x=>x.RelationshipType == "alternate"))
+            if(source.Links != null && source.Links.Any(x => x.RelationshipType == "alternate"))
             {
-                return source.Links.First(x=>x.RelationshipType== "alternate").Uri.ToString();
+                return source.Links.First(x => x.RelationshipType == "alternate")
+                             .Uri.ToString();
             }
 
             if(source.BaseUri != null && !string.IsNullOrWhiteSpace(source.BaseUri.ToString()))
@@ -28,7 +29,8 @@
 
             if(source.Links != null && source.Links.Any())
             {
-                return source.Links.First().Uri.ToString();
+                return source.Links.First()
+                             .Uri.ToString();
             }
 
 

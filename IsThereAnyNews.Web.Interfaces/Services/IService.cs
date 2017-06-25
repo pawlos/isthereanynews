@@ -1,12 +1,15 @@
-﻿using System.Security.Claims;
-using IsThereAnyNews.Dtos;
-using IsThereAnyNews.SharedData;
-using IsThereAnyNews.ViewModels;
-using IsThereAnyNews.ViewModels.RssChannel;
-
-namespace IsThereAnyNews.Web.Interfaces.Services
+﻿namespace IsThereAnyNews.Web.Interfaces.Services
 {
-    using IsThereAnyNews.Dtos.Feeds;
+    using System.Security.Claims;
+
+    using Dtos;
+
+    using Dtos.Feeds;
+
+    using SharedData;
+
+    using ViewModels;
+    using ViewModels.RssChannel;
 
     public interface IService
     {

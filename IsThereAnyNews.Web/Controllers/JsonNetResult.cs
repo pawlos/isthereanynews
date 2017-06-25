@@ -31,7 +31,6 @@ namespace IsThereAnyNews.Web.Controllers
         public Formatting Formatting { get; set; }
 
         public override void ExecuteResult(ControllerContext context)
-
         {
             if(context == null)
             {

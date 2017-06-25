@@ -1,8 +1,8 @@
-using IsThereAnyNews.SharedData;
-
 namespace IsThereAnyNews.ViewModels.Subscriptions
 {
-    public class ChannelEventExceptionViewModel : ISubscriptionViewModel
+    using IsThereAnyNews.SharedData;
+
+    public class ChannelEventExceptionViewModel: ISubscriptionViewModel
     {
         public virtual StreamType StreamType => StreamType.Exception;
         public string Count { get; set; }
