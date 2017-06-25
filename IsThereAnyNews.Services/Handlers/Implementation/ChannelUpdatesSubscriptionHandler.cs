@@ -3,10 +3,10 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.Dtos.Feeds;
     using IsThereAnyNews.Services.Handlers.ViewModels;
-    using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
     public class ChannelUpdatesSubscriptionHandler: ISubscriptionHandler
@@ -20,9 +20,10 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
 
         public ISubscriptionContentIndexViewModel GetSubscriptionViewModel(long userId, FeedsGetRead input)
         {
-            var loadAllRssEntriesForUserAndChannel = this.LoadUpdateEvents(userId);
+            var loadAllRssEntriesForUserAndChannel = this.LoadUpdateEvents(userId, input.Skip, input.Take);
 
-            var subscriptionIndexViewModel = new ChannelUpdateSubscriptionIndexViewModel(0,
+            var subscriptionIndexViewModel = new ChannelUpdateSubscriptionIndexViewModel(
+                0,
                 "Channel update events",
                 DateTime.MinValue,
                 loadAllRssEntriesForUserAndChannel);
@@ -30,30 +31,9 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             return subscriptionIndexViewModel;
         }
 
-
-        private List<RssEntryToReadViewModel> LoadUpdateEvents(long userId)
+        private List<RssEntryToReadViewModel> LoadUpdateEvents(long userId, int inputSkip, int inputTake)
         {
-            var dtos = this.entityRepository.LoadUpdateEvents(userId).OrderBy(o=>o.Updated);
-            var rssEntryToReadViewModels =
-                    dtos.Select(d =>
-                                    new RssEntryToReadViewModel
-                                    {
-                                        //Id = d.Id,
-                                        //IsRead = false,
-                                        RssEntryViewModel =
-                                                new RssEntryViewModel
-                                                {
-                                                    Id = d.Id,
-                                                    Title = d.ChannelTitle,
-                                                    PublicationDate = d.Updated,
-                                                    Url = string.Empty
-                                                }
-                                    });
-            return rssEntryToReadViewModels.ToList();
-        }
-
-        public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId)
-        {
+            throw new NotImplementedException();
         }
 
         public void MarkClicked(long cui, long id, long subscriptionId)
@@ -61,9 +41,33 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             this.entityRepository.MarkChannelUpdateClicked(cui, id);
         }
 
+        public void MarkNavigated(long userId, long rssId, long dtoSubscriptionId)
+        {
+        }
+
         public void MarkSkipped(long cui, long subscriptionId, List<long> entries)
         {
             this.entityRepository.MarkChannelUpdateSkipped(cui, entries);
+        }
+
+        private List<RssEntryToReadViewModel> LoadUpdateEvents(long userId)
+        {
+            var dtos = this.entityRepository.LoadUpdateEvents(userId).OrderBy(o => o.Updated);
+            var rssEntryToReadViewModels = dtos.Select(
+                d => new RssEntryToReadViewModel
+                {
+                    // Id = d.Id,
+                    // IsRead = false,
+                    RssEntryViewModel =
+                                 new RssEntryViewModel
+                                 {
+                                     Id = d.Id,
+                                     Title = d.ChannelTitle,
+                                     PublicationDate = d.Updated,
+                                     Url = string.Empty
+                                 }
+                });
+            return rssEntryToReadViewModels.ToList();
         }
     }
 }

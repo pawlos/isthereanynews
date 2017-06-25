@@ -1,6 +1,4 @@
-﻿using IsThereAnyNews.ViewModels.Subscriptions;
-
-namespace IsThereAnyNews.Services
+﻿namespace IsThereAnyNews.Services
 {
     using System;
     using System.Collections.Generic;
@@ -9,8 +7,11 @@ namespace IsThereAnyNews.Services
     using System.Security.Claims;
     using System.ServiceModel.Syndication;
     using System.Xml;
+
     using AutoMapper;
+
     using Exceptionless;
+
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
@@ -23,15 +24,20 @@ namespace IsThereAnyNews.Services
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
     using IsThereAnyNews.ViewModels.RssChannel;
+    using IsThereAnyNews.ViewModels.Subscriptions;
     using IsThereAnyNews.Web.Interfaces.Services;
 
     public class Service: IService
     {
         private readonly IEntityRepository entityRepository;
-        private readonly IMapper mapper;
-        private readonly ISubscriptionHandlerFactory subscriptionHandlerFactory;
-        private readonly IInfrastructure infrastructure;
+
         private readonly IImportOpml importer;
+
+        private readonly IInfrastructure infrastructure;
+
+        private readonly IMapper mapper;
+
+        private readonly ISubscriptionHandlerFactory subscriptionHandlerFactory;
 
         public Service(
             IEntityRepository entityRepository,
@@ -47,6 +53,15 @@ namespace IsThereAnyNews.Services
             this.importer = importer;
         }
 
+        private static string[] Separator
+        {
+            get
+            {
+                var separator = new[] { ";", "," };
+                return separator;
+            }
+        }
+
         public void AddCommentToRssItemByCurrentUser(RssActionModel model)
         {
             var userId = this.infrastructure.GetCurrentUserId();
@@ -56,16 +71,25 @@ namespace IsThereAnyNews.Services
         public void AddNewChannelsToGlobalSpace(List<RssSourceWithUrlAndTitle> channelList)
         {
             var loadUrlsForAllChannels = this.entityRepository.LoadUrlsForAllChannels();
-            var channelsNewToGlobalSpace = channelList.Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant()))
-                                                      .ToList();
+            var channelsNewToGlobalSpace = channelList
+                    .Where(channel => !loadUrlsForAllChannels.Contains(channel.Url.ToLowerInvariant()))
+                    .ToList();
             var cui = this.infrastructure.GetCurrentUserId();
-            this.entityRepository.SaveToDatabase(cui,channelsNewToGlobalSpace);
+            this.entityRepository.SaveToDatabase(cui, channelsNewToGlobalSpace);
         }
 
         public void AddToReadLaterQueueForCurrentUser(RssActionModel model)
         {
             var userId = this.infrastructure.GetCurrentUserId();
             this.entityRepository.AddReadLaterRequestByUserForArticle(userId, model.StreamType, model.Id);
+        }
+
+        public void AssignToUserRole(ClaimsIdentity identity)
+        {
+            var cui = long.Parse(
+                    identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier)
+                            .Value);
+            this.entityRepository.AssignUserRole(cui);
         }
 
         public bool CanRegisterIfWithinLimits()
@@ -95,19 +119,19 @@ namespace IsThereAnyNews.Services
             this.entityRepository.ChangeUserLimit(dto.Limit);
         }
 
-        public void UnsubscribeCurrentUserFromChannelId(FeedsPostSubscription model)
-        {
-            var userId = this.infrastructure.GetCurrentUserId();
-            this.entityRepository.DeleteSubscriptionFromUser(model.FeedId, userId);
-        }
-
         public void CreateNewChannelIfNotExists(AddChannelDto dto)
         {
             var idByChannelUrl = this.entityRepository.GetIdByChannelUrl(new List<string> { dto.RssChannelLink });
             if(!idByChannelUrl.Any())
-            {
                 this.CreateNewChannel(dto);
-            }
+        }
+
+        public UserRssSubscriptionInfoViewModel CreateUserSubscriptionInfo(long id)
+        {
+            var userId = this.infrastructure.GetCurrentUserId();
+            var subscriptionInfo = this.entityRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
+            var userRssSubscriptionInfoViewModel = this.mapper.Map<UserRssSubscriptionInfoViewModel>(subscriptionInfo);
+            return userRssSubscriptionInfoViewModel;
         }
 
         public void CurrentVotedownForArticleByCurrentUser(RssActionModel model)
@@ -135,11 +159,6 @@ namespace IsThereAnyNews.Services
             return this.entityRepository.GetCurrentRegistrationStatus();
         }
 
-        public ContactViewModel GetViewModel()
-        {
-            return new ContactViewModel();
-        }
-
         public FeedEntriesViewModel GetFeedEntries(FeedsGetEntries model)
         {
             var feedEntries = this.entityRepository.GetFeedEntries(model.FeedId, model.Skip, model.Take);
@@ -147,12 +166,18 @@ namespace IsThereAnyNews.Services
             return feedEntriesViewModel;
         }
 
+        public ContactViewModel GetViewModel()
+        {
+            return new ContactViewModel();
+        }
+
         public void Import(OpmlImporterIndexDto dto)
         {
             var toRssChannelList = this.ParseToRssChannelList(dto);
             this.AddNewChannelsToGlobalSpace(toRssChannelList);
-            var idByChannelUrl = this.entityRepository.GetIdByChannelUrl(toRssChannelList.Select(c => c.Url)
-                                                                                         .ToList());
+            var idByChannelUrl = this.entityRepository.GetIdByChannelUrl(
+                    toRssChannelList.Select(c => c.Url)
+                                    .ToList());
             var currentUserId = this.infrastructure.GetCurrentUserId();
             var channelsSubscribedByUser = this.entityRepository.GetChannelIdSubscriptionsForUser(currentUserId);
             channelsSubscribedByUser.ForEach(id => idByChannelUrl.Remove(id));
@@ -176,21 +201,13 @@ namespace IsThereAnyNews.Services
             return items;
         }
 
-        public RssChannelsIndexViewModel LoadPublicRssFeeds(FeedsGetPublic input)
-        {
-            var currentUserId = this.infrastructure.GetCurrentUserId();
-            var allChannels = this.entityRepository.LoadAllChannelsWithStatistics(currentUserId, input.Skip, input.Take);
-            var viewmodel = this.mapper.Map<RssChannelsIndexViewModel>(allChannels);
-            return viewmodel;
-        }
-
         public RssChannelsMyViewModel LoadAllChannelsOfCurrentUser()
         {
             var currentUserId = this.infrastructure.GetCurrentUserId();
-            List<RssChannelSubscriptionDTO> rssSubscriptions = this.entityRepository.LoadAllSubscriptionsForUser(currentUserId);
-            List<ObservableUserEventsInformation> listOfUsers = this.LoadAllObservableSubscription(currentUserId);
-
+            var rssSubscriptions = this.entityRepository.LoadAllSubscriptionsForUser(currentUserId);
+            var listOfUsers = this.LoadAllObservableSubscription(currentUserId);
             var roles = this.infrastructure.GetCurrentUserRoles();
+
             var viewmodel = this.mapper.Map<List<RssChannelSubscriptionDTO>, RssChannelsMyViewModel>(rssSubscriptions);
 
             if(roles.Contains(ItanRole.SuperAdmin))
@@ -198,15 +215,17 @@ namespace IsThereAnyNews.Services
                 var updates = this.entityRepository.LoadUpdateEventsCount(currentUserId);
                 var creations = this.entityRepository.LoadCreateEventsCount(currentUserId);
                 var exceptions = this.entityRepository.LoadExceptionEventsCount(currentUserId);
+
                 var u = new ChannelEventUpdatesViewModel { Count = updates.Count.ToString() };
                 var c = new ChannelEventCreationViewModel { Count = creations.Count.ToString() };
                 var e = new ChannelEventExceptionViewModel { Count = exceptions.Count.ToString() };
+
                 viewmodel.Creations = c;
                 viewmodel.Updates = u;
                 viewmodel.Exceptions = e;
             }
-            viewmodel.Users = listOfUsers;
 
+            viewmodel.Users = listOfUsers;
             return viewmodel;
         }
 
@@ -218,18 +237,13 @@ namespace IsThereAnyNews.Services
             return list;
         }
 
-        public ISubscriptionContentIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(FeedsGetRead input)
+        public ISubscriptionContentIndexViewModel LoadAllUnreadRssEntriesToReadForCurrentUserFromSubscription(
+            FeedsGetRead input)
         {
             var provider = this.subscriptionHandlerFactory.GetProvider(input.StreamType);
             var currentUserId = this.infrastructure.GetCurrentUserId();
             var viewmodel = provider.GetSubscriptionViewModel(currentUserId, input);
             return viewmodel;
-        }
-
-        public FeedsIndexViewModel LoadPublicFeedsNumbers()
-        {
-            var readNumberOfAllRssFeeds = this.entityRepository.ReadNumberOfAllRssFeeds();
-            return new FeedsIndexViewModel(readNumberOfAllRssFeeds.Count);
         }
 
         public AllUsersPublicProfilesViewModel LoadAllUsersPublicProfile()
@@ -241,17 +255,36 @@ namespace IsThereAnyNews.Services
             return viewmodel;
         }
 
+        public FeedsIndexViewModel LoadPublicFeedsNumbers()
+        {
+            var readNumberOfAllRssFeeds = this.entityRepository.ReadNumberOfAllRssFeeds();
+            return new FeedsIndexViewModel(readNumberOfAllRssFeeds.Count);
+        }
+
+        public RssChannelsIndexViewModel LoadPublicRssFeeds(FeedsGetPublic input)
+        {
+            var currentUserId = this.infrastructure.GetCurrentUserId();
+            var allChannels =
+                    this.entityRepository.LoadAllChannelsWithStatistics(currentUserId, input.Skip, input.Take);
+            var viewmodel = this.mapper.Map<RssChannelsIndexViewModel>(allChannels);
+            return viewmodel;
+        }
+
         public UserDetailedPublicProfileViewModel LoadUserPublicProfile(long id)
         {
             var cui = this.infrastructure.GetCurrentUserId();
             var isUserAlreadySubscribed = this.entityRepository.IsUserSubscribedToUser(cui, id);
             var publicProfile = this.entityRepository.LoadUserPublicProfile(id);
-            var userDetailedPublicProfileViewModel = this.mapper.Map<UserPublicProfileDto, UserDetailedPublicProfileViewModel>(publicProfile);
+            var userDetailedPublicProfileViewModel =
+                    this.mapper.Map<UserPublicProfileDto, UserDetailedPublicProfileViewModel>(publicProfile);
             userDetailedPublicProfileViewModel.IsUserAlreadySubscribed = isUserAlreadySubscribed;
-            userDetailedPublicProfileViewModel.Events = userDetailedPublicProfileViewModel.Events.OrderByDescending(e => e.Viewed)
-                                                                                          .ToList();
+            userDetailedPublicProfileViewModel.Events = userDetailedPublicProfileViewModel
+                    .Events.OrderByDescending(e => e.Viewed)
+                    .ToList();
             var loadNameAndCountForUser = this.entityRepository.LoadNameAndCountForUser(id);
-            var publicProfileUsersInformations = this.mapper.Map<List<NameAndCountUserSubscription>, List<PublicProfileChannelInformation>>(loadNameAndCountForUser);
+            var publicProfileUsersInformations = this
+                    .mapper.Map<List<NameAndCountUserSubscription>, List<PublicProfileChannelInformation>>(
+                    loadNameAndCountForUser);
             userDetailedPublicProfileViewModel.Users = publicProfileUsersInformations;
             return userDetailedPublicProfileViewModel;
         }
@@ -262,18 +295,6 @@ namespace IsThereAnyNews.Services
                                    .Select(long.Parse)
                                    .ToList();
             this.entityRepository.MarkAllReadForUserAndSubscription(dto.SubscriptionId, rssToMarkRead);
-        }
-
-        private static string[] Separator
-        {
-            get
-            {
-                var separator = new[]
-                                {
-                                    ";",","
-                                };
-                return separator;
-            }
         }
 
         public void MarkClicked(EntryClickedDto dto)
@@ -303,6 +324,12 @@ namespace IsThereAnyNews.Services
             this.entityRepository.AddNotReadRequestByUserForArticle(userId, model.StreamType, model.Id);
         }
 
+        public void OpenFullArticle(RssActionModel model)
+        {
+            var userId = this.infrastructure.GetCurrentUserId();
+            this.entityRepository.AddFullArticleRequestByUserForArticle(userId, model.StreamType, model.Id);
+        }
+
         public List<RssSourceWithUrlAndTitle> ParseToRssChannelList(OpmlImporterIndexDto dto)
         {
             var outlines = this.importer.GetOutlines(dto.ImportFile.InputStream);
@@ -317,7 +344,9 @@ namespace IsThereAnyNews.Services
             var numberOfRegisteredUsers = this.entityRepository.GetNumberOfRegisteredUsers();
             var numberOfRssSubscriptions = this.entityRepository.GetNumberOfRssSubscriptions();
             var numberOfRssNews = this.entityRepository.GetNumberOfRssNews();
-            var viewmodel = this.mapper.Map<ApplicationConfigurationDTO, ItanApplicationConfigurationViewModel>(appConfiguration);
+            var viewmodel =
+                    this.mapper.Map<ApplicationConfigurationDTO, ItanApplicationConfigurationViewModel>(
+                            appConfiguration);
             viewmodel.CurrentUsers = numberOfRegisteredUsers;
             viewmodel.Subscriptions = numberOfRssSubscriptions;
             viewmodel.RssNews = numberOfRssNews;
@@ -332,16 +361,6 @@ namespace IsThereAnyNews.Services
                 this.RegisterCurrentSocialLogin(identity);
                 this.StoreCurrentUserIdInSession(identity);
                 this.AssignToUserRole(identity);
-            }
-        }
-
-        public void SubscribeCurrentUserToChannel(FeedsPostSubscription model)
-        {
-            var currentUserId = this.infrastructure.GetCurrentUserId();
-            var isUserSubscribedToChannelUrl = this.entityRepository.IsUserSubscribedToChannelId(currentUserId, model.FeedId);
-            if(!isUserSubscribedToChannelUrl)
-            {
-                this.entityRepository.Subscribe(model.FeedId, currentUserId);
             }
         }
 
@@ -367,27 +386,45 @@ namespace IsThereAnyNews.Services
             var currentUserSocialLoginId = this.infrastructure.GetUserSocialIdFromIdentity(identity);
             var currentUserLoginProvider = this.infrastructure.GetCurrentUserLoginProvider(identity);
             var userId = this.entityRepository.GetUserId(currentUserSocialLoginId, currentUserLoginProvider);
-            identity.AddClaim(new Claim(ItanClaimTypes.ApplicationIdentifier, userId.ToString(), ClaimValueTypes.Integer64, "ITAN"));
+            identity.AddClaim(
+                    new Claim(
+                            ItanClaimTypes.ApplicationIdentifier,
+                            userId.ToString(),
+                            ClaimValueTypes.Integer64,
+                            "ITAN"));
         }
 
         public void StoreItanRolesToSession(ClaimsIdentity identity)
         {
             var currentUserId = long.Parse(
-                                           identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier)
-                                                   .Value);
+                    identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier)
+                            .Value);
             var itanRoles = this.entityRepository.GetRolesTypesForUser(currentUserId);
             var claims = this.mapper.Map<List<ItanRole>, List<Claim>>(itanRoles);
             identity.AddClaims(claims);
         }
 
+        public void SubscribeCurrentUserToChannel(FeedsPostSubscription model)
+        {
+            var currentUserId = this.infrastructure.GetCurrentUserId();
+            var isUserSubscribedToChannelUrl =
+                    this.entityRepository.IsUserSubscribedToChannelId(currentUserId, model.FeedId);
+            if(!isUserSubscribedToChannelUrl)
+            {
+                this.entityRepository.Subscribe(model.FeedId, currentUserId);
+            }
+        }
+
         public void SubscribeCurrentUserToChannel(AddChannelDto channelId)
         {
             var currentUserId = this.infrastructure.GetCurrentUserId();
-            var isUserSubscribedToChannelUrl = this.entityRepository.IsUserSubscribedToChannelUrl(currentUserId, channelId.RssChannelLink);
+            var isUserSubscribedToChannelUrl =
+                    this.entityRepository.IsUserSubscribedToChannelUrl(currentUserId, channelId.RssChannelLink);
             if(!isUserSubscribedToChannelUrl)
             {
-                var idByChannelUrl = this.entityRepository.GetIdByChannelUrl(new List<string> { channelId.RssChannelLink })
-                                         .Single();
+                var idByChannelUrl = this
+                        .entityRepository.GetIdByChannelUrl(new List<string> { channelId.RssChannelLink })
+                        .Single();
                 this.entityRepository.Subscribe(idByChannelUrl, currentUserId, channelId.RssChannelName);
             }
         }
@@ -398,10 +435,27 @@ namespace IsThereAnyNews.Services
             this.entityRepository.CreateNewSubscription(currentUserId, model.ViewingUserId);
         }
 
+        public void UnsubscribeCurrentUserFromChannelId(FeedsPostSubscription model)
+        {
+            var userId = this.infrastructure.GetCurrentUserId();
+            this.entityRepository.DeleteSubscriptionFromUser(model.FeedId, userId);
+        }
+
         public void UnsubscribeToUser(SubscribeToUserActivityDto model)
         {
             var cui = this.infrastructure.GetCurrentUserId();
             this.entityRepository.DeleteUserSubscription(cui, model.ViewingUserId);
+        }
+
+        public void UpdateChannel(RssChannelForUpdateDTO rssChannel, DateTime lastUpdate)
+        {
+            var syndicationEntries = this.Load(rssChannel.Url);
+            var syndicationItemAdapters = syndicationEntries.Where(item => item.PublishDate > lastUpdate);
+            var rssEntriesList =
+                    this.mapper.Map<IEnumerable<SyndicationItemAdapter>, List<NewRssEntryDTO>>(syndicationItemAdapters);
+            rssEntriesList.ForEach(r => r.RssChannelId = rssChannel.Id);
+            this.entityRepository.SaveToDatabase(rssEntriesList);
+            this.entityRepository.SaveEvent(rssChannel.Id);
         }
 
         public void UpdateGlobalRss()
@@ -421,41 +475,12 @@ namespace IsThereAnyNews.Services
             }
         }
 
-        public void AssignToUserRole(ClaimsIdentity identity)
+        private void CreateAndAssignNewSocialLoginForApplicationUser(
+            Claim identifier,
+            AuthenticationTypeProvider authenticationTypeProvider,
+            long newUserId)
         {
-            var cui = long.Parse(
-                    identity.Claims.Single(x => x.Type == ItanClaimTypes.ApplicationIdentifier)
-                            .Value);
-            this.entityRepository.AssignUserRole(cui);
-        }
-
-        public UserRssSubscriptionInfoViewModel CreateUserSubscriptionInfo(long id)
-        {
-            var userId = this.infrastructure.GetCurrentUserId();
-            var subscriptionInfo = this.entityRepository.FindSubscriptionIdOfUserAndOfChannel(userId, id);
-            var userRssSubscriptionInfoViewModel = this.mapper.Map<UserRssSubscriptionInfoViewModel>(subscriptionInfo);
-            return userRssSubscriptionInfoViewModel;
-        }
-
-        public void OpenFullArticle(RssActionModel model)
-        {
-            var userId = this.infrastructure.GetCurrentUserId();
-            this.entityRepository.AddFullArticleRequestByUserForArticle(userId, model.StreamType, model.Id);
-        }
-
-        public void UpdateChannel(RssChannelForUpdateDTO rssChannel, DateTime lastUpdate)
-        {
-            var syndicationEntries = this.Load(rssChannel.Url);
-            var syndicationItemAdapters = syndicationEntries.Where(item => item.PublishDate > lastUpdate);
-            var rssEntriesList = this.mapper.Map<IEnumerable<SyndicationItemAdapter>, List<NewRssEntryDTO>>(syndicationItemAdapters);
-            rssEntriesList.ForEach(r => r.RssChannelId = rssChannel.Id);
-            this.entityRepository.SaveToDatabase(rssEntriesList);
-            this.entityRepository.SaveEvent(rssChannel.Id);
-        }
-
-        private void CreateAndAssignNewSocialLoginForApplicationUser(Claim identifier, AuthenticationTypeProvider authenticationTypeProvider, long newUserId)
-        {
-            this.entityRepository.CreateNewSociaLogin(identifier.Value, authenticationTypeProvider, newUserId);
+            this.entityRepository.CreateNewSocialLogin(identifier.Value, authenticationTypeProvider, newUserId);
         }
 
         private long CreateNewApplicationUser(ClaimsIdentity identity)
@@ -469,12 +494,14 @@ namespace IsThereAnyNews.Services
         {
             var rssSourceWithUrlAndTitles =
                     new List<RssSourceWithUrlAndTitle>
-                    {
-                        new RssSourceWithUrlAndTitle(dto.RssChannelLink, dto.RssChannelName)
-                    };
+                        {
+                            new RssSourceWithUrlAndTitle(
+                                    dto.RssChannelLink,
+                                    dto.RssChannelName)
+                        };
             var cui = this.infrastructure.GetCurrentUserId();
             this.entityRepository.SaveToDatabase(cui, rssSourceWithUrlAndTitles);
-            var urlsToChannels = new List<string> {dto.RssChannelLink};
+            var urlsToChannels = new List<string> { dto.RssChannelLink };
             var listIds = this.entityRepository.GetIdByChannelUrl(urlsToChannels);
             var id = listIds.Single();
             this.entityRepository.SaveChannelCreatedEventToDatabase(cui, id);
@@ -485,14 +512,25 @@ namespace IsThereAnyNews.Services
             return this.infrastructure.GetCurrentUserLoginProvider(identity);
         }
 
-        private ObservableUserEventsInformation ProjectToObservableUserEventsInformation(NameAndCountUserSubscription arg)
+        private ObservableUserEventsInformation ProjectToObservableUserEventsInformation(
+            NameAndCountUserSubscription arg)
         {
-            return new ObservableUserEventsInformation { Id = arg.SubscriptionId, Name = arg.DisplayName, Count = arg.Count.ToString() };
+            return new ObservableUserEventsInformation
+            {
+                Id = arg.SubscriptionId,
+                Name = arg.DisplayName,
+                Count = arg.Count.ToString()
+            };
         }
 
         private UserPublicProfileViewModel ProjectToViewModel(UserPublicProfile model)
         {
-            var viewModel = new UserPublicProfileViewModel { Id = model.Id, DisplayName = model.DisplayName, ChannelsCount = model.ChannelsCount };
+            var viewModel = new UserPublicProfileViewModel
+            {
+                Id = model.Id,
+                DisplayName = model.DisplayName,
+                ChannelsCount = model.ChannelsCount
+            };
             return viewModel;
         }
 
