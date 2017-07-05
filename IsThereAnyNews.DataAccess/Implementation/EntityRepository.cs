@@ -1112,7 +1112,7 @@ order by Updated";
             return new NumberOfRssFeeds(count);
         }
 
-        public List<ChannelUpdateEventDto> LoadUpdateEvents(long userId)
+        public List<ChannelUpdateEventDto> LoadUpdateEvents(long userId, int skip, int take)
         {
             string sql = "SELECT ercu.Id,ercu.Created as 'Updated',rc.Title as 'ChannelTitle'\n"
                          + "FROM dbo.EventRssChannelUpdates ercu\n"
@@ -1122,7 +1122,10 @@ order by Updated";
                          + "    SELECT dbo.EventRssChannelUpdateToRead.EventRssChannelUpdatedId\n"
                          + "    FROM EventRssChannelUpdateToRead\n"
                          + $"    WHERE Userid = {userId}\n"
-                         + ");";
+                         + ")"
+                         + " ORDER BY ercu.Id\n"
+                         + $" OFFSET {skip} row\n"
+                         + $" FETCH NEXT {take} rows only\n";
 
             var channelUpdateEventDtos = this.database.Database.SqlQuery<ChannelUpdateEventDto>(sql).ToList();
             return channelUpdateEventDtos;

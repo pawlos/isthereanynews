@@ -31,9 +31,22 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
             return subscriptionIndexViewModel;
         }
 
-        private List<RssEntryToReadViewModel> LoadUpdateEvents(long userId, int inputSkip, int inputTake)
+        private List<RssEntryToReadViewModel> LoadUpdateEvents(long userId, int skip, int take)
         {
-            throw new NotImplementedException();
+            var channelUpdateEventDtos = this.entityRepository.LoadUpdateEvents(userId, skip, take);
+            var x = channelUpdateEventDtos.Select(s => new RssEntryToReadViewModel
+            {
+                RssEntryViewModel =
+                new RssEntryViewModel
+                {
+                    Id = s.Id,
+                    PublicationDate = s.Updated,
+                    Url = string.Empty,
+                    Title = s.ChannelTitle,
+                    SubscriptionId = 0
+                }
+            });
+            return x.ToList();
         }
 
         public void MarkClicked(long cui, long id, long subscriptionId)
@@ -48,26 +61,6 @@ namespace IsThereAnyNews.Services.Handlers.Implementation
         public void MarkSkipped(long cui, long subscriptionId, List<long> entries)
         {
             this.entityRepository.MarkChannelUpdateSkipped(cui, entries);
-        }
-
-        private List<RssEntryToReadViewModel> LoadUpdateEvents(long userId)
-        {
-            var dtos = this.entityRepository.LoadUpdateEvents(userId).OrderBy(o => o.Updated);
-            var rssEntryToReadViewModels = dtos.Select(
-                d => new RssEntryToReadViewModel
-                {
-                    // Id = d.Id,
-                    // IsRead = false,
-                    RssEntryViewModel =
-                                 new RssEntryViewModel
-                                 {
-                                     Id = d.Id,
-                                     Title = d.ChannelTitle,
-                                     PublicationDate = d.Updated,
-                                     Url = string.Empty
-                                 }
-                });
-            return rssEntryToReadViewModels.ToList();
         }
     }
 }
