@@ -936,7 +936,7 @@ order by Updated";
             return c;
         }
 
-        public List<ExceptionEventDto> LoadExceptionList(long userId)
+        public List<ExceptionEventDto> LoadExceptionList(long userId, int skip, int take)
         {
             string sql = "SELECT *\n"
                          + "FROM dbo.ItanExceptions ie\n"
@@ -946,7 +946,9 @@ order by Updated";
                          + "    FROM dbo.ItanExceptionsToRead ietr\n"
                          + $"    WHERE userid = {userId}\n"
                          + ")\n"
-                         + "ORDER BY ie.Created;";
+                         + " ORDER BY ie.Created"
+                         + $" OFFSET {skip} row\n"
+                         + $" FETCH NEXT {take} rows only\n";
             var exceptionEventDtos = this.database.Database.SqlQuery<ExceptionEventDto>(sql)
                 .ToList();
             return exceptionEventDtos;

@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Security.Claims;
     using System.ServiceModel.Syndication;
+    using System.Web.Mvc;
     using System.Xml;
 
     using AutoMapper;
@@ -16,6 +17,8 @@
     using IsThereAnyNews.DataAccess.Implementation;
     using IsThereAnyNews.Dtos;
     using IsThereAnyNews.Dtos.Feeds;
+    using IsThereAnyNews.EntityFramework.Models.Entities;
+    using IsThereAnyNews.EntityFramework.Models.Events;
     using IsThereAnyNews.Infrastructure.Import.Opml;
     using IsThereAnyNews.Infrastructure.Web;
     using IsThereAnyNews.ProjectionModels;
@@ -467,11 +470,39 @@
                 this.entityRepository.SaveEvent(rssChannel.Id);
                 this.UpdateChannel(rssChannel, lastUpdate);
             }
-            catch(Exception e)
+            catch(Exception httpException)
             {
-                e.ToExceptionless()
-                 .Submit();
-                Debug.WriteLine(e.Message);
+                var exceptionGuid = Guid.NewGuid();
+
+                var repository = this.entityRepository;
+                var exceptions = this.GetAllExceptions(httpException)
+                                     .ToList()
+                                     .Select(
+                                             exception => new ItanException
+                                             {
+                                                 Message = exception.Message,
+                                                 Source = exception.Source,
+                                                 Stacktrace = exception.StackTrace,
+                                                 Typeof = exception.GetType()
+                                                                                    .ToString(),
+                                                 ErrorId = exceptionGuid,
+                                                 UserId = 0
+                                             });
+                var eventItanExceptions =
+                        exceptions.Select(e => new EventItanException { ErrorId = exceptionGuid, ItanException = e });
+
+                repository.SaveExceptionToDatabase(eventItanExceptions);
+            }
+        }
+
+        private IEnumerable<Exception> GetAllExceptions(Exception ex)
+        {
+            var currentEx = ex;
+            yield return currentEx;
+            while(currentEx.InnerException != null)
+            {
+                currentEx = currentEx.InnerException;
+                yield return currentEx;
             }
         }
 

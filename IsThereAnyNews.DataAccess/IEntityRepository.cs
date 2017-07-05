@@ -71,7 +71,7 @@ namespace IsThereAnyNews.DataAccess
         RssChannelInformationDTO LoadChannelChannelInformation(long subscriptionId);
         RssChannelForUpdateDTO LoadChannelToUpdate();
         RssChannelExceptions LoadExceptionEventsCount(long currentUserId);
-        List<ExceptionEventDto> LoadExceptionList(long userId);
+        List<ExceptionEventDto> LoadExceptionList(long userId, int skip, int take);
         List<NameAndCountUserSubscription> LoadNameAndCountForUser(long currentUserId);
         List<RssEntryDTO> LoadRss(long subscriptionId, long userId, int inputSkip, int inputTake);
         RssChannelDTO LoadRssChannel(long id);
