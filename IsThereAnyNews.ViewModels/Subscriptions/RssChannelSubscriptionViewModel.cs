@@ -4,7 +4,7 @@ namespace IsThereAnyNews.ViewModels.Subscriptions
 {
     public class RssChannelSubscriptionViewModel : ISubscriptionViewModel
     {
-        public string Count { get; set; }
+        public int Count { get; set; }
         public string Name { get; set; }
         public long Id { get; set; }
 

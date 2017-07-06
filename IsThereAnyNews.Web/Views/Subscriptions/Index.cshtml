@@ -51,8 +51,9 @@
                 </div>
                 <div class="row utils">
                     <div class="btn btn-xs btn-warning"
+                         ng-disabled="subscriptionModel.channel.entries.rssEntryToReadViewModels.length<=0"
                          ng-show="subscriptionModel.channels.current.count>0"
-                         ng-click="markEntriesRead(subscriptionModel.channel.entries)">
+                         ng-click="subscriptionModel.channel.entries.rssEntryToReadViewModels.length<=0 || markEntriesRead(subscriptionModel.channel.entries)">
                         mark all ({{subscriptionModel.channel.entries.rssEntryToReadViewModels.length}}) read
                     </div>
                 </div>

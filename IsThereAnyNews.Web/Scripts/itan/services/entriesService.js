@@ -4,7 +4,8 @@ angular
         return {
             markEntriesRead: function (model, entries) {
                 entriesApi.markEntriesRead(entries.streamType, entries.displayedRss, entries.subscriptionId, function () {
-                    model.channels.current.count = 0;
+                    model.channels.current.count-=entries.displayedRss.length;
+                    entries.displayedRss=[];
                     model.channel.entries.rssEntryToReadViewModels = [];
                 });
             },

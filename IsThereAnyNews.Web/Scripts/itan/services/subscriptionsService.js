@@ -21,6 +21,7 @@ angular
             },
             loadMoreEntries:function(model){
                 subscriptionsApi.loadEntries(model.channels.current.streamType, model.channels.current.id, model.channel.entries.rssEntryToReadViewModels.length, function(data){
+                    model.channel.entries.displayedRss = data.displayedRss;
                     model.channel.entries.rssEntryToReadViewModels = model.channel.entries.rssEntryToReadViewModels.concat(data.rssEntryToReadViewModels);
                 });
             }

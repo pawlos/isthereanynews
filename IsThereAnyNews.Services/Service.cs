@@ -2,16 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Security.Claims;
     using System.ServiceModel.Syndication;
-    using System.Web.Mvc;
     using System.Xml;
 
     using AutoMapper;
-
-    using Exceptionless;
 
     using IsThereAnyNews.DataAccess;
     using IsThereAnyNews.DataAccess.Implementation;
@@ -219,9 +215,9 @@
                 var creations = this.entityRepository.LoadCreateEventsCount(currentUserId);
                 var exceptions = this.entityRepository.LoadExceptionEventsCount(currentUserId);
 
-                var u = new ChannelEventUpdatesViewModel { Count = updates.Count.ToString() };
-                var c = new ChannelEventCreationViewModel { Count = creations.Count.ToString() };
-                var e = new ChannelEventExceptionViewModel { Count = exceptions.Count.ToString() };
+                var u = new ChannelEventUpdatesViewModel { Count = updates.Count };
+                var c = new ChannelEventCreationViewModel { Count = creations.Count };
+                var e = new ChannelEventExceptionViewModel { Count = exceptions.Count };
 
                 viewmodel.Creations = c;
                 viewmodel.Updates = u;
@@ -550,7 +546,7 @@
             {
                 Id = arg.SubscriptionId,
                 Name = arg.DisplayName,
-                Count = arg.Count.ToString()
+                Count = arg.Count
             };
         }
 

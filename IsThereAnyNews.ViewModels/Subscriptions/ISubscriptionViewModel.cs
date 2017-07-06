@@ -4,7 +4,7 @@ namespace IsThereAnyNews.ViewModels.Subscriptions
 {
     public interface ISubscriptionViewModel
     {
-        string Count { get; }
+        int Count { get; }
 
         long Id { get; }
 

@@ -38,7 +38,7 @@ namespace IsThereAnyNews.ViewModels.RssChannel
                 list.Add(this.Exceptions);
                 list.Add(this.Updates);
 
-                return list.Where(x=>x.Count!="0"&&!string.IsNullOrEmpty(x.Count)).ToList();
+                return list.Where(x => x.Count != 0).ToList();
             }
         }
     }
