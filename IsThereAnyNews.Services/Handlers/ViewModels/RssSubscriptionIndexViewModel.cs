@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+
     using IsThereAnyNews.SharedData;
     using IsThereAnyNews.ViewModels;
 
@@ -16,7 +16,6 @@
             this.RssEntryToReadViewModels = loadAllRssEntriesForUserAndChannel;
         }
 
-        public List<long> DisplayedRss => this.RssEntryToReadViewModels.Select(x => x.RssEntryViewModel.Id).ToList();
         public List<RssEntryToReadViewModel> RssEntryToReadViewModels { get; }
         public StreamType StreamType => StreamType.Rss;
         public long SubscriptionId { get; }

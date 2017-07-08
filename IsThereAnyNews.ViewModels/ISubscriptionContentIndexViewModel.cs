@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using IsThereAnyNews.SharedData;
-
-namespace IsThereAnyNews.ViewModels
+﻿namespace IsThereAnyNews.ViewModels
 {
+    using System;
+    using System.Collections.Generic;
+
+    using IsThereAnyNews.SharedData;
+
     public interface ISubscriptionContentIndexViewModel
     {
-        List<long> DisplayedRss { get; }
         List<RssEntryToReadViewModel> RssEntryToReadViewModels { get; }
         StreamType StreamType { get; }
         long SubscriptionId { get; }

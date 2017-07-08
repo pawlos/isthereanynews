@@ -24,7 +24,13 @@ angular
                         });
                 });
             };
-            $scope.loadMoreEntries=function(){
+
+            $scope.unreadRss = function (entries) {
+                var x = _.reject(entries, function (i) { return i.rssEntryViewModel.isRead });
+                return x.length;
+            }
+
+            $scope.loadMoreEntries = function () {
                 subscriptionsService.loadMoreEntries($scope.subscriptionModel)
             };
             $scope.markEntriesRead = function (entries) {

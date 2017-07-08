@@ -1055,6 +1055,7 @@
     <Content Include="Scripts\various\moment.min.js" />
     <Content Include="Scripts\various\respond.js" />
     <Content Include="Scripts\various\respond.min.js" />
+    <Content Include="Scripts\various\underscore-min.js" />
     <Content Include="Scripts\_references.js" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
